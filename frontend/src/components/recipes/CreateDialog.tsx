@@ -5,8 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '..';
-import { updateCreateDialog } from '../redux/components/recipes/recipesReducer';
+import { IRootState } from '../..';
+import { updateCreateDialog } from '../../redux/components/recipes/recipesReducer';
 
 export default function CreateDialog() {
   const dispatch = useDispatch();

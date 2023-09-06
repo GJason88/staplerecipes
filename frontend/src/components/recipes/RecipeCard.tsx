@@ -3,15 +3,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import { generatePath } from 'react-router-dom';
 
 interface RecipeCardProps {
-  name: string,
+  name: string;
 }
 
 export default function RecipeCard(props: RecipeCardProps) {
   return (
     <Card raised sx={{ width: 345, height: 320 }}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          generatePath('/recipes/:name', { name: props.name });
+        }}
+      >
         <CardMedia
           component='img'
           height='140'

@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface NavState {
   isMobile: boolean,
-  selectedIndex: number,
+  path: string,
   isSearchSelected: boolean,
 }
 
-const initialState = { isMobile: false, selectedIndex: 0, isSearchSelected: false } as NavState;
+const initialState = { isMobile: false, path: '/', isSearchSelected: false } as NavState;
 
 const nav = createSlice({
   name: 'nav',
@@ -15,8 +15,8 @@ const nav = createSlice({
     updateIsMobile: (state) => {
       state.isMobile = !state.isMobile;
     },
-    updateSelectedIndex: (state, action) => {
-      state.selectedIndex = action.payload;
+    updatePath: (state, action) => {
+      state.path = action.payload;
     },
     updateIsSearchSelected: (state, action) => {
       state.isSearchSelected = action.payload;
@@ -24,5 +24,5 @@ const nav = createSlice({
   },
 });
 
-export const { updateIsMobile, updateSelectedIndex, updateIsSearchSelected } = nav.actions;
+export const { updateIsMobile, updatePath, updateIsSearchSelected } = nav.actions;
 export default nav.reducer;

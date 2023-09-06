@@ -1,11 +1,11 @@
-import RecipeGrid from '../RecipeGrid';
-import CreateDialog from '../CreateDialog';
+import RecipeGrid from '../recipes/RecipeGrid';
+import CreateDialog from '../recipes/CreateDialog';
 
 export default function Recipes() {
   return (
-    <div>
+    <>
       <CreateDialog />
       <RecipeGrid />
-    </div>
+    </>
   );
 }

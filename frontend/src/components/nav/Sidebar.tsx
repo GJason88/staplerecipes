@@ -9,12 +9,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import {
   updateIsMobile,
-  updateSelectedIndex,
+  updatePath,
 } from '../../redux/components/nav/navReducer';
 import { IRootState } from '../../index';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 
@@ -29,12 +30,16 @@ const routes = ['/', '/recipes'];
 export default function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const isMobile = useSelector<IRootState, boolean>(
     (state) => state.nav.isMobile
   );
-  const selectedIndex = useSelector<IRootState, number>(
-    (state) => state.nav.selectedIndex
-  );
+  const path = useSelector<IRootState, string>((state) => state.nav.path);
+
+  useEffect(() => {
+    dispatch(updatePath(location.pathname));
+  }, [location.pathname]);
+
   const drawer = (
     <div>
       <Toolbar>
@@ -48,11 +53,8 @@ export default function Sidebar() {
         {['Home', 'Recipes'].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ paddingBottom: 1 }}>
             <ListItemButton
-              onClick={() => {
-                dispatch(updateSelectedIndex(index));
-                navigate(routes[index]);
-              }}
-              selected={index == selectedIndex}
+              onClick={() => navigate(routes[index])}
+              selected={routes[index] === path}
             >
               <ListItemIcon>{icons[index]}</ListItemIcon>
               <ListItemText primary={text} />
