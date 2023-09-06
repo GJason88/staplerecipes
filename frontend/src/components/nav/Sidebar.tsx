@@ -9,19 +9,31 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateIsMobile } from '../redux/components/sidebar/sidebarReducer';
-import { IRootState } from '../index';
+import {
+  updateIsMobile,
+  updateSelectedIndex,
+} from '../../redux/components/nav/navReducer';
+import { IRootState } from '../../index';
+import { useNavigate } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
+import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 
+// put into separate constants file
 export const drawerWidth = 240;
+const icons = [
+  <HomeIcon key={'home'} />,
+  <MenuBookTwoToneIcon key={'recipes'} />,
+];
+const routes = ['/', '/recipes'];
 
 export default function Sidebar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isMobile = useSelector<IRootState, boolean>(
-    (state) => state.sidebar.isMobile
+    (state) => state.nav.isMobile
   );
-  const isHomeSelected = useSelector<IRootState, boolean>(
-    (state) => state.sidebar.isHomeSelected
+  const selectedIndex = useSelector<IRootState, number>(
+    (state) => state.nav.selectedIndex
   );
   const drawer = (
     <div>
@@ -33,12 +45,16 @@ export default function Sidebar() {
         </Typography>
       </Toolbar>
       <List>
-        {['Home'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton selected={isHomeSelected}>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
+        {['Home', 'Recipes'].map((text, index) => (
+          <ListItem key={text} disablePadding sx={{ paddingBottom: 1 }}>
+            <ListItemButton
+              onClick={() => {
+                dispatch(updateSelectedIndex(index));
+                navigate(routes[index]);
+              }}
+              selected={index == selectedIndex}
+            >
+              <ListItemIcon>{icons[index]}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>

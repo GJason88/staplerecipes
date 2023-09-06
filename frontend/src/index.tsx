@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import sidebarReducer from './redux/components/sidebar/sidebarReducer';
-import Home from './components/Home.tsx';
+import navReducer from './redux/components/nav/navReducer.tsx';
 import { Provider } from 'react-redux';
-import topAppBarReducer from './redux/components/topappbar/topAppBarReducer.tsx';
-import recipeGridReducer from './redux/components/recipe/recipeGridReducer.tsx';
+import recipeGridReducer from './redux/components/recipes/recipesReducer.tsx';
+import App from './App.tsx';
+import { BrowserRouter } from 'react-router-dom';
 
 const reducer = combineReducers({
-  sidebar: sidebarReducer,
-  topappbar: topAppBarReducer,
+  nav: navReducer,
   recipegrid: recipeGridReducer,
 });
 
@@ -20,7 +19,9 @@ export type IRootState = ReturnType<typeof reducer>;
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <Home />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

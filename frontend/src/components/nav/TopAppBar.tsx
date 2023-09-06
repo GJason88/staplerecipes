@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import AppBar from '@mui/material/AppBar';
@@ -6,15 +7,18 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { TextField, Typography } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
-import { IRootState } from '../index';
-import { updateIsMobile } from '../redux/components/sidebar/sidebarReducer';
-import { updateIsSearchSelected } from '../redux/components/topappbar/topAppBarReducer';
+import { IRootState } from '../../index';
+import {
+  updateIsMobile,
+  updateIsSearchSelected,
+} from '../../redux/components/nav/navReducer';
 import { drawerWidth } from './Sidebar';
 
 export default function TopAppBar() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const isSearchSelected = useSelector<IRootState, boolean>(
-    (state) => state.topappbar.isSearchSelected
+    (state) => state.nav.isSearchSelected
   );
   const searchAdornment = isSearchSelected ? null : (
     <InputAdornment position='start' disablePointerEvents>
@@ -44,15 +48,17 @@ export default function TopAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <TextField
-            variant='outlined'
-            color='secondary'
-            InputProps={{
-              startAdornment: searchAdornment,
-            }}
-            onFocus={() => dispatch(updateIsSearchSelected(true))}
-            onBlur={() => dispatch(updateIsSearchSelected(false))}
-          ></TextField>
+          {location.pathname === '/recipes' && (
+            <TextField
+              variant='outlined'
+              color='secondary'
+              InputProps={{
+                startAdornment: searchAdornment,
+              }}
+              onFocus={() => dispatch(updateIsSearchSelected(true))}
+              onBlur={() => dispatch(updateIsSearchSelected(false))}
+            ></TextField>
+          )}
         </Toolbar>
       </AppBar>
     </div>
