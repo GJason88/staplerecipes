@@ -18,9 +18,9 @@ import { IRootState } from '../../index';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
+import { drawerWidth } from '../../constants';
 
 // put into separate constants file
-export const drawerWidth = 240;
 const icons = [
   <HomeIcon key={'home'} />,
   <MenuBookTwoToneIcon key={'recipes'} />,

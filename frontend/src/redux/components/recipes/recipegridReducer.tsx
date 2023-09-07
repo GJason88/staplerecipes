@@ -1,13 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface RecipeGridState {
-  recipes: Array<RecipeState>,
+  recipes: Array<string>,
   isCreateDialog: boolean,
-}
-
-export interface RecipeState {
-  id: number,
-  name: string,
 }
 
 const initialState = { recipes: [], isCreateDialog: false } as RecipeGridState;

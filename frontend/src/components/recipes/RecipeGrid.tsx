@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import {
   RecipeState,
   updateCreateDialog,
-} from '../../redux/components/recipes/recipesReducer';
+} from '../../redux/components/recipes/recipegridReducer';
 import { useDispatch } from 'react-redux';
 
 export default function RecipeGrid() {

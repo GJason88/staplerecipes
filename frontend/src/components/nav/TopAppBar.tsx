@@ -12,7 +12,7 @@ import {
   updateIsMobile,
   updateIsSearchSelected,
 } from '../../redux/components/nav/navReducer';
-import { drawerWidth } from './Sidebar';
+import { drawerWidth } from '../../constants';
 
 export default function TopAppBar() {
   const dispatch = useDispatch();

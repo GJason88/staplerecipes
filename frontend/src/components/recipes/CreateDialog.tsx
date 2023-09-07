@@ -6,13 +6,26 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { updateCreateDialog } from '../../redux/components/recipes/recipesReducer';
+import { updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
+import { useNavigate, generatePath } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function CreateDialog() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [recipeName, setRecipeName] = useState('');
   const open = useSelector<IRootState, boolean>(
     (state) => state.recipegrid.isCreateDialog
   );
+
+  const handleCreate = () => {
+    dispatch(updateCreateDialog());
+    // add recipe with name and empty fields to state and db
+    navigate(
+      generatePath('/recipes/:name', { name: recipeName.toLowerCase() })
+    );
+  };
+
   return (
     <Dialog
       fullWidth
@@ -26,14 +39,14 @@ export default function CreateDialog() {
           margin='dense'
           id='name'
           placeholder='Recipe Name'
-          type='email'
           fullWidth
           variant='standard'
+          onChange={(e) => setRecipeName(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => dispatch(updateCreateDialog())}>Cancel</Button>
-        <Button onClick={() => dispatch(updateCreateDialog())}>Create</Button>
+        <Button onClick={handleCreate}>Create</Button>
       </DialogActions>
     </Dialog>
   );
