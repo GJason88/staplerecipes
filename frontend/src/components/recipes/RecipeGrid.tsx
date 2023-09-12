@@ -2,10 +2,7 @@ import { Card, CardActionArea, Grid, Typography } from '@mui/material';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import RecipeCard from './RecipeCard';
 import { useEffect } from 'react';
-import {
-  RecipeState,
-  updateCreateDialog,
-} from '../../redux/components/recipes/recipegridReducer';
+import { updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
 import { useDispatch } from 'react-redux';
 
 export default function RecipeGrid() {
@@ -15,7 +12,7 @@ export default function RecipeGrid() {
     // Call saga to fetch recipes here
   }, []);
   return (
-    <Grid sx={{ marginTop: 6, padding: 3 }} container spacing={2}>
+    <Grid sx={{ marginTop: 6, p: 3 }} container spacing={2}>
       <Grid item sx={{ alignSelf: 'center', flexGrow: 1 }}>
         <Card sx={{ width: 345, height: 320 }}>
           <CardActionArea

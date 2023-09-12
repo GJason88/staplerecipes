@@ -6,7 +6,7 @@ import TopAppBar from './components/nav/TopAppBar';
 
 const Home = lazy(() => import('./components/routes/Home'));
 const Recipes = lazy(() => import('./components/routes/Recipes'));
-const Recipe = lazy(() => import('./components/recipes/recipe/Recipe'));
+const EditRecipe = lazy(() => import('./components/recipes/recipe/EditRecipe'));
 const Nutrition = lazy(() => import('./components/routes/Home'));
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/recipes' element={<Recipes />} />
-          <Route path='/recipes/*' element={<Recipe />} />
+          <Route path='/recipes/*' element={<EditRecipe />} />
           <Route path='/nutrition' element={<Nutrition />} />
         </Routes>
       </Suspense>

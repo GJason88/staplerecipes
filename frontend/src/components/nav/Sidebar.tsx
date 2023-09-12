@@ -45,13 +45,13 @@ export default function Sidebar() {
       <Toolbar>
         {/*placeholder logo*/}
         <AdbIcon />
-        <Typography paddingLeft='9px' align='center' variant='h5'>
+        <Typography pl='9px' align='center' variant='h5'>
           Staple Recipes
         </Typography>
       </Toolbar>
       <List>
         {['Home', 'Recipes'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ paddingBottom: 1 }}>
+          <ListItem key={text} disablePadding sx={{ pb: 1 }}>
             <ListItemButton
               onClick={() => navigate(routes[index])}
               selected={routes[index] === path}

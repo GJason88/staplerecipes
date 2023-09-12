@@ -9,6 +9,7 @@ import { IRootState } from '../..';
 import { updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
 import { useNavigate, generatePath } from 'react-router-dom';
 import { useState } from 'react';
+import { updateRecipeName } from '../../redux/components/recipes/recipeReducer';
 
 export default function CreateDialog() {
   const dispatch = useDispatch();
@@ -20,7 +21,8 @@ export default function CreateDialog() {
 
   const handleCreate = () => {
     dispatch(updateCreateDialog());
-    // add recipe with name and empty fields to state and db
+    // TODO: add recipe with name and empty fields to state and db
+    dispatch(updateRecipeName(recipeName));
     navigate(
       generatePath('/recipes/:name', { name: recipeName.toLowerCase() })
     );

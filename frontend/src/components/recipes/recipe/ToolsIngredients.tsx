@@ -3,9 +3,9 @@ import {
   Autocomplete,
   Box,
   Button,
+  Checkbox,
   IconButton,
   Paper,
-  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -15,37 +15,46 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { ingredients } from '../../../constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { IRootState } from '../../..';
+import { ingredients, recipeWidth, tools } from '../../../constants';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import {
-  RecipeState,
+  IngredientState,
   addIngredient,
   deleteIngredient,
+  updateTools,
 } from '../../../redux/components/recipes/recipeReducer';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import CheckboxSelect from './CheckboxSelect';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
+interface ToolsIngredientsProps {
+  ingredients: Array<IngredientState>;
+}
 
 interface State {
   selectedIngredient: string | null;
   amount: string;
   alertStatus: string;
 }
+
 const initialState = {
   selectedIngredient: null,
   amount: '',
   alertStatus: '',
 };
 
-export default function IngredientsEditList() {
+const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
+const checkedIcon = <CheckBoxIcon fontSize='small' />;
+
+export default function ToolsIngredients(props: ToolsIngredientsProps) {
   const dispatch = useDispatch();
   const [state, setState] = useState<State>(initialState);
-  const recipeData = useSelector<IRootState, RecipeState>(
-    (state) => state.recipe
-  );
 
   const handleAdd = () => {
-    const curIngredients = recipeData.ingredients.map((ingr) => ingr.name);
+    const curIngredients = props.ingredients.map((ingr) => ingr.name);
     if (!state.selectedIngredient) {
       return;
     }
@@ -66,14 +75,36 @@ export default function IngredientsEditList() {
 
   return (
     <>
-      {state.alertStatus && (
-        <Alert severity='warning' sx={{ marginBottom: 2, width: '720px' }}>
-          {state.alertStatus}
-        </Alert>
-      )}
-      <Box paddingBottom={3} display='flex'>
+      <Typography variant='h4' pb={2}>
+        Tools & Ingredients
+      </Typography>
+      <Autocomplete
+        sx={{
+          maxWidth: recipeWidth,
+          pb: 2,
+        }}
+        onChange={(e, value) => dispatch(updateTools(value))}
+        fullWidth
+        multiple
+        options={tools}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option}
+          </li>
+        )}
+        renderInput={(params) => <TextField {...params} label={'Tools'} />}
+      />
+      <Box pb={2} display='flex'>
         <Autocomplete
-          sx={{ width: '500px' }}
+          sx={{ width: 650 }}
           options={ingredients}
           onChange={(e, value) =>
             setState({
@@ -83,28 +114,35 @@ export default function IngredientsEditList() {
             })
           }
           renderInput={(params) => (
-            <TextField {...params} label={'Ingredients'} />
+            <TextField {...params} label={'Ingredient'} />
           )}
         />
         <TextField
           onChange={(e) => setState({ ...state, amount: e.target.value })}
-          label='amount'
-          sx={{ width: '150px' }}
+          label='Amount'
+          sx={{ width: 150 }}
         ></TextField>
         <Button
           sx={{
             marginLeft: '10px',
-            width: '90px',
-            height: '50px',
+            width: 90,
             alignSelf: 'center',
           }}
           onClick={handleAdd}
-          variant='contained'
+          variant='outlined'
         >
-          Add
+          <AddIcon />
         </Button>
       </Box>
-      <TableContainer component={Paper} sx={{ maxWidth: 750 }}>
+      {state.alertStatus && (
+        <Alert
+          severity='warning'
+          sx={{ marginBottom: 1, width: recipeWidth - 30 }}
+        >
+          {state.alertStatus}
+        </Alert>
+      )}
+      <TableContainer component={Paper} sx={{ maxWidth: recipeWidth }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -118,7 +156,7 @@ export default function IngredientsEditList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {recipeData.ingredients.map((ingr, index) => (
+            {props.ingredients.map((ingr, index) => (
               <TableRow
                 hover
                 key={index}
