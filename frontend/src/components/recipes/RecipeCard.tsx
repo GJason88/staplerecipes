@@ -13,7 +13,7 @@ export default function RecipeCard(props: RecipeCardProps) {
   const navigate = useNavigate();
 
   return (
-    <Card raised sx={{ width: 345, height: 320 }}>
+    <Card raised sx={{ m: 1.5, width: 345, height: 320 }}>
       <CardActionArea
         onClick={() => {
           navigate(

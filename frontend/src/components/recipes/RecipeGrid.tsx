@@ -1,4 +1,4 @@
-import { Card, CardActionArea, Grid, Typography } from '@mui/material';
+import { Box, Card, CardActionArea, Grid, Typography } from '@mui/material';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import RecipeCard from './RecipeCard';
 import { useEffect } from 'react';
@@ -21,30 +21,31 @@ export default function RecipeGrid() {
   }, []);
 
   return (
-    <Grid sx={{ marginTop: 6, p: 3 }} container spacing={2}>
-      <Grid item sx={{ alignSelf: 'center', flexGrow: 1 }}>
-        <Card sx={{ width: 345, height: 320 }}>
-          <CardActionArea
-            onClick={() => dispatch(updateCreateDialog())}
-            sx={{ width: 345, height: 320 }}
-          >
-            <div style={{ textAlign: 'center' }}>
-              <AddBoxTwoToneIcon
-                sx={{ width: 200, height: 200 }}
-                color='action'
-              ></AddBoxTwoToneIcon>
-              <Typography gutterBottom variant='h5' component='div'>
-                Create New Recipe
-              </Typography>
-            </div>
-          </CardActionArea>
-        </Card>
-      </Grid>
+    <Box
+      sx={{ mt: 8 }}
+      display='flex'
+      justifyContent='flex-start'
+      flexWrap='wrap'
+    >
+      <Card sx={{ m: 1.5, width: 345, height: 320 }}>
+        <CardActionArea
+          onClick={() => dispatch(updateCreateDialog())}
+          sx={{ width: 345, height: 320 }}
+        >
+          <div style={{ textAlign: 'center' }}>
+            <AddBoxTwoToneIcon
+              sx={{ width: 200, height: 200 }}
+              color='action'
+            ></AddBoxTwoToneIcon>
+            <Typography gutterBottom variant='h5' component='div'>
+              Create New Recipe
+            </Typography>
+          </div>
+        </CardActionArea>
+      </Card>
       {recipeCards.map((recipeCard) => (
-        <Grid item sx={{ flexGrow: 1 }} key={recipeCard.id}>
-          <RecipeCard name={recipeCard.name}></RecipeCard>
-        </Grid>
+        <RecipeCard key={recipeCard.id} name={recipeCard.name}></RecipeCard>
       ))}
-    </Grid>
+    </Box>
   );
 }
