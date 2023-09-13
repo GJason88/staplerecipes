@@ -35,11 +35,11 @@ export default function EditRecipe() {
   // }, []);
 
   const onSave = () => {
-    dispatch(getRecipesFetch());
+    // update recipe
   };
 
   const components = [
-    <TimeNutrition key={0} />,
+    <TimeNutrition key={0} />, // constrain to numbers for nutrition
     <ToolsIngredients ingredients={recipeData.ingredients} key={1} />,
     <Instructions instructions={recipeData.instructions} key={2} />,
   ];

@@ -3,28 +3,29 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface RecipeState {
   id: number,
   name: string,
-  time: number,
+  time: string | null,
   nutrition: NutritionState,
   tools: Array<string>,
   ingredients: Array<IngredientState>,
-  instructions: Array<string>,
+  instructions: Array<string>
 }
 
 export interface IngredientState {
+  id: number,
   name: string,
-  amount: string
+  amount: string | null
 }
 
 interface NutritionState {
-  calories: number,
-  protein: number,
-  carbs: number,
-  fat: number,
-  fiber: number
+  calories: number | null,
+  protein: number | null,
+  carbs: number | null,
+  fat: number | null,
+  fiber: number | null
 }
 
-const initialNutritionState = { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 } as NutritionState;
-const initialState = { id: 0, name: '', tools: [], ingredients: [], time: 0, instructions: [], nutrition: initialNutritionState } as RecipeState;
+const initialNutritionState = { calories: null, protein: null, carbs: null, fat: null, fiber: null } as NutritionState;
+const initialState = { id: 0, name: '', tools: [], ingredients: [], time: null, instructions: [], nutrition: initialNutritionState } as RecipeState;
 
 const recipe = createSlice({
   name: 'recipe',
@@ -67,18 +68,9 @@ const recipe = createSlice({
         ...state.instructions.slice(action.payload + 1)
       ]
     },
-    createRecipeFetch: (state) => {
-      console.log('fetch requested');
-    },
-    getRecipesSuccess: (state, action) => {
-      console.log(action.recipe.data);
-    },
-    getRecipesFailure: (state, action) => {
-      console.log('error', action)
-    }
   },
 });
 
 export const { addIngredient, deleteIngredient, updateInstructionStep, addInstructionStep, deleteInstructionStep, 
-  updateRecipeName, updateTime, updateNutrition, updateTools, getRecipesFetch } = recipe.actions;
+  updateRecipeName, updateTime, updateNutrition, updateTools } = recipe.actions;
 export default recipe.reducer;

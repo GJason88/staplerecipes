@@ -23,17 +23,16 @@ export default function RecipeCard(props: RecipeCardProps) {
       >
         <CardMedia
           component='img'
-          height='140'
-          image='src\assets\contemplative-reptile.jpg'
-          alt='green iguana'
+          image='assets\logo-612x612.png'
+          sx={{ margin: 'auto', height: 200, width: 150 }}
         />
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
+        <CardContent sx={{ display: 'flex', alignItems: 'center', height: 45 }}>
+          <Typography
+            sx={{ wordBreak: 'break-word' }}
+            variant='h5'
+            component='div'
+          >
             {props.name}
-          </Typography>
-          <Typography variant='body2' color='text.secondary'>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
           </Typography>
         </CardContent>
       </CardActionArea>

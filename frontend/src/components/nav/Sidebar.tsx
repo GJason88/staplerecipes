@@ -16,7 +16,6 @@ import {
 } from '../../redux/components/nav/navReducer';
 import { IRootState } from '../../index';
 import { useNavigate, useLocation } from 'react-router-dom';
-import AdbIcon from '@mui/icons-material/Adb';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { drawerWidth } from '../../constants';
 
@@ -41,11 +40,20 @@ export default function Sidebar() {
   }, [location.pathname]);
 
   const drawer = (
-    <div>
+    <Box>
       <Toolbar>
-        {/*placeholder logo*/}
-        <AdbIcon />
-        <Typography pl='9px' align='center' variant='h5'>
+        <img
+          src='/assets/logo-612x612.png'
+          width='75'
+          style={{ marginLeft: -15, marginRight: -12 }}
+        />
+        <Typography
+          pl='9px'
+          align='center'
+          variant='h5'
+          marginRight={'-30px'}
+          marginBottom={'-10px'}
+        >
           Staple Recipes
         </Typography>
       </Toolbar>
@@ -62,7 +70,7 @@ export default function Sidebar() {
           </ListItem>
         ))}
       </List>
-    </div>
+    </Box>
   );
 
   return (

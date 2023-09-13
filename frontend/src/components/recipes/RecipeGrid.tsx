@@ -2,15 +2,24 @@ import { Card, CardActionArea, Grid, Typography } from '@mui/material';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import RecipeCard from './RecipeCard';
 import { useEffect } from 'react';
-import { updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
-import { useDispatch } from 'react-redux';
+import {
+  RecipeCardState,
+  getAllRecipesRequest,
+  updateCreateDialog,
+} from '../../redux/components/recipes/recipegridReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState } from '../..';
 
 export default function RecipeGrid() {
   const dispatch = useDispatch();
-  // const recipes: Array<RecipeState> = [];
+  const recipeCards = useSelector<IRootState, Array<RecipeCardState>>(
+    (state) => state.recipegrid.recipes
+  );
+
   useEffect(() => {
-    // Call saga to fetch recipes here
+    dispatch(getAllRecipesRequest());
   }, []);
+
   return (
     <Grid sx={{ marginTop: 6, p: 3 }} container spacing={2}>
       <Grid item sx={{ alignSelf: 'center', flexGrow: 1 }}>
@@ -31,29 +40,11 @@ export default function RecipeGrid() {
           </CardActionArea>
         </Card>
       </Grid>
-      {/* {recipes.map((recipe) => (
-        <Grid item sx={{ flexGrow: 1 }} key={recipe.id}>
-          <RecipeCard name={recipe.name}></RecipeCard>
+      {recipeCards.map((recipeCard) => (
+        <Grid item sx={{ flexGrow: 1 }} key={recipeCard.id}>
+          <RecipeCard name={recipeCard.name}></RecipeCard>
         </Grid>
-      ))} */}
-      <Grid item sx={{ flexGrow: 1 }}>
-        <RecipeCard name='Test'></RecipeCard>
-      </Grid>
-      <Grid item sx={{ flexGrow: 1 }}>
-        <RecipeCard name='Test'></RecipeCard>
-      </Grid>
-      <Grid item sx={{ flexGrow: 1 }}>
-        <RecipeCard name='Test'></RecipeCard>
-      </Grid>
-      <Grid item sx={{ flexGrow: 1 }}>
-        <RecipeCard name='Test'></RecipeCard>
-      </Grid>
-      <Grid item sx={{ flexGrow: 1 }}>
-        <RecipeCard name='Test'></RecipeCard>
-      </Grid>
-      <Grid item sx={{ flexGrow: 1 }}>
-        <RecipeCard name='Test'></RecipeCard>
-      </Grid>
+      ))}
     </Grid>
   );
 }

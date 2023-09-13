@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
+import { createRecipeRequest, updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
 import { useNavigate, generatePath } from 'react-router-dom';
 import { useState } from 'react';
 import { updateRecipeName } from '../../redux/components/recipes/recipeReducer';
@@ -20,9 +20,10 @@ export default function CreateDialog() {
   );
 
   const handleCreate = () => {
+    if (!recipeName || recipeName.length > 50) return;
     dispatch(updateCreateDialog());
-    // TODO: add recipe with name and empty fields to state and db
     dispatch(updateRecipeName(recipeName));
+    dispatch(createRecipeRequest({ name: recipeName }));
     navigate(
       generatePath('/recipes/:name', { name: recipeName.toLowerCase() })
     );
