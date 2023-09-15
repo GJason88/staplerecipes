@@ -6,35 +6,47 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { createRecipeRequest, updateCreateDialog } from '../../redux/components/recipes/recipegridReducer';
-import { useNavigate, generatePath } from 'react-router-dom';
-import { useState } from 'react';
-import { updateRecipeName } from '../../redux/components/recipes/recipeReducer';
+import {
+  updateCreateDialog,
+  updateCreateDialogErrorMessage,
+} from '../../redux/components/recipes/recipegridReducer';
+import { useEffect, useState } from 'react';
+import { createRecipeRequest } from '../../redux/components/recipes/recipegridReducer';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 export default function CreateDialog() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [recipeName, setRecipeName] = useState('');
+  const navigate = useNavigate();
   const open = useSelector<IRootState, boolean>(
     (state) => state.recipegrid.isCreateDialog
   );
+  const id = useSelector<IRootState, string>((state) => state.recipe.id);
+  const errorMessage = useSelector<IRootState, string>(
+    (state) => state.recipegrid.createDialogErrorMessage
+  );
 
   const handleCreate = () => {
-    if (!recipeName || recipeName.length > 50) return;
-    dispatch(updateCreateDialog());
-    dispatch(updateRecipeName(recipeName));
+    if (!recipeName || recipeName.length > 50) {
+      dispatch(updateCreateDialogErrorMessage('Recipe name cannot be blank.'));
+      return;
+    }
     dispatch(createRecipeRequest({ name: recipeName }));
-    navigate(
-      generatePath('/recipes/:name', { name: recipeName.toLowerCase() })
-    );
   };
 
+  const handleCancel = () => {
+    setRecipeName('');
+    dispatch(updateCreateDialog(false));
+  };
+
+  useEffect(() => {
+    dispatch(updateCreateDialog(false));
+    navigate(`/recipes/${id}`);
+  }, [id, navigate]);
+
   return (
-    <Dialog
-      fullWidth
-      open={open}
-      onClose={() => dispatch(updateCreateDialog())}
-    >
+    <Dialog fullWidth open={open} onClose={handleCancel}>
       <DialogTitle>Create New Recipe</DialogTitle>
       <DialogContent>
         <TextField
@@ -46,9 +58,10 @@ export default function CreateDialog() {
           variant='standard'
           onChange={(e) => setRecipeName(e.target.value)}
         />
+        {errorMessage && <Alert severity='warning'>{errorMessage}</Alert>}
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => dispatch(updateCreateDialog())}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
         <Button onClick={handleCreate}>Create</Button>
       </DialogActions>
     </Dialog>

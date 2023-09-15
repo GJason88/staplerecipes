@@ -3,21 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 interface RecipeGridState {
   recipes: Array<RecipeCardState>,
   isCreateDialog: boolean,
+  createDialogErrorMessage: string,
 }
 
 export interface RecipeCardState {
-  id: number,
+  id: string,
   name: string,
 }
 
-const initialState = { recipes: [], isCreateDialog: false } as RecipeGridState;
+const initialState = { recipes: [], isCreateDialog: false, createDialogErrorMessage: '' } as RecipeGridState;
 
 const recipeGrid = createSlice({
   name: 'recipegrid',
   initialState,
   reducers: {
-    updateCreateDialog: (state) => {
-      state.isCreateDialog = !state.isCreateDialog;
+    updateCreateDialog: (state, action) => {
+      state.isCreateDialog = action.payload;
+      state.createDialogErrorMessage = '';
+    },
+    updateCreateDialogErrorMessage: (state, action) => {
+      state.createDialogErrorMessage = action.payload;
     },
     getAllRecipesRequest: (state) => {
       console.log('get all recipes requested');
@@ -31,14 +36,8 @@ const recipeGrid = createSlice({
     createRecipeRequest: (state, action) => {
       console.log('create recipe requested');
     },
-    createRecipeSuccess: (state, action) => {
-      console.log(action);
-    },
-    createRecipeFailure: (state, action) => {
-      console.log('error', action);
-    }
   },
 });
 
-export const { updateCreateDialog, getAllRecipesRequest, createRecipeRequest } = recipeGrid.actions;
+export const { updateCreateDialog, getAllRecipesRequest, createRecipeRequest, updateCreateDialogErrorMessage } = recipeGrid.actions;
 export default recipeGrid.reducer;

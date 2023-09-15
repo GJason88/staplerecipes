@@ -1,38 +1,34 @@
-import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { recipeWidth, pLen } from '../../../constants';
 import ToolsIngredients from './ToolsIngredients';
 import TimeNutrition from './TimeNutrition';
-import SaveRecipe from './SaveRecipe';
 import Instructions from './Instructions';
 import {
   RecipeState,
-  getRecipesFetch,
   updateRecipeName,
 } from '../../../redux/components/recipes/recipeReducer';
 import { IRootState } from '../../..';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function EditRecipe() {
+  const routeParams = useParams();
   const dispatch = useDispatch();
   const recipeData = useSelector<IRootState, RecipeState>(
     (state) => state.recipe
   );
-  // const [sampleData, setSampleData] = useState({});
-  // function fetchData() {
-  //   axios
-  //     .get('http://localhost:3000/recipes')
-  //     .then((response) => {
-  //       setSampleData(response.data);
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    console.log(routeParams);
+  }, []);
 
   const onSave = () => {
     // update recipe

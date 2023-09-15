@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useNavigate, generatePath } from 'react-router-dom';
 
 export interface RecipeState {
-  id: number,
+  id: string,
   name: string,
   time: string | null,
   nutrition: NutritionState,
@@ -11,7 +12,7 @@ export interface RecipeState {
 }
 
 export interface IngredientState {
-  id: number,
+  id: string,
   name: string,
   amount: string | null
 }
@@ -25,12 +26,15 @@ interface NutritionState {
 }
 
 const initialNutritionState = { calories: null, protein: null, carbs: null, fat: null, fiber: null } as NutritionState;
-const initialState = { id: 0, name: '', tools: [], ingredients: [], time: null, instructions: [], nutrition: initialNutritionState } as RecipeState;
+const initialState = { id: '', name: '', tools: [], ingredients: [], time: null, instructions: [], nutrition: initialNutritionState } as RecipeState;
 
 const recipe = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
+    setRecipeId: (state, action) => {
+      state.id = action.payload;
+    },
     updateRecipeName: (state, action) => {
       state.name = action.payload;
     },
@@ -44,7 +48,7 @@ const recipe = createSlice({
       state.tools = action.payload;
     },
     addIngredient: (state, action) => {
-      state.ingredients = [...state.ingredients, { name: action.payload.name, amount: action.payload.amount }]
+      state.ingredients = [...state.ingredients, { name: action.payload.name, amount: action.payload.amount, id: '' }]
     },
     deleteIngredient: (state, action) => {
       state.ingredients = [
@@ -71,6 +75,6 @@ const recipe = createSlice({
   },
 });
 
-export const { addIngredient, deleteIngredient, updateInstructionStep, addInstructionStep, deleteInstructionStep, 
+export const { setRecipeId, addIngredient, deleteIngredient, updateInstructionStep, addInstructionStep, deleteInstructionStep, 
   updateRecipeName, updateTime, updateNutrition, updateTools } = recipe.actions;
 export default recipe.reducer;

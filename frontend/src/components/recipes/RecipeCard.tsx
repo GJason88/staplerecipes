@@ -3,9 +3,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface RecipeCardProps {
+  id: string;
   name: string;
 }
 
@@ -16,14 +17,12 @@ export default function RecipeCard(props: RecipeCardProps) {
     <Card raised sx={{ m: 1.5, width: 345, height: 320 }}>
       <CardActionArea
         onClick={() => {
-          navigate(
-            generatePath('/recipes/:name', { name: props.name.toLowerCase() })
-          );
+          navigate(`/recipes/${props.id}`);
         }}
       >
         <CardMedia
           component='img'
-          image='assets\logo-612x612.png'
+          image='\assets\logo-612x612.png'
           sx={{ margin: 'auto', height: 200, width: 150 }}
         />
         <CardContent sx={{ display: 'flex', alignItems: 'center', height: 45 }}>

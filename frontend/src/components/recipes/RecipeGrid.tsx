@@ -9,6 +9,7 @@ import {
 } from '../../redux/components/recipes/recipegridReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
+import { setRecipeId } from '../../redux/components/recipes/recipeReducer';
 
 export default function RecipeGrid() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function RecipeGrid() {
   );
 
   useEffect(() => {
+    dispatch(setRecipeId('')); // reset id when not on recipe page to prevent creation mishaps
     dispatch(getAllRecipesRequest());
   }, []);
 
@@ -29,7 +31,7 @@ export default function RecipeGrid() {
     >
       <Card sx={{ m: 1.5, width: 345, height: 320 }}>
         <CardActionArea
-          onClick={() => dispatch(updateCreateDialog())}
+          onClick={() => dispatch(updateCreateDialog(true))}
           sx={{ width: 345, height: 320 }}
         >
           <div style={{ textAlign: 'center' }}>
@@ -44,7 +46,11 @@ export default function RecipeGrid() {
         </CardActionArea>
       </Card>
       {recipeCards.map((recipeCard) => (
-        <RecipeCard key={recipeCard.id} name={recipeCard.name}></RecipeCard>
+        <RecipeCard
+          key={recipeCard.id}
+          name={recipeCard.name}
+          id={recipeCard.id}
+        ></RecipeCard>
       ))}
     </Box>
   );
