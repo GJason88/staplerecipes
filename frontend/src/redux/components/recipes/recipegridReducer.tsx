@@ -7,8 +7,8 @@ interface RecipeGridState {
 }
 
 export interface RecipeCardState {
-  id: string,
-  name: string,
+  recipeId: number,
+  recipeName: string,
 }
 
 const initialState = { recipes: [], isCreateDialog: false, createDialogErrorMessage: '' } as RecipeGridState;
@@ -17,6 +17,9 @@ const recipeGrid = createSlice({
   name: 'recipegrid',
   initialState,
   reducers: {
+    setRecipes: (state, action) => {
+      state.recipes = action.payload;
+    },
     updateCreateDialog: (state, action) => {
       state.isCreateDialog = action.payload;
       state.createDialogErrorMessage = '';
@@ -27,15 +30,11 @@ const recipeGrid = createSlice({
     getAllRecipesRequest: (state) => {
       console.log('get all recipes requested');
     },
-    getAllRecipesSuccess: (state, action) => {
-      state.recipes = action.payload;
-    },
     getAllRecipesFailure: (state, action) => {
+      // TODO: Handle error backend and frontend
       console.log('error', action);
     },
-    createRecipeRequest: (state, action) => {
-      console.log('create recipe requested');
-    },
+    createRecipeRequest: (state, action) => {},
   },
 });
 

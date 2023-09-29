@@ -18,13 +18,19 @@ import { IRootState } from '../../index';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { drawerWidth } from '../../constants';
+import BlenderIcon from '@mui/icons-material/Blender';
+import EggIcon from '@mui/icons-material/Egg';
+import FeedIcon from '@mui/icons-material/Feed';
 
 // put into separate constants file
 const icons = [
-  <HomeIcon key={'home'} />,
-  <MenuBookTwoToneIcon key={'recipes'} />,
+  <HomeIcon key='home' />,
+  <MenuBookTwoToneIcon key='recipes' />,
+  <BlenderIcon key='tools' />,
+  <EggIcon key='ingredients' />,
+  <FeedIcon key='nutrition' />,
 ];
-const routes = ['/', '/recipes'];
+const routes = ['/', '/recipes/', '/tools', '/ingredients', '/nutrition'];
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -36,7 +42,7 @@ export default function Sidebar() {
   const path = useSelector<IRootState, string>((state) => state.nav.path);
 
   useEffect(() => {
-    dispatch(updatePath(location.pathname));
+    dispatch(updatePath(location.pathname)); // TODO: make better solution
   }, [location.pathname]);
 
   const drawer = (
@@ -58,17 +64,20 @@ export default function Sidebar() {
         </Typography>
       </Toolbar>
       <List>
-        {['Home', 'Recipes'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ pb: 1 }}>
-            <ListItemButton
-              onClick={() => navigate(routes[index])}
-              selected={routes[index] === path}
-            >
-              <ListItemIcon>{icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {['Home', 'Recipes', 'Tools', 'Ingredients', 'Nutrition'].map(
+          (text, index) => (
+            <ListItem key={text} disablePadding sx={{ height: 75 }}>
+              <ListItemButton
+                sx={{ height: 75 }}
+                onClick={() => navigate(routes[index])}
+                selected={routes[index] === path}
+              >
+                <ListItemIcon>{icons[index]}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
     </Box>
   );

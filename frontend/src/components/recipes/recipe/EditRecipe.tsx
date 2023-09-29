@@ -8,10 +8,12 @@ import {
 } from '@mui/material';
 import { recipeWidth, pLen } from '../../../constants';
 import ToolsIngredients from './ToolsIngredients';
-import TimeNutrition from './TimeNutrition';
+import Information from './Information';
 import Instructions from './Instructions';
 import {
   RecipeState,
+  editRecipeRequest,
+  setRecipeId,
   updateRecipeName,
 } from '../../../redux/components/recipes/recipeReducer';
 import { IRootState } from '../../..';
@@ -27,15 +29,15 @@ export default function EditRecipe() {
   );
 
   useEffect(() => {
-    console.log(routeParams);
+    dispatch(setRecipeId(routeParams.id)); // TODO: may move to recipe onmount if editrecipe is accessed through that page.
   }, []);
 
   const onSave = () => {
-    // update recipe
+    dispatch(editRecipeRequest());
   };
 
   const components = [
-    <TimeNutrition key={0} />, // constrain to numbers for nutrition
+    <Information key={0} />, // TODO: constrain to numbers for nutrition
     <ToolsIngredients ingredients={recipeData.ingredients} key={1} />,
     <Instructions instructions={recipeData.instructions} key={2} />,
   ];
@@ -46,7 +48,7 @@ export default function EditRecipe() {
           Recipe Name
         </Typography>
         <TextField
-          value={recipeData.name}
+          value={recipeData.recipeName}
           onChange={(e) => dispatch(updateRecipeName(e.target.value))}
           sx={{ pb: 4, width: recipeWidth }}
         />

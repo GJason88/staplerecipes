@@ -26,7 +26,6 @@ import {
 } from '../../../redux/components/recipes/recipeReducer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import CheckboxSelect from './CheckboxSelect';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
@@ -179,7 +178,7 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
                 </TableCell>
                 <TableCell>
                   <Typography noWrap fontSize={18}>
-                    {ingr.name}
+                    {ingr.ingredientName}
                   </Typography>
                 </TableCell>
               </TableRow>

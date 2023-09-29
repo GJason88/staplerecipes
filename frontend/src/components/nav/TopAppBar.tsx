@@ -13,7 +13,7 @@ import {
   updateIsSearchSelected,
 } from '../../redux/components/nav/navReducer';
 import { drawerWidth } from '../../constants';
-
+// TODO: potentially remove
 export default function TopAppBar() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -48,7 +48,7 @@ export default function TopAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          {location.pathname === '/recipes' && (
+          {location.pathname === '/recipes/' && (
             <TextField
               variant='outlined'
               color='secondary'

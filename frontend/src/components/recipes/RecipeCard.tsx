@@ -6,7 +6,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 interface RecipeCardProps {
-  id: string;
+  recipeId: number;
   name: string;
 }
 
@@ -17,7 +17,7 @@ export default function RecipeCard(props: RecipeCardProps) {
     <Card raised sx={{ m: 1.5, width: 345, height: 320 }}>
       <CardActionArea
         onClick={() => {
-          navigate(`/recipes/${props.id}`);
+          navigate(`/recipes/${props.recipeId}`);
         }}
       >
         <CardMedia

@@ -7,56 +7,53 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import {
+  CategoryState,
+  addToolRequest,
   updateCreateDialog,
-  updateCreateDialogErrorMessage,
-} from '../../redux/components/recipes/recipegridReducer';
-import { useEffect, useState } from 'react';
-import { createRecipeRequest } from '../../redux/components/recipes/recipegridReducer';
-import { useNavigate } from 'react-router-dom';
+  updateCreateErrorMessage,
+} from '../../redux/components/tools/toolsReducer';
+import { useState } from 'react';
 import { Alert } from '@mui/material';
 
-export default function CreateDialog() {
+export default function CreateToolDialog() {
+  const [toolName, setToolName] = useState('');
   const dispatch = useDispatch();
-  const [recipeName, setRecipeName] = useState('');
-  const navigate = useNavigate();
   const open = useSelector<IRootState, boolean>(
-    (state) => state.recipegrid.isCreateDialog
+    (state) => state.tools.isCreateDialog
   );
-  const id = useSelector<IRootState, string>((state) => state.recipe.id);
   const errorMessage = useSelector<IRootState, string>(
-    (state) => state.recipegrid.createDialogErrorMessage
+    (state) => state.tools.createErrorMessage
   );
-
   const handleCreate = () => {
-    if (!recipeName || recipeName.length > 50) {
-      dispatch(updateCreateDialogErrorMessage('Recipe name cannot be blank.'));
+    if (!toolName || toolName.length > 75) {
+      dispatch(
+        updateCreateErrorMessage(
+          toolName
+            ? 'Tool name cannot be over 75 characters'
+            : 'Tool name cannot be blank.'
+        )
+      );
       return;
     }
-    dispatch(createRecipeRequest({ name: recipeName }));
+    dispatch(addToolRequest({ name: toolName, category: props.category }));
   };
 
   const handleCancel = () => {
-    setRecipeName('');
     dispatch(updateCreateDialog(false));
   };
 
-  useEffect(() => {
-    dispatch(updateCreateDialog(false));
-    navigate(`/recipes/${id}`);
-  }, [id, navigate]);
-
   return (
     <Dialog fullWidth open={open} onClose={handleCancel}>
-      <DialogTitle>Create New Recipe</DialogTitle>
+      <DialogTitle>Create New Category</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
           margin='dense'
           id='name'
-          placeholder='Recipe Name'
+          placeholder='Category Name'
           fullWidth
           variant='standard'
-          onChange={(e) => setRecipeName(e.target.value)}
+          onChange={(e) => setToolName(e.target.value)}
         />
         {errorMessage && <Alert severity='warning'>{errorMessage}</Alert>}
       </DialogContent>

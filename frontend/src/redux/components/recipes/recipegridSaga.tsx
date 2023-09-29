@@ -1,19 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { api } from '../../../services/api';
+import { recipesApi } from '../../../services/api';
+import { RecipeCardState } from './recipegridReducer';
+import camelcaseKeys from 'camelcase-keys';
 
 interface CreateResponse {
-  data: { id: number }; // recipe id
+  data: { recipe_id: number }; // recipe id
 }
 
-interface ActionType {
+interface CreateAction {
   type: string;
   payload: { name: string }; // recipe name
 }
 
-function* createRecipe(action: ActionType) {
+function* createRecipe(action: CreateAction) {
   try {
-    const response: CreateResponse = yield call(api.create, action.payload);
-    const id = response.data.id;
+    const response: CreateResponse = yield call(
+      recipesApi.create,
+      action.payload
+    );
+    const id = response.data.recipe_id;
     yield put({ type: 'recipe/setRecipeId', payload: id });
   } catch (e) {
     yield put({
@@ -23,16 +29,21 @@ function* createRecipe(action: ActionType) {
   }
 }
 
-function* getAllRecipes(action) {
+interface RetrieveResponse {
+  data: Array<RecipeCardState>;
+}
+function* getAllRecipes() {
   try {
-    const response = yield call(api.retrieveAll);
+    const response: RetrieveResponse = yield call(recipesApi.retrieveAll);
     yield put({
-      type: 'recipegrid/getAllRecipesSuccess',
-      payload: response.data,
+      type: 'recipegrid/setRecipes',
+      payload: camelcaseKeys(response.data, { deep: true }),
     });
   } catch (e) {
-    const message = e.message;
-    yield put({ type: 'recipegrid/getAllRecipesFailure', message });
+    yield put({
+      type: 'recipegrid/getAllRecipesFailure',
+      payload: e.response.data,
+    });
   }
 }
 

@@ -1,23 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate, generatePath } from 'react-router-dom';
+import { ToolState } from "../tools/toolsReducer";
 
 export interface RecipeState {
-  id: string,
-  name: string,
+  recipeId: number | null,
+  recipeName: string,
   time: string | null,
-  nutrition: NutritionState,
-  tools: Array<string>,
+  nutrition: NutritionState | null,
+  tools: Array<ToolState>,
   ingredients: Array<IngredientState>,
-  instructions: Array<string>
+  instructions: Array<string>,
+  editResultDialog: string
 }
 
 export interface IngredientState {
-  id: string,
-  name: string,
+  ingredientId: number | null,
+  ingredientName: string,
+  ingredientCategory: string,
   amount: string | null
 }
 
-interface NutritionState {
+export interface NutritionState {
   calories: number | null,
   protein: number | null,
   carbs: number | null,
@@ -25,30 +27,39 @@ interface NutritionState {
   fiber: number | null
 }
 
+export interface UpdateRecipeParams {
+  name: string;
+  time: string | null;
+  nutrition: NutritionState | null;
+  tools: Array<string>;
+  ingredients: Array<IngredientState>;
+  instructions: Array<string>;
+}
+
 const initialNutritionState = { calories: null, protein: null, carbs: null, fat: null, fiber: null } as NutritionState;
-const initialState = { id: '', name: '', tools: [], ingredients: [], time: null, instructions: [], nutrition: initialNutritionState } as RecipeState;
+const initialState = { recipeId: null, recipeName: '', tools: [], ingredients: [], time: null, instructions: [], nutrition: initialNutritionState, editResultDialog: '' } as RecipeState;
 
 const recipe = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
     setRecipeId: (state, action) => {
-      state.id = action.payload;
+      state.recipeId = action.payload;
     },
     updateRecipeName: (state, action) => {
-      state.name = action.payload;
+      state.recipeName = action.payload;
     },
     updateTime: (state, action) => {
       state.time = action.payload;
     },
     updateNutrition: (state, action) => {
-      state.nutrition = {...state.nutrition, [action.payload.category]: action.payload.value};
+      state.nutrition = action.payload;
     },
     updateTools: (state, action) => {
       state.tools = action.payload;
     },
     addIngredient: (state, action) => {
-      state.ingredients = [...state.ingredients, { name: action.payload.name, amount: action.payload.amount, id: '' }]
+      state.ingredients = [...state.ingredients, { ingredientName: action.payload.name, amount: action.payload.amount, ingredientId: null, ingredientCategory: '' }]
     },
     deleteIngredient: (state, action) => {
       state.ingredients = [
@@ -72,9 +83,13 @@ const recipe = createSlice({
         ...state.instructions.slice(action.payload + 1)
       ]
     },
+    editRecipeRequest: (state) => {},
+    setEditResultDialog: (state, action) => {
+      state.editResultDialog = action.payload;
+    },
   },
 });
 
 export const { setRecipeId, addIngredient, deleteIngredient, updateInstructionStep, addInstructionStep, deleteInstructionStep, 
-  updateRecipeName, updateTime, updateNutrition, updateTools } = recipe.actions;
+  updateRecipeName, updateTime, updateNutrition, updateTools, editRecipeRequest } = recipe.actions;
 export default recipe.reducer;
