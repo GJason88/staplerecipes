@@ -1,43 +1,57 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ToolState } from "../tools/toolsReducer";
+import { createSlice } from '@reduxjs/toolkit';
+import { ToolState } from '../tools/toolsReducer';
+import { IngredientState } from '../ingredients/ingredientsReducer';
 
 export interface RecipeState {
-  recipeId: number | null,
-  recipeName: string,
-  time: string | null,
-  nutrition: NutritionState | null,
-  tools: Array<ToolState>,
-  ingredients: Array<IngredientState>,
-  instructions: Array<string>,
-  editResultDialog: string
+  recipeId: number | null;
+  recipeName: string;
+  time: string | null;
+  nutrition: NutritionState | null;
+  tools: Array<ToolState>;
+  ingredients: Array<IngredientState>;
+  instructions: Array<string>;
+  editResultDialog: string;
 }
 
-export interface IngredientState {
-  ingredientId: number | null,
-  ingredientName: string,
-  ingredientCategory: string,
-  amount: string | null
+export interface RecipeIngredientState {
+  ingredientId: number | null;
+  amount: number;
 }
 
 export interface NutritionState {
-  calories: number | null,
-  protein: number | null,
-  carbs: number | null,
-  fat: number | null,
-  fiber: number | null
+  calories: number | null;
+  protein: number | null;
+  carbs: number | null;
+  fat: number | null;
+  fiber: number | null;
 }
 
 export interface UpdateRecipeParams {
   name: string;
   time: string | null;
-  nutrition: NutritionState | null;
   tools: Array<string>;
   ingredients: Array<IngredientState>;
   instructions: Array<string>;
 }
 
-const initialNutritionState = { calories: null, protein: null, carbs: null, fat: null, fiber: null } as NutritionState;
-const initialState = { recipeId: null, recipeName: '', tools: [], ingredients: [], time: null, instructions: [], nutrition: initialNutritionState, editResultDialog: '' } as RecipeState;
+const initialNutritionState = {
+  calories: null,
+  protein: null,
+  carbs: null,
+  fat: null,
+  fiber: null,
+} as NutritionState;
+
+const initialState = {
+  recipeId: null,
+  recipeName: '',
+  tools: [],
+  ingredients: [],
+  time: null,
+  instructions: [],
+  nutrition: initialNutritionState,
+  editResultDialog: '',
+} as RecipeState;
 
 const recipe = createSlice({
   name: 'recipe',
@@ -59,29 +73,37 @@ const recipe = createSlice({
       state.tools = action.payload;
     },
     addIngredient: (state, action) => {
-      state.ingredients = [...state.ingredients, { ingredientName: action.payload.name, amount: action.payload.amount, ingredientId: null, ingredientCategory: '' }]
+      state.ingredients = [
+        ...state.ingredients,
+        {
+          ingredientName: action.payload.name,
+          amount: action.payload.amount,
+          ingredientId: null,
+          ingredientCategory: '',
+        },
+      ];
     },
     deleteIngredient: (state, action) => {
       state.ingredients = [
         ...state.ingredients.slice(0, action.payload),
-        ...state.ingredients.slice(action.payload + 1)
+        ...state.ingredients.slice(action.payload + 1),
       ];
     },
     updateInstructionStep: (state, action) => {
       state.instructions = [
         ...state.instructions.slice(0, action.payload.index),
         action.payload.text,
-        ...state.instructions.slice(action.payload.index + 1)
+        ...state.instructions.slice(action.payload.index + 1),
       ];
     },
     addInstructionStep: (state) => {
-      state.instructions = [...state.instructions, '']
+      state.instructions = [...state.instructions, ''];
     },
     deleteInstructionStep: (state, action) => {
       state.instructions = [
         ...state.instructions.slice(0, action.payload),
-        ...state.instructions.slice(action.payload + 1)
-      ]
+        ...state.instructions.slice(action.payload + 1),
+      ];
     },
     editRecipeRequest: (state) => {},
     setEditResultDialog: (state, action) => {
@@ -90,6 +112,17 @@ const recipe = createSlice({
   },
 });
 
-export const { setRecipeId, addIngredient, deleteIngredient, updateInstructionStep, addInstructionStep, deleteInstructionStep, 
-  updateRecipeName, updateTime, updateNutrition, updateTools, editRecipeRequest } = recipe.actions;
+export const {
+  setRecipeId,
+  addIngredient,
+  deleteIngredient,
+  updateInstructionStep,
+  addInstructionStep,
+  deleteInstructionStep,
+  updateRecipeName,
+  updateTime,
+  updateNutrition,
+  updateTools,
+  editRecipeRequest,
+} = recipe.actions;
 export default recipe.reducer;

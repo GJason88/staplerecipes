@@ -10,12 +10,14 @@ import React from 'react';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './redux/sagas.tsx';
 import toolsReducer from './redux/components/tools/toolsReducer.tsx';
+import ingredientsReducer from './redux/components/ingredients/ingredientsReducer.tsx';
 
 const reducer = combineReducers({
   nav: navReducer,
   recipegrid: recipeGridReducer,
   recipe: recipeReducer,
-  tools: toolsReducer
+  tools: toolsReducer,
+  ingredients: ingredientsReducer
 });
 
 export type IRootState = ReturnType<typeof reducer>;

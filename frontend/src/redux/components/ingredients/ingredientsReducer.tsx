@@ -1,50 +1,48 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { NutritionState } from '../recipes/recipeReducer';
+import { CategoryState } from '../tools/toolsReducer';
 
-export interface ToolsPageState {
-  tools: Array<ToolState>;
+export interface IngredientsPageState {
+  ingredients: Array<IngredientState>;
   categories: Array<CategoryState>;
-  isCreateToolDialog: boolean;
+  isCreateIngrDialog: boolean;
   isCreateCategoryDialog: boolean;
   createErrorMessage: string;
   curTabId?: number | false;
 }
 
-export interface ToolState {
-  toolId: number;
-  toolName: string;
-  categoryId: number;
-}
-
-export interface CategoryState {
-  categoryId: number;
-  categoryName: string;
+export interface IngredientState {
+  ingredientId: number | null;
+  ingredientName: string;
+  ingredientCategory: string;
+  nutrition: NutritionState;
 }
 
 const initialState = {
-  tools: [],
+  ingredients: [],
   categories: [],
-  isCreateToolDialog: false,
+  isCreateIngrDialog: false,
   isCreateCategoryDialog: false,
   createErrorMessage: '',
   curTabId: false,
-} as ToolsPageState;
+} as IngredientsPageState;
 
-const tools = createSlice({
-  name: 'tools',
+const ingredients = createSlice({
+  name: 'ingredients',
   initialState,
   reducers: {
-    addToolRequest: (state, action) => {
-      state.isCreateToolDialog = false;
+    addIngrRequest: (state, action) => {
+      state.isCreateIngrDialog = false;
     },
     addCategoryRequest: (state, action) => {
       state.isCreateCategoryDialog = false;
     },
-    removeToolRequest: (state, action) => {},
+    removeIngrRequest: (state, action) => {},
     removeCategoryRequest: (state, action) => {},
-    getToolsRequest: (state) => {},
+    getIngrRequest: (state) => {},
     getCategoriesRequest: (state) => {},
-    updateTools: (state, action) => {
-      state.tools = action.payload;
+    updateIngr: (state, action) => {
+      state.ingredients = action.payload;
     },
     updateCategories: (state, action) => {
       state.categories = action.payload;
@@ -56,8 +54,8 @@ const tools = createSlice({
         state.curTabId = state.categories[0].categoryId;
       }
     },
-    updateCreateToolDialog: (state, action) => {
-      state.isCreateToolDialog = action.payload;
+    updateCreateIngrDialog: (state, action) => {
+      state.isCreateIngrDialog = action.payload;
       state.createErrorMessage = '';
     },
     updateCreateCategoryDialog: (state, action) => {
@@ -74,15 +72,15 @@ const tools = createSlice({
 });
 
 export const {
+  addIngrRequest,
   addCategoryRequest,
-  addToolRequest,
-  getToolsRequest,
-  getCategoriesRequest,
-  removeToolRequest,
+  removeIngrRequest,
   removeCategoryRequest,
-  updateCreateToolDialog,
+  getIngrRequest,
+  getCategoriesRequest,
+  updateCreateIngrDialog,
   updateCreateCategoryDialog,
   updateCreateErrorMessage,
-  updateCurTabId,
-} = tools.actions;
-export default tools.reducer;
+  updateCurTabId
+} = ingredients.actions;
+export default ingredients.reducer;

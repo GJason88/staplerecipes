@@ -15,7 +15,6 @@ function* updateRecipe() {
   const params = {
     name: recipeData.recipeName,
     time: recipeData.time,
-    nutrition: recipeData.nutrition,
     tools: recipeData.tools,
     ingredients: recipeData.ingredients,
     instructions: recipeData.instructions,

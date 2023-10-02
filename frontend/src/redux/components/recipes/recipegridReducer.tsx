@@ -1,17 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 interface RecipeGridState {
-  recipes: Array<RecipeCardState>,
-  isCreateDialog: boolean,
-  createDialogErrorMessage: string,
+  recipes: Array<RecipeCardState>;
+  isCreateDialog: boolean;
+  createDialogErrorMessage: string;
 }
 
 export interface RecipeCardState {
-  recipeId: number,
-  recipeName: string,
+  recipeId: number;
+  recipeName: string;
 }
 
-const initialState = { recipes: [], isCreateDialog: false, createDialogErrorMessage: '' } as RecipeGridState;
+const initialState = {
+  recipes: [],
+  isCreateDialog: false,
+  createDialogErrorMessage: '',
+} as RecipeGridState;
 
 const recipeGrid = createSlice({
   name: 'recipegrid',
@@ -38,5 +42,10 @@ const recipeGrid = createSlice({
   },
 });
 
-export const { updateCreateDialog, getAllRecipesRequest, createRecipeRequest, updateCreateDialogErrorMessage } = recipeGrid.actions;
+export const {
+  updateCreateDialog,
+  getAllRecipesRequest,
+  createRecipeRequest,
+  updateCreateDialogErrorMessage,
+} = recipeGrid.actions;
 export default recipeGrid.reducer;
