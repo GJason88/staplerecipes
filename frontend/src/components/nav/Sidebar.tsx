@@ -18,8 +18,8 @@ import { IRootState } from '../../index';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { drawerWidth } from '../../constants';
-import BlenderIcon from '@mui/icons-material/Blender';
-import EggIcon from '@mui/icons-material/Egg';
+import FlatwareIcon from '@mui/icons-material/Flatware';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 import FeedIcon from '@mui/icons-material/Feed';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 
@@ -27,8 +27,8 @@ import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 const icons = [
   <HomeIcon key='home' />,
   <MenuBookTwoToneIcon key='recipes' />,
-  <BlenderIcon key='tools' />,
-  <EggIcon key='ingredients' />,
+  <FlatwareIcon key='tools' />,
+  <KitchenIcon key='ingredients' />,
   <FeedIcon key='nutrition' />,
   <CalendarViewMonthIcon key='mealplan' />,
 ];

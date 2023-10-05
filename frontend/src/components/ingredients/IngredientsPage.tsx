@@ -86,8 +86,7 @@ export default function IngredientsPage() {
       <CreateDialog
         isCreateDialog={isCreateCategoryDialog}
         errorMessage={createErrorMessage}
-        placeholder='Category Name'
-        title='Create New Category'
+        type='Category'
         updateOpen={updateCreateCategoryDialog}
         updateErrorMessage={updateCreateErrorMessage}
         addRequest={addCategoryRequest}
@@ -95,8 +94,7 @@ export default function IngredientsPage() {
       <CreateDialog
         isCreateDialog={isCreateIngrDialog}
         errorMessage={createErrorMessage}
-        placeholder='Tool Name'
-        title='Create New Ingredient'
+        type='Ingredient'
         category={curTabId}
         updateOpen={updateCreateIngrDialog}
         updateErrorMessage={updateCreateErrorMessage}

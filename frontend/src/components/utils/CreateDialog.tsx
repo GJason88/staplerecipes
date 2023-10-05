@@ -13,8 +13,7 @@ interface CreateDialogProps {
   isCreateDialog: boolean;
   errorMessage: string;
   category?: number | false;
-  placeholder: string;
-  title: string;
+  type: string;
   updateOpen: (payload: boolean) => PayloadAction;
   updateErrorMessage: (payload: string) => PayloadAction;
   addRequest: (payload: {
@@ -31,8 +30,8 @@ export default function CreateDialog(props: CreateDialogProps) {
       dispatch(
         props.updateErrorMessage(
           name
-            ? 'Tool name cannot be over 75 characters'
-            : 'Tool name cannot be blank.'
+            ? `${props.type} name cannot be over 75 characters`
+            : `${props.type} name cannot be blank.`
         )
       );
       return;
@@ -46,13 +45,13 @@ export default function CreateDialog(props: CreateDialogProps) {
 
   return (
     <Dialog fullWidth open={props.isCreateDialog} onClose={handleCancel}>
-      <DialogTitle>{props.title}</DialogTitle>
+      <DialogTitle>Create New {props.type}</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
           margin='dense'
           id='name'
-          placeholder={props.placeholder}
+          placeholder={`${props.type} Name`}
           fullWidth
           variant='standard'
           onChange={(e) => setName(e.target.value)}

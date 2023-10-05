@@ -82,8 +82,7 @@ export default function ToolsPage() {
       <CreateDialog
         isCreateDialog={isCreateCategoryDialog}
         errorMessage={createErrorMessage}
-        placeholder='Category Name'
-        title='Create New Category'
+        type='Category'
         updateOpen={updateCreateCategoryDialog}
         updateErrorMessage={updateCreateErrorMessage}
         addRequest={addCategoryRequest}
@@ -91,8 +90,7 @@ export default function ToolsPage() {
       <CreateDialog
         isCreateDialog={isCreateToolDialog}
         errorMessage={createErrorMessage}
-        placeholder='Tool Name'
-        title='Create New Tool'
+        type='Tool'
         category={curTabId}
         updateOpen={updateCreateToolDialog}
         updateErrorMessage={updateCreateErrorMessage}

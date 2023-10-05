@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface RecipeGridState {
+export interface RecipeGridState {
   recipes: Array<RecipeCardState>;
   isCreateDialog: boolean;
   createDialogErrorMessage: string;
@@ -38,7 +38,9 @@ const recipeGrid = createSlice({
       // TODO: Handle error backend and frontend
       console.log('error', action);
     },
-    createRecipeRequest: (state, action) => {},
+    createRecipeRequest: (state, action) => {
+      state.isCreateDialog = false;
+    },
   },
 });
 

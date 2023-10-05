@@ -3,20 +3,23 @@ import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import RecipeCard from './RecipeCard';
 import { useEffect } from 'react';
 import {
-  RecipeCardState,
+  RecipeGridState,
+  createRecipeRequest,
   getAllRecipesRequest,
   updateCreateDialog,
+  updateCreateDialogErrorMessage,
 } from '../../redux/components/recipes/recipegridReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import { setRecipeId } from '../../redux/components/recipes/recipeReducer';
-import CreateRecipeDialog from './CreateRecipeDialog';
+import CreateDialog from '../utils/CreateDialog';
 
 export default function RecipeGrid() {
   const dispatch = useDispatch();
-  const recipeCards = useSelector<IRootState, Array<RecipeCardState>>(
-    (state) => state.recipegrid.recipes
-  );
+  const { recipes, isCreateDialog, createDialogErrorMessage } = useSelector<
+    IRootState,
+    RecipeGridState
+  >((state) => state.recipegrid);
 
   useEffect(() => {
     dispatch(setRecipeId('')); // reset id when not on recipe page to prevent creation mishaps
@@ -25,7 +28,14 @@ export default function RecipeGrid() {
 
   return (
     <>
-      <CreateRecipeDialog />
+      <CreateDialog
+        isCreateDialog={isCreateDialog}
+        errorMessage={createDialogErrorMessage}
+        type='Recipe'
+        updateOpen={updateCreateDialog}
+        updateErrorMessage={updateCreateDialogErrorMessage}
+        addRequest={createRecipeRequest}
+      />
       <Box
         sx={{ mt: 8 }}
         display='flex'
@@ -48,11 +58,11 @@ export default function RecipeGrid() {
             </div>
           </CardActionArea>
         </Card>
-        {recipeCards.map((recipeCard) => (
+        {recipes.map((recipe) => (
           <RecipeCard
-            key={recipeCard.recipeId}
-            name={recipeCard.recipeName}
-            recipeId={recipeCard.recipeId}
+            key={recipe.recipeId}
+            name={recipe.recipeName}
+            recipeId={recipe.recipeId}
           ></RecipeCard>
         ))}
       </Box>
