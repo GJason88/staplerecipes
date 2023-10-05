@@ -21,6 +21,7 @@ import { drawerWidth } from '../../constants';
 import BlenderIcon from '@mui/icons-material/Blender';
 import EggIcon from '@mui/icons-material/Egg';
 import FeedIcon from '@mui/icons-material/Feed';
+import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 
 // put into separate constants file
 const icons = [
@@ -29,8 +30,16 @@ const icons = [
   <BlenderIcon key='tools' />,
   <EggIcon key='ingredients' />,
   <FeedIcon key='nutrition' />,
+  <CalendarViewMonthIcon key='mealplan' />,
 ];
-const routes = ['/', '/recipes/', '/tools', '/ingredients', '/nutrition'];
+const routes = [
+  '/',
+  '/recipes/',
+  '/tools',
+  '/ingredients',
+  '/nutrition',
+  '/mealplans',
+];
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -64,20 +73,25 @@ export default function Sidebar() {
         </Typography>
       </Toolbar>
       <List>
-        {['Home', 'Recipes', 'Tools', 'Ingredients', 'Nutrition'].map(
-          (text, index) => (
-            <ListItem key={text} disablePadding sx={{ height: 75 }}>
-              <ListItemButton
-                sx={{ height: 75 }}
-                onClick={() => navigate(routes[index])}
-                selected={routes[index] === path}
-              >
-                <ListItemIcon>{icons[index]}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          )
-        )}
+        {[
+          'Home',
+          'Recipes',
+          'Tools',
+          'Ingredients',
+          'Nutrition',
+          'Meal Plans',
+        ].map((text, index) => (
+          <ListItem key={text} disablePadding sx={{ height: 75 }}>
+            <ListItemButton
+              sx={{ height: 75 }}
+              onClick={() => navigate(routes[index])}
+              selected={routes[index] === path}
+            >
+              <ListItemIcon>{icons[index]}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
     </Box>
   );

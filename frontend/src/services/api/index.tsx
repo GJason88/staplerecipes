@@ -14,9 +14,19 @@ export const toolsApi = {
   createTool: (params: { name: string }) => post('/tools', null, { params }),
   createCategory: (params: { name: string }) =>
     post('/tools/categories', null, { params }),
-  retrieve: (id: string) => get(`/tools/${id}`),
   retrieveAllTools: () => get('/tools/all'),
   retrieveAllCategories: () => get('/tools/categories/all'),
   deleteTool: (id: string) => destroy(`/tools/${id}`),
   deleteCategory: (id: string) => destroy(`/tools/categories/${id}`),
+};
+
+export const ingredientsApi = {
+  createIngredient: (params: { name: string }) =>
+    post('/ingredients', null, { params }),
+  createCategory: (params: { name: string }) =>
+    post('/ingredients/categories', null, { params }),
+  retrieveAllIngredients: () => get('/ingredients/all'),
+  retrieveAllCategories: () => get('/ingredients/categories/all'),
+  deleteIngredient: (id: string) => destroy(`/ingredients/${id}`),
+  deleteCategory: (id: string) => destroy(`/ingredients/categories/${id}`),
 };

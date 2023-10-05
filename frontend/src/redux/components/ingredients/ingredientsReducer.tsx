@@ -15,6 +15,7 @@ export interface IngredientState {
   ingredientId: number | null;
   ingredientName: string;
   ingredientCategory: string;
+  categoryId: number | null;
   nutrition: NutritionState;
 }
 
@@ -31,17 +32,17 @@ const ingredients = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
-    addIngrRequest: (state, action) => {
+    addIngredientRequest: (state, action) => {
       state.isCreateIngrDialog = false;
     },
     addCategoryRequest: (state, action) => {
       state.isCreateCategoryDialog = false;
     },
-    removeIngrRequest: (state, action) => {},
+    removeIngredientRequest: (state, action) => {},
     removeCategoryRequest: (state, action) => {},
-    getIngrRequest: (state) => {},
+    getIngredientsRequest: (state) => {},
     getCategoriesRequest: (state) => {},
-    updateIngr: (state, action) => {
+    updateIngredients: (state, action) => {
       state.ingredients = action.payload;
     },
     updateCategories: (state, action) => {
@@ -72,11 +73,11 @@ const ingredients = createSlice({
 });
 
 export const {
-  addIngrRequest,
+  addIngredientRequest,
   addCategoryRequest,
-  removeIngrRequest,
+  removeIngredientRequest,
   removeCategoryRequest,
-  getIngrRequest,
+  getIngredientsRequest,
   getCategoriesRequest,
   updateCreateIngrDialog,
   updateCreateCategoryDialog,

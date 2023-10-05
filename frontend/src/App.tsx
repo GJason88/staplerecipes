@@ -10,6 +10,7 @@ const EditRecipe = lazy(() => import('./components/recipes/recipe/EditRecipe'));
 const Tools = lazy(() => import('./components/routes/Tools'));
 const Ingredients = lazy(() => import('./components/routes/Ingredients'));
 const Nutrition = lazy(() => import('./components/routes/Home'));
+const MealPlans = lazy(() => import('./components/routes/Home'));
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path='/tools' element={<Tools />} />
           <Route path='/ingredients' element={<Ingredients />} />
           <Route path='/nutrition' element={<Nutrition />} />
+          <Route path='/mealplans' element={<MealPlans />} />
         </Routes>
       </Suspense>
     </Box>

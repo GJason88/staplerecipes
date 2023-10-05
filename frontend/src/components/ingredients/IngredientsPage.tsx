@@ -9,15 +9,16 @@ import AddIcon from '@mui/icons-material/Add';
 import {
   IngredientsPageState,
   addCategoryRequest,
-  addIngrRequest,
+  addIngredientRequest,
   getCategoriesRequest,
-  getIngrRequest,
+  getIngredientsRequest,
   removeCategoryRequest,
   updateCreateCategoryDialog,
   updateCreateErrorMessage,
   updateCreateIngrDialog,
   updateCurTabId,
 } from '../../redux/components/ingredients/ingredientsReducer';
+import IngredientsCategory from './IngredientsCategory';
 
 export default function IngredientsPage() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function IngredientsPage() {
 
   useEffect(() => {
     dispatch(getCategoriesRequest());
-    dispatch(getIngrRequest());
+    dispatch(getIngredientsRequest());
   }, [dispatch]);
 
   return (
@@ -95,11 +96,11 @@ export default function IngredientsPage() {
         isCreateDialog={isCreateIngrDialog}
         errorMessage={createErrorMessage}
         placeholder='Tool Name'
-        title='Create New Tool'
+        title='Create New Ingredient'
         category={curTabId}
         updateOpen={updateCreateIngrDialog}
         updateErrorMessage={updateCreateErrorMessage}
-        addRequest={addIngrRequest}
+        addRequest={addIngredientRequest}
       />
     </Box>
   );

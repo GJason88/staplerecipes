@@ -1,5 +1,5 @@
-import ToolsPage from '../tools/ToolsPage';
+import IngredientsPage from '../ingredients/IngredientsPage';
 
 export default function Tools() {
-  return <ToolsPage />;
+  return <IngredientsPage />;
 }
