@@ -4,6 +4,7 @@ export interface RecipeGridState {
   recipes: Array<RecipeCardState>;
   isCreateDialog: boolean;
   createDialogErrorMessage: string;
+  isRedirect: boolean;
 }
 
 export interface RecipeCardState {
@@ -15,6 +16,7 @@ const initialState = {
   recipes: [],
   isCreateDialog: false,
   createDialogErrorMessage: '',
+  isRedirect: false,
 } as RecipeGridState;
 
 const recipeGrid = createSlice({
@@ -31,9 +33,7 @@ const recipeGrid = createSlice({
     updateCreateDialogErrorMessage: (state, action) => {
       state.createDialogErrorMessage = action.payload;
     },
-    getAllRecipesRequest: (state) => {
-      console.log('get all recipes requested');
-    },
+    getAllRecipesRequest: (state) => {},
     getAllRecipesFailure: (state, action) => {
       // TODO: Handle error backend and frontend
       console.log('error', action);
@@ -41,6 +41,9 @@ const recipeGrid = createSlice({
     createRecipeRequest: (state, action) => {
       state.isCreateDialog = false;
     },
+    updateRedirect: (state, action) => {
+      state.isRedirect = action.payload;
+    }
   },
 });
 
@@ -49,5 +52,6 @@ export const {
   getAllRecipesRequest,
   createRecipeRequest,
   updateCreateDialogErrorMessage,
+  updateRedirect,
 } = recipeGrid.actions;
 export default recipeGrid.reducer;

@@ -5,12 +5,12 @@ import { RecipeCardState } from './recipegridReducer';
 import camelcaseKeys from 'camelcase-keys';
 
 interface CreateResponse {
-  data: { recipe_id: number }; // recipe id
+  data: { recipe_id: number };
 }
 
 interface CreateAction {
   type: string;
-  payload: { name: string }; // recipe name
+  payload: { name: string; category?: string };
 }
 
 function* createRecipe(action: CreateAction) {
@@ -21,7 +21,9 @@ function* createRecipe(action: CreateAction) {
     );
     const id = response.data.recipe_id;
     yield put({ type: 'recipe/setRecipeId', payload: id });
+    yield put({ type: 'recipegrid/updateRedirect', payload: true });
   } catch (e) {
+    console.log(e);
     yield put({
       type: 'recipegrid/updateCreateDialogErrorMessage',
       payload: e.response.data,

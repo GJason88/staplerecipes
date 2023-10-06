@@ -8,7 +8,7 @@ export interface RecipeState {
   time: string | null;
   nutrition: NutritionState | null;
   tools: Array<ToolState>;
-  ingredients: Array<IngredientState>;
+  ingredients: Array<RecipeIngredientState>;
   instructions: Array<string>;
   editResultDialog: string;
 }
@@ -76,10 +76,8 @@ const recipe = createSlice({
       state.ingredients = [
         ...state.ingredients,
         {
-          ingredientName: action.payload.name,
           amount: action.payload.amount,
           ingredientId: null,
-          ingredientCategory: '',
         },
       ];
     },

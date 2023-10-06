@@ -8,23 +8,31 @@ import {
   getAllRecipesRequest,
   updateCreateDialog,
   updateCreateDialogErrorMessage,
+  updateRedirect,
 } from '../../redux/components/recipes/recipegridReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import { setRecipeId } from '../../redux/components/recipes/recipeReducer';
 import CreateDialog from '../utils/CreateDialog';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecipeGrid() {
   const dispatch = useDispatch();
-  const { recipes, isCreateDialog, createDialogErrorMessage } = useSelector<
-    IRootState,
-    RecipeGridState
-  >((state) => state.recipegrid);
+  const navigate = useNavigate();
+  const { recipes, isCreateDialog, createDialogErrorMessage, isRedirect } =
+    useSelector<IRootState, RecipeGridState>((state) => state.recipegrid);
+  const recipeId = useSelector<IRootState, number | null>(
+    (state) => state.recipe.recipeId
+  );
 
   useEffect(() => {
-    dispatch(setRecipeId('')); // reset id when not on recipe page to prevent creation mishaps
+    if (isRedirect) {
+      dispatch(updateRedirect(false));
+      navigate(`/recipes/${recipeId}`);
+    }
+    dispatch(setRecipeId(null));
     dispatch(getAllRecipesRequest());
-  }, []);
+  }, [dispatch, navigate, isRedirect, recipeId]);
 
   return (
     <>
