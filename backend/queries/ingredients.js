@@ -40,7 +40,7 @@ export async function deleteIngredientQuery(ingrInfo) {
 
 export async function deleteCategoryQuery(categoryInfo) {
     const deleteCategoryQuery = {
-        text: 'DELETE FROM recipes.ingredient WHERE category_id = $1; DELETE FROM recipes.ingredient_category WHERE category_id = $1;',
+        text: 'DELETE FROM recipes.ingredient_category WHERE category_id = $1;',
         values: [categoryInfo.id]
     };
     return await db.none(deleteCategoryQuery.text, deleteCategoryQuery.values);
