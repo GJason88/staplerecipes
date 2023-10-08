@@ -11,6 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import {
+  setSnackBar,
   updateIsMobile,
   updatePath,
 } from '../../redux/components/nav/navReducer';
@@ -22,6 +23,7 @@ import FlatwareIcon from '@mui/icons-material/Flatware';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import FeedIcon from '@mui/icons-material/Feed';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
+import { Alert, Snackbar } from '@mui/material';
 
 // put into separate constants file
 const icons = [
@@ -49,10 +51,23 @@ export default function Sidebar() {
     (state) => state.nav.isMobile
   );
   const path = useSelector<IRootState, string>((state) => state.nav.path);
-
+  const snackbar = useSelector<IRootState, string>(
+    (state) => state.nav.snackbar
+  );
   useEffect(() => {
     dispatch(updatePath(location.pathname)); // TODO: make better solution
   }, [location.pathname]);
+
+  const handleSnackbarClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    dispatch(setSnackBar(''));
+  };
 
   const drawer = (
     <Box>
@@ -133,6 +148,21 @@ export default function Sidebar() {
       >
         {drawer}
       </Drawer>
+      {snackbar && (
+        <Snackbar
+          onClose={handleSnackbarClose}
+          open={true}
+          autoHideDuration={3000}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity='success'
+            sx={{ width: '100%' }}
+          >
+            {snackbar}
+          </Alert>
+        </Snackbar>
+      )}
     </Box>
   );
 }

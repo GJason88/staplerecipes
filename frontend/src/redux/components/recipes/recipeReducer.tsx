@@ -10,7 +10,6 @@ export interface RecipeState {
   tools: Array<ToolState>;
   ingredients: Array<RecipeIngredientState>;
   instructions: Array<string>;
-  editResultDialog: string;
 }
 
 export interface RecipeIngredientState {
@@ -50,16 +49,19 @@ const initialState = {
   time: null,
   instructions: [],
   nutrition: initialNutritionState,
-  editResultDialog: '',
 } as RecipeState;
 
 const recipe = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
+    resetRecipe: (state) => {
+      state = initialState;
+    },
     setRecipeId: (state, action) => {
       state.recipeId = action.payload;
     },
+    deleteRecipeRequest: (state, action) => {},
     updateRecipeName: (state, action) => {
       state.recipeName = action.payload;
     },
@@ -103,15 +105,14 @@ const recipe = createSlice({
         ...state.instructions.slice(action.payload + 1),
       ];
     },
-    editRecipeRequest: (state) => {},
-    setEditResultDialog: (state, action) => {
-      state.editResultDialog = action.payload;
-    },
+    editRecipeRequest: (state) => {}
   },
 });
 
 export const {
+  resetRecipe,
   setRecipeId,
+  deleteRecipeRequest,
   addIngredient,
   deleteIngredient,
   updateInstructionStep,

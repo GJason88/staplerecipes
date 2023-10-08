@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface NavState {
-  isMobile: boolean,
-  path: string,
-  isSearchSelected: boolean,
+  isMobile: boolean;
+  path: string;
+  isSearchSelected: boolean;
+  snackbar: string;
 }
 
-const initialState = { isMobile: false, path: '/', isSearchSelected: false } as NavState;
+const initialState = {
+  isMobile: false,
+  path: '/',
+  isSearchSelected: false,
+  snackbar: '',
+} as NavState;
 
 const nav = createSlice({
   name: 'nav',
@@ -21,8 +27,22 @@ const nav = createSlice({
     updateIsSearchSelected: (state, action) => {
       state.isSearchSelected = action.payload;
     },
+    setSnackBar: (state, action) => {
+      if (!action.payload) {
+        state.snackbar = '';
+        return;
+      }
+      state.snackbar = action.payload.status == "success" ? 
+                       action.payload.type + " Successful" : 
+                       action.payload.type + " Failed";
+    },
   },
 });
 
-export const { updateIsMobile, updatePath, updateIsSearchSelected } = nav.actions;
+export const {
+  updateIsMobile,
+  updatePath,
+  updateIsSearchSelected,
+  setSnackBar,
+} = nav.actions;
 export default nav.reducer;

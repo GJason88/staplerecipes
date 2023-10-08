@@ -12,6 +12,7 @@ import Information from './Information';
 import Instructions from './Instructions';
 import {
   RecipeState,
+  deleteRecipeRequest,
   editRecipeRequest,
   setRecipeId,
   updateRecipeName,
@@ -19,11 +20,12 @@ import {
 import { IRootState } from '../../..';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function EditRecipe() {
   const routeParams = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const recipeData = useSelector<IRootState, RecipeState>(
     (state) => state.recipe
   );
@@ -34,6 +36,11 @@ export default function EditRecipe() {
 
   const onSave = () => {
     dispatch(editRecipeRequest());
+  };
+
+  const onDelete = () => {
+    dispatch(deleteRecipeRequest(recipeData.recipeId));
+    navigate('/recipes');
   };
 
   const components = [
@@ -67,6 +74,14 @@ export default function EditRecipe() {
           sx={{ width: recipeWidth, mb: 3 }}
         >
           Save
+        </Button>
+        <Button
+          onClick={onDelete}
+          variant='outlined'
+          color='error'
+          sx={{ width: recipeWidth, mb: 3 }}
+        >
+          Delete Recipe {/* TODO: move to recipe UI page */}
         </Button>
       </Box>
     </Container>

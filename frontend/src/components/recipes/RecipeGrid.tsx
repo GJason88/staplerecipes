@@ -12,7 +12,7 @@ import {
 } from '../../redux/components/recipes/recipegridReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { setRecipeId } from '../../redux/components/recipes/recipeReducer';
+import { resetRecipe } from '../../redux/components/recipes/recipeReducer';
 import CreateDialog from '../utils/CreateDialog';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ export default function RecipeGrid() {
       dispatch(updateRedirect(false));
       navigate(`/recipes/${recipeId}`);
     }
-    dispatch(setRecipeId(null));
+    dispatch(resetRecipe());
     dispatch(getAllRecipesRequest());
   }, [dispatch, navigate, isRedirect, recipeId]);
 
