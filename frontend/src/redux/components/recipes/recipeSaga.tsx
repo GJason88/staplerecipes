@@ -21,17 +21,18 @@ function* updateRecipe() {
     ingredients: recipeData.ingredients,
     instructions: recipeData.instructions,
   };
-  try {
-    const response: UpdateResponse = yield call(
-      recipesApi.update,
-      recipeData.recipeId,
-      params
-    );
-    yield put({ type: 'nav/setSnackBar', payload: response.data });
-    console.log(response.data);
-  } catch (e) {
-    yield put({ type: 'nav/setSnackBar', payload: e.response.data });
-  }
+  console.log(params);
+  // try {
+  //   const response: UpdateResponse = yield call(
+  //     recipesApi.update,
+  //     recipeData.recipeId,
+  //     params
+  //   );
+  //   yield put({ type: 'nav/setSnackBar', payload: response.data });
+  //   console.log(response.data);
+  // } catch (e) {
+  //   yield put({ type: 'nav/setSnackBar', payload: e.response.data });
+  // }
 }
 
 function* deleteRecipe(action) {

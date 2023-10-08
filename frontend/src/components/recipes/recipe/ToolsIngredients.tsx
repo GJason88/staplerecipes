@@ -15,11 +15,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ingredients, recipeWidth, tools } from '../../../constants';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { recipeWidth } from '../../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import {
-  IngredientState,
   addIngredient,
   deleteIngredient,
   updateTools,
@@ -28,13 +27,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-
-interface ToolsIngredientsProps {
-  ingredients: Array<IngredientState>;
-}
+import { IRootState } from '../../..';
+import {
+  ToolState,
+  getToolsRequest,
+} from '../../../redux/components/tools/toolsReducer';
+import {
+  IngredientState,
+  getIngredientsRequest,
+} from '../../../redux/components/ingredients/ingredientsReducer';
 
 interface State {
-  selectedIngredient: string | null;
+  selectedIngredient: IngredientState | null;
   amount: string;
   alertStatus: string;
 }
@@ -48,16 +52,33 @@ const initialState = {
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
-export default function ToolsIngredients(props: ToolsIngredientsProps) {
+export default function ToolsIngredients() {
   const dispatch = useDispatch();
   const [state, setState] = useState<State>(initialState);
+  const allTools = useSelector<IRootState, Array<ToolState>>(
+    (state) => state.tools.tools
+  );
+  const allIngredients = useSelector<IRootState, Array<IngredientState>>(
+    (state) => state.ingredients.ingredients
+  );
+  const recipeIngredients = useSelector<IRootState, Array<IngredientState>>(
+    (state) => state.recipe.ingredients
+  );
+
+  useEffect(() => {
+    dispatch(getToolsRequest());
+    dispatch(getIngredientsRequest());
+  }, [dispatch]);
 
   const handleAdd = () => {
-    const curIngredients = props.ingredients.map((ingr) => ingr.name);
     if (!state.selectedIngredient) {
       return;
     }
-    if (curIngredients.includes(state.selectedIngredient)) {
+    if (
+      recipeIngredients.some(
+        (ingr) => ingr.ingredientId === state.selectedIngredient?.ingredientId
+      )
+    ) {
       setState({
         ...state,
         alertStatus: 'Ingredient already exists',
@@ -66,7 +87,7 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
     }
     dispatch(
       addIngredient({
-        name: state.selectedIngredient,
+        ...state.selectedIngredient,
         amount: state.amount,
       })
     );
@@ -85,9 +106,9 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
         onChange={(e, value) => dispatch(updateTools(value))}
         fullWidth
         multiple
-        options={tools}
+        options={allTools}
         disableCloseOnSelect
-        getOptionLabel={(option) => option}
+        getOptionLabel={(option) => option.toolName}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -96,7 +117,7 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
               style={{ marginRight: 8 }}
               checked={selected}
             />
-            {option}
+            {option.toolName}
           </li>
         )}
         renderInput={(params) => <TextField {...params} label={'Tools'} />}
@@ -104,7 +125,8 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
       <Box pb={2} display='flex'>
         <Autocomplete
           sx={{ width: 650 }}
-          options={ingredients}
+          options={allIngredients}
+          getOptionLabel={(option) => option.ingredientName}
           onChange={(e, value) =>
             setState({
               ...state,
@@ -155,34 +177,37 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.ingredients.map((ingr, index) => (
-              <TableRow
-                hover
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell sx={{ width: 0 }}>
-                  <IconButton
-                    onClick={() => {
-                      dispatch(deleteIngredient(index));
-                      setState({ ...state, alertStatus: '' });
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-                <TableCell sx={{ width: 0 }}>
-                  <Typography noWrap fontSize={18}>
-                    {ingr.amount}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography noWrap fontSize={18}>
-                    {ingr.ingredientName}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
+            {recipeIngredients.map((ingr, index) => {
+              if (!ingr) return;
+              return (
+                <TableRow
+                  hover
+                  key={index}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell sx={{ width: 0 }}>
+                    <IconButton
+                      onClick={() => {
+                        dispatch(deleteIngredient(index));
+                        setState({ ...state, alertStatus: '' });
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell sx={{ width: 0 }}>
+                    <Typography noWrap fontSize={18}>
+                      {ingr.amount}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography noWrap fontSize={18}>
+                      {ingr.ingredientName}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>

@@ -45,7 +45,7 @@ export default function EditRecipe() {
 
   const components = [
     <Information key={0} />, // TODO: constrain to numbers for nutrition
-    <ToolsIngredients ingredients={recipeData.ingredients} key={1} />,
+    <ToolsIngredients key={1} />,
     <Instructions instructions={recipeData.instructions} key={2} />,
   ];
   return (

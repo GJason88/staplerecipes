@@ -17,6 +17,7 @@ export interface IngredientState {
   ingredientCategory: string;
   categoryId: number | null;
   nutrition: NutritionState;
+  amount?: number;
 }
 
 const initialState = {
