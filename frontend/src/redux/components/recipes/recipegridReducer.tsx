@@ -4,7 +4,7 @@ export interface RecipeGridState {
   recipes: Array<RecipeCardState>;
   isCreateDialog: boolean;
   createDialogErrorMessage: string;
-  isRedirect: boolean;
+  redirect: string | false;
 }
 
 export interface RecipeCardState {
@@ -16,7 +16,7 @@ const initialState = {
   recipes: [],
   isCreateDialog: false,
   createDialogErrorMessage: '',
-  isRedirect: false,
+  redirect: false,
 } as RecipeGridState;
 
 const recipeGrid = createSlice({
@@ -42,7 +42,7 @@ const recipeGrid = createSlice({
       state.isCreateDialog = false;
     },
     updateRedirect: (state, action) => {
-      state.isRedirect = action.payload;
+      state.redirect = action.payload;
     }
   },
 });

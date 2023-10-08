@@ -14,7 +14,6 @@ export interface IngredientsPageState {
 export interface IngredientState {
   ingredientId: number | null;
   ingredientName: string;
-  ingredientCategory: string;
   categoryId: number | null;
   nutrition: NutritionState;
   amount?: number;

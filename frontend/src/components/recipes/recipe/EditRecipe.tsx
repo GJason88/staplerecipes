@@ -14,6 +14,7 @@ import {
   RecipeState,
   deleteRecipeRequest,
   editRecipeRequest,
+  setInvalid,
   setRecipeId,
   updateRecipeName,
 } from '../../../redux/components/recipes/recipeReducer';
@@ -26,27 +27,44 @@ export default function EditRecipe() {
   const routeParams = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const recipeData = useSelector<IRootState, RecipeState>(
-    (state) => state.recipe
-  );
+  const {
+    recipeId,
+    recipeName,
+    ingredients,
+    tools,
+    instructions,
+    time,
+    invalid,
+  } = useSelector<IRootState, RecipeState>((state) => state.recipe);
 
   useEffect(() => {
-    dispatch(setRecipeId(routeParams.id)); // TODO: may move to recipe onmount if editrecipe is accessed through that page.
-  }, []);
+    dispatch(setRecipeId(routeParams.id)); // TODO: Move to recipe onmount since editrecipe is accessed through that page.
+  }, [dispatch, routeParams]);
+
+  useEffect(() => {
+    if (invalid) {
+      navigate('/recipes');
+      dispatch(setInvalid(false));
+    }
+  }, [invalid, dispatch, navigate]);
 
   const onSave = () => {
     dispatch(editRecipeRequest());
   };
 
   const onDelete = () => {
-    dispatch(deleteRecipeRequest(recipeData.recipeId));
+    dispatch(deleteRecipeRequest(recipeId));
     navigate('/recipes');
   };
 
   const components = [
-    <Information key={0} />, // TODO: constrain to numbers for nutrition
-    <ToolsIngredients key={1} />,
-    <Instructions instructions={recipeData.instructions} key={2} />,
+    <Information time={time} key={0} />, // TODO: constrain to numbers for nutrition
+    <ToolsIngredients
+      recipeIngredients={ingredients}
+      recipeTools={tools}
+      key={1}
+    />,
+    <Instructions instructions={instructions} key={2} />,
   ];
   return (
     <Container sx={{ pt: 10 }}>
@@ -55,7 +73,7 @@ export default function EditRecipe() {
           Recipe Name
         </Typography>
         <TextField
-          value={recipeData.recipeName}
+          value={recipeName}
           onChange={(e) => dispatch(updateRecipeName(e.target.value))}
           sx={{ pb: 4, width: recipeWidth }}
         />

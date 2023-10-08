@@ -5,11 +5,12 @@ import { IngredientState } from '../ingredients/ingredientsReducer';
 export interface RecipeState {
   recipeId: number | null;
   recipeName: string;
-  time: string | null;
+  time: string;
   nutrition: NutritionState | null;
   tools: Array<ToolState>;
   ingredients: Array<IngredientState>;
   instructions: Array<string>;
+  invalid: boolean;
 }
 
 export interface NutritionState {
@@ -41,19 +42,21 @@ const initialState = {
   recipeName: '',
   tools: [],
   ingredients: [],
-  time: null,
+  time: '',
   instructions: [],
   nutrition: initialNutritionState,
+  invalid: false,
 } as RecipeState;
 
 const recipe = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
-    resetRecipe: (state) => {
-      state = initialState;
+    setRecipe: (state, action) => {
+      state = action.payload ? action.payload : initialState;
+      return state;
     },
-    setRecipeId: (state, action) => {
+    setRecipeId: (state, action) => { // Gets recipe data from db when used.
       state.recipeId = action.payload;
     },
     deleteRecipeRequest: (state, action) => {},
@@ -97,12 +100,15 @@ const recipe = createSlice({
         ...state.instructions.slice(action.payload + 1),
       ];
     },
-    editRecipeRequest: (state) => {}
+    editRecipeRequest: (state) => {},
+    setInvalid: (state, action) => {
+      state.invalid = action.payload;
+    }
   },
 });
 
 export const {
-  resetRecipe,
+  setRecipe,
   setRecipeId,
   deleteRecipeRequest,
   addIngredient,
@@ -115,5 +121,6 @@ export const {
   updateNutrition,
   updateTools,
   editRecipeRequest,
+  setInvalid,
 } = recipe.actions;
 export default recipe.reducer;

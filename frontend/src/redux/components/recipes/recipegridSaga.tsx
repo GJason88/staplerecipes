@@ -20,8 +20,7 @@ function* createRecipe(action: CreateAction) {
       action.payload
     );
     const id = response.data.recipe_id;
-    yield put({ type: 'recipe/setRecipeId', payload: id });
-    yield put({ type: 'recipegrid/updateRedirect', payload: true });
+    yield put({ type: 'recipegrid/updateRedirect', payload: id });
   } catch (e) {
     console.log(e);
     yield put({

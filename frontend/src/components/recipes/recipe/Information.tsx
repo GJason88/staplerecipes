@@ -2,7 +2,11 @@ import { Box, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { updateTime } from '../../../redux/components/recipes/recipeReducer';
 
-export default function Information() {
+interface InformationProps {
+  time: string;
+}
+
+export default function Information(props: InformationProps) {
   const dispatch = useDispatch();
   return (
     <>
@@ -12,6 +16,7 @@ export default function Information() {
       <Box>
         <TextField
           label='Time'
+          value={props.time}
           onChange={(e) => dispatch(updateTime(e.target.value))}
         ></TextField>
       </Box>

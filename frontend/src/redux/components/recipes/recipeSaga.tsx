@@ -5,9 +5,31 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { recipesApi } from '../../../services/api';
 import { RecipeState } from './recipeReducer';
 import { IRootState } from '../../..';
+import camelcaseKeys from 'camelcase-keys';
 
 interface UpdateResponse {
   data: string; // update result
+}
+
+function* getRecipe(action) {
+  try {
+    const response = yield call(recipesApi.retrieve, action.payload);
+    const recipeData = camelcaseKeys(response.data, { deep: true });
+    console.log(recipeData);
+    yield put({
+      type: 'recipe/setRecipe',
+      payload: recipeData,
+    });
+  } catch (e) {
+    yield put({
+      type: 'recipe/setInvalid',
+      payload: true,
+    });
+    yield put({
+      type: 'nav/setSnackBar',
+      payload: { message: e.response.data },
+    });
+  }
 }
 
 function* updateRecipe() {
@@ -27,10 +49,16 @@ function* updateRecipe() {
       recipeData.recipeId,
       params
     );
-    yield put({ type: 'nav/setSnackBar', payload: response.data });
+    yield put({
+      type: 'nav/setSnackBar',
+      payload: { message: 'Successfully updated recipe' },
+    });
     console.log(response.data);
   } catch (e) {
-    yield put({ type: 'nav/setSnackBar', payload: e.response.data });
+    yield put({
+      type: 'nav/setSnackBar',
+      payload: { message: 'Failed to update recipe' },
+    });
   }
 }
 
@@ -42,12 +70,12 @@ function* deleteRecipe(action) {
     );
     yield put({
       type: 'nav/setSnackBar',
-      payload: { type: 'Delete Recipe', status: 'success' },
+      payload: { message: 'Successfully deleted recipe' },
     });
   } catch (e) {
     yield put({
       type: 'nav/setSnackBar',
-      payload: { type: 'Delete Recipe', status: 'error' },
+      payload: { message: 'Failed to delete recipe' },
     });
   }
 }
@@ -55,4 +83,5 @@ function* deleteRecipe(action) {
 export default function* recipeSaga() {
   yield takeLatest('recipe/editRecipeRequest', updateRecipe);
   yield takeLatest('recipe/deleteRecipeRequest', deleteRecipe);
+  yield takeLatest('recipe/setRecipeId', getRecipe);
 }

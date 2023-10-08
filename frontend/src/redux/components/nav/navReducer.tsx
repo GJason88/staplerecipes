@@ -28,13 +28,7 @@ const nav = createSlice({
       state.isSearchSelected = action.payload;
     },
     setSnackBar: (state, action) => {
-      if (!action.payload) {
-        state.snackbar = '';
-        return;
-      }
-      state.snackbar = action.payload.status == "success" ? 
-                       action.payload.type + " Successful" : 
-                       action.payload.type + " Failed";
+      state.snackbar = action.payload?.message ?? '';
     },
   },
 });

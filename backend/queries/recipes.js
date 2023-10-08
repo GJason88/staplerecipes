@@ -7,12 +7,28 @@ export async function getAllRecipesQuery() {
     return await db.any(selectRecipesQuery);
 }
 
+export async function getRecipeQuery(recipeId) {
+    const selectRecipeQuery = {
+        text: 'SELECT recipe_id, recipe_name, time, instructions FROM recipes.recipe WHERE recipe_id = $1;' +
+              'SELECT i.ingredient_id, ingredient_name, amount, calories, protein, carbs, fat, fiber \
+               FROM recipes.ingredient AS i \
+               INNER JOIN recipes.recipe_ingredient AS ri \
+               ON i.ingredient_id = ri.ingredient_id AND ri.recipe_id = $1;' +
+               'SELECT t.tool_id, tool_name, category_id \
+               FROM recipes.tool AS t \
+               INNER JOIN recipes.recipe_tool AS rt \
+               ON t.tool_id = rt.tool_id AND rt.recipe_id = $1;',
+        values: [recipeId]
+    };
+    return await db.multi(selectRecipeQuery.text, selectRecipeQuery.values);
+}
+
 export async function createRecipeQuery(recipeInfo) {
     const insertRecipeQuery = {
-        text: 'INSERT INTO recipes.recipe(recipe_name) VALUES ($1) RETURNING recipe_id;',
-        values: [recipeInfo.name],
+        text: 'INSERT INTO recipes.recipe(recipe_name, time, instructions) VALUES ($1, $2, $3) RETURNING recipe_id;',
+        values: [recipeInfo.name, '', []],
     };
-    return await db.one(insertRecipeQuery.text, insertRecipeQuery.values);
+    return await db.one(insertRecipeQuery);
 }
 
 export async function updateRecipeQuery(recipeId, recipeInfo) {
@@ -20,12 +36,12 @@ export async function updateRecipeQuery(recipeId, recipeInfo) {
         text: 'UPDATE recipes.recipe SET recipe_name = $1, time = $2, instructions = $3 WHERE recipe_id = $4',
         values: [
             recipeInfo.name,
-            recipeInfo.time || null,
+            recipeInfo.time || '',
             recipeInfo.instructions || [],
             recipeId
         ],
     };
-    await db.none(updateRecipeQueries.text, updateRecipeQueries.values);
+    await db.none(updateRecipeQueries);
     updateToolsQuery(recipeId, recipeInfo.tools);
     updateIngredientsQuery(recipeId, recipeInfo.ingredients);
 }
@@ -75,5 +91,5 @@ export async function deleteRecipeQuery(recipeId) {
         text: 'DELETE FROM recipes.recipe WHERE recipe_id = $1;',
         values: [recipeId]
     };
-    await db.none(updateRecipeQueries.text, updateRecipeQueries.values);
+    await db.none(updateRecipeQueries);
 }

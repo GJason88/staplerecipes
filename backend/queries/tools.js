@@ -19,7 +19,7 @@ export async function createToolQuery(toolInfo) {
         text: 'INSERT INTO recipes.tool(tool_name, category_id) VALUES ($1, $2);',
         values: [toolInfo.name, parseInt(toolInfo.category)],
     };
-    return await db.none(insertToolQuery.text, insertToolQuery.values);
+    return await db.none(insertToolQuery);
 }
 
 export async function createCategoryQuery(categoryInfo) {
@@ -27,7 +27,7 @@ export async function createCategoryQuery(categoryInfo) {
         text: 'INSERT INTO recipes.tool_category(category_name) VALUES ($1);',
         values: [categoryInfo.name],
     };
-    return await db.none(insertCategoryQuery.text, insertCategoryQuery.values);
+    return await db.none(insertCategoryQuery);
 }
 
 export async function deleteToolQuery(toolInfo) {
@@ -35,7 +35,7 @@ export async function deleteToolQuery(toolInfo) {
         text: 'DELETE FROM recipes.tool WHERE tool_id = $1;',
         values: [toolInfo.id]
     };
-    return await db.none(deleteToolQuery.text, deleteToolQuery.values);
+    return await db.none(deleteToolQuery);
 }
 
 export async function deleteCategoryQuery(categoryInfo) {
@@ -43,5 +43,5 @@ export async function deleteCategoryQuery(categoryInfo) {
         text: 'DELETE FROM recipes.tool_category WHERE category_id = $1;',
         values: [categoryInfo.id]
     };
-    return await db.none(deleteCategoryQuery.text, deleteCategoryQuery.values);
+    return await db.none(deleteCategoryQuery);
 }

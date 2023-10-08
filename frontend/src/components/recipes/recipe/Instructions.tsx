@@ -15,7 +15,6 @@ interface InstructionsProps {
 
 export default function Instructions(props: InstructionsProps) {
   const dispatch = useDispatch();
-
   return (
     <>
       <Typography variant='h4' pb={2}>

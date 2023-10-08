@@ -37,6 +37,11 @@ import {
   getIngredientsRequest,
 } from '../../../redux/components/ingredients/ingredientsReducer';
 
+interface ToolsIngredientsProps {
+  recipeIngredients: Array<IngredientState>;
+  recipeTools: Array<ToolState>;
+}
+
 interface State {
   selectedIngredient: IngredientState | null;
   amount: string;
@@ -52,7 +57,7 @@ const initialState = {
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
-export default function ToolsIngredients() {
+export default function ToolsIngredients(props: ToolsIngredientsProps) {
   const dispatch = useDispatch();
   const [state, setState] = useState<State>(initialState);
   const allTools = useSelector<IRootState, Array<ToolState>>(
@@ -60,9 +65,6 @@ export default function ToolsIngredients() {
   );
   const allIngredients = useSelector<IRootState, Array<IngredientState>>(
     (state) => state.ingredients.ingredients
-  );
-  const recipeIngredients = useSelector<IRootState, Array<IngredientState>>(
-    (state) => state.recipe.ingredients
   );
 
   useEffect(() => {
@@ -75,7 +77,7 @@ export default function ToolsIngredients() {
       return;
     }
     if (
-      recipeIngredients.some(
+      props.recipeIngredients.some(
         (ingr) => ingr.ingredientId === state.selectedIngredient?.ingredientId
       )
     ) {
@@ -107,6 +109,11 @@ export default function ToolsIngredients() {
         fullWidth
         multiple
         options={allTools}
+        value={allTools.filter((tool) =>
+          props.recipeTools.some(
+            (recipeTool) => recipeTool.toolId === tool.toolId
+          )
+        )}
         disableCloseOnSelect
         getOptionLabel={(option) => option.toolName}
         renderOption={(props, option, { selected }) => (
@@ -177,7 +184,7 @@ export default function ToolsIngredients() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {recipeIngredients.map((ingr, index) => {
+            {props.recipeIngredients.map((ingr, index) => {
               if (!ingr) return;
               return (
                 <TableRow

@@ -19,7 +19,7 @@ export async function createIngredientQuery(ingrInfo) {
         text: 'INSERT INTO recipes.ingredient(ingredient_name, category_id) VALUES ($1, $2);',
         values: [ingrInfo.name, parseInt(ingrInfo.category)],
     };
-    return await db.none(insertIngredientQuery.text, insertIngredientQuery.values);
+    return await db.none(insertIngredientQuery);
 }
 
 export async function createCategoryQuery(categoryInfo) {
@@ -27,7 +27,7 @@ export async function createCategoryQuery(categoryInfo) {
         text: 'INSERT INTO recipes.ingredient_category(category_name) VALUES ($1);',
         values: [categoryInfo.name],
     };
-    return await db.none(insertCategoryQuery.text, insertCategoryQuery.values);
+    return await db.none(insertCategoryQuery);
 }
 
 export async function deleteIngredientQuery(ingrInfo) {
@@ -35,7 +35,7 @@ export async function deleteIngredientQuery(ingrInfo) {
         text: 'DELETE FROM recipes.ingredient WHERE ingredient_id = $1;',
         values: [ingrInfo.id]
     };
-    return await db.none(deleteIngredientQuery.text, deleteIngredientQuery.values);
+    return await db.none(deleteIngredientQuery);
 }
 
 export async function deleteCategoryQuery(categoryInfo) {
@@ -43,5 +43,5 @@ export async function deleteCategoryQuery(categoryInfo) {
         text: 'DELETE FROM recipes.ingredient_category WHERE category_id = $1;',
         values: [categoryInfo.id]
     };
-    return await db.none(deleteCategoryQuery.text, deleteCategoryQuery.values);
+    return await db.none(deleteCategoryQuery);
 }
