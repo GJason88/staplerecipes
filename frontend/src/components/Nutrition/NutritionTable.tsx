@@ -199,7 +199,8 @@ export default function NutritionTable() {
   return (
     <Box
       sx={{
-        pt: 8,
+        m: 2,
+        mt: 10,
         height: 800,
         width: '100%',
         '& .actions': {
@@ -208,6 +209,8 @@ export default function NutritionTable() {
         '& .textPrimary': {
           color: 'text.primary',
         },
+        backgroundColor: '#f8f8f8',
+        boxShadow: 1,
       }}
     >
       <DataGrid

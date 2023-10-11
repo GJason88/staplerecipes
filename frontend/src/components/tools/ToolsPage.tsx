@@ -37,7 +37,7 @@ export default function ToolsPage() {
   }, [dispatch]);
 
   return (
-    <Box>
+    <Box sx={{ m: 2 }}>
       <Paper sx={{ mt: 8 }}>
         <Box display='flex'>
           <Tabs

@@ -1,4 +1,4 @@
-export const drawerWidth = 260;
+export const drawerWidth = 270;
 
 export const recipeWidth = 900;
 

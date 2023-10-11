@@ -73,7 +73,7 @@ export default function Sidebar() {
     <Box>
       <Toolbar>
         <img
-          src='/assets/logo-612x612.png'
+          src='/assets/darklogo-612x612.png'
           width='75'
           style={{ marginLeft: -15, marginRight: -12 }}
         />
@@ -83,6 +83,7 @@ export default function Sidebar() {
           variant='h5'
           marginRight={'-30px'}
           marginBottom={'-10px'}
+          color='white'
         >
           Staple Recipes
         </Typography>
@@ -96,9 +97,9 @@ export default function Sidebar() {
           'Nutrition',
           'Meal Plans',
         ].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ height: 75 }}>
+          <ListItem key={text} disablePadding sx={{ height: 50, mt: 1, p: 1 }}>
             <ListItemButton
-              sx={{ height: 75 }}
+              sx={{ height: 50, borderRadius: 3 }}
               onClick={() => navigate(routes[index])}
               selected={routes[index] === path}
             >

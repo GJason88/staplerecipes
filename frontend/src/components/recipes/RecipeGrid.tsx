@@ -47,18 +47,36 @@ export default function RecipeGrid() {
         justifyContent='flex-start'
         flexWrap='wrap'
       >
-        <Card sx={{ m: 1.5, width: 345, height: 320 }}>
+        <Card
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            ml: 2,
+            mt: 2,
+            mb: 2,
+            width: 300,
+            height: 300,
+            boxShadow: 'none',
+            borderRadius: 5,
+            backgroundColor: '#f0f0f0',
+          }}
+        >
           <CardActionArea
             onClick={() => dispatch(updateCreateDialog(true))}
-            sx={{ width: 345, height: 320 }}
+            sx={{
+              width: 250,
+              height: 230,
+              boxShadow: 1,
+            }}
           >
             <div style={{ textAlign: 'center' }}>
               <AddBoxTwoToneIcon
-                sx={{ width: 200, height: 200 }}
+                sx={{ color: '#555555', width: 80, height: 80 }}
                 color='action'
               ></AddBoxTwoToneIcon>
               <Typography gutterBottom variant='h5' component='div'>
-                Create New Recipe
+                Create Recipe
               </Typography>
             </div>
           </CardActionArea>

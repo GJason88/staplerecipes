@@ -61,7 +61,6 @@ export default function EditRecipe() {
   ];
   return (
     <Container sx={{ pt: 10 }}>
-      <Button onClick={() => console.log(timeRef.current)}>hello</Button>
       <Box display='flex' flexDirection='column'>
         <Typography variant='h4' pb={2}>
           Recipe Name
@@ -69,13 +68,13 @@ export default function EditRecipe() {
         <TextField
           value={recipe.recipeName}
           onChange={(e) => dispatch(updateRecipeName(e.target.value))}
-          sx={{ pb: 4, width: recipeWidth }}
+          sx={{ mb: 4, width: recipeWidth, backgroundColor: '#f8f8f8' }}
         />
         {components.map((component, index) => (
           <Paper
             key={index}
             elevation={2}
-            sx={{ width: recipeWidth - pLen * 2, mb: 4, p: 2 }}
+            sx={{ width: recipeWidth, mb: 4, p: 2 }}
           >
             {component}
           </Paper>

@@ -36,6 +36,7 @@ export default function TopAppBar() {
         sx={{
           width: { lg: `calc(100% - ${drawerWidth}px)` },
           ml: { lg: `${drawerWidth}px` },
+          boxShadow: 1,
         }}
       >
         <Toolbar>

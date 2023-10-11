@@ -14,7 +14,18 @@ export default function RecipeCard(props: RecipeCardProps) {
   const navigate = useNavigate();
 
   return (
-    <Card raised sx={{ m: 1.5, width: 345, height: 320 }}>
+    <Card
+      raised
+      sx={{
+        ml: 2,
+        mt: 2,
+        mb: 2,
+        width: 300,
+        height: 300,
+        borderRadius: 5,
+        boxShadow: 1,
+      }}
+    >
       <CardActionArea
         onClick={() => {
           navigate(`/recipes/${props.recipeId}`);
@@ -22,10 +33,17 @@ export default function RecipeCard(props: RecipeCardProps) {
       >
         <CardMedia
           component='img'
-          image='\assets\logo-612x612.png'
-          sx={{ margin: 'auto', height: 200, width: 150 }}
+          image='\assets\darklogo-612x612.png'
+          sx={{ m: 'auto', height: 200, width: 300 }}
         />
-        <CardContent sx={{ display: 'flex', alignItems: 'center', height: 45 }}>
+        <CardContent
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: 100,
+            boxShadow: 5,
+          }}
+        >
           <Typography
             sx={{ wordBreak: 'break-word' }}
             variant='h5'
@@ -35,11 +53,6 @@ export default function RecipeCard(props: RecipeCardProps) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size='small' color='primary'>
-          Share
-        </Button>
-      </CardActions>
     </Card>
   );
 }
