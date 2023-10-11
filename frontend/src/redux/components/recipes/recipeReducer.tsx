@@ -14,11 +14,11 @@ export interface RecipeState {
 }
 
 export interface NutritionState {
-  calories: number | null;
-  protein: number | null;
-  carbs: number | null;
-  fat: number | null;
-  fiber: number | null;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
 }
 
 export interface UpdateRecipeParams {
@@ -30,11 +30,11 @@ export interface UpdateRecipeParams {
 }
 
 const initialNutritionState = {
-  calories: null,
-  protein: null,
-  carbs: null,
-  fat: null,
-  fiber: null,
+  calories: 0,
+  protein: 0,
+  carbs: 0,
+  fat: 0,
+  fiber: 0,
 } as NutritionState;
 
 const initialState = {
@@ -53,7 +53,7 @@ const recipe = createSlice({
   initialState,
   reducers: {
     setRecipe: (state, action) => {
-      state = action.payload ? action.payload : initialState;
+      state = action.payload ? { ...state, ...action.payload } : initialState;
       return state;
     },
     setRecipeId: (state, action) => { // Gets recipe data from db when used.

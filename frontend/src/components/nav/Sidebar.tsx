@@ -36,7 +36,7 @@ const icons = [
 ];
 const routes = [
   '/',
-  '/recipes/',
+  '/recipes',
   '/tools',
   '/ingredients',
   '/nutrition',
