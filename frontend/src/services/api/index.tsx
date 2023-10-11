@@ -1,4 +1,7 @@
-import { UpdateRecipeParams } from '../../redux/components/recipes/recipeReducer';
+import {
+  NutritionState,
+  UpdateRecipeParams,
+} from '../../redux/components/recipes/recipeReducer';
 import { get, post, put, destroy } from './base';
 
 export const recipesApi = {
@@ -29,4 +32,6 @@ export const ingredientsApi = {
   retrieveAllCategories: () => get('/ingredients/categories/all'),
   deleteIngredient: (id: string) => destroy(`/ingredients/${id}`),
   deleteCategory: (id: string) => destroy(`/ingredients/categories/${id}`),
+  updateNutrition: (id: string, params: NutritionState) =>
+    put(`/ingredients/nutrition/${id}`, null, { params }),
 };

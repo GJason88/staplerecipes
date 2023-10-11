@@ -1,5 +1,5 @@
-import ToolsPage from '../tools/ToolsPage';
+import NutritionPage from '../Nutrition/NutritionPage';
 
-export default function Tools() {
-  return <ToolsPage />;
+export default function Nutrition() {
+  return <NutritionPage />;
 }

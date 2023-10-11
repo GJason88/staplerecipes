@@ -15,6 +15,7 @@ export interface IngredientState {
   ingredientId: number | null;
   ingredientName: string;
   categoryId: number | null;
+  categoryName: string;
   nutrition: NutritionState;
   amount?: number;
 }
@@ -69,6 +70,7 @@ const ingredients = createSlice({
     updateCurTabId: (state, action) => {
       state.curTabId = action.payload;
     },
+    updateNutritionRequest: (state, action) => {},
   },
 });
 
@@ -82,6 +84,7 @@ export const {
   updateCreateIngrDialog,
   updateCreateCategoryDialog,
   updateCreateErrorMessage,
-  updateCurTabId
+  updateCurTabId,
+  updateNutritionRequest,
 } = ingredients.actions;
 export default ingredients.reducer;

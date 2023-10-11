@@ -9,7 +9,7 @@ const Recipes = lazy(() => import('./components/routes/Recipes'));
 const EditRecipe = lazy(() => import('./components/recipes/recipe/EditRecipe'));
 const Tools = lazy(() => import('./components/routes/Tools'));
 const Ingredients = lazy(() => import('./components/routes/Ingredients'));
-const Nutrition = lazy(() => import('./components/routes/Home'));
+const Nutrition = lazy(() => import('./components/routes/Nutrition'));
 const MealPlans = lazy(() => import('./components/routes/Home'));
 
 export default function App() {

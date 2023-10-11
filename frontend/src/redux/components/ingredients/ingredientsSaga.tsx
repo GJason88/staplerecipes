@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { CategoryState } from '../tools/toolsReducer';
@@ -7,8 +9,8 @@ import { ingredientsApi } from '../../../services/api';
 
 interface GetResponse {
   data: {
-    categories: Array<CategoryState>, // in snake_case
-    ingredients: Array<IngredientState>, // in snake_case
+    categories: Array<CategoryState>; // in snake_case
+    ingredients: Array<IngredientState>; // in snake_case
   };
 }
 
@@ -50,6 +52,21 @@ function* removeIngredient(action) {
       put({ type: 'ingredients/getIngredientsRequest' }),
     ]);
   } catch (e) {
+    console.log(e);
+  }
+}
+
+function* updateNutrition(action) {
+  try {
+    console.log(action);
+    yield call(
+      ingredientsApi.updateNutrition,
+      action.payload.id,
+      action.payload.nutrition
+    );
+    yield put({ type: 'ingredients/getIngredientsRequest' });
+  } catch (e) {
+    // TODO: handle errors
     console.log(e);
   }
 }
@@ -106,4 +123,5 @@ export default function* ingredientsSaga() {
   yield takeLatest('ingredients/addCategoryRequest', addCategory);
   yield takeLatest('ingredients/removeIngredientRequest', removeIngredient);
   yield takeLatest('ingredients/removeCategoryRequest', removeCategory);
+  yield takeLatest('ingredients/updateNutritionRequest', updateNutrition);
 }

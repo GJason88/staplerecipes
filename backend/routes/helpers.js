@@ -1,7 +1,7 @@
-export async function getAllHelper(req, res, fn) {
+export async function getAllHelper(req, res, query, fn=(x) => x) {
     try {
-        const jsonResponse = await fn();
-        res.json(jsonResponse);
+        const jsonResponse = await query();
+        res.json(fn(jsonResponse));
     } catch (e) {
         console.log(e);
         res.status(400).send(e);

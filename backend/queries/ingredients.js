@@ -1,10 +1,13 @@
 import db from '../db.configs.js';
 
 export async function getAllIngredientsQuery() {
-    const selectCategoriesQuery = {
-        text: 'SELECT ingredient_id, ingredient_name, category_id FROM recipes.ingredient;',
+    const selectIngredientsQuery = {
+        text: 'SELECT ingredient_id, ingredient_name, i.category_id, category_name, calories, carbs, protein, fat, fiber \
+               FROM recipes.ingredient as i \
+               INNER JOIN recipes.ingredient_category as ci \
+               ON i.category_id = ci.category_id;',
     };
-    return await db.any(selectCategoriesQuery);
+    return await db.any(selectIngredientsQuery);
 }
 
 export async function getAllCategoriesQuery() {
@@ -28,6 +31,14 @@ export async function createCategoryQuery(categoryInfo) {
         values: [categoryInfo.name],
     };
     return await db.none(insertCategoryQuery);
+}
+
+export async function updateNutritionQuery(ingrInfo, ingrId) {
+    const updateNutritionQuery = {
+        text: 'UPDATE recipes.ingredient SET calories = $1, carbs = $2, protein = $3, fat = $4, fiber = $5 WHERE ingredient_id = $6',
+        values: [ingrInfo.calories, ingrInfo.carbs, ingrInfo.protein, ingrInfo.fat, ingrInfo.fiber, ingrId],
+    };
+    return await db.none(updateNutritionQuery);
 }
 
 export async function deleteIngredientQuery(ingrInfo) {

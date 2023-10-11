@@ -7,12 +7,27 @@ import {
     deleteIngredientQuery,
     getAllCategoriesQuery,
     getAllIngredientsQuery,
+    updateNutritionQuery,
 } from '../queries/ingredients.js';
 
 const ingredients = Router();
 
 ingredients.get('/ingredients/all', (req, res) =>
-    getAllHelper(req, res, getAllIngredientsQuery)
+    getAllHelper(req, res, getAllIngredientsQuery, (data) =>
+        data.map((ingr) => ({
+            ingredient_id: ingr.ingredient_id,
+            ingredient_name: ingr.ingredient_name,
+            category_id: ingr.category_id,
+            category_name: ingr.category_name,
+            nutrition: {
+                calories: ingr.calories,
+                carbs: ingr.carbs,
+                protein: ingr.protein,
+                fat: ingr.fat,
+                fiber: ingr.fiber,
+            },
+        }))
+    )
 );
 
 ingredients.get('/ingredients/categories/all', (req, res) =>
@@ -23,7 +38,9 @@ ingredients.post('/ingredients', async (req, res) => {
     try {
         const ingrInfo = req.query;
         if (!ingrInfo || !ingrInfo.name)
-            return res.status(400).send('Create Ingredient Entry requires name.');
+            return res
+                .status(400)
+                .send('Create Ingredient Entry requires name.');
         await createIngredientQuery(ingrInfo);
         res.send('success');
     } catch (e) {
@@ -52,10 +69,24 @@ ingredients.post('/ingredients/categories', async (req, res) => {
                 res.status(400).send('Category name already exists.');
                 break;
             default:
-                res.status(400).send('Server error.');
+                res.status(500).send('Server error.');
                 console.log(e);
                 break;
         }
+    }
+});
+
+ingredients.put('/ingredients/nutrition/:id', async (req, res) => {
+    try {
+        const ingrId = req.params?.id;
+        const ingrInfo = req.query;
+        if (!ingrId || !ingrInfo)
+            return res.status(400).send('Invalid info.');
+        await updateNutritionQuery(ingrInfo, ingrId);
+        res.send('success');
+    } catch (e) {
+        res.status(500).send('Server error.');
+        console.log(e);
     }
 });
 
