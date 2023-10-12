@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import EditRecipe from '../recipes/recipe/EditRecipe';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { setBreadcrumbs } from '../../redux/components/nav/navReducer';
+import {
+  setActiveRoute,
+  setBreadcrumbs,
+} from '../../redux/components/nav/navReducer';
+import { routes } from '../../constants';
 
 export default function Recipe() {
   const dispatch = useDispatch();
@@ -15,10 +19,11 @@ export default function Recipe() {
   useEffect(() => {
     dispatch(
       setBreadcrumbs([
-        { name: 'Recipes', href: '/recipes' },
-        { name: recipeName, href: `/recipes/${recipeId}` },
+        { name: routes.recipes.name, href: routes.recipes.route },
+        { name: recipeName, href: `${routes.recipes.route}/${recipeId}` },
       ])
     );
+    dispatch(setActiveRoute(routes.recipes.route));
   }, [dispatch, recipeId, recipeName]);
 
   return <EditRecipe />;

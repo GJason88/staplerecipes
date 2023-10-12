@@ -19,11 +19,35 @@ export const pLen = 16;
 
 export const tags = ['Under 20 Minutes', 'Easy Cleanup', 'High Protein'];
 
-export const sidebarItems = [
-  { name: 'Home', route: '/', icon: <HomeIcon key='home' /> },
-  { name: 'Recipes', route: '/recipes', icon: <MenuBookTwoToneIcon key='recipes' /> },
-  { name: 'Tools', route: '/tools', icon: <FlatwareIcon key='tools' /> },
-  { name: 'Ingredients', route: '/ingredients', icon: <KitchenIcon key='ingredients' /> },
-  { name: 'Nutrition', route: '/nutrition', icon: <FeedIcon key='nutrition' /> },
-  { name: 'Meal Plans', route: '/mealplans', icon: <CalendarViewMonthIcon key='mealplan' /> },
-];
+export const routes = {
+  home: {
+    name: 'Home',
+    route: '/',
+    icon: <HomeIcon key='home' />,
+  },
+  recipes: {
+    name: 'Recipes',
+    route: '/recipes',
+    icon: <MenuBookTwoToneIcon key='recipes' />,
+  },
+  tools: {
+    name: 'Tools',
+    route: '/tools',
+    icon: <FlatwareIcon key='tools' />,
+  },
+  ingredients: {
+    name: 'Ingredients',
+    route: '/ingredients',
+    icon: <KitchenIcon key='ingredients' />,
+  },
+  nutrition: {
+    name: 'Nutrition',
+    route: '/nutrition',
+    icon: <FeedIcon key='nutrition' />,
+  },
+  mealplans: {
+    name: 'Meal Plans',
+    route: '/mealplans',
+    icon: <CalendarViewMonthIcon key='mealplan' />,
+  },
+};

@@ -9,20 +9,16 @@ import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import {
+  setActiveRoute,
   setSnackBar,
   updateIsMobile,
 } from '../../redux/components/nav/navReducer';
 import { IRootState } from '../../index';
 import { useNavigate } from 'react-router-dom';
-import { drawerWidth, sidebarItems } from '../../constants';
+import { drawerWidth, routes, sidebarItems } from '../../constants';
 import { Alert, Button, Snackbar } from '@mui/material';
 
 export default function Sidebar() {
-  const pathList = location.pathname.match(/[/][^/]+/g);
-  const [activeRoute, setActiveRoute] = useState(
-    // could put into store and get from each route if needed
-    (pathList && pathList[0]) || '/'
-  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useSelector<IRootState, boolean>(
@@ -31,6 +27,9 @@ export default function Sidebar() {
   const snackbar = useSelector<IRootState, string>(
     (state) => state.nav.snackbar
   );
+  const activeRoute = useSelector<IRootState, string>(
+    (state) => state.nav.activeRoute
+  );
   const handleSnackbarClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -38,7 +37,6 @@ export default function Sidebar() {
     if (reason === 'clickaway') {
       return;
     }
-
     dispatch(setSnackBar(''));
   };
 
@@ -53,6 +51,7 @@ export default function Sidebar() {
           textTransform: 'none',
           width: '100%',
         }}
+        onClick={() => navigate('/')}
       >
         <img
           src='/assets/darklogo-612x612.png'
@@ -72,12 +71,12 @@ export default function Sidebar() {
         </Typography>
       </Button>
       <List>
-        {sidebarItems.map((item, index) => (
+        {Object.values(routes).map((item, index) => (
           <ListItem key={index} disablePadding sx={{ height: 50, mt: 1, p: 1 }}>
             <ListItemButton
               sx={{ height: 50, borderRadius: 3 }}
               onClick={() => {
-                setActiveRoute(item.route);
+                dispatch(setActiveRoute(item.route));
                 navigate(item.route);
               }}
               selected={item.route === activeRoute}

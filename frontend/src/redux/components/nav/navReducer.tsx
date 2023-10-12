@@ -4,6 +4,7 @@ interface NavState {
   isMobile: boolean;
   snackbar: string;
   breadcrumbs: Array<BreadcrumbState>;
+  activeRoute: string;
 }
 
 export interface BreadcrumbState {
@@ -15,6 +16,7 @@ const initialState = {
   isMobile: false,
   snackbar: '',
   breadcrumbs: [],
+  activeRoute: '',
 } as NavState;
 
 const nav = createSlice({
@@ -30,8 +32,11 @@ const nav = createSlice({
     setBreadcrumbs: (state, action) => {
       state.breadcrumbs = action.payload;
     },
+    setActiveRoute: (state, action) => {
+      state.activeRoute = action.payload;
+    }
   },
 });
 
-export const { updateIsMobile, setSnackBar, setBreadcrumbs } = nav.actions;
+export const { updateIsMobile, setSnackBar, setBreadcrumbs, setActiveRoute } = nav.actions;
 export default nav.reducer;

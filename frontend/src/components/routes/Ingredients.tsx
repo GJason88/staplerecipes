@@ -1,12 +1,21 @@
 import { useDispatch } from 'react-redux';
-import { setBreadcrumbs } from '../../redux/components/nav/navReducer';
+import {
+  setActiveRoute,
+  setBreadcrumbs,
+} from '../../redux/components/nav/navReducer';
 import IngredientsPage from '../ingredients/IngredientsPage';
 import { useEffect } from 'react';
+import { routes } from '../../constants';
 
 export default function Tools() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setBreadcrumbs([{ name: 'Ingredients', href: '/ingredients' }]));
+    dispatch(
+      setBreadcrumbs([
+        { name: routes.ingredients.name, href: routes.ingredients.route },
+      ])
+    );
+    dispatch(setActiveRoute(routes.ingredients.route));
   }, [dispatch]);
 
   return <IngredientsPage />;
