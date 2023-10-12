@@ -18,7 +18,11 @@ import { drawerWidth, sidebarItems } from '../../constants';
 import { Alert, Button, Snackbar } from '@mui/material';
 
 export default function Sidebar() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const pathList = location.pathname.match(/[/][^/]+/g);
+  const [activeRoute, setActiveRoute] = useState(
+    // could put into store and get from each route if needed
+    (pathList && pathList[0]) || '/'
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useSelector<IRootState, boolean>(
@@ -27,7 +31,6 @@ export default function Sidebar() {
   const snackbar = useSelector<IRootState, string>(
     (state) => state.nav.snackbar
   );
-
   const handleSnackbarClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -74,10 +77,10 @@ export default function Sidebar() {
             <ListItemButton
               sx={{ height: 50, borderRadius: 3 }}
               onClick={() => {
-                setActiveIndex(index);
+                setActiveRoute(item.route);
                 navigate(item.route);
               }}
-              selected={activeIndex === index}
+              selected={item.route === activeRoute}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />

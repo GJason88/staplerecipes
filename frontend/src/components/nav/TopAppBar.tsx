@@ -1,15 +1,21 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { updateIsMobile } from '../../redux/components/nav/navReducer';
+import {
+  BreadcrumbState,
+  updateIsMobile,
+} from '../../redux/components/nav/navReducer';
 import { drawerWidth } from '../../constants';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
+import { IRootState } from '../..';
 
 export default function TopAppBar() {
   const dispatch = useDispatch();
-
+  const breadcrumbs = useSelector<IRootState, Array<BreadcrumbState>>(
+    (state) => state.nav.breadcrumbs
+  );
   return (
     <div>
       <AppBar
@@ -30,7 +36,22 @@ export default function TopAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography fontSize={18}>Recipes</Typography>
+          <Breadcrumbs sx={{ fontSize: 18 }} separator='›'>
+            {breadcrumbs.slice(0, -1).map((breadcrumb, index) => (
+              <Link
+                underline='hover'
+                key={index}
+                color='inherit'
+                href={breadcrumb.href}
+              >
+                {breadcrumb.name}
+              </Link>
+            ))}
+            <Typography fontSize={18}>
+              {breadcrumbs.length > 0 &&
+                breadcrumbs[breadcrumbs.length - 1].name}
+            </Typography>
+          </Breadcrumbs>
           <Box marginLeft='auto'>
             <Button>Log In</Button>|<Button>Sign Up</Button>
           </Box>

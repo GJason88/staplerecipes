@@ -15,7 +15,6 @@ function* getRecipe(action) {
   try {
     const response = yield call(recipesApi.retrieve, action.payload);
     const recipeData = camelcaseKeys(response.data, { deep: true });
-    console.log(recipeData);
     yield put({
       type: 'recipe/setRecipe',
       payload: recipeData,

@@ -3,7 +3,7 @@ import { ToolState } from '../tools/toolsReducer';
 import { IngredientState } from '../ingredients/ingredientsReducer';
 
 export interface RecipeState {
-  recipeId: number | null;
+  recipeId: number
   recipeName: string;
   time: string;
   nutrition: NutritionState | null;
