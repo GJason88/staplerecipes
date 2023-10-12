@@ -19,7 +19,6 @@ export default function RecipeCard(props: RecipeCardProps) {
       sx={{
         ml: 2,
         mt: 2,
-        mb: 2,
         width: 300,
         height: 300,
         borderRadius: 5,

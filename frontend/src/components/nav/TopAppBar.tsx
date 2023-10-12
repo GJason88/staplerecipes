@@ -1,33 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
-import InputAdornment from '@mui/material/InputAdornment';
+import { useDispatch } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { TextField, Typography } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
-import { IRootState } from '../../index';
-import {
-  updateIsMobile,
-  updateIsSearchSelected,
-} from '../../redux/components/nav/navReducer';
+import { updateIsMobile } from '../../redux/components/nav/navReducer';
 import { drawerWidth } from '../../constants';
-// TODO: potentially remove
+import { Box, Button, Typography } from '@mui/material';
+
 export default function TopAppBar() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const isSearchSelected = useSelector<IRootState, boolean>(
-    (state) => state.nav.isSearchSelected
-  );
-  const searchAdornment = isSearchSelected ? null : (
-    <InputAdornment position='start' disablePointerEvents>
-      <SearchIcon fontSize='large' />
-      <Typography sx={{ pl: '5px' }} fontSize={20}>
-        Search for Recipes
-      </Typography>
-    </InputAdornment>
-  );
 
   return (
     <div>
@@ -49,17 +30,10 @@ export default function TopAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          {location.pathname === '/recipes/' && (
-            <TextField
-              variant='outlined'
-              color='secondary'
-              InputProps={{
-                startAdornment: searchAdornment,
-              }}
-              onFocus={() => dispatch(updateIsSearchSelected(true))}
-              onBlur={() => dispatch(updateIsSearchSelected(false))}
-            ></TextField>
-          )}
+          <Typography fontSize={18}>Recipes</Typography>
+          <Box marginLeft='auto'>
+            <Button>Log In</Button>|<Button>Sign Up</Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </div>

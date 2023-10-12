@@ -15,9 +15,8 @@ export const theme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#373737',
-          color: '#d5d5d5',
-          // set selected color to f0f0f0
+          backgroundColor: '#f0f0f0',
+          color: '#424242',
         },
       },
     },
@@ -25,13 +24,17 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#f0f0f0',
+          color: 'black',
+          '& .MuiTypography-root': {
+            fontWeight: 500,
+          },
         },
       },
     },
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          color: '#d5d5d5',
+          color: '#424242',
         },
       },
     },
@@ -39,19 +42,19 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           '&:hover': {
-            backgroundColor: '#424242',
+            backgroundColor: '#d5d5d5',
           },
           '&.Mui-selected': {
-            backgroundColor: '#424242',
+            backgroundColor: '#d5d5d5',
             '&:hover': {
-              backgroundColor: '#424242',
+              backgroundColor: '#d5d5d5',
             },
             '& .MuiTypography-root': {
               fontWeight: 500,
-              color: 'white',
+              color: 'black',
             },
             '& .MuiSvgIcon-root': {
-              color: 'white',
+              color: 'black',
             },
           },
         },

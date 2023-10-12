@@ -1,62 +1,32 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import {
   setSnackBar,
   updateIsMobile,
-  updatePath,
 } from '../../redux/components/nav/navReducer';
 import { IRootState } from '../../index';
-import { useNavigate, useLocation } from 'react-router-dom';
-import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
-import { drawerWidth } from '../../constants';
-import FlatwareIcon from '@mui/icons-material/Flatware';
-import KitchenIcon from '@mui/icons-material/Kitchen';
-import FeedIcon from '@mui/icons-material/Feed';
-import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
-import { Alert, Snackbar } from '@mui/material';
-
-// put into separate constants file
-const icons = [
-  <HomeIcon key='home' />,
-  <MenuBookTwoToneIcon key='recipes' />,
-  <FlatwareIcon key='tools' />,
-  <KitchenIcon key='ingredients' />,
-  <FeedIcon key='nutrition' />,
-  <CalendarViewMonthIcon key='mealplan' />,
-];
-const routes = [
-  '/',
-  '/recipes',
-  '/tools',
-  '/ingredients',
-  '/nutrition',
-  '/mealplans',
-];
+import { useNavigate } from 'react-router-dom';
+import { drawerWidth, sidebarItems } from '../../constants';
+import { Alert, Button, Snackbar } from '@mui/material';
 
 export default function Sidebar() {
+  const [activeIndex, setActiveIndex] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const isMobile = useSelector<IRootState, boolean>(
     (state) => state.nav.isMobile
   );
-  const path = useSelector<IRootState, string>((state) => state.nav.path);
   const snackbar = useSelector<IRootState, string>(
     (state) => state.nav.snackbar
   );
-  useEffect(() => {
-    dispatch(updatePath(location.pathname)); // TODO: make better solution
-  }, [location.pathname]);
 
   const handleSnackbarClose = (
     event?: React.SyntheticEvent | Event,
@@ -71,7 +41,16 @@ export default function Sidebar() {
 
   const drawer = (
     <Box>
-      <Toolbar>
+      <Button
+        disableRipple
+        sx={{
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+          textTransform: 'none',
+          width: '100%',
+        }}
+      >
         <img
           src='/assets/darklogo-612x612.png'
           width='75'
@@ -81,30 +60,27 @@ export default function Sidebar() {
           pl='9px'
           align='center'
           variant='h5'
-          marginRight={'-30px'}
           marginBottom={'-10px'}
-          color='white'
+          color='#bc544b'
+          fontWeight={600}
+          fontFamily={'cursive'}
         >
           Staple Recipes
         </Typography>
-      </Toolbar>
+      </Button>
       <List>
-        {[
-          'Home',
-          'Recipes',
-          'Tools',
-          'Ingredients',
-          'Nutrition',
-          'Meal Plans',
-        ].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ height: 50, mt: 1, p: 1 }}>
+        {sidebarItems.map((item, index) => (
+          <ListItem key={index} disablePadding sx={{ height: 50, mt: 1, p: 1 }}>
             <ListItemButton
               sx={{ height: 50, borderRadius: 3 }}
-              onClick={() => navigate(routes[index])}
-              selected={routes[index] === path}
+              onClick={() => {
+                setActiveIndex(index);
+                navigate(item.route);
+              }}
+              selected={activeIndex === index}
             >
-              <ListItemIcon>{icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -115,7 +91,7 @@ export default function Sidebar() {
   return (
     <Box
       component='nav'
-      sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
+      sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 }, boxShadow: 1 }}
       aria-label='mailbox folders'
     >
       {/* The implementation can be swapped with js to avoid SEO duplication of links. */}

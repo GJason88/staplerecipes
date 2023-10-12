@@ -54,7 +54,6 @@ export default function RecipeGrid() {
             alignItems: 'center',
             ml: 2,
             mt: 2,
-            mb: 2,
             width: 300,
             height: 300,
             boxShadow: 'none',
