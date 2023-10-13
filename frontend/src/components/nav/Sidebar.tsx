@@ -7,7 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 import {
   setActiveRoute,
   setSnackBar,
@@ -15,7 +14,7 @@ import {
 } from '../../redux/components/nav/navReducer';
 import { IRootState } from '../../index';
 import { useNavigate } from 'react-router-dom';
-import { drawerWidth, routes, sidebarItems } from '../../constants';
+import { drawerWidth, routes } from '../../constants';
 import { Alert, Button, Snackbar } from '@mui/material';
 
 export default function Sidebar() {

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import EditRecipe from '../recipes/recipe/EditRecipe';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import {
@@ -7,6 +6,7 @@ import {
   setBreadcrumbs,
 } from '../../redux/components/nav/navReducer';
 import { routes } from '../../constants';
+import RecipePage from '../recipes/recipe/RecipePage';
 
 export default function Recipe() {
   const dispatch = useDispatch();
@@ -26,5 +26,5 @@ export default function Recipe() {
     dispatch(setActiveRoute(routes.recipes.route));
   }, [dispatch, recipeId, recipeName]);
 
-  return <EditRecipe />;
+  return <RecipePage />;
 }
