@@ -2,10 +2,10 @@ import { useDispatch } from 'react-redux';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../../redux/components/nav/navReducer';
-import IngredientsPage from '../ingredients/IngredientsPage';
+} from '../redux/components/nav/navReducer';
+import IngredientsPage from '../components/ingredients/IngredientsPage';
 import { useEffect } from 'react';
-import { routes } from '../../constants';
+import { routes } from '../constants';
 
 export default function Tools() {
   const dispatch = useDispatch();

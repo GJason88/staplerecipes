@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import RecipeGrid from '../recipes/RecipeGrid';
+import RecipeGrid from '../components/recipes/RecipeGrid';
 import { useDispatch } from 'react-redux';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../../redux/components/nav/navReducer';
-import { routes } from '../../constants';
+} from '../redux/components/nav/navReducer';
+import { routes } from '../constants';
 
 export default function Recipes() {
   const dispatch = useDispatch();

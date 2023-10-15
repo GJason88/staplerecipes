@@ -4,13 +4,13 @@ import Sidebar from './components/nav/Sidebar';
 import { Box } from '@mui/material';
 import TopAppBar from './components/nav/TopAppBar';
 
-const Home = lazy(() => import('./components/routes/Home'));
-const Recipes = lazy(() => import('./components/routes/Recipes'));
-const Recipe = lazy(() => import('./components/routes/Recipe'));
-const Tools = lazy(() => import('./components/routes/Tools'));
-const Ingredients = lazy(() => import('./components/routes/Ingredients'));
-const Nutrition = lazy(() => import('./components/routes/Nutrition'));
-const MealPlans = lazy(() => import('./components/routes/Home'));
+const Home = lazy(() => import('./pages/Home'));
+const Recipes = lazy(() => import('./pages/Recipes'));
+const Recipe = lazy(() => import('./pages/Recipe'));
+const Tools = lazy(() => import('./pages/Tools'));
+const Ingredients = lazy(() => import('./pages/Ingredients'));
+const Nutrition = lazy(() => import('./pages/Nutrition'));
+const MealPlans = lazy(() => import('./pages/Home'));
 
 export default function App() {
   return (

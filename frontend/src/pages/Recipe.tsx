@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../..';
+import { IRootState } from '..';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../../redux/components/nav/navReducer';
-import { routes } from '../../constants';
-import RecipePage from '../recipes/recipe/RecipePage';
+} from '../redux/components/nav/navReducer';
+import { routes } from '../constants';
+import RecipePage from '../components/recipes/recipe/RecipePage';
 
 export default function Recipe() {
   const dispatch = useDispatch();

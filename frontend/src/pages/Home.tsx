@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../../redux/components/nav/navReducer';
-import { routes } from '../../constants';
+} from '../redux/components/nav/navReducer';
+import { routes } from '../constants';
 import { Box, Typography } from '@mui/material';
 
 export default function Home() {
