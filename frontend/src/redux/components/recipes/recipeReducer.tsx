@@ -3,7 +3,7 @@ import { ToolState } from '../tools/toolsReducer';
 import { IngredientState } from '../ingredients/ingredientsReducer';
 
 export interface RecipeState {
-  recipeId: number
+  recipeId: number | null;
   recipeName: string;
   time: string;
   nutrition: NutritionState | null;
@@ -56,7 +56,8 @@ const recipe = createSlice({
       state = action.payload ? { ...state, ...action.payload } : initialState;
       return state;
     },
-    setRecipeId: (state, action) => { // Gets recipe data from db when used.
+    setRecipeId: (state, action) => {
+      // Gets recipe data from db when used.
       state.recipeId = action.payload;
     },
     deleteRecipeRequest: (state, action) => {},
@@ -73,10 +74,7 @@ const recipe = createSlice({
       state.tools = action.payload;
     },
     addIngredient: (state, action) => {
-      state.ingredients = [
-        ...state.ingredients,
-        action.payload,
-      ];
+      state.ingredients = [...state.ingredients, action.payload];
     },
     deleteIngredient: (state, action) => {
       state.ingredients = [
@@ -103,7 +101,7 @@ const recipe = createSlice({
     editRecipeRequest: (state) => {},
     setInvalid: (state, action) => {
       state.invalid = action.payload;
-    }
+    },
   },
 });
 

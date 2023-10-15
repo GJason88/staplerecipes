@@ -1,4 +1,4 @@
-import NutritionPage from '../Nutrition/NutritionPage';
+import NutritionPage from '../nutrition/NutritionPage';
 import { useDispatch } from 'react-redux';
 import {
   setActiveRoute,
