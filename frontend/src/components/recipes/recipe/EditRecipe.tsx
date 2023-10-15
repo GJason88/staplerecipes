@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useRecipe from '../../../hooks/useRecipe';
+import '../../components.scss';
 
 export default function EditRecipe() {
   const routeParams = useParams();
@@ -61,7 +62,7 @@ export default function EditRecipe() {
   ];
   return (
     <Container sx={{ pt: 10 }}>
-      <Box display='flex' flexDirection='column'>
+      <Box className='flexbox vertical'>
         <Typography variant='h4' pb={2}>
           Recipe Name
         </Typography>

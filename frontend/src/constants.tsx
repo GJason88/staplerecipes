@@ -9,6 +9,8 @@ export const drawerWidth = 270;
 
 export const recipeWidth = 900;
 
+export const recipeImageHeight = 675;
+
 export const iconButtonWidth = 40;
 
 export const debounceDelay = 500; // .5 sec
