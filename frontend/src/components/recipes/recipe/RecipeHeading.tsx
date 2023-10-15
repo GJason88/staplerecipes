@@ -11,11 +11,15 @@ import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 
-export default function RecipeHeading() {
+interface RecipeHeadingProps {
+  name: string;
+}
+
+export default function RecipeHeading(props: RecipeHeadingProps) {
   return (
     <>
       <Typography mb={-2} fontSize={38} fontWeight={600}>
-        Test Recipe One
+        {props.name}
       </Typography>
       <Box display='flex'>
         <Rating readOnly />

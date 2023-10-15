@@ -1,6 +1,5 @@
-import { Box, Container, Stack } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import { recipeWidth } from '../../../constants';
-import '../../components.scss';
 import { useEffect } from 'react';
 import useRecipe from '../../../hooks/useRecipe';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -38,10 +37,10 @@ export default function RecipePage() {
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>
-        <RecipeHeading />
-        <RecipeInfo />
+        <RecipeHeading name={recipe.recipeName} />
+        <RecipeInfo time={recipe.time} />
         <Stack flexWrap='wrap' flexDirection='row' gap={1}>
-          <RecipeIngredients />
+          <RecipeIngredients ingredients={recipe.ingredients} />
           <RecipeTools />
         </Stack>
         <RecipeInstructions />

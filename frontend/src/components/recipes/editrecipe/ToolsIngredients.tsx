@@ -148,6 +148,7 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
         <TextField
           onChange={(e) => setState({ ...state, amount: e.target.value })}
           label='Amount'
+          type='number'
           sx={{ width: 150 }}
         ></TextField>
         <Button

@@ -9,8 +9,13 @@ import {
   Paper,
 } from '@mui/material';
 import { useState } from 'react';
+import { IngredientState } from '../../../redux/components/ingredients/ingredientsReducer';
 
-export default function RecipeIngredients() {
+interface RecipeIngredientsProps {
+  ingredients: Array<IngredientState>;
+}
+
+export default function RecipeIngredients(props: RecipeIngredientsProps) {
   const [checked, setChecked] = useState([0]);
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -30,27 +35,27 @@ export default function RecipeIngredients() {
         Ingredients
       </Typography>
       <List>
-        {[0, 1, 2, 3].map((value) => (
-          <ListItem key={value} disablePadding>
+        {props.ingredients.map((value, index) => (
+          <ListItem key={index} disablePadding>
             <ListItemButton
               sx={{
                 p: 0,
                 mb: 1,
               }}
               disableRipple
-              onClick={handleToggle(value)}
+              onClick={handleToggle(index)}
             >
               <ListItemIcon sx={{ mr: -3 }}>
                 <Checkbox
                   sx={{ p: 0, mt: -2 }}
-                  checked={checked.indexOf(value) !== -1}
+                  checked={checked.indexOf(index) !== -1}
                   tabIndex={-1}
                   disableRipple
                 />
               </ListItemIcon>
               <ListItemText
-                primary={`Onion`} // add line and grey through when checked
-                secondary={`2 whole, diced`}
+                primary={value.ingredientName} // add line and grey through when checked
+                secondary={value.amount}
               />
             </ListItemButton>
           </ListItem>

@@ -1,11 +1,15 @@
 import { Paper, Stack, Typography } from '@mui/material';
-const tempData = [
-  { name: 'Time', value: '25 minutes' },
-  { name: 'Servings', value: '3' },
-  { name: 'Diet', value: 'All' },
-];
 
-export default function RecipeInfo() {
+interface RecipeInfoProps {
+  time: string;
+}
+
+export default function RecipeInfo(props: RecipeInfoProps) {
+  const tempData = [
+    { name: 'Time', value: props.time },
+    { name: 'Servings', value: '3' },
+    { name: 'Diet', value: 'All' },
+  ];
   return (
     <Stack flexDirection='row' gap={1}>
       {tempData.map((data, index) => (

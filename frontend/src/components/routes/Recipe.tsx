@@ -13,7 +13,7 @@ export default function Recipe() {
   const recipeName = useSelector<IRootState, string>(
     (state) => state.recipe.recipeName
   );
-  const recipeId = useSelector<IRootState, number>(
+  const recipeId = useSelector<IRootState, number | null>(
     (state) => state.recipe.recipeId
   );
   useEffect(() => {
