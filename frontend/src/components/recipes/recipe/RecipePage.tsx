@@ -37,11 +37,7 @@ export default function RecipePage() {
 
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
-      <Box
-        sx={{ width: 'auto', maxWidth: recipeWidth }}
-        className='flexbox vertical'
-        gap={2}
-      >
+      <Stack maxWidth={recipeWidth} gap={2}>
         <RecipeHeading />
         <RecipeInfo />
         <Stack flexWrap='wrap' flexDirection='row' gap={1}>
@@ -50,7 +46,7 @@ export default function RecipePage() {
         </Stack>
         <RecipeInstructions />
         <RecipeNutrition />
-      </Box>
+      </Stack>
     </Container>
   );
 }

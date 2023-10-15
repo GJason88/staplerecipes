@@ -62,7 +62,7 @@ export default function EditRecipe() {
   ];
   return (
     <Container sx={{ pt: 10 }}>
-      <Box className='flexbox vertical'>
+      <Box display='flex' flexDirection='column'>
         <Typography variant='h4' pb={2}>
           Recipe Name
         </Typography>
