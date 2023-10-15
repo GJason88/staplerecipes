@@ -16,8 +16,8 @@ import {
   updateCurTabId,
 } from '../../redux/components/tools/toolsReducer';
 import { useEffect } from 'react';
-import CreateDialog from '../utils/CreateDialog';
-import ToolsCategory from './ToolsCategory';
+import CreateDialog from '../../components/CreateDialog';
+import ToolsCategory from './components/ToolsCategory';
 import AddIcon from '@mui/icons-material/Add';
 
 export default function ToolsPage() {

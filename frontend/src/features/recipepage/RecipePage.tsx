@@ -1,19 +1,19 @@
 import { Container, Stack } from '@mui/material';
-import { recipeWidth } from '../../../constants';
+import { recipeWidth } from '../../data/constants';
 import { useEffect } from 'react';
-import useRecipe from '../../../hooks/useRecipe';
+import useRecipe from '../../hooks/useRecipe';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   setInvalid,
   setRecipeId,
-} from '../../../redux/components/recipes/recipeReducer';
-import RecipeHeading from './RecipeHeading';
-import RecipeInfo from './RecipeInfo';
-import RecipeIngredients from './RecipeIngredients';
-import RecipeTools from './RecipeTools';
-import RecipeInstructions from './RecipeInstructions';
-import RecipeNutrition from './RecipeNutrition';
+} from '../../redux/components/recipes/recipeReducer';
+import RecipeHeading from './components/RecipeHeading';
+import RecipeInfo from './components/RecipeInfo';
+import RecipeIngredients from './components/RecipeIngredients';
+import RecipeTools from './components/RecipeTools';
+import RecipeInstructions from './components/RecipeInstructions';
+import RecipeNutrition from './components/RecipeNutrition';
 
 export default function RecipePage() {
   const routeParams = useParams();

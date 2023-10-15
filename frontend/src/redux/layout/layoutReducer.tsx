@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface NavState {
+interface LayoutState {
   isMobile: boolean;
   snackbar: string;
   breadcrumbs: Array<BreadcrumbState>;
@@ -17,10 +17,10 @@ const initialState = {
   snackbar: '',
   breadcrumbs: [],
   activeRoute: '',
-} as NavState;
+} as LayoutState;
 
-const nav = createSlice({
-  name: 'nav',
+const layout = createSlice({
+  name: 'layout',
   initialState,
   reducers: {
     updateIsMobile: (state) => {
@@ -38,5 +38,5 @@ const nav = createSlice({
   },
 });
 
-export const { updateIsMobile, setSnackBar, setBreadcrumbs, setActiveRoute } = nav.actions;
-export default nav.reducer;
+export const { updateIsMobile, setSnackBar, setBreadcrumbs, setActiveRoute } = layout.actions;
+export default layout.reducer;

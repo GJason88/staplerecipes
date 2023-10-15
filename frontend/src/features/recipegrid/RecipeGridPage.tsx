@@ -1,6 +1,6 @@
 import { Box, Card, CardActionArea, Typography } from '@mui/material';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
-import RecipeCard from './RecipeCard';
+import RecipeCard from './components/RecipeCard';
 import { useEffect } from 'react';
 import {
   RecipeGridState,
@@ -13,10 +13,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import { setRecipe } from '../../redux/components/recipes/recipeReducer';
-import CreateDialog from '../utils/CreateDialog';
+import CreateDialog from '../../components/CreateDialog';
 import { useNavigate } from 'react-router-dom';
 
-export default function RecipeGrid() {
+export default function RecipeGridPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { recipes, isCreateDialog, createDialogErrorMessage, redirect } =

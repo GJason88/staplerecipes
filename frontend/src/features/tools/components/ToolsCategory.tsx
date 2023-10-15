@@ -7,47 +7,45 @@ import {
   ListItemText,
 } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
+import {
+  CategoryState,
+  ToolState,
+  removeToolRequest,
+  updateCreateToolDialog,
+} from '../../../redux/components/tools/toolsReducer';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  IngredientState,
-  removeIngredientRequest,
-  updateCreateIngrDialog,
-} from '../../redux/components/ingredients/ingredientsReducer';
-import { CategoryState } from '../../redux/components/tools/toolsReducer';
 
-interface IngredientsCategoryProps {
+interface ToolsCategoryProps {
   curTabId?: number | false;
   category: CategoryState;
-  ingredients: Array<IngredientState>;
+  tools: Array<ToolState>;
 }
 
-export default function ToolsCategory(props: IngredientsCategoryProps) {
+export default function ToolsCategory(props: ToolsCategoryProps) {
   const dispatch = useDispatch();
   return (
     <>
       {props.curTabId == props.category.categoryId && (
         <List dense={false}>
-          {props.ingredients.map((ingr, index) => (
+          {props.tools.map((tool, index) => (
             <ListItem key={index}>
               <ListItemAvatar>
                 <Avatar>
                   <FolderIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={ingr.ingredientName} />
+              <ListItemText primary={tool.toolName} />
               <IconButton
-                onClick={() =>
-                  dispatch(removeIngredientRequest(ingr.ingredientId))
-                }
+                onClick={() => dispatch(removeToolRequest(tool.toolId))}
               >
                 <DeleteIcon />
               </IconButton>
             </ListItem>
           ))}
           <ListItem>
-            <IconButton onClick={() => dispatch(updateCreateIngrDialog(true))}>
+            <IconButton onClick={() => dispatch(updateCreateToolDialog(true))}>
               <AddIcon />
             </IconButton>
           </ListItem>

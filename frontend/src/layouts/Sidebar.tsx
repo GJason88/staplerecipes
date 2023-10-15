@@ -11,23 +11,23 @@ import {
   setActiveRoute,
   setSnackBar,
   updateIsMobile,
-} from '../../redux/components/nav/navReducer';
-import { IRootState } from '../../index';
+} from '../redux/layout/layoutReducer';
+import { IRootState } from '../index';
 import { useNavigate } from 'react-router-dom';
-import { drawerWidth, routes } from '../../constants';
+import { drawerWidth, routes } from '../data/constants';
 import { Alert, Button, Snackbar } from '@mui/material';
 
 export default function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useSelector<IRootState, boolean>(
-    (state) => state.nav.isMobile
+    (state) => state.layout.isMobile
   );
   const snackbar = useSelector<IRootState, string>(
-    (state) => state.nav.snackbar
+    (state) => state.layout.snackbar
   );
   const activeRoute = useSelector<IRootState, string>(
-    (state) => state.nav.activeRoute
+    (state) => state.layout.activeRoute
   );
   const handleSnackbarClose = (
     event?: React.SyntheticEvent | Event,

@@ -25,7 +25,7 @@ function* getRecipe(action) {
       payload: true,
     });
     yield put({
-      type: 'nav/setSnackBar',
+      type: 'layout/setSnackBar',
       payload: { message: e.response.data },
     });
   }
@@ -49,13 +49,13 @@ function* updateRecipe() {
       params
     );
     yield put({
-      type: 'nav/setSnackBar',
+      type: 'layout/setSnackBar',
       payload: { message: 'Successfully updated recipe' },
     });
     console.log(response.data);
   } catch (e) {
     yield put({
-      type: 'nav/setSnackBar',
+      type: 'layout/setSnackBar',
       payload: { message: 'Failed to update recipe' },
     });
   }
@@ -63,17 +63,14 @@ function* updateRecipe() {
 
 function* deleteRecipe(action) {
   try {
-    const response: UpdateResponse = yield call(
-      recipesApi.delete,
-      action.payload
-    );
+    yield call(recipesApi.delete, action.payload);
     yield put({
-      type: 'nav/setSnackBar',
+      type: 'layout/setSnackBar',
       payload: { message: 'Successfully deleted recipe' },
     });
   } catch (e) {
     yield put({
-      type: 'nav/setSnackBar',
+      type: 'layout/setSnackBar',
       payload: { message: 'Failed to delete recipe' },
     });
   }

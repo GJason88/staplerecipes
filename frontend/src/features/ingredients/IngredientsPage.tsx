@@ -4,7 +4,7 @@ import { Box, Button, IconButton, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import { useEffect } from 'react';
-import CreateDialog from '../utils/CreateDialog';
+import CreateDialog from '../../components/CreateDialog';
 import AddIcon from '@mui/icons-material/Add';
 import {
   IngredientsPageState,
@@ -18,7 +18,7 @@ import {
   updateCreateIngrDialog,
   updateCurTabId,
 } from '../../redux/components/ingredients/ingredientsReducer';
-import IngredientsCategory from './IngredientsCategory';
+import IngredientsCategory from './components/IngredientsCategory';
 
 export default function IngredientsPage() {
   const dispatch = useDispatch();

@@ -3,18 +3,15 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import {
-  BreadcrumbState,
-  updateIsMobile,
-} from '../../redux/components/nav/navReducer';
-import { drawerWidth } from '../../constants';
+import { BreadcrumbState, updateIsMobile } from '../redux/layout/layoutReducer';
+import { drawerWidth } from '../data/constants';
 import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
-import { IRootState } from '../..';
+import { IRootState } from '..';
 
 export default function TopAppBar() {
   const dispatch = useDispatch();
   const breadcrumbs = useSelector<IRootState, Array<BreadcrumbState>>(
-    (state) => state.nav.breadcrumbs
+    (state) => state.layout.breadcrumbs
   );
   return (
     <div>

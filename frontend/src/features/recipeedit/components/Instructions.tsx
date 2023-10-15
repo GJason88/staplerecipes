@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
-import { iconButtonWidth, recipeWidth } from '../../../constants';
+import { iconButtonWidth, recipeWidth } from '../../../data/constants';
 import { useDispatch } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';

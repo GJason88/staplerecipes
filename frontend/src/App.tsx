@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Sidebar from './components/nav/Sidebar';
+import Sidebar from './layouts/Sidebar';
 import { Box } from '@mui/material';
-import TopAppBar from './components/nav/TopAppBar';
+import TopAppBar from './layouts/TopAppBar';
 
 const Home = lazy(() => import('./pages/Home'));
 const Recipes = lazy(() => import('./pages/Recipes'));

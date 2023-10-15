@@ -1,11 +1,8 @@
-import NutritionPage from '../components/nutrition/NutritionPage';
+import NutritionPage from '../features/nutrition/NutritionPage';
 import { useDispatch } from 'react-redux';
-import {
-  setActiveRoute,
-  setBreadcrumbs,
-} from '../redux/components/nav/navReducer';
+import { setActiveRoute, setBreadcrumbs } from '../redux/layout/layoutReducer';
 import { useEffect } from 'react';
-import { routes } from '../constants';
+import { routes } from '../data/constants';
 
 export default function Nutrition() {
   const dispatch = useDispatch();

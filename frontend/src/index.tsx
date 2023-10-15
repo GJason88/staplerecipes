@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import navReducer from './redux/components/nav/navReducer.tsx';
 import { Provider } from 'react-redux';
 import recipeGridReducer from './redux/components/recipes/recipegridReducer.tsx';
 import App from './App.tsx';
@@ -14,9 +13,10 @@ import ingredientsReducer from './redux/components/ingredients/ingredientsReduce
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { theme } from './themes.tsx';
+import layoutReducer from './redux/layout/layoutReducer.tsx';
 
 const reducer = combineReducers({
-  nav: navReducer,
+  layout: layoutReducer,
   recipegrid: recipeGridReducer,
   recipe: recipeReducer,
   tools: toolsReducer,

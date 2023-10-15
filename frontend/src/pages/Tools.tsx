@@ -1,11 +1,11 @@
-import ToolsPage from '../components/tools/ToolsPage';
+import ToolsPage from '../features/tools/ToolsPage';
 import { useDispatch } from 'react-redux';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../redux/components/nav/navReducer';
+} from '../redux/layout/layoutReducer';
 import { useEffect } from 'react';
-import { routes } from '../constants';
+import { routes } from '../data/constants';
 
 export default function Tools() {
   const dispatch = useDispatch();

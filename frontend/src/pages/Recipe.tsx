@@ -4,9 +4,9 @@ import { IRootState } from '..';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../redux/components/nav/navReducer';
-import { routes } from '../constants';
-import RecipePage from '../components/recipes/recipe/RecipePage';
+} from '../redux/layout/layoutReducer';
+import { routes } from '../data/constants';
+import RecipePage from '../features/recipepage/RecipePage';
 
 export default function Recipe() {
   const dispatch = useDispatch();

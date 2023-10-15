@@ -17,10 +17,10 @@ import {
   IngredientState,
   getIngredientsRequest,
   updateNutritionRequest,
-} from '../../redux/components/ingredients/ingredientsReducer';
+} from '../../../redux/components/ingredients/ingredientsReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
-import { IRootState } from '../..';
+import { IRootState } from '../../..';
 
 interface Row {
   id: number | null;

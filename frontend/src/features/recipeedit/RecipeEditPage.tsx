@@ -6,24 +6,24 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { recipeWidth, pLen } from '../../../constants';
-import ToolsIngredients from './ToolsIngredients';
-import Information from './Information';
-import Instructions from './Instructions';
+import { recipeWidth } from '../../data/constants';
+import ToolsIngredients from './components/ToolsIngredients';
+import Information from './components/Information';
+import Instructions from './components/Instructions';
 import {
   deleteRecipeRequest,
   editRecipeRequest,
   setInvalid,
   setRecipeId,
   updateRecipeName,
-} from '../../../redux/components/recipes/recipeReducer';
+} from '../../redux/components/recipes/recipeReducer';
 import { useDispatch } from 'react-redux';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import useRecipe from '../../../hooks/useRecipe';
+import useRecipe from '../../hooks/useRecipe';
 import '../../components.scss';
 
-export default function EditRecipe() {
+export default function RecipeEditPage() {
   const routeParams = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
