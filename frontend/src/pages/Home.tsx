@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../redux/layout/layoutReducer';
+} from '../layouts/layoutReducer';
 import { routes } from '../data/constants';
 import { Box, Typography } from '@mui/material';
 

@@ -9,10 +9,10 @@ import {
   updateCreateDialog,
   updateCreateDialogErrorMessage,
   updateRedirect,
-} from '../../redux/components/recipes/recipegridReducer';
+} from './recipegridReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { setRecipe } from '../../redux/components/recipes/recipeReducer';
+import { setRecipe } from '../recipepage/recipeReducer';
 import CreateDialog from '../../components/CreateDialog';
 import { useNavigate } from 'react-router-dom';
 

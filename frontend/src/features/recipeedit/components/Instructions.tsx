@@ -7,7 +7,7 @@ import {
   addInstructionStep,
   deleteInstructionStep,
   updateInstructionStep,
-} from '../../../redux/components/recipes/recipeReducer';
+} from '../../recipepage/recipeReducer';
 
 interface InstructionsProps {
   instructions: Array<string>;

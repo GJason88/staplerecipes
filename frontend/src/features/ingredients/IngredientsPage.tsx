@@ -17,7 +17,7 @@ import {
   updateCreateErrorMessage,
   updateCreateIngrDialog,
   updateCurTabId,
-} from '../../redux/components/ingredients/ingredientsReducer';
+} from './ingredientsReducer';
 import IngredientsCategory from './components/IngredientsCategory';
 
 export default function IngredientsPage() {

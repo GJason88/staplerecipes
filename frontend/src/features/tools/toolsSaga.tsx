@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { toolsApi } from '../../../services/api';
+import { toolsApi } from '../../services/api';
 import { CategoryState, ToolState } from './toolsReducer';
 import camelcaseKeys from 'camelcase-keys';
 

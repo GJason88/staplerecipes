@@ -1,7 +1,7 @@
 import {
   NutritionState,
   UpdateRecipeParams,
-} from '../../redux/components/recipes/recipeReducer';
+} from '../../features/recipepage/recipeReducer';
 import { get, post, put, destroy } from './base';
 
 export const recipesApi = {

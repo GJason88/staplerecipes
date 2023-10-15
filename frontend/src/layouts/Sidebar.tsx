@@ -11,7 +11,7 @@ import {
   setActiveRoute,
   setSnackBar,
   updateIsMobile,
-} from '../redux/layout/layoutReducer';
+} from './layoutReducer';
 import { IRootState } from '../index';
 import { useNavigate } from 'react-router-dom';
 import { drawerWidth, routes } from '../data/constants';

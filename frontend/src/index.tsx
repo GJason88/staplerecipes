@@ -1,19 +1,19 @@
 import ReactDOM from 'react-dom/client';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import recipeGridReducer from './redux/components/recipes/recipegridReducer.tsx';
+import recipeGridReducer from './features/recipegrid/recipegridReducer.tsx';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
-import recipeReducer from './redux/components/recipes/recipeReducer.tsx';
+import recipeReducer from './features/recipepage/recipeReducer.tsx';
 import React from 'react';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './redux/sagas.tsx';
-import toolsReducer from './redux/components/tools/toolsReducer.tsx';
-import ingredientsReducer from './redux/components/ingredients/ingredientsReducer.tsx';
+import rootSaga from './sagas.tsx';
+import toolsReducer from './features/tools/toolsReducer.tsx';
+import ingredientsReducer from './features/ingredients/ingredientsReducer.tsx';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { theme } from './themes.tsx';
-import layoutReducer from './redux/layout/layoutReducer.tsx';
+import layoutReducer from './layouts/layoutReducer.tsx';
 
 const reducer = combineReducers({
   layout: layoutReducer,

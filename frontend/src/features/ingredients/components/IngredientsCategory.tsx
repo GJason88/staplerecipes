@@ -14,8 +14,8 @@ import {
   IngredientState,
   removeIngredientRequest,
   updateCreateIngrDialog,
-} from '../../../redux/components/ingredients/ingredientsReducer';
-import { CategoryState } from '../../../redux/components/tools/toolsReducer';
+} from '../ingredientsReducer';
+import { CategoryState } from '../../tools/toolsReducer';
 
 interface IngredientsCategoryProps {
   curTabId?: number | false;

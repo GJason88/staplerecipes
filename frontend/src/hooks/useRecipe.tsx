@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { IRootState } from '..';
-import { RecipeState } from '../redux/components/recipes/recipeReducer';
+import { RecipeState } from '../features/recipepage/recipeReducer';
 
 export default function useRecipe() {
   const {

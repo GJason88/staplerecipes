@@ -22,7 +22,7 @@ import {
   addIngredient,
   deleteIngredient,
   updateTools,
-} from '../../../redux/components/recipes/recipeReducer';
+} from '../../recipepage/recipeReducer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -31,11 +31,11 @@ import { IRootState } from '../../..';
 import {
   ToolState,
   getToolsRequest,
-} from '../../../redux/components/tools/toolsReducer';
+} from '../../tools/toolsReducer';
 import {
   IngredientState,
   getIngredientsRequest,
-} from '../../../redux/components/ingredients/ingredientsReducer';
+} from '../../ingredients/ingredientsReducer';
 
 interface ToolsIngredientsProps {
   recipeIngredients: Array<IngredientState>;

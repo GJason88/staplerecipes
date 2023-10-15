@@ -12,7 +12,7 @@ import {
   ToolState,
   removeToolRequest,
   updateCreateToolDialog,
-} from '../../../redux/components/tools/toolsReducer';
+} from '../toolsReducer';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';

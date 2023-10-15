@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import RecipeGridPage from '../features/recipegrid/RecipeGridPage';
 import { useDispatch } from 'react-redux';
-import { setActiveRoute, setBreadcrumbs } from '../redux/layout/layoutReducer';
+import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import { routes } from '../data/constants';
 
 export default function Recipes() {

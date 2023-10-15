@@ -16,7 +16,7 @@ import {
   setInvalid,
   setRecipeId,
   updateRecipeName,
-} from '../../redux/components/recipes/recipeReducer';
+} from '../recipepage/recipeReducer';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

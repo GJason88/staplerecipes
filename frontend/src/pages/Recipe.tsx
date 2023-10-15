@@ -4,7 +4,7 @@ import { IRootState } from '..';
 import {
   setActiveRoute,
   setBreadcrumbs,
-} from '../redux/layout/layoutReducer';
+} from '../layouts/layoutReducer';
 import { routes } from '../data/constants';
 import RecipePage from '../features/recipepage/RecipePage';
 

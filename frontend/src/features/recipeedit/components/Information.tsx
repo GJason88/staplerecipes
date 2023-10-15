@@ -1,6 +1,6 @@
 import { Box, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { updateTime } from '../../../redux/components/recipes/recipeReducer';
+import { updateTime } from '../../recipepage/recipeReducer';
 
 interface InformationProps {
   time: string;

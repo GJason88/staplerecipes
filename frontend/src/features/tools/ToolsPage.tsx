@@ -14,7 +14,7 @@ import {
   updateCreateErrorMessage,
   updateCreateToolDialog,
   updateCurTabId,
-} from '../../redux/components/tools/toolsReducer';
+} from './toolsReducer';
 import { useEffect } from 'react';
 import CreateDialog from '../../components/CreateDialog';
 import ToolsCategory from './components/ToolsCategory';

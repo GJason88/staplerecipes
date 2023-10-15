@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NutritionState } from '../recipes/recipeReducer';
+import { NutritionState } from '../recipepage/recipeReducer';
 import { CategoryState } from '../tools/toolsReducer';
 
 export interface IngredientsPageState {

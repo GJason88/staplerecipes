@@ -1,6 +1,6 @@
 import NutritionPage from '../features/nutrition/NutritionPage';
 import { useDispatch } from 'react-redux';
-import { setActiveRoute, setBreadcrumbs } from '../redux/layout/layoutReducer';
+import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import { useEffect } from 'react';
 import { routes } from '../data/constants';
 

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import {
   setInvalid,
   setRecipeId,
-} from '../../redux/components/recipes/recipeReducer';
+} from './recipeReducer';
 import RecipeHeading from './components/RecipeHeading';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';

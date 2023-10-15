@@ -17,7 +17,7 @@ import {
   IngredientState,
   getIngredientsRequest,
   updateNutritionRequest,
-} from '../../../redux/components/ingredients/ingredientsReducer';
+} from '../../ingredients/ingredientsReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
 import { IRootState } from '../../..';

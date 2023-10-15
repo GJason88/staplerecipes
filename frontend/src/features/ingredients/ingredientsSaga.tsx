@@ -5,7 +5,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { CategoryState } from '../tools/toolsReducer';
 import camelcaseKeys from 'camelcase-keys';
 import { IngredientState } from './ingredientsReducer';
-import { ingredientsApi } from '../../../services/api';
+import { ingredientsApi } from '../../services/api';
 
 interface GetResponse {
   data: {
