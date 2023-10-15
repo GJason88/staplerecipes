@@ -15,7 +15,7 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import { recipeImageHeight, recipeWidth } from '../../../constants';
+import { recipeWidth } from '../../../constants';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import RateReviewIcon from '@mui/icons-material/RateReview';
