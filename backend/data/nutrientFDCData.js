@@ -1,4 +1,4 @@
-const nutrients = {
+export const nutrients = {
     macronutrients: {
         1008: {
             name: 'Calories',
