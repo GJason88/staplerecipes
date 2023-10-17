@@ -3,6 +3,7 @@ import { ingredientController } from '../controllers/Ingredient.controller.js';
 import { ingredientModel } from '../models/Ingredient.model.js';
 
 const ingredient = Router();
+ingredient.get('/ingredient/:id', ingredientController.getIngredient);
 
 ingredient.get('/ingredients', ingredientController.getIngredients);
 

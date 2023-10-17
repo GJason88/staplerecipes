@@ -1,6 +1,18 @@
 import { ingredientModel } from '../models/Ingredient.model.js';
 
 export const ingredientController = {
+    getIngredient: async (req, res) => {
+        const ingredientId = req.params.id;
+        if (!ingredientId) return res.status(400).send('No ID provided.');
+        try {
+            const jsonResponse =
+                await ingredientModel.getIngredient(ingredientId);
+            res.json(jsonResponse);
+        } catch (e) {
+            console.log(e);
+            res.status(500).send('Something went wrong.');
+        }
+    },
     getIngredients: async (req, res) => {
         try {
             const jsonResponse = await ingredientModel.getIngredients();
@@ -21,10 +33,7 @@ export const ingredientController = {
     },
     getNutrients: async (req, res) => {
         const ingredientId = req.params.id;
-        if (!ingredientId)
-            return res
-                .status(400)
-                .send('No ID provided.');
+        if (!ingredientId) return res.status(400).send('No ID provided.');
         try {
             const jsonResponse = await ingredientModel.getNutrients();
             res.json(jsonResponse);
@@ -91,8 +100,7 @@ export const ingredientController = {
     deleteIngredient: async (req, res) => {
         try {
             const ingredientId = req.params.id;
-            if (!ingredientId)
-                return res.status(400).send('No ID provided.');
+            if (!ingredientId) return res.status(400).send('No ID provided.');
             await ingredientModel.deleteIngredient(ingredientId);
             res.send('success');
         } catch (e) {

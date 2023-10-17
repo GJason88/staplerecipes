@@ -3,6 +3,7 @@ import db from '../configs/db.configs.js';
 import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
 import { mapNutrients } from '../helpers/mapNutrients.js';
 import { pgpHelpers } from '../helpers/pgpHelpers.js';
+import { nutrientDBColumns } from '../../data/constants.js';
 
 const pgp = pgPromise({ capSQL: true });
 
@@ -13,6 +14,16 @@ export const ingredientModel = {
         FROM recipes.ingredient as i \
         INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id \
         INNER JOIN recipes.ingredient_nutrient as i_n ON i.ingredient_id = i_n.ingredient_id;'
+        ),
+    getIngredient: async (ingredientId) =>
+        await db.one(
+            'SELECT ingredient_name,i.category_id,category_name,' +
+                nutrientDBColumns +
+                ' FROM recipes.ingredient as i \
+            INNER JOIN recipes.ingredient_nutrition as i_n ON i.ingredient_id = i_n.ingredient_id \
+            INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id \
+            WHERE i.ingredient_id = $1',
+            [ingredientId]
         ),
     getCategories: async () =>
         await db.any(
