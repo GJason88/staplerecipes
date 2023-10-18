@@ -33,5 +33,5 @@ export const ingredientsApi = {
   deleteIngredient: (id: string) => destroy(`/ingredient/${id}`),
   deleteCategory: (id: string) => destroy(`/ingredient/category/${id}`),
   updateNutrition: (id: string, params: NutritionState) =>
-    put(`/ingredient/nutrition/${id}`, null, { params }),
+    put(`/ingredient/nutrients/${id}`, null, { params }),
 };

@@ -13,7 +13,7 @@ ingredient.post('/ingredient', ingredientController.createIngredient);
 
 ingredient.post('/ingredient/category', ingredientController.createCategory);
 
-ingredient.put('/ingredient/nutrition/:id', ingredientController.updateNutrition);
+ingredient.put('/ingredient/nutrients/:id', ingredientController.updateNutrients);
 
 ingredient.delete('/ingredient/:id', ingredientModel.deleteIngredient);
 

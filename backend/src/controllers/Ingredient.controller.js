@@ -44,17 +44,17 @@ export const ingredientController = {
     },
     createIngredient: async (req, res) => {
         try {
-            const ingrInfo = req.query;
-            if (!ingrInfo || !ingrInfo.name)
+            const {ingrInfo, nutrients, measurements} = req.body;
+            if (!(ingrInfo && nutrients && measurements))
                 return res
                     .status(400)
-                    .send('Create Ingredient Entry requires name.');
-            await ingredientModel.createIngredient(ingrInfo);
+                    .send('Missing ingredient information.');
+            await ingredientModel.createIngredient(ingrInfo, nutrients, measurements);
             res.send('success');
         } catch (e) {
             switch (e.code) {
                 case '23505':
-                    res.status(400).send('Ingredient name already exists.');
+                    res.status(400).send('Invalid info.');
                     break;
                 default:
                     res.status(500).send('Something went wrong.');
@@ -84,13 +84,13 @@ export const ingredientController = {
             }
         }
     },
-    updateNutrition: async (req, res) => {
+    updateNutrients: async (req, res) => {
         try {
-            const ingrId = req.params?.id;
-            const ingrInfo = req.query;
-            if (!ingrId || !ingrInfo)
+            const ingredientId = req.params.id;
+            const modifiedNutrients = req.body.modifiedNutrients;
+            if (!(ingredientId && modifiedNutrients))
                 return res.status(400).send('Invalid info.');
-            await ingredientModel.updateNutrition(ingrInfo, ingrId);
+            await ingredientModel.updateNutrition(ingredientId, modifiedNutrients);
             res.send('success');
         } catch (e) {
             res.status(500).send('Something went wrong.');
