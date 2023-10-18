@@ -1,28 +1,29 @@
+/* eslint-disable indent */
 import pgPromise from 'pg-promise';
 import db from '../configs/db.configs.js';
 import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
-import { mapNutrients } from '../helpers/mapNutrients.js';
-import { pgpHelpers } from '../helpers/pgpHelpers.js';
-import { nutrientsBToF } from '../../data/mappings.js';
+import { mapNutrients } from '../helpers/utils/mapNutrients.js';
+import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
+import {
+    additionalMeasurementsQuery,
+    nutrientsSelectQuery,
+} from '../helpers/utils/nestedSelectQueries.js';
 
 const pgp = pgPromise({ capSQL: true });
 
 export const ingredientModel = {
     getIngredients: async () =>
         await db.any(
-            'SELECT i.ingredient_id, ingredient_name, i.category_id, category_name, calories, total_fat, carbohydrates, protein \
-        FROM recipes.ingredient as i \
-        INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id \
-        INNER JOIN recipes.ingredient_nutrient as i_n ON i.ingredient_id = i_n.ingredient_id;'
+            `SELECT i.ingredient_id,ingredient_name,i.category_id,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            FROM recipes.ingredient as i
+            INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id;`
         ),
     getIngredient: async (ingredientId) =>
         await db.one(
-            'SELECT ingredient_name,i.category_id,category_name,' +
-                Object.keys(nutrientsBToF) +
-                ' FROM recipes.ingredient as i \
-            INNER JOIN recipes.ingredient_nutrient as i_n ON i.ingredient_id = i_n.ingredient_id \
-            INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id \
-            WHERE i.ingredient_id = $1',
+            `SELECT ingredient_name,i.category_id,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            FROM recipes.ingredient as i
+            INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id
+            WHERE i.ingredient_id = $1;`,
             [ingredientId]
         ),
     getCategories: async () =>
@@ -39,13 +40,17 @@ export const ingredientModel = {
             'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
             [ingrInfo.name, ingrInfo.category, ingrInfo.gml]
         );
-        await db.none(
-            pgp.helpers.insert(
-                ingredientHelpers.mapMeasurements(ingredientId, measurements),
-                null,
-                'recipes.ingredient_measurement'
-            )
-        );
+        measurements &&
+            (await db.none(
+                pgp.helpers.insert(
+                    ingredientHelpers.mapMeasurements(
+                        ingredientId,
+                        measurements
+                    ),
+                    null,
+                    'recipes.ingredient_measurement'
+                )
+            ));
         await db.none(
             pgp.helpers.insert(
                 mapNutrients(nutrients, true),

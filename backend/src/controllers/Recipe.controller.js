@@ -1,3 +1,4 @@
+import { recipeHelpers } from '../helpers/Recipe.helpers.js';
 import { recipeModel } from '../models/Recipe.model.js';
 
 export const recipeController = {
@@ -20,35 +21,12 @@ export const recipeController = {
             if (jsonResponse[0].length === 0) {
                 return res.status(400).send(`No recipe with ID ${recipeId}`);
             }
-            const ingredients = jsonResponse[1].map(
-                ({ ingredient_id, ingredient_name, amount }) => ({
-                    ingredient_id,
-                    ingredient_name,
-                    amount,
-                })
-            );
-            // calculate nutrition
-            const nutrition = {
-                calories: 0,
-                protein: 0,
-                carbs: 0,
-                fat: 0,
-                fiber: 0,
-            };
-            jsonResponse[1].forEach((ingredient) => {
-                for (const key in nutrition) {
-                    nutrition[key] += ingredient[key]
-                        ? ingredient[key] * parseInt(ingredient.amount)
-                        : 0;
-                }
-            });
-            const recipeInfo = {
-                ...jsonResponse[0][0],
+            const [ info, ingredients, tools ] = jsonResponse;
+            res.json({
+                ...info[0],
                 ingredients: ingredients,
-                tools: jsonResponse[2],
-                nutrition: nutrition,
-            };
-            res.json(recipeInfo);
+                tools: tools,
+            });
         } catch (e) {
             switch (e.code) {
                 case '23505':

@@ -1,27 +1,32 @@
 import db from '../configs/db.configs.js';
+import {
+    additionalMeasurementsQuery,
+    nutrientsSelectQuery,
+} from '../helpers/utils/nestedSelectQueries.js';
 
 export const recipeModel = {
     getRecipes: async () =>
         await db.any('SELECT recipe_id, recipe_name FROM recipes.recipe;'),
-    getRecipe: async (recipeId) =>
-        await db.multi(
-            'SELECT recipe_id, recipe_name, time, instructions FROM recipes.recipe WHERE recipe_id = $1;' +
-                'SELECT i.ingredient_id, ingredient_name, amount, calories, protein, carbs, fat, fiber \
-        FROM recipes.ingredient AS i \
-        INNER JOIN recipes.recipe_ingredient AS ri \
-        ON i.ingredient_id = ri.ingredient_id AND ri.recipe_id = $1;' +
-                'SELECT t.tool_id, tool_name, category_id \
-        FROM recipes.tool AS t \
-        INNER JOIN recipes.recipe_tool AS rt \
-        ON t.tool_id = rt.tool_id AND rt.recipe_id = $1;',
-            [recipeId]
-        ),
+    getRecipe: async (recipeId) => {
+        const recipeQuery =
+            'SELECT recipe_id,recipe_name,time,diet,instructions FROM recipes.recipe WHERE recipe_id = $1;';
+        const ingredientsQuery = `SELECT i.ingredient_id,ingredient_name,amount,default_measurement,g_ml AS ml_for_100g,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            FROM recipes.ingredient AS i \
+            INNER JOIN recipes.recipe_ingredient AS r_i ON i.ingredient_id = r_i.ingredient_id AND r_i.recipe_id = $1;`;
+        const toolsQuery =
+            'SELECT t.tool_id,tool_name,category_id FROM recipes.tool AS t \
+            INNER JOIN recipes.recipe_tool AS rt ON t.tool_id = rt.tool_id AND rt.recipe_id = $1;';
+        return await db.multi(recipeQuery + ingredientsQuery + toolsQuery, [
+            recipeId,
+        ]);
+    },
     createRecipe: async (recipeInfo) =>
         await db.one(
             'INSERT INTO recipes.recipe(recipe_name, time, instructions) VALUES ($1, $2, $3) RETURNING recipe_id;',
             [recipeInfo.name, '', []]
         ),
-    updateRecipe: async (recipeId, recipeInfo) => { // Have frontend send changes (diff fields in recipe, tools and ingredients to delete and add)
+    updateRecipe: async (recipeId, recipeInfo) => {
+        // Have frontend send changes (diff fields in recipe, tools and ingredients to delete and add)
         updateRecipeTools(recipeId, recipeInfo.tools);
         updateRecipeIngredients(recipeId, recipeInfo.ingredients);
         await db.none(
@@ -35,7 +40,9 @@ export const recipeModel = {
         );
     },
     deleteRecipe: async (recipeId) =>
-        await db.none('DELETE FROM recipes.recipe WHERE recipe_id = $1;', [recipeId]),
+        await db.none('DELETE FROM recipes.recipe WHERE recipe_id = $1;', [
+            recipeId,
+        ]),
 };
 
 const updateRecipeTools = async (recipeId, tools) => {
@@ -47,7 +54,8 @@ const updateRecipeTools = async (recipeId, tools) => {
         rows.push(`(${recipeId}, $${toolIdPlaceholder++})`);
         values.push(tool.toolId);
     });
-    await db.none( // TODO: use insert helper pg-promise for parameterized inputs, or use parameter for recipeId instead of passing directly
+    await db.none(
+        // TODO: use insert helper pg-promise for parameterized inputs, or use parameter for recipeId instead of passing directly
         'DELETE FROM recipes.recipe_tool WHERE recipe_id = $1; \
         INSERT INTO recipes.recipe_tool(recipe_id, tool_id) VALUES' +
             rows +
@@ -69,7 +77,8 @@ const updateRecipeIngredients = async (recipeId, ingredients) => {
         values.push(ingredient.ingredientId);
         values.push(ingredient.amount);
     });
-    await db.none( // TODO: use insert helper pg promise for parameterized inputs
+    await db.none(
+        // TODO: use insert helper pg promise for parameterized inputs
         'DELETE FROM recipes.recipe_ingredient WHERE recipe_id = $1; \
         INSERT INTO recipes.recipe_ingredient(recipe_id, ingredient_id, amount) VALUES' +
             rows +

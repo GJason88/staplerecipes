@@ -45,7 +45,7 @@ export const ingredientController = {
     createIngredient: async (req, res) => {
         try {
             const {ingrInfo, nutrients, measurements} = req.body;
-            if (!(ingrInfo && nutrients && measurements))
+            if (!(ingrInfo && nutrients))
                 return res
                     .status(400)
                     .send('Missing ingredient information.');
