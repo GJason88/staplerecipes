@@ -41,10 +41,10 @@ export const recipeController = {
     },
     createRecipe: async (req, res) => {
         try {
-            const recipeInfo = req.query;
-            if (!recipeInfo || !recipeInfo.name)
+            const info = req.body;
+            if (!recipeHelpers.containsAllInfo(info))
                 return res.status(400).send('Invalid recipe info.');
-            const jsonResponse = await recipeModel.createRecipe(recipeInfo);
+            const jsonResponse = await recipeModel.createRecipe(info);
             res.json(jsonResponse);
         } catch (e) {
             switch (e.code) {

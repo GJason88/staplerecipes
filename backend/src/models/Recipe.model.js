@@ -1,8 +1,11 @@
+import pgPromise from 'pg-promise';
 import db from '../configs/db.configs.js';
 import {
     additionalMeasurementsQuery,
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
+
+const pgp = pgPromise({ capSQL: true });
 
 export const recipeModel = {
     getRecipes: async () =>
@@ -20,11 +23,32 @@ export const recipeModel = {
             recipeId,
         ]);
     },
-    createRecipe: async (recipeInfo) =>
-        await db.one(
-            'INSERT INTO recipes.recipe(recipe_name, time, instructions) VALUES ($1, $2, $3) RETURNING recipe_id;',
-            [recipeInfo.name, '', []]
-        ),
+    createRecipe: async (info) => {
+        const recipeId = await db.one(
+            'INSERT INTO recipes.recipe(recipe_name, time, diet, instructions) VALUES ($1, $2, $3) RETURNING recipe_id;',
+            [info.name, info.time, info.diet, info.instructions]
+        );
+        await db.none(
+            pgp.helpers.insert(
+                info.ingredients.map((id) => ({
+                    ingredient_id: id,
+                    recipe_id: recipeId,
+                })),
+                null,
+                'recipes.recipe_ingredient'
+            )
+        );
+        await db.none(
+            pgp.helpers.insert(
+                info.tools.map((id) => ({
+                    tool_id: id,
+                    recipe_id: recipeId,
+                })),
+                null,
+                'recipes.recipe_tool'
+            )
+        );
+    },
     updateRecipe: async (recipeId, recipeInfo) => {
         // Have frontend send changes (diff fields in recipe, tools and ingredients to delete and add)
         updateRecipeTools(recipeId, recipeInfo.tools);
