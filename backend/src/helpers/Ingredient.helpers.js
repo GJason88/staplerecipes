@@ -8,6 +8,7 @@ export const ingredientHelpers = {
             grams: m.grams,
         })),
     containsAllNutrients: (nutrients) =>
+        nutrients &&
         Object.keys(nutrientsFToB).every((nutrient) =>
             Object.hasOwn(nutrients, nutrient)
         ),
