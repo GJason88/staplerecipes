@@ -9,8 +9,7 @@ export const ingredientHelpers = {
         })),
     containsAllInfo: (info) =>
         info.name &&
-        info.category &&
-        info.gml &&
+        info.categoryId &&
         info.nutrients &&
         Object.keys(nutrientsFToB).every((nutrient) =>
             Object.hasOwn(info.nutrients, nutrient)

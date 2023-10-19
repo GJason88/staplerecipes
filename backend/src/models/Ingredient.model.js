@@ -38,7 +38,7 @@ export const ingredientModel = {
     createIngredient: async (info) => {
         const ingredientId = await db.one(
             'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
-            [info.name, info.category, info.gml]
+            [info.name, info.categoryId, info.gml ?? 0]
         );
         info.measurements &&
             (await db.none(
