@@ -1,3 +1,4 @@
+import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
 import { ingredientModel } from '../models/Ingredient.model.js';
 
 export const ingredientController = {
@@ -44,12 +45,21 @@ export const ingredientController = {
     },
     createIngredient: async (req, res) => {
         try {
-            const {ingrInfo, nutrients, measurements} = req.body;
-            if (!(ingrInfo && nutrients))
-                return res
-                    .status(400)
-                    .send('Missing ingredient information.');
-            await ingredientModel.createIngredient(ingrInfo, nutrients, measurements);
+            const { ingrInfo, nutrients, measurements } = req.body;
+            if (
+                !(
+                    ingrInfo?.name &&
+                    ingrInfo.category &&
+                    ingrInfo.gml &&
+                    ingredientHelpers.containsAllNutrients(nutrients)
+                )
+            )
+                return res.status(400).send('Missing ingredient information.');
+            await ingredientModel.createIngredient(
+                ingrInfo,
+                nutrients,
+                measurements
+            );
             res.send('success');
         } catch (e) {
             switch (e.code) {
@@ -90,7 +100,10 @@ export const ingredientController = {
             const modifiedNutrients = req.body.modifiedNutrients;
             if (!(ingredientId && modifiedNutrients))
                 return res.status(400).send('Invalid info.');
-            await ingredientModel.updateNutrition(ingredientId, modifiedNutrients);
+            await ingredientModel.updateNutrition(
+                ingredientId,
+                modifiedNutrients
+            );
             res.send('success');
         } catch (e) {
             res.status(500).send('Something went wrong.');

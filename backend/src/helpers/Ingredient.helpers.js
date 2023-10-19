@@ -1,3 +1,5 @@
+import { nutrientsFToB } from '../../data/mappings.js';
+
 export const ingredientHelpers = {
     mapMeasurements: (ingredientId, measurements) =>
         measurements.map((m) => ({
@@ -5,4 +7,8 @@ export const ingredientHelpers = {
             measurement_name: m.name,
             grams: m.grams,
         })),
+    containsAllNutrients: (nutrients) =>
+        Object.keys(nutrientsFToB).every((nutrient) =>
+            Object.hasOwn(nutrients, nutrient)
+        ),
 };
