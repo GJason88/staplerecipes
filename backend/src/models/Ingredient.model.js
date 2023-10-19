@@ -35,17 +35,17 @@ export const ingredientModel = {
             'SELECT * FROM recipes.ingredient_nutrient WHERE ingredient_id = $1;',
             [ingredientId]
         ),
-    createIngredient: async (ingrInfo, nutrients, measurements) => {
+    createIngredient: async (info) => {
         const ingredientId = await db.one(
             'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
-            [ingrInfo.name, ingrInfo.category, ingrInfo.gml]
+            [info.name, info.category, info.gml]
         );
-        measurements &&
+        info.measurements &&
             (await db.none(
                 pgp.helpers.insert(
                     ingredientHelpers.mapMeasurements(
                         ingredientId,
-                        measurements
+                        info.measurements
                     ),
                     null,
                     'recipes.ingredient_measurement'
@@ -53,7 +53,7 @@ export const ingredientModel = {
             ));
         await db.none(
             pgp.helpers.insert(
-                mapNutrients(nutrients, true),
+                mapNutrients(info.nutrients, true),
                 null,
                 'recipes.ingredient_nutrient'
             ) + pgpHelpers.createCondition('ingredient_id', ingredientId)
