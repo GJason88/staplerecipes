@@ -7,9 +7,12 @@ export const ingredientHelpers = {
             measurement_name: m.name,
             grams: m.grams,
         })),
-    containsAllNutrients: (nutrients) =>
-        nutrients &&
+    containsAllInfo: (info) =>
+        info.name &&
+        info.category &&
+        info.gml &&
+        info.nutrients &&
         Object.keys(nutrientsFToB).every((nutrient) =>
-            Object.hasOwn(nutrients, nutrient)
+            Object.hasOwn(info.nutrients, nutrient)
         ),
 };

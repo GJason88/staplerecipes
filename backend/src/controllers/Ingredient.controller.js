@@ -46,14 +46,7 @@ export const ingredientController = {
     createIngredient: async (req, res) => {
         try {
             const info = req.body;
-            if (
-                !(
-                    info.name &&
-                    info.category &&
-                    info.gml &&
-                    ingredientHelpers.containsAllNutrients(info.nutrients)
-                )
-            )
+            if (!ingredientHelpers.containsAllInfo(info))
                 return res.status(400).send('Missing ingredient information.');
             await ingredientModel.createIngredient(info);
             res.send('success');
