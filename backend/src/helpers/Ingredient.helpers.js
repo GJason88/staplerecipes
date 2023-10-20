@@ -4,7 +4,7 @@ export const ingredientHelpers = {
     mapMeasurements: (ingredientId, measurements) =>
         measurements.map((m) => ({
             ingredient_id: ingredientId,
-            measurement_name: m.name,
+            measurement_name: m.measurementName,
             grams: m.grams,
         })),
     validateCreateInfo: (info) =>

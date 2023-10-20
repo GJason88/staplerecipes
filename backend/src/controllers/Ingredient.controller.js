@@ -89,7 +89,7 @@ export const ingredientController = {
             const modifiedNutrients = req.body.modifiedNutrients;
             if (!(ingredientId && modifiedNutrients))
                 return res.status(400).send('Invalid info.');
-            await ingredientModel.updateNutrition(
+            await ingredientModel.updateNutrients(
                 ingredientId,
                 modifiedNutrients
             );

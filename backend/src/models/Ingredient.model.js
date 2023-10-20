@@ -14,13 +14,13 @@ const pgp = pgPromise({ capSQL: true });
 export const ingredientModel = {
     getIngredients: async () =>
         await db.any(
-            `SELECT i.ingredient_id,ingredient_name,i.category_id,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            `SELECT i.ingredient_id,ingredient_name,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient as i
             INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id;`
         ),
     getIngredient: async (ingredientId) =>
         await db.one(
-            `SELECT ingredient_name,i.category_id,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            `SELECT ingredient_name,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient as i
             INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id
             WHERE i.ingredient_id = $1;`,
@@ -40,12 +40,12 @@ export const ingredientModel = {
             'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
             [info.name, info.categoryId, info.gml ?? 0]
         );
-        info.measurements &&
+        info.additionalMeasurements &&
             (await db.none(
                 pgp.helpers.insert(
                     ingredientHelpers.mapMeasurements(
                         ingredientId,
-                        info.measurements
+                        info.additionalMeasurements
                     ),
                     null,
                     'recipes.ingredient_measurement'
