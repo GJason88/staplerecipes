@@ -4,10 +4,7 @@ import { useEffect } from 'react';
 import useRecipe from '../../hooks/useRecipe';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  setInvalid,
-  setRecipeId,
-} from './recipeReducer';
+import { setInvalid, setRecipeId } from './recipeReducer';
 import RecipeHeading from './components/RecipeHeading';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';
