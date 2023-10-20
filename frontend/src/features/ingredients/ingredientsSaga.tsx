@@ -2,15 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { CategoryState } from '../tools/toolsReducer';
 import camelcaseKeys from 'camelcase-keys';
-import { IngredientState } from './ingredientsReducer';
 import { ingredientsApi } from '../../services/api';
 
 interface GetResponse {
   data: {
-    categories: Array<CategoryState>; // in snake_case
-    ingredients: Array<IngredientState>; // in snake_case
+    categories: Array<CategoryState>, // in snake_case
+    ingredients: Array<IngredientState>, // in snake_case
   };
 }
 

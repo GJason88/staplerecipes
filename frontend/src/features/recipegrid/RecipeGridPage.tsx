@@ -3,7 +3,6 @@ import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import RecipeCard from './components/RecipeCard';
 import { useEffect } from 'react';
 import {
-  RecipeGridState,
   createRecipeRequest,
   getAllRecipesRequest,
   updateCreateDialog,

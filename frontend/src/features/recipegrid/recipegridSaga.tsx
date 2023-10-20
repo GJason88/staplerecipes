@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { recipesApi } from '../../services/api';
-import { RecipeCardState } from './recipegridReducer';
 import camelcaseKeys from 'camelcase-keys';
 
 interface CreateResponse {

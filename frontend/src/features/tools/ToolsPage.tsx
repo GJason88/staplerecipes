@@ -4,7 +4,6 @@ import { Box, Button, IconButton, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
 import {
-  ToolsPageState,
   addCategoryRequest,
   addToolRequest,
   getCategoriesRequest,
@@ -66,7 +65,9 @@ export default function ToolsPage() {
             key={index}
             category={cat}
             curTabId={curTabId}
-            tools={tools.filter((tool) => tool.categoryId == cat.categoryId)}
+            tools={tools.filter(
+              (tool) => tool.categoryName == cat.categoryName
+            )}
           ></ToolsCategory>
         ))}
       </Paper>

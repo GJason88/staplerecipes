@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '..';
-import {
-  setActiveRoute,
-  setBreadcrumbs,
-} from '../layouts/layoutReducer';
+import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import { routes } from '../data/constants';
 import RecipePage from '../features/recipepage/RecipePage';
 

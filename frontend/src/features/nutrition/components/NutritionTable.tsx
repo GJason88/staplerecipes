@@ -14,7 +14,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {
-  IngredientState,
   getIngredientsRequest,
   updateNutritionRequest,
 } from '../../ingredients/ingredientsReducer';
@@ -29,8 +28,8 @@ interface Row {
   calories: number;
   protein: number;
   carbs: number;
-  fat: number;
-  fiber: number;
+  totalFat: number;
+  dietaryFiber: number;
 }
 
 export default function NutritionTable() {
@@ -48,8 +47,8 @@ export default function NutritionTable() {
         calories: ingredient.nutrition.calories,
         protein: ingredient.nutrition.protein,
         carbs: ingredient.nutrition.carbs,
-        fat: ingredient.nutrition.fat,
-        fiber: ingredient.nutrition.fiber,
+        totalFat: ingredient.nutrition.totalFat,
+        dietaryFiber: ingredient.nutrition.dietaryFiber,
       })),
     [ingredients]
   );
@@ -88,8 +87,8 @@ export default function NutritionTable() {
       calories: newRow.calories,
       carbs: newRow.carbs,
       protein: newRow.protein,
-      fat: newRow.fat,
-      fiber: newRow.fiber,
+      totalFat: newRow.totalFat,
+      dietaryFiber: newRow.dietaryFiber,
     };
     dispatch(updateNutritionRequest({ id: newRow.id, nutrition }));
     return newRow;

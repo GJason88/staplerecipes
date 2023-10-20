@@ -9,7 +9,6 @@ import {
   Paper,
 } from '@mui/material';
 import { useState } from 'react';
-import { IngredientState } from '../../ingredients/ingredientsReducer';
 
 interface RecipeIngredientsProps {
   ingredients: Array<IngredientState>;

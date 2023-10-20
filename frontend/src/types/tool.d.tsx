@@ -11,5 +11,5 @@ interface ToolsPageState {
 interface ToolState {
   toolId: number;
   toolName: string;
-  categoryName: number;
+  categoryName: string;
 }

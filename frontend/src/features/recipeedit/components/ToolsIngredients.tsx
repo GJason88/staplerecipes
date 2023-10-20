@@ -28,14 +28,8 @@ import AddIcon from '@mui/icons-material/Add';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { IRootState } from '../../..';
-import {
-  ToolState,
-  getToolsRequest,
-} from '../../tools/toolsReducer';
-import {
-  IngredientState,
-  getIngredientsRequest,
-} from '../../ingredients/ingredientsReducer';
+import { getToolsRequest } from '../../tools/toolsReducer';
+import { getIngredientsRequest } from '../../ingredients/ingredientsReducer';
 
 interface ToolsIngredientsProps {
   recipeIngredients: Array<IngredientState>;

@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import CreateDialog from '../../components/CreateDialog';
 import AddIcon from '@mui/icons-material/Add';
 import {
-  IngredientsPageState,
   addCategoryRequest,
   addIngredientRequest,
   getCategoriesRequest,
@@ -69,7 +68,7 @@ export default function IngredientsPage() {
             category={cat}
             curTabId={curTabId}
             ingredients={ingredients.filter(
-              (ingr) => ingr.categoryId == cat.categoryId
+              (ingr) => ingr.categoryName == cat.categoryName
             )}
           ></IngredientsCategory>
         ))}

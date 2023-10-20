@@ -11,11 +11,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
-  IngredientState,
   removeIngredientRequest,
   updateCreateIngrDialog,
 } from '../ingredientsReducer';
-import { CategoryState } from '../../tools/toolsReducer';
 
 interface IngredientsCategoryProps {
   curTabId?: number | false;

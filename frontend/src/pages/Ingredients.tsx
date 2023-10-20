@@ -1,8 +1,5 @@
 import { useDispatch } from 'react-redux';
-import {
-  setActiveRoute,
-  setBreadcrumbs,
-} from '../layouts/layoutReducer';
+import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import IngredientsPage from '../features/ingredients/IngredientsPage';
 import { useEffect } from 'react';
 import { routes } from '../data/constants';

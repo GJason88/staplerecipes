@@ -1,17 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface RecipeGridState {
-  recipes: Array<RecipeCardState>;
-  isCreateDialog: boolean;
-  createDialogErrorMessage: string;
-  redirect: string | false;
-}
-
-export interface RecipeCardState {
-  recipeId: number;
-  recipeName: string;
-}
-
 const initialState = {
   recipes: [],
   isCreateDialog: false,

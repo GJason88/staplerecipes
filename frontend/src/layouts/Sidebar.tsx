@@ -7,11 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setActiveRoute,
-  setSnackBar,
-  updateIsMobile,
-} from './layoutReducer';
+import { setActiveRoute, setSnackBar, updateIsMobile } from './layoutReducer';
 import { IRootState } from '../index';
 import { useNavigate } from 'react-router-dom';
 import { drawerWidth, routes } from '../data/constants';

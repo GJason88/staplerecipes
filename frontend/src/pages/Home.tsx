@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  setActiveRoute,
-  setBreadcrumbs,
-} from '../layouts/layoutReducer';
+import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import { routes } from '../data/constants';
 import { Box, Typography } from '@mui/material';
 

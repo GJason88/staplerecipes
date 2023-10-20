@@ -7,12 +7,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
-import {
-  CategoryState,
-  ToolState,
-  removeToolRequest,
-  updateCreateToolDialog,
-} from '../toolsReducer';
+import { removeToolRequest, updateCreateToolDialog } from '../toolsReducer';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
