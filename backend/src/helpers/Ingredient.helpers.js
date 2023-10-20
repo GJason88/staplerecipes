@@ -1,4 +1,4 @@
-import { nutrientsFToB } from '../../data/mappings.js';
+import { nutrientsFrontend } from '../../data/constants.js';
 
 export const ingredientHelpers = {
     mapMeasurements: (ingredientId, measurements) =>
@@ -11,7 +11,7 @@ export const ingredientHelpers = {
         info.name &&
         info.categoryId &&
         info.nutrients &&
-        Object.keys(nutrientsFToB).every((nutrient) =>
+        nutrientsFrontend.every((nutrient) =>
             Object.hasOwn(info.nutrients, nutrient)
         ),
 };

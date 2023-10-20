@@ -1,4 +1,4 @@
-import { nutrientsBToF } from '../../../data/mappings.js';
+import { nutrientsBackend } from '../../../data/constants.js';
 
 const nestSelectQuery = (jsonMethod, query) => {
     return `(SELECT ${jsonMethod} FROM (${query}) x)`;
@@ -6,9 +6,7 @@ const nestSelectQuery = (jsonMethod, query) => {
 
 export const nutrientsSelectQuery = `${nestSelectQuery(
     'row_to_json(x)',
-    `SELECT ${Object.keys(
-        nutrientsBToF
-    )} FROM recipes.ingredient_nutrient AS i_n WHERE i.ingredient_id = i_n.ingredient_id`
+    `SELECT ${nutrientsBackend} FROM recipes.ingredient_nutrient AS i_n WHERE i.ingredient_id = i_n.ingredient_id`
 )} AS nutrients_for_100g`;
 
 export const additionalMeasurementsQuery =

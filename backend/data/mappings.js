@@ -47,7 +47,6 @@ export const mappingsFtoB = {
     vitaminK2: 'vitamin_k2',
     vitaminK1: 'vitamin_k1',
 };
-
 export const mappingsBToF = {
     protein: 'protein',
     total_fat: 'totalFat',
