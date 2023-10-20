@@ -4,6 +4,7 @@ import {
     additionalMeasurementsQuery,
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
+import { mapFields } from '../helpers/utils/mapFields.js';
 
 const pgp = pgPromise({ capSQL: true });
 
@@ -49,64 +50,55 @@ export const recipeModel = {
             )
         );
     },
-    updateRecipe: async (recipeId, recipeInfo) => {
-        // Have frontend send changes (diff fields in recipe, tools and ingredients to delete and add)
-        updateRecipeTools(recipeId, recipeInfo.tools);
-        updateRecipeIngredients(recipeId, recipeInfo.ingredients);
-        await db.none(
-            'UPDATE recipes.recipe SET recipe_name = $1, time = $2, instructions = $3 WHERE recipe_id = $4;',
-            [
-                recipeInfo.name,
-                recipeInfo.time || '',
-                recipeInfo.instructions || [],
-                recipeId,
-            ]
-        );
+    updateRecipe: async (recipeId, info) => {
+        info.recipeFields &&
+            db.none(
+                pgp.helpers.update(
+                    mapFields(info.recipeFields),
+                    null,
+                    'recipes.recipe'
+                )
+            );
+        info.addIngredients?.length &&
+            db.none(
+                pgp.helpers.insert(
+                    info.addIngredients.map((ingredient) => ({
+                        recipe_id: recipeId,
+                        ...mapFields(ingredient),
+                    })),
+                    [
+                        'recipe_id',
+                        'ingredient_id',
+                        'amount',
+                        'default_measurement',
+                    ],
+                    'recipes.recipe_ingredient'
+                )
+            );
+        info.addTools?.length &&
+            db.none(
+                pgp.helpers.insert(
+                    info.addTools.map((toolId) => ({
+                        tool_id: toolId,
+                        recipe_id: 5,
+                    })),
+                    ['tool_id', 'recipe_id'],
+                    'recipes.recipe_tool'
+                )
+            );
+        info.removeIngredients?.length &&
+            db.none(
+                'DELETE FROM recipes.recipe_ingredient WHERE ingredient_id IN ($1) AND recipe_id = $2',
+                [info.removeIngredients, recipeId]
+            );
+        info.removeTools?.length &&
+            db.none(
+                'DELETE FROM recipes.recipe_tool WHERE tool_id IN ($1) AND recipe_id = $2',
+                [info.removeTools, recipeId]
+            );
     },
     deleteRecipe: async (recipeId) =>
         await db.none('DELETE FROM recipes.recipe WHERE recipe_id = $1;', [
             recipeId,
         ]),
-};
-
-const updateRecipeTools = async (recipeId, tools) => {
-    if (!tools) return;
-    let rows = [];
-    let values = [recipeId];
-    let toolIdPlaceholder = 2;
-    tools.map((tool) => {
-        rows.push(`(${recipeId}, $${toolIdPlaceholder++})`);
-        values.push(tool.toolId);
-    });
-    await db.none(
-        // TODO: use insert helper pg-promise for parameterized inputs, or use parameter for recipeId instead of passing directly
-        'DELETE FROM recipes.recipe_tool WHERE recipe_id = $1; \
-        INSERT INTO recipes.recipe_tool(recipe_id, tool_id) VALUES' +
-            rows +
-            ';',
-        values
-    );
-};
-
-const updateRecipeIngredients = async (recipeId, ingredients) => {
-    if (!ingredients) return;
-    let rows = [];
-    let values = [recipeId];
-    let ingrIdPlaceholder = 0;
-    let amountPlaceholder = 1;
-    ingredients.map((ingredient) => {
-        rows.push(
-            `(${recipeId}, $${(ingrIdPlaceholder += 2)}, $${(amountPlaceholder += 2)})`
-        );
-        values.push(ingredient.ingredientId);
-        values.push(ingredient.amount);
-    });
-    await db.none(
-        // TODO: use insert helper pg promise for parameterized inputs
-        'DELETE FROM recipes.recipe_ingredient WHERE recipe_id = $1; \
-        INSERT INTO recipes.recipe_ingredient(recipe_id, ingredient_id, amount) VALUES' +
-            rows +
-            ';',
-        values
-    );
 };

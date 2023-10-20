@@ -1,4 +1,4 @@
-import { recipeHelpers } from '../helpers/Recipe.helpers.js';
+import { recipeHelpers } from '../helpers/Recipe.helper.js';
 import { recipeModel } from '../models/Recipe.model.js';
 
 export const recipeController = {
@@ -21,7 +21,7 @@ export const recipeController = {
             if (jsonResponse[0].length === 0) {
                 return res.status(400).send(`No recipe with ID ${recipeId}`);
             }
-            const [ info, ingredients, tools ] = jsonResponse;
+            const [info, ingredients, tools] = jsonResponse;
             res.json({
                 ...info[0],
                 ingredients: ingredients,
@@ -42,7 +42,7 @@ export const recipeController = {
     createRecipe: async (req, res) => {
         try {
             const info = req.body;
-            if (!recipeHelpers.containsAllInfo(info))
+            if (!recipeHelpers.validateCreateInfo(info))
                 return res.status(400).send('Invalid recipe info.');
             const jsonResponse = await recipeModel.createRecipe(info);
             res.json(jsonResponse);
@@ -60,11 +60,12 @@ export const recipeController = {
     },
     updateRecipe: async (req, res) => {
         try {
-            const recipeInfo = req.query;
-            const recipeId = req.params?.id;
-            if (!recipeId || !recipeInfo || !recipeInfo.name)
-                return res.status(400).send('Invalid recipe info.');
-            await recipeModel.updateRecipe(recipeId, recipeInfo);
+            const info = req.body;
+            const recipeId = req.params.id;
+            if (!(recipeId && recipeHelpers.validateUpdateInfo(info)))
+                return res.status(400).send('Invalid recipe update info.');
+            // const mappedInfo = recipeHelpers.mapUpdateInfo(info); // do in model
+            await recipeModel.updateRecipe(recipeId, info);
             res.send('success');
         } catch (e) {
             switch (e.code) {
