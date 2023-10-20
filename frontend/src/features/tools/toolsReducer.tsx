@@ -1,25 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface ToolsPageState {
-  tools: Array<ToolState>;
-  categories: Array<CategoryState>;
-  isCreateToolDialog: boolean;
-  isCreateCategoryDialog: boolean;
-  createErrorMessage: string;
-  curTabId?: number | false;
-}
-
-export interface ToolState {
-  toolId: number;
-  toolName: string;
-  categoryId: number;
-}
-
-export interface CategoryState {
-  categoryId: number;
-  categoryName: string;
-}
-
 const initialState = {
   tools: [],
   categories: [],

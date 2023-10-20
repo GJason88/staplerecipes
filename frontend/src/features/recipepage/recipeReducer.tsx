@@ -1,41 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ToolState } from '../tools/toolsReducer';
-import { IngredientState } from '../ingredients/ingredientsReducer';
 
-export interface RecipeState {
-  recipeId: number | null;
-  recipeName: string;
-  time: string;
-  nutrition: NutritionState | null;
-  tools: Array<ToolState>;
-  ingredients: Array<IngredientState>;
-  instructions: Array<string>;
-  invalid: boolean;
-}
-
-export interface NutritionState {
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  fiber: number;
-}
-
-export interface UpdateRecipeParams {
-  name: string;
-  time: string | null;
-  tools: Array<string>;
-  ingredients: Array<IngredientState>;
-  instructions: Array<string>;
-}
-
-const initialNutritionState = {
+const initialNutrientState = {
   calories: 0,
   protein: 0,
   carbs: 0,
   fat: 0,
   fiber: 0,
-} as NutritionState;
+} as NutrientState;
 
 const initialState = {
   recipeId: null,
@@ -44,7 +15,7 @@ const initialState = {
   ingredients: [],
   time: '',
   instructions: [],
-  nutrition: initialNutritionState,
+  nutrition: initialNutrientState,
   invalid: false,
 } as RecipeState;
 

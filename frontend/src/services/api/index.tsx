@@ -1,14 +1,10 @@
-import {
-  NutritionState,
-  UpdateRecipeParams,
-} from '../../features/recipepage/recipeReducer';
 import { get, post, put, destroy } from './base';
 
 export const recipesApi = {
   create: (params: { name: string }) => post('/recipe', null, { params }),
   retrieve: (id: string) => get(`/recipe/${id}`),
   retrieveAll: () => get('/recipes'),
-  update: (id: string, params: UpdateRecipeParams) =>
+  update: (id: string, params: UpdateRecipeState) =>
     put(`/recipe/${id}`, null, { params }),
   delete: (id: string) => destroy(`/recipe/${id}`),
 };
@@ -32,6 +28,6 @@ export const ingredientsApi = {
   retrieveAllCategories: () => get('/ingredient/categories'),
   deleteIngredient: (id: string) => destroy(`/ingredient/${id}`),
   deleteCategory: (id: string) => destroy(`/ingredient/category/${id}`),
-  updateNutrition: (id: string, params: NutritionState) =>
+  updateNutrition: (id: string, params: NutrientState) =>
     put(`/ingredient/nutrients/${id}`, null, { params }),
 };

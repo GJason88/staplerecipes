@@ -14,7 +14,7 @@ export const recipeModel = {
     getRecipe: async (recipeId) => {
         const recipeQuery =
             'SELECT recipe_id,recipe_name,time,diet,instructions FROM recipes.recipe WHERE recipe_id = $1;';
-        const ingredientsQuery = `SELECT i.ingredient_id,ingredient_name,amount,nutrition,default_measurement,additional_measurements,g_ml AS ml_for_100g,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+        const ingredientsQuery = `SELECT i.ingredient_id,ingredient_name,category_name,amount,nutrition,default_measurement,additional_measurements,g_ml AS ml_for_100g,${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient AS i \
             INNER JOIN recipes.recipe_ingredient AS r_i ON i.ingredient_id = r_i.ingredient_id AND r_i.recipe_id = $1;`;
         const toolsQuery =

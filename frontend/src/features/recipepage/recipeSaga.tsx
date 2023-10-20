@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { recipesApi } from '../../services/api';
-import { RecipeState } from './recipeReducer';
 import { IRootState } from '../..';
 import camelcaseKeys from 'camelcase-keys';
 

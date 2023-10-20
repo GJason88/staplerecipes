@@ -1,16 +1,16 @@
 import { useSelector } from 'react-redux';
 import { IRootState } from '..';
-import { RecipeState } from '../features/recipepage/recipeReducer';
 
 export default function useRecipe() {
   const {
     recipeId,
     recipeName,
     time,
-    nutrition,
+    diet,
+    instructions,
     ingredients,
     tools,
-    instructions,
+    nutrition,
     invalid,
   } = useSelector<IRootState, RecipeState>((state) => state.recipe);
 
@@ -18,10 +18,11 @@ export default function useRecipe() {
     recipeId,
     recipeName,
     time,
-    nutrition,
+    diet,
+    instructions,
     ingredients,
     tools,
-    instructions,
+    nutrition,
     invalid,
   };
 }

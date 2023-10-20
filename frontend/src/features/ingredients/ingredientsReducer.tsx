@@ -1,24 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NutritionState } from '../recipepage/recipeReducer';
-import { CategoryState } from '../tools/toolsReducer';
-
-export interface IngredientsPageState {
-  ingredients: Array<IngredientState>;
-  categories: Array<CategoryState>;
-  isCreateIngrDialog: boolean;
-  isCreateCategoryDialog: boolean;
-  createErrorMessage: string;
-  curTabId?: number | false;
-}
-
-export interface IngredientState {
-  ingredientId: number | null;
-  ingredientName: string;
-  categoryId: number | null;
-  categoryName: string;
-  nutrition: NutritionState;
-  amount?: number;
-}
 
 const initialState = {
   ingredients: [],
