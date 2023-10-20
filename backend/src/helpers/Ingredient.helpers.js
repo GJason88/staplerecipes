@@ -7,7 +7,7 @@ export const ingredientHelpers = {
             measurement_name: m.name,
             grams: m.grams,
         })),
-    containsAllInfo: (info) =>
+    validateCreateInfo: (info) =>
         info.name &&
         info.categoryId &&
         info.nutrients &&

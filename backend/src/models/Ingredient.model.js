@@ -2,12 +2,12 @@
 import pgPromise from 'pg-promise';
 import db from '../configs/db.configs.js';
 import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
-import { mapNutrients } from '../helpers/utils/mapNutrients.js';
 import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
 import {
     additionalMeasurementsQuery,
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
+import { mapFields } from '../helpers/utils/mapFields.js';
 
 const pgp = pgPromise({ capSQL: true });
 
@@ -53,7 +53,7 @@ export const ingredientModel = {
             ));
         await db.none(
             pgp.helpers.insert(
-                mapNutrients(info.nutrients, true),
+                mapFields(info.nutrients, true),
                 null,
                 'recipes.ingredient_nutrient'
             ) + pgpHelpers.createCondition('ingredient_id', ingredientId)

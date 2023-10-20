@@ -1,4 +1,12 @@
-export const nutrientsFToB = {
+export const mappingsFtoB = {
+    recipeName: 'recipe_name',
+    time: 'time',
+    instructions: 'instructions',
+    diet: 'diet',
+    ingredientId: 'ingredient_id',
+    amount: 'amount',
+    defaultMeasurement: 'default_measurement',
+    toolId: 'tool_id',
     protein: 'protein',
     totalFat: 'total_fat',
     carbs: 'carbohydrates',
@@ -39,7 +47,8 @@ export const nutrientsFToB = {
     vitaminK2: 'vitamin_k2',
     vitaminK1: 'vitamin_k1',
 };
-export const nutrientsBToF = {
+
+export const mappingsBToF = {
     protein: 'protein',
     total_fat: 'totalFat',
     carbohydrates: 'carbs',
