@@ -121,7 +121,7 @@ export const nutrients = {
             },
             1162: {
                 name: 'Vitamin C',
-                unit: 'g',
+                unit: 'mg',
                 dv: 90,
             },
             1114: {
