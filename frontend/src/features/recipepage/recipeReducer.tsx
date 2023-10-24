@@ -60,6 +60,7 @@ const recipe = createSlice({
   reducers: {
     setRecipe: (state, action) => {
       state = action.payload ? { ...state, ...action.payload } : initialState;
+      console.log(state);
       return state;
     },
     setRecipeId: (state, action) => {

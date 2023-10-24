@@ -65,11 +65,8 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
                     : {}
                 }
                 primary={value.ingredientName}
-                secondary={
-                  value.amount.toString() +
-                  ' ' +
-                  value.defaultMeasurement.measurementName
-                }
+                secondary={`${value.amount.toString()} 
+                            ${value.defaultMeasurement}`}
               />
             </ListItemButton>
           </ListItem>

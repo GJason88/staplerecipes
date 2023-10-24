@@ -12,14 +12,9 @@ interface IngredientState {
   ingredientId: number | null;
   ingredientName: string;
   categoryName: string;
-  nutrition: NutrientState;
-  additionalMeasurements: Array<MeasurementState>;
-  mlFor100g: number; // ml per 100g (0 if no volume measurements)
+  nutrientsFor100G: NutrientState;
+  additionalMeasurements: Array<{ [key: string]: number }>;
+  mlFor100G: number; // ml per 100g (0 if no volume measurements)
   amount: number;
-  defaultMeasurement: MeasurementState;
-}
-
-interface MeasurementState {
-  measurementName: string;
-  grams: number;
+  defaultMeasurement: string;
 }
