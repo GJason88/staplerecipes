@@ -10,7 +10,7 @@ import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
-import NutritionLabel from '../../components/NutritionLabel';
+import NutritionLabel from '../../components/NutritionLabel/NutritionLabel';
 
 export default function RecipePage() {
   const routeParams = useParams();
