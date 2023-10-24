@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Paper, Box, Typography, Divider } from '@mui/material';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
 
@@ -8,7 +9,7 @@ const pieSizing = {
   legend: { hidden: true },
 };
 
-export default function RecipeNutrition() {
+export default function NutritionLabel() {
   return (
     <Paper
       sx={{
