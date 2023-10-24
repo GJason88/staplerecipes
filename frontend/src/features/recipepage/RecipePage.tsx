@@ -10,7 +10,7 @@ import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
-import RecipeNutrition from './components/RecipeNutrition';
+import NutritionLabel from '../../components/NutritionLabel';
 
 export default function RecipePage() {
   const routeParams = useParams();
@@ -35,13 +35,13 @@ export default function RecipePage() {
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>
         <RecipeHeading name={recipe.recipeName} />
-        <RecipeInfo time={recipe.time} />
+        <RecipeInfo time={recipe.time} diet={recipe.diet} />
         <Stack flexWrap='wrap' flexDirection='row' gap={1}>
           <RecipeIngredients ingredients={recipe.ingredients} />
-          <RecipeTools />
+          <RecipeTools tools={recipe.tools} />
         </Stack>
         <RecipeInstructions />
-        <RecipeNutrition />
+        <NutritionLabel />
       </Stack>
     </Container>
   );

@@ -2,13 +2,14 @@ import { Paper, Stack, Typography } from '@mui/material';
 
 interface RecipeInfoProps {
   time: string;
+  diet: string;
 }
 
 export default function RecipeInfo(props: RecipeInfoProps) {
   const tempData = [
     { name: 'Time', value: props.time },
-    { name: 'Servings', value: '3' },
-    { name: 'Diet', value: 'All' },
+    { name: 'Servings', value: '3' }, // TODO: adjustable
+    { name: 'Diet', value: props.diet },
   ];
   return (
     <Stack flexDirection='row' gap={1}>

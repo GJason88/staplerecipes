@@ -15,7 +15,7 @@ interface RecipeIngredientsProps {
 }
 
 export default function RecipeIngredients(props: RecipeIngredientsProps) {
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState<Array<number>>([]);
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -40,6 +40,9 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
               sx={{
                 p: 0,
                 mb: 1,
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                },
               }}
               disableRipple
               onClick={handleToggle(index)}
@@ -53,8 +56,20 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
                 />
               </ListItemIcon>
               <ListItemText
-                primary={value.ingredientName} // add line and grey through when checked
-                secondary={value.amount}
+                sx={
+                  checked.indexOf(index) !== -1
+                    ? {
+                        textDecoration: 'line-through',
+                        color: 'darkgrey',
+                      }
+                    : {}
+                }
+                primary={value.ingredientName}
+                secondary={
+                  value.amount.toString() +
+                  ' ' +
+                  value.defaultMeasurement.measurementName
+                }
               />
             </ListItemButton>
           </ListItem>

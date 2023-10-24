@@ -15,8 +15,8 @@ interface IngredientState {
   nutrition: NutrientState;
   additionalMeasurements: Array<MeasurementState>;
   mlFor100g: number; // ml per 100g (0 if no volume measurements)
-  amount?: number;
-  defaultMeasurement?: MeasurementState;
+  amount: number;
+  defaultMeasurement: MeasurementState;
 }
 
 interface MeasurementState {
