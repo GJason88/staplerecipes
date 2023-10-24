@@ -1,5 +1,3 @@
-import { nutrientsBackend } from '../../../data/constants.js';
-
 const nestSelectQuery = (jsonMethod, query) => {
     return `(SELECT ${jsonMethod} FROM (${query}) x)`;
 };
