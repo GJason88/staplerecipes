@@ -4,6 +4,7 @@ interface CategoryState {
   categoryName: string;
 }
 
+// May be deprecated
 interface NutritionState {
   protein: NutrientState;
   totalFat: NutrientState;
@@ -47,6 +48,7 @@ interface NutritionState {
 }
 
 interface NutrientState {
+  nutrientName: string;
   amount: number;
   unit: string;
 }

@@ -4,7 +4,7 @@ const nestSelectQuery = (jsonMethod, query) => {
 
 export const nutrientsSelectQuery = `${nestSelectQuery(
     'array_to_json(array_agg(x))',
-    'SELECT amount, unit FROM recipes.ingredient_nutrient AS i_n INNER JOIN recipes.nutrient AS n ON n.nutrient_id = i_n.nutrient_id WHERE i.ingredient_id = i_n.ingredient_id'
+    'SELECT nutrient_name, amount, unit FROM recipes.ingredient_nutrient AS i_n INNER JOIN recipes.nutrient AS n ON n.nutrient_id = i_n.nutrient_id WHERE i.ingredient_id = i_n.ingredient_id'
 )} AS nutrients_for_100g`;
 
 export const additionalMeasurementsQuery =

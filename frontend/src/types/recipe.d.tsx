@@ -7,7 +7,7 @@ interface RecipeState {
   instructions: Array<string>;
   tools: Array<ToolState>;
   ingredients: Array<IngredientState>;
-  nutrition: NutritionState;
+  nutrition: Array<NutrientState>;
   invalid: boolean;
 }
 

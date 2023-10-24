@@ -28,6 +28,6 @@ export const ingredientsApi = {
   retrieveAllCategories: () => get('/ingredient/categories'),
   deleteIngredient: (id: string) => destroy(`/ingredient/${id}`),
   deleteCategory: (id: string) => destroy(`/ingredient/category/${id}`),
-  updateNutrition: (id: string, params: NutritionState) =>
+  updateNutrition: (id: string, params: Array<NutrientState>) =>
     put(`/ingredient/nutrients/${id}`, null, { params }),
 };
