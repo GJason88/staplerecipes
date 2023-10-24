@@ -40,7 +40,7 @@ export default function RecipePage() {
           <RecipeIngredients ingredients={recipe.ingredients} />
           <RecipeTools tools={recipe.tools} />
         </Stack>
-        <RecipeInstructions />
+        <RecipeInstructions instructions={recipe.instructions} />
         <NutritionLabel />
       </Stack>
     </Container>
