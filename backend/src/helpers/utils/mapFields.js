@@ -1,10 +1,9 @@
-import { mappingsBToF, mappingsFtoB } from '../../../data/mappings.js';
+import { mappingsFtoB } from '../../../data/mappings.js';
 
-export const mapFields = (fields, toDB = true) => {
+export const mapFields = (fields) => {
     const mappedFields = {};
-    const map = toDB ? mappingsFtoB : mappingsBToF;
     Object.entries(fields).forEach(([field, value]) => {
-        mappedFields[map[field]] = value;
+        mappedFields[mappingsFtoB[field]] = value;
     });
     return mappedFields;
 };

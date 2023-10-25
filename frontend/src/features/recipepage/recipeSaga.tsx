@@ -5,6 +5,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { recipesApi } from '../../services/api';
 import { IRootState } from '../..';
 import camelcaseKeys from 'camelcase-keys';
+import { calculateNutrition } from './helpers/calculateNutrition';
 
 interface UpdateResponse {
   data: string; // update result
@@ -14,11 +15,13 @@ function* getRecipe(action) {
   try {
     const response = yield call(recipesApi.retrieve, action.payload);
     const recipeData = camelcaseKeys(response.data, { deep: true });
+    const nutrition = calculateNutrition(recipeData.ingredients);
     yield put({
       type: 'recipe/setRecipe',
-      payload: recipeData,
+      payload: { nutrition: nutrition, ...recipeData },
     });
   } catch (e) {
+    console.log(e);
     yield put({
       type: 'recipe/setInvalid',
       payload: true,

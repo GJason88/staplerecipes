@@ -4,7 +4,6 @@ interface CategoryState {
   categoryName: string;
 }
 
-// May be deprecated
 interface NutritionState {
   protein: NutrientState;
   totalFat: NutrientState;
@@ -48,7 +47,9 @@ interface NutritionState {
 }
 
 interface NutrientState {
+  nutrientId: number; // FDC ID
   nutrientName: string;
   amount: number;
   unit: string;
+  dv: number | null;
 }

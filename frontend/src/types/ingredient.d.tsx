@@ -13,8 +13,20 @@ interface IngredientState {
   ingredientName: string;
   categoryName: string;
   nutrientsFor100G: Array<NutrientState>;
-  additionalMeasurements: Array<{ [key: string]: number }>;
+  additionalMeasurements: { [key: string]: number };
   mlFor100G: number; // ml per 100g (0 if no volume measurements)
   amount: number;
-  defaultMeasurement: string;
+  defaultMeasurement: Measurement;
+}
+
+enum Measurement {
+  // weight
+  Gram = 'g',
+  Ounce = 'oz',
+  // volume
+  ML = 'ml',
+  L = 'l',
+  Tsp = 'tsp',
+  Tbsp = 'tbsp',
+  Cup = 'cup',
 }

@@ -1,5 +1,3 @@
-import { mapFields } from './utils/mapFields.js';
-
 export const recipeHelpers = {
     validateCreateInfo: (info) =>
         info.name &&

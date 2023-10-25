@@ -1,18 +1,11 @@
-export enum Measurements {
-  // non-specific
-  Whole = 'whole',
-  Half = 'half',
-  Quarter = 'quarter',
-  Pinch = 'pinch',
-  Drizzle = 'drizzle',
-
+export const measurements = {
   // weight
-  Gram = 'g',
-  Ounce = 'oz',
-
+  g: 1,
+  oz: 28.35,
   // volume
-  ML = 'mL',
-  Tsp = 'tsp',
-  Tbsp = 'tbsp',
-  Cup = 'cup',
-}
+  ml: 1,
+  l: 1000,
+  tsp: 4.93,
+  tbsp: 14.79,
+  cup: 236.59,
+};

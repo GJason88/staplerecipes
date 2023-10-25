@@ -7,7 +7,6 @@ import {
     additionalMeasurementsQuery,
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
-import { mapFields } from '../helpers/utils/mapFields.js';
 
 const pgp = pgPromise({ capSQL: true });
 
@@ -53,10 +52,13 @@ export const ingredientModel = {
             ));
         await db.none(
             pgp.helpers.insert(
-                mapFields(info.nutrients, true),
-                null,
+                info.nutrients.map((nutrient) => ({
+                    ingredient_id: ingredientId,
+                    ...nutrient,
+                })),
+                ['ingredient_id', 'nutrient_id', 'amount'],
                 'recipes.ingredient_nutrient'
-            ) + pgpHelpers.createCondition('ingredient_id', ingredientId)
+            )
         );
     },
     createCategory: async (categoryInfo) =>
