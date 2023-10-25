@@ -10,7 +10,6 @@ export default function useRecipe() {
     instructions,
     ingredients,
     tools,
-    nutrition,
     invalid,
   } = useSelector<IRootState, RecipeState>((state) => state.recipe);
 
@@ -22,7 +21,6 @@ export default function useRecipe() {
     instructions,
     ingredients,
     tools,
-    nutrition,
     invalid,
   };
 }

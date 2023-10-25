@@ -15,7 +15,7 @@ export const initialNutritionState = {
   },
   carbs: {
     nutrientId: 1005,
-    nutrientName: 'Carbohydrates',
+    nutrientName: 'Total Carbohydrate',
     dv: 275,
     amount: 0,
     unit: 'g',

@@ -46,6 +46,8 @@ interface NutritionState {
   vitaminK1: NutrientState;
 }
 
+type NutritionKey = keyof NutritionState;
+
 interface NutrientState {
   nutrientId: number; // FDC ID
   nutrientName: string;

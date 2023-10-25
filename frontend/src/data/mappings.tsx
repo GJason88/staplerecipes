@@ -1,4 +1,5 @@
-export const nutrientIdToAttr: { [key: string]: string } = {
+// FDC ids to nutrient key
+export const nutrientIdToKey: { [key: string]: NutritionKey } = {
   '1003': 'protein',
   '1004': 'totalFat',
   '1005': 'carbs',

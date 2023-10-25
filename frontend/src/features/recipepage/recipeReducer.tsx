@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { initialNutritionState } from './helpers/initialNutritionState';
 
 const initialState = {
   recipeId: null,
@@ -9,7 +8,6 @@ const initialState = {
   time: '',
   diet: '',
   instructions: [],
-  nutrition: initialNutritionState,
   invalid: false,
 } as RecipeState;
 
@@ -31,9 +29,6 @@ const recipe = createSlice({
     },
     updateTime: (state, action) => {
       state.time = action.payload;
-    },
-    updateNutrition: (state, action) => {
-      state.nutrition = action.payload;
     },
     updateTools: (state, action) => {
       state.tools = action.payload;
