@@ -1,16 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Paper, Box, Typography, Divider, Popper, Button } from '@mui/material';
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import { Paper, Box, Typography, Divider } from '@mui/material';
 import Macronutrients from './Macronutrients';
 import Micronutrients from './Micronutrients';
 import useNutrition from '../../hooks/useNutrition/useNutrition';
-
-const pieSizing = {
-  margin: { right: 15, top: 15 },
-  width: 400,
-  height: 300,
-  legend: { hidden: true },
-};
+import MacroPieChart from './MacroPieChart';
 
 export default function NutritionLabel() {
   const nutrition = useNutrition();
@@ -76,36 +68,11 @@ export default function NutritionLabel() {
           general nutrition advice.
         </Typography>
       </Box>
-      <Box
-        display='flex'
-        flexDirection='column'
-        alignItems='center'
-        width='50%'
-        flexGrow={1}
-      >
-        <Typography fontSize={24} fontWeight={600}>
-          Caloric Distribution
-        </Typography>
-        <PieChart
-          series={[
-            {
-              arcLabel: (item) => `${item.value}% ${item.label}`,
-              data: [
-                { id: 0, value: 20, label: 'Fat', color: 'darkorange' },
-                { id: 1, value: 50, label: 'Carbs', color: '#a67b5b' },
-                { id: 2, value: 30, label: 'Protein', color: 'darkred' },
-              ],
-            },
-          ]}
-          sx={{
-            [`& .${pieArcLabelClasses.root}`]: {
-              fill: 'white',
-              fontSize: 14,
-            },
-          }}
-          {...pieSizing}
-        />
-      </Box>
+      <MacroPieChart
+        protein={nutrition.protein.amount}
+        fat={nutrition.totalFat.amount}
+        carbs={nutrition.carbs.amount}
+      />
     </Paper>
   );
 }
