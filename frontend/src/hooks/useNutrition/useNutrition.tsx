@@ -9,9 +9,8 @@ export default function useNutrition() {
   const ingredients = useSelector<IRootState, Array<IngredientState>>(
     (state) => state.recipe.ingredients
   );
-
+  const recipeNutrition = structuredClone(initialNutritionState);
   const calculateNutrition = (ingredients: Array<IngredientState>) => {
-    const recipeNutrition = initialNutritionState;
     for (const ingredient of ingredients) {
       const nutrients = ingredient.nutrientsFor100G;
       const mtGrams = getMeasurementGrams(
@@ -20,7 +19,7 @@ export default function useNutrition() {
         ingredient.mlFor100G
       );
       const totalGrams = ingredient.amount * mtGrams;
-      combineNutrients(nutrients, totalGrams, recipeNutrition);
+      combineNutrients(nutrients, totalGrams);
     }
     return recipeNutrition;
   };
@@ -43,8 +42,7 @@ export default function useNutrition() {
 
   const combineNutrients = (
     nutrients: Array<NutrientState>,
-    totalGrams: number,
-    recipeNutrition: NutritionState
+    totalGrams: number
   ) => {
     for (const nutrient of nutrients) {
       const attr = nutrientIdToKey[nutrient.nutrientId.toString()];

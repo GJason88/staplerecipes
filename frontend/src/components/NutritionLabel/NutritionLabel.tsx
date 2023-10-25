@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Paper, Box, Typography, Divider } from '@mui/material';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import Macronutrients from './Macronutrients';
+import Micronutrients from './Micronutrients';
+import useNutrition from '../../hooks/useNutrition/useNutrition';
 
 const pieSizing = {
   margin: { right: 15, top: 15 },
@@ -10,6 +13,7 @@ const pieSizing = {
 };
 
 export default function NutritionLabel() {
+  const nutrition = useNutrition();
   return (
     <Paper
       sx={{
@@ -40,7 +44,7 @@ export default function NutritionLabel() {
             Calories
           </Typography>
           <Typography fontSize={26} fontWeight={1000}>
-            230
+            {nutrition.calories.amount}
           </Typography>
         </Box>
         <Divider sx={{ mb: 1, borderColor: 'dimgrey', borderBottomWidth: 5 }} />
@@ -48,42 +52,7 @@ export default function NutritionLabel() {
           <strong>% Daily Value*</strong>
         </Typography>
         <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Box display='flex' justifyContent='space-between'>
-          <Typography pr={1} fontSize={16}>
-            <strong>Total Fat</strong> 7g
-          </Typography>
-          <Typography pr={1} fontSize={16} fontWeight={600}>
-            10%
-          </Typography>
-        </Box>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography pl={2} fontSize={16}>
-          Saturated Fat 6g
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography fontSize={16}>
-          <strong>Cholesterol</strong> 0mg
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography fontSize={16}>
-          <strong>Sodium</strong> 50mg
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography fontSize={16}>
-          <strong>Total Carbohydrate</strong> 42g
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography pl={2} fontSize={16}>
-          Dietary Fiber 2g
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography pl={2} fontSize={16}>
-          Total Sugars 6g
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography fontSize={16}>
-          <strong>Protein</strong> 12g
-        </Typography>
+        <Macronutrients nutrition={nutrition} />
         <Divider
           sx={{
             mt: 1,
@@ -92,9 +61,7 @@ export default function NutritionLabel() {
             borderBottomWidth: 10,
           }}
         />
-        <Typography fontSize={16}>Vitamin C 12mg</Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Typography fontSize={16}>Vitamin D 12mcg</Typography>
+        <Micronutrients nutrition={nutrition} />
         <Divider
           sx={{
             mt: 1,

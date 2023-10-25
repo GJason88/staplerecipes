@@ -55,3 +55,7 @@ interface NutrientState {
   unit: string;
   dv: number | null;
 }
+
+interface NutrientsProps {
+  nutrition: NutritionState;
+}
