@@ -76,7 +76,6 @@ export const {
   deleteInstructionStep,
   updateRecipeName,
   updateTime,
-  updateNutrition,
   updateTools,
   editRecipeRequest,
   setInvalid,

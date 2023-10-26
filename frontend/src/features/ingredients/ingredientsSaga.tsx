@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import camelcaseKeys from 'camelcase-keys';
-import { ingredientsApi } from '../../services/api';
+import { ingredientsApi } from '../../services/api/server';
 
 interface GetResponse {
   data: {
