@@ -11,6 +11,7 @@ const Tools = lazy(() => import('./pages/Tools'));
 const Ingredients = lazy(() => import('./pages/Ingredients'));
 const Nutrition = lazy(() => import('./pages/Nutrition'));
 const MealPlans = lazy(() => import('./pages/Home'));
+const Admin = lazy(() => import('./pages/Admin'));
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path='/ingredients' element={<Ingredients />} />
           <Route path='/nutrition' element={<Nutrition />} />
           <Route path='/mealplans' element={<MealPlans />} />
+          <Route path='/admin' element={<Admin />} />
         </Routes>
       </Suspense>
     </Box>

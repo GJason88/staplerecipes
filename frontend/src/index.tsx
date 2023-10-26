@@ -14,6 +14,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { theme } from './themes.tsx';
 import layoutReducer from './layouts/layoutReducer.tsx';
+import adminReducer from './features/admin/adminReducer.tsx';
 
 const reducer = combineReducers({
   layout: layoutReducer,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   recipe: recipeReducer,
   tools: toolsReducer,
   ingredients: ingredientsReducer,
+  admin: adminReducer,
 });
 
 export type IRootState = ReturnType<typeof reducer>;

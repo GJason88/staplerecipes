@@ -4,6 +4,7 @@ import FeedIcon from '@mui/icons-material/Feed';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export const drawerWidth = 270;
 
@@ -49,5 +50,10 @@ export const routes = {
     name: 'Meal Plans',
     route: '/mealplans',
     icon: <CalendarViewMonthIcon key='mealplan' />,
+  },
+  admin: {
+    name: 'Admin',
+    route: '/admin',
+    icon: <AdminPanelSettingsIcon key='admin' />,
   },
 };
