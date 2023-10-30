@@ -1,9 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface AdminState {
-  fdcIngredients: Array<FDCIngredientState>;
+  foods: Array<FDCFoodState>;
+  newIngredient: NewIngredientState;
+  totalPages: number;
+  totalHits: number;
+  isLoading: boolean;
 }
 
-interface FDCIngredientState {
-  fdcId: number;
+interface NewIngredientState {
+  categoryId: number | null;
+  ingredientName: string;
+  nutrientsFor100G: Array<NutrientState>;
+  additionalMeasurements?: { [key: string]: number };
+  mlFor100G?: number;
+}
+
+interface FDCFoodState {
   description: string;
+  foodNutrients: Array<FDCNutrientState>;
+}
+
+interface FDCNutrientState {
+  nutrientId: number;
+  unitName: string;
+  value: number;
 }

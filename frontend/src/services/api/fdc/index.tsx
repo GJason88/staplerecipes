@@ -4,13 +4,13 @@
 import { get, post } from './base';
 
 export const fdcApi = {
-  search: (query: string, pageNumber: number) =>
+  searchFoods: (query: string, pageNumber: number) =>
     post(
-      '/foods/list',
+      '/foods/search',
       {
         query: query,
         pageSize: 50,
-        pageNumber: 1,
+        pageNumber: pageNumber,
         dataType: ['Foundation', 'SR Legacy'],
         sortBy: 'dataType.keyword',
       },
@@ -18,4 +18,8 @@ export const fdcApi = {
         params: { api_key: import.meta.env.VITE_REACT_APP_FDC_API_KEY },
       }
     ),
+  searchFood: (fdcId: number) =>
+    get(`/food/${fdcId}`, {
+      params: { api_key: import.meta.env.VITE_REACT_APP_FDC_API_KEY },
+    }),
 };

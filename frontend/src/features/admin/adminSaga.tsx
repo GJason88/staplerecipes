@@ -2,23 +2,23 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fdcApi } from '../../services/api/fdc';
 
-function* searchIngredients(action: {
-  type: string,
-  payload: { query: string, pageNumber: number },
+function* searchFoods(action: {
+  type: string;
+  payload: { query: string, pageNumber: number };
 }) {
   try {
     const response = yield call(
-      fdcApi.search,
+      fdcApi.searchFoods,
       action.payload.query,
       action.payload.pageNumber
     );
-    const foods = response.data;
-    yield put({ type: 'admin/setFDCIngredients', payload: foods });
+    console.log(response.data.foods);
+    yield put({ type: 'admin/setSearchResult', payload: response.data });
   } catch (e) {
     console.log(e);
   }
 }
 
 export default function* adminSaga() {
-  yield takeLatest('admin/searchIngredientsRequest', searchIngredients);
+  yield takeLatest('admin/searchFoodsRequest', searchFoods);
 }

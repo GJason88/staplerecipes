@@ -53,7 +53,7 @@ interface NutrientState {
   nutrientName: string;
   amount: number;
   unit: string;
-  dv: number | null;
+  dv?: number;
 }
 
 interface NutrientsProps {
