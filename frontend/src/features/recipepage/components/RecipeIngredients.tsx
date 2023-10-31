@@ -64,7 +64,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
                       }
                     : {}
                 }
-                primary={value.ingredientName}
+                primary={value.ingredient.ingredientName}
                 secondary={
                   value.amount &&
                   `${value.amount.toString()} 
