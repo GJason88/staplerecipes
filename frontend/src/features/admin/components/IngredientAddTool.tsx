@@ -4,6 +4,7 @@ import { IRootState } from '../../..';
 import { useEffect } from 'react';
 import { getCategoriesRequest } from '../../ingredients/ingredientsReducer';
 import { setNewIngredient } from '../adminReducer';
+import NutritionLabel from '../../../components/NutritionLabel/NutritionLabel';
 
 export default function IngredientAddTool() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ export default function IngredientAddTool() {
               dispatch(setNewIngredient({ categoryId: value }))
             }
           />
+          <NutritionLabel nutrition={} />
         </FormControl>
       </form>
     </Paper>

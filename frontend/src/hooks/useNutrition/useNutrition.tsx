@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import { nutrientIdToKey } from '../../data/mappings';
 import { measurements } from '../../data/measurements';
 import { initialNutritionState } from './initialNutritionState';
 
@@ -40,15 +39,11 @@ export default function useNutrition() {
   const isVolume = (mt: Measurement) =>
     ['ml', 'l', 'cup', 'tsp', 'tbsp'].includes(mt);
 
-  const combineNutrients = (
-    nutrients: Array<NutrientState>,
-    totalGrams: number
-  ) => {
-    for (const nutrient of nutrients) {
-      const attr = nutrientIdToKey[nutrient.nutrientId.toString()];
-      const nutrientAmt = Math.round((totalGrams / 100) * nutrient.amount);
-      recipeNutrition[attr].amount += nutrientAmt;
-    }
+  const combineNutrients = (nutrients: NutritionState, totalGrams: number) => {
+    Object.entries(nutrients).forEach(([nutrientName, nutrientInfo]) => {
+      const nutrientAmt = Math.round((totalGrams / 100) * nutrientInfo.amount);
+      recipeNutrition[nutrientName as NutritionKey].amount += nutrientAmt;
+    });
   };
 
   return calculateNutrition(ingredients);

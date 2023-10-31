@@ -8,6 +8,10 @@ export const ingredientController = {
         try {
             const jsonResponse =
                 await ingredientModel.getIngredient(ingredientId);
+            jsonResponse.nutrients_for_100g =
+                ingredientHelpers.transformNutrients(
+                    jsonResponse.nutrients_for_100g
+                );
             res.json(jsonResponse);
         } catch (e) {
             console.log(e);
@@ -17,6 +21,13 @@ export const ingredientController = {
     getIngredients: async (req, res) => {
         try {
             const jsonResponse = await ingredientModel.getIngredients();
+            jsonResponse.map(
+                (ingredient) =>
+                    (ingredient.nutrients_for_100g =
+                        ingredientHelpers.transformNutrients(
+                            ingredient.nutrients_for_100g
+                        ))
+            );
             res.json(jsonResponse);
         } catch (e) {
             console.log(e);

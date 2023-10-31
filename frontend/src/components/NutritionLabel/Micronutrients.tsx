@@ -2,7 +2,7 @@ import { Box, Button, Popper, TextField } from '@mui/material';
 import Nutrient from './Nutrient';
 import { useState } from 'react';
 
-export default function Micronutrients({ nutrition }: NutrientsProps) {
+export default function Micronutrients({ nutrition }: NutritionProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [filter, setFilter] = useState<string>('');
   const regex = new RegExp(filter, 'i');

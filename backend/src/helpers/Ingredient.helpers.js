@@ -1,4 +1,4 @@
-import { nutrientsFrontend } from '../../data/constants.js';
+import { nutrientIdToKey } from '../../data/mappings.js';
 
 export const ingredientHelpers = {
     mapMeasurements: (ingredientId, measurements) =>
@@ -11,7 +11,15 @@ export const ingredientHelpers = {
         info.name &&
         info.categoryId &&
         info.nutrients &&
-        nutrientsFrontend.every((nutrient) =>
+        Object.values(nutrientIdToKey).every((nutrient) =>
             Object.hasOwn(info.nutrients, nutrient)
         ),
+    transformNutrients: (nutrients) => {
+        const newNutrients = {};
+        for (const nutrient of nutrients) {
+            const attr = nutrientIdToKey[nutrient.nutrient_id.toString()];
+            newNutrients[attr] = nutrient;
+        }
+        return newNutrients;
+    },
 };

@@ -1,6 +1,6 @@
 import Nutrient from './Nutrient';
 
-export default function Macronutrients({ nutrition }: NutrientsProps) {
+export default function Macronutrients({ nutrition }: NutritionProps) {
   return (
     <>
       <Nutrient nutrient={nutrition.totalFat} bold />

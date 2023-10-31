@@ -1,11 +1,9 @@
 import { Paper, Box, Typography, Divider } from '@mui/material';
 import Macronutrients from './Macronutrients';
 import Micronutrients from './Micronutrients';
-import useNutrition from '../../hooks/useNutrition/useNutrition';
 import MacroPieChart from './MacroPieChart';
 
-export default function NutritionLabel() {
-  const nutrition = useNutrition();
+export default function NutritionLabel({ nutrition }: NutritionProps) {
   return (
     <Paper
       sx={{

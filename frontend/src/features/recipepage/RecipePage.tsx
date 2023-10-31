@@ -11,12 +11,14 @@ import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
 import NutritionLabel from '../../components/NutritionLabel/NutritionLabel';
+import useNutrition from '../../hooks/useNutrition/useNutrition';
 
 export default function RecipePage() {
   const routeParams = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const recipe = useRecipe();
+  const nutrition = useNutrition();
   // const recipeRef = useRef(recipe); // change properties of this in child components
   // TODO: Add useRef after implementing recipepage, since recipe data will be fetched there, so when this page is loaded state will already have recipe data,
   //       which can then be used as initial values for refs which would be defaultValue for uncontrolled components.
@@ -41,7 +43,7 @@ export default function RecipePage() {
           <RecipeTools tools={recipe.tools} />
         </Stack>
         <RecipeInstructions instructions={recipe.instructions} />
-        <NutritionLabel />
+        <NutritionLabel nutrition={nutrition} />
       </Stack>
     </Container>
   );

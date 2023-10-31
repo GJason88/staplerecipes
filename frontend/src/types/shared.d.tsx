@@ -56,6 +56,6 @@ interface NutrientState {
   dv?: number;
 }
 
-interface NutrientsProps {
+interface NutritionProps {
   nutrition: NutritionState;
 }
