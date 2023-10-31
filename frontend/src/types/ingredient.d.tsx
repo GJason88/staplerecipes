@@ -15,8 +15,6 @@ interface IngredientState {
   nutrientsFor100G: Array<NutrientState>;
   additionalMeasurements: { [key: string]: number };
   mlFor100G?: number; // ml per 100g (0 if no volume measurements)
-  amount?: number;
-  defaultMeasurement?: Measurement;
 }
 
 enum Measurement {

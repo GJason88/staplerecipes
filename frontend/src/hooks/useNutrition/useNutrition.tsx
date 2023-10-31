@@ -6,19 +6,19 @@ import { measurements } from '../../data/measurements';
 import { initialNutritionState } from './initialNutritionState';
 
 export default function useNutrition() {
-  const ingredients = useSelector<IRootState, Array<IngredientState>>(
+  const ingredients = useSelector<IRootState, Array<RecipeIngredientState>>(
     (state) => state.recipe.ingredients
   );
   const recipeNutrition = structuredClone(initialNutritionState);
-  const calculateNutrition = (ingredients: Array<IngredientState>) => {
-    for (const ingredient of ingredients) {
-      const nutrients = ingredient.nutrientsFor100G;
+  const calculateNutrition = (ingredients: Array<RecipeIngredientState>) => {
+    for (const recipeIngredient of ingredients) {
+      const nutrients = recipeIngredient.ingredient.nutrientsFor100G;
       const mtGrams = getMeasurementGrams(
-        ingredient.defaultMeasurement,
-        ingredient.additionalMeasurements,
-        ingredient.mlFor100G
+        recipeIngredient.defaultMeasurement,
+        recipeIngredient.ingredient.additionalMeasurements,
+        recipeIngredient.ingredient.mlFor100G
       );
-      const totalGrams = ingredient.amount * mtGrams;
+      const totalGrams = recipeIngredient.amount * mtGrams;
       combineNutrients(nutrients, totalGrams);
     }
     return recipeNutrition;
@@ -27,12 +27,12 @@ export default function useNutrition() {
   const getMeasurementGrams = (
     mt: Measurement,
     adMts: { [key: string]: number },
-    mlFor100G: number
+    mlFor100G: number | undefined
   ) => {
     if (adMts && mt in adMts) {
       return adMts[mt];
     }
-    return isVolume(mt)
+    return isVolume(mt) && mlFor100G
       ? (measurements[mt] / mlFor100G) * 100
       : measurements[mt];
   };

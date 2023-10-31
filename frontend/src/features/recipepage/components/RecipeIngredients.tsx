@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 
 interface RecipeIngredientsProps {
-  ingredients: Array<IngredientState>;
+  ingredients: Array<RecipeIngredientState>;
 }
 
 export default function RecipeIngredients(props: RecipeIngredientsProps) {
