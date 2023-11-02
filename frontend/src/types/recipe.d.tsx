@@ -6,14 +6,9 @@ interface RecipeState {
   diet: string;
   instructions: Array<string>;
   tools: Array<ToolState>;
-  ingredients: Array<RecipeIngredientState>;
+  ingredients: Array<IngredientState>;
   invalid: boolean;
-}
-
-interface RecipeIngredientState {
-  ingredient: IngredientState;
-  amount: number;
-  defaultMeasurement: Measurement;
+  nutrition?: NutritionState;
 }
 
 interface UpdateRecipeState {

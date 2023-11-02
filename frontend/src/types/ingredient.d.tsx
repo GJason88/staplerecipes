@@ -11,10 +11,12 @@ interface IngredientsPageState {
 interface IngredientState {
   ingredientId: number | null;
   ingredientName: string;
-  categoryName: string;
+  categoryName?: string;
   nutrientsFor100G: NutritionState;
   additionalMeasurements: { [key: string]: number };
   mlFor100G?: number; // ml per 100g (0 if no volume measurements)
+  amount?: number;
+  defaultMeasurement?: string;
 }
 
 enum Measurement {

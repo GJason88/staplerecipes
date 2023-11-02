@@ -4,6 +4,7 @@ import { ingredientModel } from './src/models/Ingredient.model.js';
 import { ingredientHelpers } from './src/helpers/Ingredient.helpers.js';
 import { recipeController } from './src/controllers/Recipe.controller.js';
 import { mapFields } from './src/helpers/utils/mapFields.js';
+import { nutrientModel } from './src/models/Nutrient.model.js';
 
 const pgp = pgPromise({ capSQL: true });
 
@@ -28,10 +29,7 @@ const test = async () => {
         //     120,
         //     recipeInfoTest
         // );
-        const jsonResponse = await ingredientModel.getIngredient(4);
-        jsonResponse.nutrients_for_100g = ingredientHelpers.transformNutrients(
-            jsonResponse.nutrients_for_100g
-        );
+        const jsonResponse = await recipeModel.getRecipe(120);
         console.log(jsonResponse);
     } catch (e) {
         console.log(e);

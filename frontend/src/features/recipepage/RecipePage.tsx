@@ -1,29 +1,26 @@
 import { Container, Stack } from '@mui/material';
 import { recipeWidth } from '../../data/constants';
 import { useEffect } from 'react';
-import useRecipe from '../../hooks/useRecipe';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setInvalid, setRecipeId } from './recipeReducer';
 import RecipeHeading from './components/RecipeHeading';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
-import NutritionLabel from '../../components/NutritionLabel/NutritionLabel';
-import useNutrition from '../../hooks/useNutrition/useNutrition';
+import { calculateNutrition } from './helpers/calculateNutrition';
+import { IRootState } from '../..';
+import NutritionLabel from '../../components/nutritionlabel/NutritionLabel';
 
 export default function RecipePage() {
   const routeParams = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const recipe = useRecipe();
-  const nutrition = useNutrition();
-  // const recipeRef = useRef(recipe); // change properties of this in child components
-  // TODO: Add useRef after implementing recipepage, since recipe data will be fetched there, so when this page is loaded state will already have recipe data,
-  //       which can then be used as initial values for refs which would be defaultValue for uncontrolled components.
+  const recipe = useSelector<IRootState, RecipeState>((state) => state.recipe);
+  const nutrition = calculateNutrition(recipe.ingredients);
   useEffect(() => {
-    dispatch(setRecipeId(routeParams.id)); // TODO: Move to recipe onmount since editrecipe is accessed through that page.
+    dispatch(setRecipeId(routeParams.id));
   }, [dispatch, routeParams]);
 
   useEffect(() => {
@@ -43,7 +40,9 @@ export default function RecipePage() {
           <RecipeTools tools={recipe.tools} />
         </Stack>
         <RecipeInstructions instructions={recipe.instructions} />
-        <NutritionLabel nutrition={nutrition} />
+        {Object.values(nutrition).length && (
+          <NutritionLabel nutrition={nutrition} />
+        )}
       </Stack>
     </Container>
   );

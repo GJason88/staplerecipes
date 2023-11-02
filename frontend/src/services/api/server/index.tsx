@@ -31,3 +31,7 @@ export const ingredientsApi = {
   updateNutrition: (id: string, params: Array<NutrientState>) =>
     put(`/ingredient/nutrients/${id}`, null, { params }),
 };
+
+export const nutritionApi = {
+  getNutrients: () => get('/nutrients'),
+};

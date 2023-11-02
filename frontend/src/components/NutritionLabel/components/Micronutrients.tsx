@@ -2,15 +2,19 @@ import { Box, Button, Popper, TextField } from '@mui/material';
 import Nutrient from './Nutrient';
 import { useState } from 'react';
 
-export default function Micronutrients({ nutrition }: NutritionProps) {
+export default function Micronutrients({
+  nutrition,
+  nutrients,
+}: NutritionProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [filter, setFilter] = useState<string>('');
   const regex = new RegExp(filter, 'i');
-  const micronutrients = Object.values(nutrition).filter(
+  const micronutrients = Object.values(nutrients).filter(
     (nutrient: NutrientState) =>
       nutrient.nutrientId > 1086 &&
       nutrient.nutrientId < 1186 &&
       nutrient.nutrientId !== 1093 &&
+      nutrition[nutrient.nutrientId] > 0 &&
       regex.test(nutrient.nutrientName)
   );
   return (
@@ -39,6 +43,7 @@ export default function Micronutrients({ nutrition }: NutritionProps) {
             <Nutrient
               key={index}
               nutrient={nutrient}
+              amount={nutrition[nutrient.nutrientId]}
               noDivider={index === micronutrients.length - 1}
             />
           ))}

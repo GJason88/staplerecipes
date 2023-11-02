@@ -2,6 +2,7 @@ import { Box, Divider, Typography } from '@mui/material';
 
 interface NutrientProps {
   nutrient: NutrientState;
+  amount: number;
   bold?: boolean;
   pl?: number;
   noDivider?: boolean;
@@ -17,12 +18,12 @@ export default function Nutrient(props: NutrientProps) {
           ) : (
             props.nutrient.nutrientName
           )}{' '}
-          {props.nutrient.amount}
+          {props.amount ?? 0}
           {props.nutrient.unit}
         </Typography>
         {props.nutrient.dv && (
           <Typography fontSize={16} fontWeight={700}>
-            {Math.round((props.nutrient.amount / props.nutrient.dv) * 100)}%
+            {Math.round(((props.amount ?? 0) / props.nutrient.dv) * 100)}%
           </Typography>
         )}
       </Box>

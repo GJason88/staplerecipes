@@ -1,23 +1,27 @@
 import { Autocomplete, FormControl, Paper, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../..';
-import { useEffect } from 'react';
-import { getCategoriesRequest } from '../../ingredients/ingredientsReducer';
 import { setNewIngredient } from '../adminReducer';
-import NutritionLabel from '../../../components/NutritionLabel/NutritionLabel';
+import NutritionLabel from '../../../components/nutritionlabel/NutritionLabel';
+import { ingredientsApi } from '../../../services/api/server';
+import { useQuery } from 'react-query';
+import camelcaseKeys from 'camelcase-keys';
+
+const fetchCategories = async () => {
+  const response: { data: { data: { [key: string]: string } } } =
+    await ingredientsApi.retrieveAllCategories();
+  return response.data;
+};
 
 export default function IngredientAddTool() {
   const dispatch = useDispatch();
   const ingredient = useSelector<IRootState, NewIngredientState>(
     (state) => state.admin.newIngredient
   );
-  const categories = useSelector<IRootState, Array<CategoryState>>(
-    (state) => state.ingredients.categories
-  );
-  useEffect(() => {
-    dispatch(getCategoriesRequest());
-  }, [dispatch]);
-
+  const { data } = useQuery('categories', fetchCategories, {
+    refetchOnWindowFocus: false,
+  });
+  const categories = camelcaseKeys(data ?? []);
   return (
     <Paper
       elevation={3}
@@ -41,13 +45,13 @@ export default function IngredientAddTool() {
           />
           <Autocomplete
             renderInput={(params) => <TextField {...params} label='Category' />}
-            options={categories}
+            options={categories as Array<CategoryState>}
             getOptionLabel={(option) => option.categoryName}
             onChange={(e, value) =>
               dispatch(setNewIngredient({ categoryId: value }))
             }
           />
-          <NutritionLabel nutrition={} />
+          <NutritionLabel nutrition={ingredient.nutrientsFor100G} />
         </FormControl>
       </form>
     </Paper>

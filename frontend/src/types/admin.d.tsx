@@ -10,7 +10,7 @@ interface AdminState {
 interface NewIngredientState {
   categoryId: number | null;
   ingredientName: string;
-  nutrientsFor100G: Array<NutrientState>;
+  nutrientsFor100G: NutritionState;
   additionalMeasurements?: { [key: string]: number };
   mlFor100G?: number;
 }

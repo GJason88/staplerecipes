@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 
 interface RecipeIngredientsProps {
-  ingredients: Array<RecipeIngredientState>;
+  ingredients: Array<IngredientState>;
 }
 
 export default function RecipeIngredients(props: RecipeIngredientsProps) {
@@ -64,7 +64,7 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
                       }
                     : {}
                 }
-                primary={value.ingredient.ingredientName}
+                primary={value.ingredientName}
                 secondary={
                   value.amount &&
                   `${value.amount.toString()} 

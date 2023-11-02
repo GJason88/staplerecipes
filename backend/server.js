@@ -3,6 +3,7 @@ import cors from 'cors';
 import recipe from './src/routes/Recipe.route.js';
 import tool from './src/routes/Tool.route.js';
 import ingredient from './src/routes/Ingredient.route.js';
+import nutrient from './src/routes/Nutrient.route.js';
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,7 @@ app.use(cors({
 app.use(recipe);
 app.use(tool);
 app.use(ingredient);
+app.use(nutrient);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);

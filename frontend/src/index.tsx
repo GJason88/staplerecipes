@@ -15,6 +15,7 @@ import { CssBaseline } from '@mui/material';
 import { theme } from './themes.tsx';
 import layoutReducer from './layouts/layoutReducer.tsx';
 import adminReducer from './features/admin/adminReducer.tsx';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const reducer = combineReducers({
   layout: layoutReducer,
@@ -35,18 +36,22 @@ const store = configureStore({
     getDefaultMiddleware().concat(sagaMiddleware),
 });
 
+const queryClient = new QueryClient();
+
 sagaMiddleware.run(rootSaga);
 
 // eslint-disable-next-line prettier/prettier
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

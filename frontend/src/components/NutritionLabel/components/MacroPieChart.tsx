@@ -6,6 +6,7 @@ interface MacroPieChartProps {
   protein: number;
   fat: number;
   carbs: number;
+  calories: number;
 }
 
 const pieSizing = {
@@ -18,6 +19,7 @@ export default function MacroPieChart({
   protein,
   fat,
   carbs,
+  calories,
 }: MacroPieChartProps) {
   return (
     <Box
@@ -33,7 +35,7 @@ export default function MacroPieChart({
       <PieChart
         series={[
           {
-            arcLabel: (item) => `${item.value}%`,
+            arcLabel: (item) => `${Math.round((item.value / calories) * 100)}%`,
             data: [
               { id: 0, value: fat * 8, label: 'Fat', color: 'darkorange' },
               { id: 1, value: carbs * 4, label: 'Carbs', color: '#a67b5b' },

@@ -16,8 +16,6 @@ export default function FoodList({ foods, isLoading }: FoodListProps) {
       .map((n) => ({
         nutrientId: n.nutrientId,
         amount: n.value,
-        unit: n.unitName.toLowerCase(),
-        ...fdcNutrients[n.nutrientId],
       }));
     dispatch(
       setNewIngredient({

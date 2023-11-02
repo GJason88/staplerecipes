@@ -1,153 +1,153 @@
 // maps fdc nutrients to name and daily value
 export const fdcNutrients: {
-  [key: number]: { nutrientName: string, dv?: number },
+  [key: number]: { displayName: string, dv?: number },
 } = {
   1004: {
-    nutrientName: 'Total Fat',
+    displayName: 'Total Fat',
     dv: 78,
   },
   1258: {
-    nutrientName: 'Saturated Fat',
+    displayName: 'Saturated Fat',
     dv: 20,
   },
   1257: {
-    nutrientName: 'Trans Fat',
+    displayName: 'Trans Fat',
   },
   1253: {
-    nutrientName: 'Cholesterol',
+    displayName: 'Cholesterol',
     dv: 300,
   },
   1093: {
-    nutrientName: 'Sodium',
+    displayName: 'Sodium',
     dv: 2300,
   },
   1005: {
-    nutrientName: 'Carbohydrates',
+    displayName: 'Carbohydrates',
     dv: 275,
   },
   1079: {
-    nutrientName: 'Dietary Fiber',
+    displayName: 'Dietary Fiber',
     dv: 28,
   },
   1063: {
-    nutrientName: 'Total Sugars',
+    displayName: 'Total Sugars',
   },
   1235: {
-    nutrientName: 'Added Sugars',
+    displayName: 'Added Sugars',
     dv: 50,
   },
   1003: {
-    nutrientName: 'Protein',
+    displayName: 'Protein',
     dv: 50,
   },
   1092: {
-    nutrientName: 'Potassium',
+    displayName: 'Potassium',
     dv: 4700,
   },
   1087: {
-    nutrientName: 'Calcium',
+    displayName: 'Calcium',
     dv: 1300,
   },
   1089: {
-    nutrientName: 'Iron',
+    displayName: 'Iron',
     dv: 18,
   },
   1090: {
-    nutrientName: 'Magnesium',
+    displayName: 'Magnesium',
     dv: 420,
   },
   1095: {
-    nutrientName: 'Zinc',
+    displayName: 'Zinc',
     dv: 11,
   },
   1098: {
-    nutrientName: 'Copper',
+    displayName: 'Copper',
     dv: 0.9,
   },
   1101: {
-    nutrientName: 'Manganese',
+    displayName: 'Manganese',
     dv: 2.3,
   },
   1103: {
-    nutrientName: 'Selenium',
+    displayName: 'Selenium',
     dv: 55,
   },
   1100: {
-    nutrientName: 'Iodine',
+    displayName: 'Iodine',
     dv: 150,
   },
   1096: {
-    nutrientName: 'Chromium',
+    displayName: 'Chromium',
     dv: 35,
   },
   1102: {
-    nutrientName: 'Molybdenum',
+    displayName: 'Molybdenum',
     dv: 45,
   },
   1107: {
-    nutrientName: 'Beta Carotene',
+    displayName: 'Beta Carotene',
   },
   1108: {
-    nutrientName: 'Alpha Carotene',
+    displayName: 'Alpha Carotene',
   },
   1162: {
-    nutrientName: 'Vitamin C',
+    displayName: 'Vitamin C',
     dv: 90,
   },
   1114: {
-    nutrientName: 'Vitamin D',
+    displayName: 'Vitamin D',
     dv: 20,
   },
   1106: {
-    nutrientName: 'Vitamin A',
+    displayName: 'Vitamin A',
     dv: 900,
   },
   1109: {
-    nutrientName: 'Vitamin E',
+    displayName: 'Vitamin E',
     dv: 15,
   },
   1185: {
-    nutrientName: 'Vitamin K-1',
+    displayName: 'Vitamin K-1',
     dv: 120,
   },
   1183: {
-    nutrientName: 'Vitamin K-2',
+    displayName: 'Vitamin K-2',
     dv: 120,
   },
   1165: {
-    nutrientName: 'Thiamin (B-1)',
+    displayName: 'Thiamin (B-1)',
     dv: 1.2,
   },
   1166: {
-    nutrientName: 'Riboflavin (B-2)',
+    displayName: 'Riboflavin (B-2)',
     dv: 1.3,
   },
   1167: {
-    nutrientName: 'Niacin (B-3)',
+    displayName: 'Niacin (B-3)',
     dv: 16,
   },
   1170: {
-    nutrientName: 'Pantothenic Acid (B-5)',
+    displayName: 'Pantothenic Acid (B-5)',
     dv: 5,
   },
   1175: {
-    nutrientName: 'Pyridoxine (B-6)',
+    displayName: 'Pyridoxine (B-6)',
     dv: 1.7,
   },
   1176: {
-    nutrientName: 'Biotin (B-7)',
+    displayName: 'Biotin (B-7)',
     dv: 30,
   },
   1177: {
-    nutrientName: 'Folate (B-9)',
+    displayName: 'Folate (B-9)',
     dv: 400,
   },
   1178: {
-    nutrientName: 'Cyanocobalamin (B-12)',
+    displayName: 'Cyanocobalamin (B-12)',
     dv: 2.4,
   },
   1180: {
-    nutrientName: 'Choline',
+    displayName: 'Choline',
     dv: 550,
   },
 };

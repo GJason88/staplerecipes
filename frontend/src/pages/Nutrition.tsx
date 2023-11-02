@@ -1,8 +1,8 @@
-import NutritionPage from '../features/nutrition/NutritionPage';
 import { useDispatch } from 'react-redux';
 import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import { useEffect } from 'react';
 import { routes } from '../data/constants';
+import NutritionTablePage from '../features/nutritiontable/NutritionTablePage';
 
 export default function Nutrition() {
   const dispatch = useDispatch();
@@ -15,5 +15,5 @@ export default function Nutrition() {
     dispatch(setActiveRoute(routes.nutrition.route));
   }, [dispatch]);
 
-  return <NutritionPage />;
+  return <NutritionTablePage />;
 }

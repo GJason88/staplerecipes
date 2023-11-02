@@ -1,5 +1,5 @@
 import NutritionTable from './components/NutritionTable';
 
-export default function NutritionPage() {
+export default function NutritionTablePage() {
   return <NutritionTable />;
 }
