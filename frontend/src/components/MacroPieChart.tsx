@@ -7,12 +7,14 @@ interface MacroPieChartProps {
   nutrition: NutritionState;
   height?: number;
   width?: number;
+  showPercentages?: boolean;
 }
 
 export default function MacroPieChart({
   nutrition,
   width,
   height,
+  showPercentages,
 }: MacroPieChartProps) {
   const nutrients = useNutrients();
   if (!Object.keys(nutrients).length || !Object.keys(nutrition).length)
@@ -34,7 +36,9 @@ export default function MacroPieChart({
       <PieChart
         series={[
           {
-            arcLabel: (item) => `${Math.round((item.value / calories) * 100)}%`,
+            arcLabel: showPercentages
+              ? (item) => `${Math.round((item.value / calories) * 100)}%`
+              : undefined,
             data: [
               {
                 id: 0,
