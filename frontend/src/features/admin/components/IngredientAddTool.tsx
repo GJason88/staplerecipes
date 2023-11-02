@@ -84,7 +84,10 @@ export default function IngredientAddTool() {
                 control={
                   <Checkbox
                     checked={includeVolume}
-                    onChange={(e) => setIncludeVolume(e.target.checked)}
+                    onChange={(e) => {
+                      setIncludeVolume(e.target.checked);
+                      if (!e.target.checked) dispatch(setNewIngredient({ mlFor100G: 0 }))
+                    }}
                   />
                 }
                 label={'Include Volume'}
@@ -93,6 +96,7 @@ export default function IngredientAddTool() {
                 disabled={!includeVolume}
                 label='mL for 100g'
                 type='number'
+                value={ingredient.mlFor100G}
                 onChange={(e) =>
                   dispatch(setNewIngredient({ mlFor100G: e.target.value }))
                 }
