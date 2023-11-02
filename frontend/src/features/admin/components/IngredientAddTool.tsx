@@ -43,10 +43,9 @@ export default function IngredientAddTool() {
             flexWrap: 'wrap',
           }}
         >
-          <Box width='50%' minWidth='50%'>
+          <Box display='flex' flexDirection='column' width='50%' minWidth='50%'>
             <NutritionLabel
               nutrition={ingredient.nutrientsFor100G}
-              elevation={0}
               center
               minWidth={240}
               maxWidth={330}
@@ -54,8 +53,11 @@ export default function IngredientAddTool() {
             />
             <MacroPieChart // box around?
               nutrition={ingredient.nutrientsFor100G}
-              width={300}
-              height={200}
+              chartWidth={300}
+              chartHeight={200}
+              minWidth={240}
+              maxWidth={330}
+              center
             />
           </Box>
           <Stack gap={4} width='50%' minWidth='50%'>

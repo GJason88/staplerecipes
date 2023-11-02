@@ -10,6 +10,7 @@ interface NutritionLabelProps {
   minWidth?: number;
   maxWidth?: number;
   fs?: number;
+  p?: number;
 }
 
 export default function NutritionLabel({
@@ -33,11 +34,11 @@ export default function NutritionLabel({
           justifyContent: props.center ? 'center' : 'flex-start',
           display: 'flex',
           flexWrap: 'wrap',
-          p: 3,
+          p: props.p ?? 0,
           alignItems: 'center',
           gap: 5,
         }}
-        elevation={props.elevation ?? 1}
+        elevation={props.elevation ?? 0}
       >
         <Box
           flexGrow={1}
