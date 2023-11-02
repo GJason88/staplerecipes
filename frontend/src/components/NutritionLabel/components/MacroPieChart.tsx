@@ -37,9 +37,24 @@ export default function MacroPieChart({
           {
             arcLabel: (item) => `${Math.round((item.value / calories) * 100)}%`,
             data: [
-              { id: 0, value: fat * 8, label: 'Fat', color: 'darkorange' },
-              { id: 1, value: carbs * 4, label: 'Carbs', color: '#a67b5b' },
-              { id: 2, value: protein * 4, label: 'Protein', color: 'darkred' },
+              {
+                id: 0,
+                value: Math.round(fat * 8),
+                label: 'Fat',
+                color: 'darkorange',
+              },
+              {
+                id: 1,
+                value: Math.round(carbs * 4),
+                label: 'Carbs',
+                color: '#a67b5b',
+              },
+              {
+                id: 2,
+                value: Math.round(protein * 4),
+                label: 'Protein',
+                color: 'darkred',
+              },
             ],
           },
         ]}

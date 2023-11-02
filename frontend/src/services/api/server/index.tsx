@@ -33,5 +33,6 @@ export const ingredientsApi = {
 };
 
 export const nutritionApi = {
-  getNutrients: () => get('/nutrients'),
+  getNutrients: (byId: boolean) =>
+    get('/nutrients', { params: { byId: byId } }),
 };

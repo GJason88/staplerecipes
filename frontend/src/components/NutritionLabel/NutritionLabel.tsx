@@ -3,21 +3,15 @@ import Macronutrients from './components/Macronutrients';
 import Micronutrients from './components/Micronutrients';
 import MacroPieChart from './components/MacroPieChart';
 import { useQuery } from 'react-query';
-import { nutritionApi } from '../../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
-
-const fetchNutrients = async () => {
-  const response: { data: { data: { [key: string]: NutrientState } } } =
-    await nutritionApi.getNutrients();
-  return response.data;
-};
+import { fetchNutrients } from '../../services/api/server/queries';
 
 interface NutritionLabelProps {
   nutrition: NutritionState;
 }
 
 export default function NutritionLabel({ nutrition }: NutritionLabelProps) {
-  const { data } = useQuery('nutrition', fetchNutrients, {
+  const { data } = useQuery('nutrientsByLookup', () => fetchNutrients(), {
     refetchOnWindowFocus: false,
   });
   const nutrients: { [key: string]: NutrientState } = camelcaseKeys(
@@ -26,12 +20,14 @@ export default function NutritionLabel({ nutrition }: NutritionLabelProps) {
   );
   const calories =
     Object.keys(nutrients).length && Object.keys(nutrition).length
-      ? nutrition[nutrients.protein.nutrientId] * 4 +
-        nutrition[nutrients.totalCarbs.nutrientId] * 4 +
-        nutrition[nutrients.totalFat.nutrientId] * 8
+      ? Math.round(
+          nutrition[nutrients.protein.nutrientId] * 4 +
+            nutrition[nutrients.totalCarbs.nutrientId] * 4 +
+            nutrition[nutrients.totalFat.nutrientId] * 8
+        )
       : 0;
   return (
-    Object.keys(nutrients).length && (
+    Object.keys(nutrients).length > 0 && (
       <Paper
         sx={{
           display: 'flex',

@@ -1,7 +1,9 @@
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setNewIngredient } from '../adminReducer';
-import { fdcNutrients } from '../../../data/mappings';
+import { fetchNutrients } from '../../../services/api/server/queries';
+import { useQuery } from 'react-query';
+import camelcaseKeys from 'camelcase-keys';
 
 interface FoodListProps {
   foods: Array<FDCFoodState>;
@@ -10,17 +12,22 @@ interface FoodListProps {
 
 export default function FoodList({ foods, isLoading }: FoodListProps) {
   const dispatch = useDispatch();
+  const { data } = useQuery('nutrientsById', () => fetchNutrients(true), {
+    refetchOnWindowFocus: false,
+  });
+  const nutrientsById: { [key: number]: NutrientState } = camelcaseKeys(
+    data ?? {},
+    { deep: true }
+  );
   const handleClick = (food: FDCFoodState) => {
-    const nutrients: Array<NutrientState> = food.foodNutrients
-      .filter((n) => n.nutrientId in fdcNutrients)
-      .map((n) => ({
-        nutrientId: n.nutrientId,
-        amount: n.value,
-      }));
+    const nutrition: NutritionState = {};
+    food.foodNutrients
+      .filter((n) => n.nutrientId in nutrientsById)
+      .forEach((n) => (nutrition[n.nutrientId] = n.value));
     dispatch(
       setNewIngredient({
         ingredientName: food.description,
-        nutrientsFor100G: nutrients,
+        nutrientsFor100G: nutrition,
       })
     );
   };
