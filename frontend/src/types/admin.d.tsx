@@ -11,8 +11,8 @@ interface NewIngredientState {
   categoryId: number | null;
   ingredientName: string;
   nutrientsFor100G: NutritionState;
-  additionalMeasurements?: { [key: string]: number };
-  mlFor100G?: number;
+  additionalMeasurements: { [key: string]: number };
+  mlFor100G: number;
 }
 
 interface FDCFoodState {

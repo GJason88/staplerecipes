@@ -13,4 +13,5 @@ interface NutritionState {
 interface NutritionProps {
   nutrition: NutritionState;
   nutrients: { [key: string]: NutrientState };
+  fs: number;
 }

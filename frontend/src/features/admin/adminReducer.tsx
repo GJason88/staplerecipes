@@ -3,9 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialNewIngredientState = {
   ingredientName: '',
   categoryId: null,
-  nutrientsFor100G: [],
+  nutrientsFor100G: {},
   additionalMeasurements: {},
-} as NewIngredientState
+  mlFor100G: 0
+} as NewIngredientState;
 
 const initialState = {
   newIngredient: initialNewIngredientState,
@@ -33,11 +34,22 @@ const admin = createSlice({
       state.isLoading = false;
     },
     setNewIngredient: (state, action) => {
-      state.newIngredient = {...state.newIngredient, ...action.payload};
+      state.newIngredient = { ...state.newIngredient, ...action.payload };
       console.log(state.newIngredient);
+    },
+    addMeasurement: (state, action) => {
+      state.newIngredient.additionalMeasurements = {
+        ...state.newIngredient.additionalMeasurements,
+        ...action.payload,
+      };
+    },
+    removeMeasurement: (state, action) => {
+      const measurements = {...state.newIngredient.additionalMeasurements};
+      delete measurements[action.payload];
+      state.newIngredient.additionalMeasurements = measurements;
     }
   },
 });
 
-export const { searchFoodsRequest, setNewIngredient } = admin.actions;
+export const { searchFoodsRequest, setNewIngredient, addMeasurement, removeMeasurement } = admin.actions;
 export default admin.reducer;

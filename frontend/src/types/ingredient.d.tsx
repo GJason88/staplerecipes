@@ -14,7 +14,7 @@ interface IngredientState {
   categoryName?: string;
   nutrientsFor100G: NutritionState;
   additionalMeasurements: { [key: string]: number };
-  mlFor100G?: number; // ml per 100g (0 if no volume measurements)
+  mlFor100G?: number;
   amount?: number;
   defaultMeasurement?: string;
 }

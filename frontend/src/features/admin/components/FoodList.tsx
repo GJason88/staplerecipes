@@ -1,9 +1,7 @@
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setNewIngredient } from '../adminReducer';
-import { fetchNutrients } from '../../../services/api/server/queries';
-import { useQuery } from 'react-query';
-import camelcaseKeys from 'camelcase-keys';
+import useNutrients from '../../../hooks/useNutrients';
 
 interface FoodListProps {
   foods: Array<FDCFoodState>;
@@ -12,13 +10,7 @@ interface FoodListProps {
 
 export default function FoodList({ foods, isLoading }: FoodListProps) {
   const dispatch = useDispatch();
-  const { data } = useQuery('nutrientsById', () => fetchNutrients(true), {
-    refetchOnWindowFocus: false,
-  });
-  const nutrientsById: { [key: number]: NutrientState } = camelcaseKeys(
-    data ?? {},
-    { deep: true }
-  );
+  const nutrientsById = useNutrients(true);
   const handleClick = (food: FDCFoodState) => {
     const nutrition: NutritionState = {};
     food.foodNutrients

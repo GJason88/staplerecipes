@@ -1,34 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Box, Typography } from '@mui/material';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import useNutrients from '../hooks/useNutrients';
 
 interface MacroPieChartProps {
-  protein: number;
-  fat: number;
-  carbs: number;
-  calories: number;
+  nutrition: NutritionState;
+  height?: number;
+  width?: number;
 }
 
-const pieSizing = {
-  margin: { top: 15 },
-  width: 400,
-  height: 300,
-};
-
 export default function MacroPieChart({
-  protein,
-  fat,
-  carbs,
-  calories,
+  nutrition,
+  width,
+  height,
 }: MacroPieChartProps) {
+  const nutrients = useNutrients();
+  if (!Object.keys(nutrients).length || !Object.keys(nutrition).length)
+    return <></>;
+
+  const pieSizing = {
+    width: width ?? 400,
+    height: height ?? 300,
+  };
+  const protein = nutrition[nutrients.protein.nutrientId];
+  const carbs = nutrition[nutrients.totalCarbs.nutrientId];
+  const fat = nutrition[nutrients.totalFat.nutrientId];
+  const calories = Math.round(protein * 4 + carbs * 4 + fat * 9);
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
-      width='50%'
-      flexGrow={1}
-    >
+    <Box display='flex' flexDirection='column' alignItems='center' flexGrow={1}>
       <Typography fontSize={24} fontWeight={600}>
         Caloric Distribution
       </Typography>
