@@ -39,7 +39,7 @@ export default function MacroPieChart({
             data: [
               {
                 id: 0,
-                value: Math.round(fat * 8),
+                value: Math.round(fat * 9),
                 label: 'Fat',
                 color: 'darkorange',
               },

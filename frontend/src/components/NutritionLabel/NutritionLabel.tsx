@@ -23,7 +23,7 @@ export default function NutritionLabel({ nutrition }: NutritionLabelProps) {
       ? Math.round(
           nutrition[nutrients.protein.nutrientId] * 4 +
             nutrition[nutrients.totalCarbs.nutrientId] * 4 +
-            nutrition[nutrients.totalFat.nutrientId] * 8
+            nutrition[nutrients.totalFat.nutrientId] * 9
         )
       : 0;
   return (
