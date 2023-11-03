@@ -7,6 +7,7 @@ import {
   ListItemText,
   IconButton,
   Divider,
+  Box,
 } from '@mui/material';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,8 +54,8 @@ export default function MeasurementList() {
       </Stack>
       <List sx={{ overflow: 'auto', boxShadow: 1, height: 200 }}>
         {Object.entries(measurements).map(([mName, grams], index) => (
-          <>
-            <ListItem key={index}>
+          <Box key={index}>
+            <ListItem>
               <ListItemText>
                 {mName} {grams}g
               </ListItemText>
@@ -63,7 +64,7 @@ export default function MeasurementList() {
               </IconButton>
             </ListItem>
             {index < Object.entries(measurements).length - 1 && <Divider />}
-          </>
+          </Box>
         ))}
       </List>
     </Stack>
