@@ -8,12 +8,7 @@ import {
 } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 import AddIcon from '@mui/icons-material/Add';
-import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  removeIngredientRequest,
-  updateCreateIngrDialog,
-} from '../ingredientsReducer';
 
 interface IngredientsCategoryProps {
   curTabId?: number | false;
@@ -22,7 +17,6 @@ interface IngredientsCategoryProps {
 }
 
 export default function IngredientsCategory(props: IngredientsCategoryProps) {
-  const dispatch = useDispatch();
   return (
     <>
       {props.curTabId == props.category.categoryId && (
@@ -35,17 +29,13 @@ export default function IngredientsCategory(props: IngredientsCategoryProps) {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={ingr.ingredientName} />
-              <IconButton
-                onClick={() =>
-                  dispatch(removeIngredientRequest(ingr.ingredientId))
-                }
-              >
+              <IconButton>
                 <DeleteIcon />
               </IconButton>
             </ListItem>
           ))}
           <ListItem>
-            <IconButton onClick={() => dispatch(updateCreateIngrDialog(true))}>
+            <IconButton>
               <AddIcon />
             </IconButton>
           </ListItem>

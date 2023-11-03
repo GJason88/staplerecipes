@@ -7,9 +7,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
-import { removeToolRequest, updateCreateToolDialog } from '../toolsReducer';
 import AddIcon from '@mui/icons-material/Add';
-import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface ToolsCategoryProps {
@@ -19,7 +17,6 @@ interface ToolsCategoryProps {
 }
 
 export default function ToolsCategory(props: ToolsCategoryProps) {
-  const dispatch = useDispatch();
   return (
     <>
       {props.curTabId == props.category.categoryId && (
@@ -32,15 +29,13 @@ export default function ToolsCategory(props: ToolsCategoryProps) {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={tool.toolName} />
-              <IconButton
-                onClick={() => dispatch(removeToolRequest(tool.toolId))}
-              >
+              <IconButton>
                 <DeleteIcon />
               </IconButton>
             </ListItem>
           ))}
           <ListItem>
-            <IconButton onClick={() => dispatch(updateCreateToolDialog(true))}>
+            <IconButton>
               <AddIcon />
             </IconButton>
           </ListItem>

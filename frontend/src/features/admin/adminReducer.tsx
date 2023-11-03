@@ -35,7 +35,6 @@ const admin = createSlice({
     },
     setNewIngredient: (state, action) => {
       state.newIngredient = { ...state.newIngredient, ...action.payload };
-      console.log(state.newIngredient);
     },
     addMeasurement: (state, action) => {
       state.newIngredient.additionalMeasurements = {
@@ -47,9 +46,10 @@ const admin = createSlice({
       const measurements = {...state.newIngredient.additionalMeasurements};
       delete measurements[action.payload];
       state.newIngredient.additionalMeasurements = measurements;
-    }
+    },
+    createNewIngredientRequest: (state, action) => {}
   },
 });
 
-export const { searchFoodsRequest, setNewIngredient, addMeasurement, removeMeasurement } = admin.actions;
+export const { searchFoodsRequest, setNewIngredient, addMeasurement, removeMeasurement, createNewIngredientRequest } = admin.actions;
 export default admin.reducer;

@@ -20,7 +20,7 @@ export const toolsApi = {
 };
 
 export const ingredientsApi = {
-  createIngredient: (params: { name: string }) =>
+  createIngredient: (params: NewIngredientState) =>
     post('/ingredient', null, { params }),
   createCategory: (params: { name: string }) =>
     post('/ingredient/category', null, { params }),

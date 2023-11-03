@@ -13,5 +13,5 @@ export const ingredientHelpers = {
         info.nutrients &&
         Object.values(nutrientIdToKey).every((nutrient) =>
             Object.hasOwn(info.nutrients, nutrient)
-        ),
+        ), // dont need
 };

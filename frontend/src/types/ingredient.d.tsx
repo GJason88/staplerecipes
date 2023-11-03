@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface IngredientsPageState {
-  ingredients: Array<IngredientState>;
-  categories: Array<CategoryState>;
-  isCreateIngrDialog: boolean;
-  isCreateCategoryDialog: boolean;
-  createErrorMessage: string;
-  curTabId?: number | false;
+  curTabId: number | false;
 }
 
 interface IngredientState {

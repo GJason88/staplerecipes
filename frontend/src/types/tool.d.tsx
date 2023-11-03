@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface ToolsPageState {
-  tools: Array<ToolState>;
-  categories: Array<CategoryState>;
-  isCreateToolDialog: boolean;
-  isCreateCategoryDialog: boolean;
-  createErrorMessage: string;
-  curTabId?: number | false;
+  curTabId: number | false;
 }
 
 interface ToolState {

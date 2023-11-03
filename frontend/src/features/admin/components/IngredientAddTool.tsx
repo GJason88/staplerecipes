@@ -11,12 +11,13 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../..';
-import { setNewIngredient } from '../adminReducer';
+import { createNewIngredientRequest, setNewIngredient } from '../adminReducer';
 import NutritionLabel from '../../../components/nutritionlabel/NutritionLabel';
 import { useState } from 'react';
 import MeasurementList from './MeasurementList';
 import useCategories from '../../../hooks/useCategories';
 import MacroPieChart from '../../../components/MacroPieChart';
+import { createIngredientRequest } from '../../ingredients/ingredientsReducer';
 
 export default function IngredientAddTool() {
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
@@ -29,12 +30,15 @@ export default function IngredientAddTool() {
     <Paper
       elevation={3}
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
         flexGrow: 1,
         width: '75%',
         p: 2,
+        justifyContent: 'space-evenly',
       }}
     >
-      <form>
+      <form onSubmit={() => dispatch(createNewIngredientRequest(ingredient))}>
         <FormControl
           sx={{
             display: 'flex',
@@ -67,10 +71,11 @@ export default function IngredientAddTool() {
                 dispatch(setNewIngredient({ ingredientName: e.target.value }))
               }
               label='Ingredient Name'
+              required
             />
             <Autocomplete
               renderInput={(params) => (
-                <TextField {...params} label='Category' />
+                <TextField {...params} label='Category' required />
               )}
               options={categories as Array<CategoryState>}
               getOptionLabel={(option) => option.categoryName}
@@ -86,7 +91,8 @@ export default function IngredientAddTool() {
                     checked={includeVolume}
                     onChange={(e) => {
                       setIncludeVolume(e.target.checked);
-                      if (!e.target.checked) dispatch(setNewIngredient({ mlFor100G: 0 }))
+                      if (!e.target.checked)
+                        dispatch(setNewIngredient({ mlFor100G: 0 }));
                     }}
                   />
                 }
@@ -94,6 +100,7 @@ export default function IngredientAddTool() {
               />
               <TextField
                 disabled={!includeVolume}
+                required={includeVolume}
                 label='mL for 100g'
                 type='number'
                 value={ingredient.mlFor100G}
@@ -102,7 +109,13 @@ export default function IngredientAddTool() {
                 }
               />
             </Stack>
-            <Button variant='contained'>Create Ingredient</Button>
+            <Button
+              sx={{ width: '70%', alignSelf: 'center' }}
+              variant='contained'
+              type='submit'
+            >
+              Create Ingredient
+            </Button>
           </Stack>
         </FormControl>
       </form>

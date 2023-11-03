@@ -3,37 +3,19 @@ import Tab from '@mui/material/Tab';
 import { Box, Button, IconButton, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../..';
-import {
-  addCategoryRequest,
-  addToolRequest,
-  getCategoriesRequest,
-  getToolsRequest,
-  removeCategoryRequest,
-  updateCreateCategoryDialog,
-  updateCreateErrorMessage,
-  updateCreateToolDialog,
-  updateCurTabId,
-} from './toolsReducer';
-import { useEffect } from 'react';
-import CreateDialog from '../../components/CreateDialog';
+import { updateCurTabId } from './toolsReducer';
 import ToolsCategory from './components/ToolsCategory';
 import AddIcon from '@mui/icons-material/Add';
+import useCategories from '../../hooks/useCategories';
+import useTools from '../../hooks/useTools';
 
 export default function ToolsPage() {
   const dispatch = useDispatch();
-  const {
-    tools,
-    categories,
-    curTabId,
-    isCreateCategoryDialog,
-    isCreateToolDialog,
-    createErrorMessage,
-  } = useSelector<IRootState, ToolsPageState>((state) => state.tools);
-
-  useEffect(() => {
-    dispatch(getCategoriesRequest());
-    dispatch(getToolsRequest());
-  }, [dispatch]);
+  const categories = useCategories('tools');
+  const tools = useTools();
+  const curTabId = useSelector<IRootState, number | false>(
+    (state) => state.tools.curTabId
+  );
 
   return (
     <Box sx={{ m: 2 }}>
@@ -53,9 +35,7 @@ export default function ToolsPage() {
               />
             ))}
           </Tabs>
-          <IconButton
-            onClick={() => dispatch(updateCreateCategoryDialog(true))}
-          >
+          <IconButton>
             <AddIcon />
           </IconButton>
         </Box>
@@ -71,32 +51,9 @@ export default function ToolsPage() {
           ></ToolsCategory>
         ))}
       </Paper>
-      <Button
-        onClick={() => dispatch(removeCategoryRequest(curTabId))}
-        sx={{ mt: 1 }}
-        fullWidth
-        variant='outlined'
-        color='error'
-      >
+      <Button sx={{ mt: 1 }} fullWidth variant='outlined' color='error'>
         Delete Category
       </Button>
-      <CreateDialog
-        isCreateDialog={isCreateCategoryDialog}
-        errorMessage={createErrorMessage}
-        type='Category'
-        updateOpen={updateCreateCategoryDialog}
-        updateErrorMessage={updateCreateErrorMessage}
-        addRequest={addCategoryRequest}
-      />
-      <CreateDialog
-        isCreateDialog={isCreateToolDialog}
-        errorMessage={createErrorMessage}
-        type='Tool'
-        category={curTabId}
-        updateOpen={updateCreateToolDialog}
-        updateErrorMessage={updateCreateErrorMessage}
-        addRequest={addToolRequest}
-      />
     </Box>
   );
 }
