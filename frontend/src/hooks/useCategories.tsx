@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { ingredientsApi } from '../services/api/server';
 import { toolsApi } from '../services/api/server';
+import camelcaseKeys from 'camelcase-keys';
 
 const useCategories = (type: 'tools' | 'ingredients') => {
   // TODO: wrap in try catch?
@@ -11,7 +12,7 @@ const useCategories = (type: 'tools' | 'ingredients') => {
       refetchOnWindowFocus: false,
     }
   );
-  return categories ?? [];
+  return camelcaseKeys(categories ?? [], { deep: true });
 };
 
 const fetchCategories = async (type: 'tools' | 'ingredients') => {

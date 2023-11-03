@@ -4,12 +4,11 @@ import camelcaseKeys from 'camelcase-keys';
 
 const useIngredients = () => {
   const { data: ingredients } = useQuery('ingredients', fetchIngredients);
-  return ingredients ?? [];
+  return camelcaseKeys(ingredients ?? [], { deep: true });
 };
 
 const fetchIngredients = async () => {
   const response = await ingredientsApi.retrieveAllIngredients();
-  camelcaseKeys(response.data, { deep: true });
   return response.data as Array<IngredientState>;
 };
 

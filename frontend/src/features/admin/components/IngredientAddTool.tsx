@@ -17,7 +17,6 @@ import { useState } from 'react';
 import MeasurementList from './MeasurementList';
 import useCategories from '../../../hooks/useCategories';
 import MacroPieChart from '../../../components/MacroPieChart';
-import { createIngredientRequest } from '../../ingredients/ingredientsReducer';
 
 export default function IngredientAddTool() {
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
@@ -26,6 +25,7 @@ export default function IngredientAddTool() {
     (state) => state.admin.newIngredient
   );
   const categories = useCategories('ingredients');
+  console.log(categories);
   return (
     <Paper
       elevation={3}

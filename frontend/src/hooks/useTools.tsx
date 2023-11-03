@@ -4,12 +4,11 @@ import camelcaseKeys from 'camelcase-keys';
 
 const useTools = () => {
   const { data: tools } = useQuery('tools', fetchTools);
-  return tools ?? [];
+  return camelcaseKeys(tools ?? [], { deep: true });
 };
 
 const fetchTools = async () => {
   const response = await toolsApi.retrieveAllTools();
-  camelcaseKeys(response.data, { deep: true });
   return response.data as Array<ToolState>;
 };
 
