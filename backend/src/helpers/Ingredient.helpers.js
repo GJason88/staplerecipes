@@ -1,5 +1,3 @@
-import { nutrientIdToKey } from '../../data/mappings.js';
-
 export const ingredientHelpers = {
     mapMeasurements: (ingredientId, measurements) =>
         measurements.map((m) => ({
@@ -8,10 +6,7 @@ export const ingredientHelpers = {
             grams: m.grams,
         })),
     validateCreateInfo: (info) =>
-        info.name &&
+        info.ingredientName &&
         info.categoryId &&
-        info.nutrients &&
-        Object.values(nutrientIdToKey).every((nutrient) =>
-            Object.hasOwn(info.nutrients, nutrient)
-        ), // dont need
+        info.nutrientsFor100G
 };
