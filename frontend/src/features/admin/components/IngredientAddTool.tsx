@@ -25,7 +25,6 @@ export default function IngredientAddTool() {
     (state) => state.admin.newIngredient
   );
   const categories = useCategories('ingredients');
-  console.log(categories);
   return (
     <Paper
       elevation={3}
@@ -79,8 +78,11 @@ export default function IngredientAddTool() {
               )}
               options={categories as Array<CategoryState>}
               getOptionLabel={(option) => option.categoryName}
+              isOptionEqualToValue={(option, value) =>
+                option.categoryId === value.categoryId
+              }
               onChange={(e, value) =>
-                dispatch(setNewIngredient({ categoryId: value }))
+                dispatch(setNewIngredient({ categoryId: value?.categoryId }))
               }
             />
             <MeasurementList />
