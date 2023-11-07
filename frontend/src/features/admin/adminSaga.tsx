@@ -7,7 +7,7 @@ import { ingredientsApi } from '../../services/api/server';
 
 function* searchFoods(action: {
   type: string;
-  payload: { query: string, pageNumber: number };
+  payload: { query: string; pageNumber: number };
 }) {
   try {
     const response = yield call(
@@ -22,7 +22,10 @@ function* searchFoods(action: {
   }
 }
 
-function* createNewIngredient(action) {
+function* createNewIngredient(action: {
+  type: string;
+  payload: NewIngredientState;
+}) {
   try {
     yield call(ingredientsApi.createIngredient, action.payload);
 

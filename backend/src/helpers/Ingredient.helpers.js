@@ -1,12 +1,10 @@
 export const ingredientHelpers = {
     mapMeasurements: (ingredientId, measurements) =>
-        measurements.map((m) => ({
+        Object.entries(measurements).map(([measurement_name, grams]) => ({
             ingredient_id: ingredientId,
-            measurement_name: m.measurementName,
-            grams: m.grams,
+            measurement_name,
+            grams,
         })),
     validateCreateInfo: (info) =>
-        info.ingredientName &&
-        info.categoryId &&
-        info.nutrientsFor100G
+        info && info.ingredientName && info.categoryId,
 };

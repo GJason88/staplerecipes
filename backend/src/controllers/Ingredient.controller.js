@@ -51,9 +51,10 @@ export const ingredientController = {
             await ingredientModel.createIngredient(info);
             res.send('success');
         } catch (e) {
+            console.log(e);
             switch (e.code) {
                 case '23505':
-                    res.status(400).send('Invalid info.');
+                    res.status(400).send('Ingredient with name already exists.');
                     break;
                 default:
                     res.status(500).send('Something went wrong.');

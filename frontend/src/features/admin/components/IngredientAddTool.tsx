@@ -37,7 +37,12 @@ export default function IngredientAddTool() {
         justifyContent: 'space-evenly',
       }}
     >
-      <form onSubmit={() => dispatch(createNewIngredientRequest(ingredient))}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(createNewIngredientRequest(ingredient));
+        }}
+      >
         <FormControl
           sx={{
             display: 'flex',

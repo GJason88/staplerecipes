@@ -35,7 +35,7 @@ export const ingredientModel = {
             [ingredientId]
         ),
     createIngredient: async (info) => {
-        const ingredientId = await db.one(
+        const { ingredient_id: ingredientId } = await db.one(
             'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
             [info.ingredientName, info.categoryId, info.mlFor100G ?? 0]
         );
@@ -46,19 +46,25 @@ export const ingredientModel = {
                         ingredientId,
                         info.additionalMeasurements
                     ),
-                    null,
-                    'recipes.ingredient_measurement'
+                    pgpHelpers.columns([
+                        'ingredient_id',
+                        'measurement_name',
+                        'grams',
+                    ]),
+                    pgpHelpers.table('ingredient_measurement', 'recipes')
                 )
             ));
         await db.none(
             pgp.helpers.insert(
-                Object.entries(info.nutrientsFor100G).map(([nutrient_id, amount]) => ({
-                    ingredient_id: ingredientId,
-                    nutrient_id,
-                    amount
-                })),
-                ['ingredient_id', 'nutrient_id', 'amount'],
-                'recipes.ingredient_nutrient'
+                Object.entries(info.nutrientsFor100G).map(
+                    ([nutrient_id, amount]) => ({
+                        ingredient_id: ingredientId,
+                        nutrient_id,
+                        amount,
+                    })
+                ),
+                pgpHelpers.columns(['ingredient_id', 'nutrient_id', 'amount']),
+                pgpHelpers.table('ingredient_nutrient', 'recipes')
             )
         );
     },
@@ -72,7 +78,7 @@ export const ingredientModel = {
             pgp.helpers.update(
                 modifiedNutrients,
                 null,
-                'recipes.ingredient_nutrient'
+                pgpHelpers.table('ingredient_nutrient', 'recipes')
             ) + pgpHelpers.createCondition('ingredient_id', ingredientId)
         ),
     deleteIngredient: async (ingredientId) =>
