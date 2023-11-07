@@ -39,7 +39,7 @@ export const ingredientModel = {
             'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
             [info.ingredientName, info.categoryId, info.mlFor100G ?? 0]
         );
-        info.additionalMeasurements &&
+        Object.keys(info.additionalMeasurements).length &&
             (await db.none(
                 pgp.helpers.insert(
                     ingredientHelpers.mapMeasurements(
