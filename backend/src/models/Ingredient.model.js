@@ -54,19 +54,24 @@ export const ingredientModel = {
                     pgpHelpers.table('ingredient_measurement', 'recipes')
                 )
             ));
-        await db.none(
-            pgp.helpers.insert(
-                Object.entries(info.nutrientsFor100G).map(
-                    ([nutrient_id, amount]) => ({
-                        ingredient_id: ingredientId,
-                        nutrient_id,
-                        amount,
-                    })
-                ),
-                pgpHelpers.columns(['ingredient_id', 'nutrient_id', 'amount']),
-                pgpHelpers.table('ingredient_nutrient', 'recipes')
-            )
-        );
+        Object.keys(info.nutrientsFor100G).length &&
+            (await db.none(
+                pgp.helpers.insert(
+                    Object.entries(info.nutrientsFor100G).map(
+                        ([nutrient_id, amount]) => ({
+                            ingredient_id: ingredientId,
+                            nutrient_id,
+                            amount,
+                        })
+                    ),
+                    pgpHelpers.columns([
+                        'ingredient_id',
+                        'nutrient_id',
+                        'amount',
+                    ]),
+                    pgpHelpers.table('ingredient_nutrient', 'recipes')
+                )
+            ));
     },
     createCategory: async (categoryInfo) =>
         await db.none(
