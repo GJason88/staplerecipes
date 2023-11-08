@@ -3,7 +3,8 @@ import db from '../configs/db.configs.js';
 export const toolModel = {
     getTools: async () =>
         await db.any(
-            'SELECT tool_id, tool_name, category_name FROM recipes.tool;'
+            `SELECT tool_id, tool_name, category_name FROM recipes.tool as t
+             INNER JOIN recipes.tool_category as tc ON t.category_id = tc.category_id;`
         ),
     getCategories: async () =>
         await db.any(
