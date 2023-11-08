@@ -6,5 +6,8 @@ export const ingredientHelpers = {
             grams,
         })),
     validateCreateInfo: (info) =>
-        info && info.ingredientName && info.categoryId,
+        info &&
+        info.ingredientName &&
+        info.categoryId &&
+        Object.keys(info.nutrientsFor100G).length,
 };
