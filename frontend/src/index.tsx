@@ -16,9 +16,11 @@ import { theme } from './themes.tsx';
 import layoutReducer from './layouts/layoutReducer.tsx';
 import adminReducer from './features/admin/adminReducer.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import serviceReducer from './services/api/serviceReducer.tsx';
 
 const reducer = combineReducers({
   layout: layoutReducer,
+  service: serviceReducer,
   recipegrid: recipeGridReducer,
   recipe: recipeReducer,
   tools: toolsReducer,

@@ -24,10 +24,6 @@ function* getRecipe(action) {
       type: 'recipe/setInvalid',
       payload: true,
     });
-    yield put({
-      type: 'layout/setSnackBar',
-      payload: { message: e.response.data },
-    });
   }
 }
 
@@ -48,31 +44,18 @@ function* updateRecipe() {
       recipeData.recipeId,
       params
     );
-    yield put({
-      type: 'layout/setSnackBar',
-      payload: { message: 'Successfully updated recipe' },
-    });
     console.log(response.data);
   } catch (e) {
-    yield put({
-      type: 'layout/setSnackBar',
-      payload: { message: 'Failed to update recipe' },
-    });
+    console.log(e);
   }
 }
 
 function* deleteRecipe(action) {
   try {
     yield call(recipesApi.delete, action.payload);
-    yield put({
-      type: 'layout/setSnackBar',
-      payload: { message: 'Successfully deleted recipe' },
-    });
+    console.log('success');
   } catch (e) {
-    yield put({
-      type: 'layout/setSnackBar',
-      payload: { message: 'Failed to delete recipe' },
-    });
+    console.log(e);
   }
 }
 

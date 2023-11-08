@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import FDCSearch from './components/FDCSearch';
 import IngredientAddTool from './components/IngredientAddTool';
+import ServiceResult from '../../components/ServiceResult';
 
 export default function AdminPage() {
   return (
@@ -13,6 +14,7 @@ export default function AdminPage() {
       minHeight={500}
       height={900}
     >
+      <ServiceResult />
       <FDCSearch />
       <IngredientAddTool />
     </Stack>

@@ -7,11 +7,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveRoute, setSnackBar, updateIsMobile } from './layoutReducer';
+import { setActiveRoute, updateIsMobile } from './layoutReducer';
 import { IRootState } from '../index';
 import { useNavigate } from 'react-router-dom';
 import { drawerWidth, routes } from '../data/constants';
-import { Alert, Button, Snackbar } from '@mui/material';
+import { Button } from '@mui/material';
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -19,22 +19,9 @@ export default function Sidebar() {
   const isMobile = useSelector<IRootState, boolean>(
     (state) => state.layout.isMobile
   );
-  const snackbar = useSelector<IRootState, string>(
-    (state) => state.layout.snackbar
-  );
   const activeRoute = useSelector<IRootState, string>(
     (state) => state.layout.activeRoute
   );
-  const handleSnackbarClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    dispatch(setSnackBar(''));
-  };
-
   const drawer = (
     <Box>
       <Button
@@ -122,21 +109,6 @@ export default function Sidebar() {
       >
         {drawer}
       </Drawer>
-      {snackbar && (
-        <Snackbar
-          onClose={handleSnackbarClose}
-          open={true}
-          autoHideDuration={3000}
-        >
-          <Alert
-            onClose={handleSnackbarClose}
-            severity='success'
-            sx={{ width: '100%' }}
-          >
-            {snackbar}
-          </Alert>
-        </Snackbar>
-      )}
     </Box>
   );
 }

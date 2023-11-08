@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { BreadcrumbState, updateIsMobile } from './layoutReducer';
+import { updateIsMobile } from './layoutReducer';
 import { drawerWidth } from '../data/constants';
 import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
 import { IRootState } from '..';
