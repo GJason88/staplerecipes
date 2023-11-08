@@ -1,4 +1,9 @@
 export const measurements = {
+  weight: ['g', 'oz'],
+  volume: ['ml', 'l', 'tsp', 'tbsp', 'cup'],
+};
+
+export const measurementConversions = {
   // weight
   g: 1,
   oz: 28.35,

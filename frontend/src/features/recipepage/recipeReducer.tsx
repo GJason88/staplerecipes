@@ -23,42 +23,24 @@ const recipe = createSlice({
       // Gets recipe data from db when used.
       state.recipeId = action.payload;
     },
-    deleteRecipeRequest: (state, action) => {},
-    updateRecipeName: (state, action) => {
+    setRecipeName: (state, action) => {
       state.recipeName = action.payload;
     },
-    updateTime: (state, action) => {
+    setTime: (state, action) => {
       state.time = action.payload;
     },
-    updateTools: (state, action) => {
+    setDiet: (state, action) => {
+      state.diet = action.payload;
+    },
+    setTools: (state, action) => {
       state.tools = action.payload;
     },
-    addIngredient: (state, action) => {
-      state.ingredients = [...state.ingredients, action.payload];
+    setIngredients: (state, action) => {
+      state.ingredients = action.payload;
     },
-    deleteIngredient: (state, action) => {
-      state.ingredients = [
-        ...state.ingredients.slice(0, action.payload),
-        ...state.ingredients.slice(action.payload + 1),
-      ];
+    setInstructions: (state, action) => {
+      state.instructions = action.payload;
     },
-    updateInstructionStep: (state, action) => {
-      state.instructions = [
-        ...state.instructions.slice(0, action.payload.index),
-        action.payload.text,
-        ...state.instructions.slice(action.payload.index + 1),
-      ];
-    },
-    addInstructionStep: (state) => {
-      state.instructions = [...state.instructions, ''];
-    },
-    deleteInstructionStep: (state, action) => {
-      state.instructions = [
-        ...state.instructions.slice(0, action.payload),
-        ...state.instructions.slice(action.payload + 1),
-      ];
-    },
-    editRecipeRequest: (state) => {},
     setInvalid: (state, action) => {
       state.invalid = action.payload;
     },
@@ -68,16 +50,12 @@ const recipe = createSlice({
 export const {
   setRecipe,
   setRecipeId,
-  deleteRecipeRequest,
-  addIngredient,
-  deleteIngredient,
-  updateInstructionStep,
-  addInstructionStep,
-  deleteInstructionStep,
-  updateRecipeName,
-  updateTime,
-  updateTools,
-  editRecipeRequest,
+  setRecipeName,
+  setTime,
+  setDiet,
+  setTools,
+  setIngredients,
+  setInstructions,
   setInvalid,
 } = recipe.actions;
 export default recipe.reducer;

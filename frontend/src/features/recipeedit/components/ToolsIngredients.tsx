@@ -16,8 +16,8 @@ import {
   Typography,
 } from '@mui/material';
 import { recipeWidth } from '../../../data/constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import {
   addIngredient,
   deleteIngredient,
@@ -27,9 +27,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { IRootState } from '../../..';
-import { getToolsRequest } from '../../tools/toolsReducer';
-import { getIngredientsRequest } from '../../ingredients/ingredientsReducer';
 
 interface ToolsIngredientsProps {
   recipeIngredients: Array<IngredientState>;
@@ -54,17 +51,6 @@ const checkedIcon = <CheckBoxIcon fontSize='small' />;
 export default function ToolsIngredients(props: ToolsIngredientsProps) {
   const dispatch = useDispatch();
   const [state, setState] = useState<State>(initialState);
-  const allTools = useSelector<IRootState, Array<ToolState>>(
-    (state) => state.tools.tools
-  );
-  const allIngredients = useSelector<IRootState, Array<IngredientState>>(
-    (state) => state.ingredients.ingredients
-  );
-
-  useEffect(() => {
-    dispatch(getToolsRequest());
-    dispatch(getIngredientsRequest());
-  }, [dispatch]);
 
   const handleAdd = () => {
     if (!state.selectedIngredient) {
@@ -102,14 +88,14 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
         onChange={(e, value) => dispatch(updateTools(value))}
         fullWidth
         multiple
-        options={allTools}
-        value={allTools.filter((tool) =>
-          props.recipeTools.some(
-            (recipeTool) => recipeTool.toolId === tool.toolId
-          )
-        )}
+        options={[]}
+        // value={allTools.filter((tool) =>
+        //   props.recipeTools.some(
+        //     (recipeTool) => recipeTool.toolId === tool.toolId
+        //   )
+        // )}
         disableCloseOnSelect
-        getOptionLabel={(option) => option.toolName}
+        getOptionLabel={(option) => option}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -118,7 +104,7 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
               style={{ marginRight: 8 }}
               checked={selected}
             />
-            {option.toolName}
+            {option}
           </li>
         )}
         renderInput={(params) => <TextField {...params} label={'Tools'} />}
@@ -126,8 +112,8 @@ export default function ToolsIngredients(props: ToolsIngredientsProps) {
       <Box pb={2} display='flex'>
         <Autocomplete
           sx={{ width: 650 }}
-          options={allIngredients}
-          getOptionLabel={(option) => option.ingredientName}
+          options={[]}
+          getOptionLabel={(option) => option}
           onChange={(e, value) =>
             setState({
               ...state,

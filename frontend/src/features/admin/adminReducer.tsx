@@ -5,7 +5,7 @@ const initialNewIngredientState = {
   categoryId: null,
   nutrientsFor100G: {},
   additionalMeasurements: {},
-  mlFor100G: 0
+  mlFor100G: 0,
 } as NewIngredientState;
 
 const initialState = {
@@ -43,13 +43,23 @@ const admin = createSlice({
       };
     },
     removeMeasurement: (state, action) => {
-      const measurements = {...state.newIngredient.additionalMeasurements};
+      const measurements = { ...state.newIngredient.additionalMeasurements };
       delete measurements[action.payload];
       state.newIngredient.additionalMeasurements = measurements;
     },
-    createNewIngredientRequest: (state, action) => {}
+    createNewIngredientRequest: (state, action) => {},
+    createNewRecipeRequest: (state, action) => {
+      console.log(action);
+    },
   },
 });
 
-export const { searchFoodsRequest, setNewIngredient, addMeasurement, removeMeasurement, createNewIngredientRequest } = admin.actions;
+export const {
+  searchFoodsRequest,
+  setNewIngredient,
+  addMeasurement,
+  removeMeasurement,
+  createNewIngredientRequest,
+  createNewRecipeRequest
+} = admin.actions;
 export default admin.reducer;

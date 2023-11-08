@@ -26,9 +26,6 @@ const recipeGrid = createSlice({
       // TODO: Handle error backend and frontend
       console.log('error', action);
     },
-    createRecipeRequest: (state, action) => {
-      state.isCreateDialog = false;
-    },
     updateRedirect: (state, action) => {
       state.redirect = action.payload;
     }
@@ -38,7 +35,6 @@ const recipeGrid = createSlice({
 export const {
   updateCreateDialog,
   getAllRecipesRequest,
-  createRecipeRequest,
   updateCreateDialogErrorMessage,
   updateRedirect,
 } = recipeGrid.actions;

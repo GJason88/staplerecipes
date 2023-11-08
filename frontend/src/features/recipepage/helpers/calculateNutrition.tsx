@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { measurements } from '../../../data/measurements';
+import { measurementConversions } from '../../../data/measurements';
 
 export const calculateNutrition = (ingredients: Array<IngredientState>) => {
   const recipeNutrition: NutritionState = {};
@@ -28,8 +28,8 @@ const getMeasurementGrams = (
     return adMts[mt];
   }
   return isVolume(mt) && mlFor100G
-    ? (measurements[mt] / mlFor100G) * 100
-    : measurements[mt];
+    ? (measurementConversions[mt] / mlFor100G) * 100
+    : measurementConversions[mt];
 };
 
 const isVolume = (mt: Measurement) =>
