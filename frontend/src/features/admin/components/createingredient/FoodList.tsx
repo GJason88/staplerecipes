@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setNewIngredient } from '../adminReducer';
-import useNutrients from '../../../hooks/useNutrients';
+import { setNewIngredient } from '../../adminReducer';
+import useNutrients from '../../../../hooks/useNutrients';
 
 interface FoodListProps {
   foods: Array<FDCFoodState>;

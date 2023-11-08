@@ -10,13 +10,13 @@ import {
   TextField,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../../..';
-import { createNewIngredientRequest, setNewIngredient } from '../adminReducer';
-import NutritionLabel from '../../../components/nutritionlabel/NutritionLabel';
+import { IRootState } from '../../../..';
+import { createNewIngredientRequest, setNewIngredient } from '../../adminReducer';
+import NutritionLabel from '../../../../components/nutritionlabel/NutritionLabel';
 import { useState } from 'react';
 import MeasurementList from './MeasurementList';
-import useCategories from '../../../hooks/useCategories';
-import MacroPieChart from '../../../components/MacroPieChart';
+import useCategories from '../../../../hooks/useCategories';
+import MacroPieChart from '../../../../components/MacroPieChart';
 
 export default function IngredientAddTool() {
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);

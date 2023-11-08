@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMeasurement, removeMeasurement } from '../adminReducer';
-import { IRootState } from '../../..';
+import { addMeasurement, removeMeasurement } from '../../adminReducer';
+import { IRootState } from '../../../..';
 import { Delete } from '@mui/icons-material';
 
 export default function MeasurementList() {

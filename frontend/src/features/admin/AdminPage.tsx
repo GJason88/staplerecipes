@@ -1,22 +1,28 @@
-import { Stack } from '@mui/material';
-import FDCSearch from './components/FDCSearch';
-import IngredientAddTool from './components/IngredientAddTool';
+import { Box, Tab, Tabs } from '@mui/material';
 import ServiceResult from '../../components/ServiceResult';
+import CreateIngredient from './components/createingredient/CreateIngredient';
+import { useState } from 'react';
+
+const tabs = [
+  'Create Ingredients',
+  'Edit Ingredients',
+  'Create Recipes',
+  'Edit Recipes',
+  'Create Tools',
+  'Edit Tools',
+];
 
 export default function AdminPage() {
+  const [tab, setTab] = useState(0);
   return (
-    <Stack
-      p={2}
-      pt={10}
-      width='85%'
-      gap={1}
-      flexDirection='row'
-      minHeight={500}
-      height={900}
-    >
+    <Box width='100%' p={2} pt={10}>
       <ServiceResult />
-      <FDCSearch />
-      <IngredientAddTool />
-    </Stack>
+      <Tabs value={tab} onChange={(e, newTab: number) => setTab(newTab)}>
+        {tabs.map((tab, index) => (
+          <Tab key={index} label={tab} value={index} />
+        ))}
+      </Tabs>
+      {tab == 0 && <CreateIngredient />}
+    </Box>
   );
 }

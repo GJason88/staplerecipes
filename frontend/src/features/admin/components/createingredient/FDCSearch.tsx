@@ -7,10 +7,10 @@ import {
   Paper,
 } from '@mui/material';
 import FoodList from './FoodList';
-import { searchFoodsRequest } from '../adminReducer';
+import { searchFoodsRequest } from '../../adminReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IRootState } from '../../..';
+import { IRootState } from '../../../..';
 
 export default function FDCSearch() {
   const [query, setQuery] = useState('');
@@ -42,7 +42,6 @@ export default function FDCSearch() {
         flexDirection: 'column',
         gap: 1,
         width: '25%',
-        maxHeight: 830,
         overflow: 'auto',
         p: 2,
       }}
