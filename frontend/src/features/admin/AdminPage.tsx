@@ -1,6 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import ServiceResult from '../../components/ServiceResult';
-import CreateIngredient from './components/createingredient/CreateIngredient';
+import CreateIngredient from './components/createingredients/CreateIngredient';
 import { useState } from 'react';
 
 const tabs = [
