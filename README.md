@@ -45,4 +45,4 @@ yarn dev
 
 ## Authors
 
-[Jason Gin](https://github.com/GJason88)https://github.com/GJason88
+[Jason Gin](https://github.com/GJason88)
