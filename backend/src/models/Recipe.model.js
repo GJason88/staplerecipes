@@ -5,6 +5,7 @@ import {
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
 import { mapFields } from '../helpers/utils/mapFields.js';
+import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
 
 const pgp = pgPromise({ capSQL: true });
 
@@ -25,28 +26,41 @@ export const recipeModel = {
         ]);
     },
     createRecipe: async (info) => {
-        const recipeId = await db.one(
-            'INSERT INTO recipes.recipe(recipe_name, time, diet, instructions) VALUES ($1, $2, $3) RETURNING recipe_id;',
-            [info.name, info.time, info.diet, info.instructions]
+        const { recipe_id: recipeId } = await db.one(
+            'INSERT INTO recipes.recipe(recipe_name, time, diet, servings, instructions) VALUES ($1, $2, $3, $4, $5) RETURNING recipe_id;',
+            [
+                info.recipeName,
+                info.time,
+                info.diet,
+                info.servings,
+                info.instructions,
+            ]
         );
         await db.none(
             pgp.helpers.insert(
-                info.ingredients.map((id) => ({
-                    ingredient_id: id,
+                info.ingredients.map((ingr) => ({
+                    ingredient_id: ingr.ingredientId,
                     recipe_id: recipeId,
+                    amount: ingr.amount,
+                    default_measurement: ingr.defaultMeasurement,
                 })),
-                null,
-                'recipes.recipe_ingredient'
+                pgpHelpers.columns([
+                    'ingredient_id',
+                    'recipe_id',
+                    'amount',
+                    'default_measurement',
+                ]),
+                pgpHelpers.table('recipe_ingredient', 'recipes')
             )
         );
         await db.none(
             pgp.helpers.insert(
-                info.tools.map((id) => ({
-                    tool_id: id,
+                info.tools.map((tool) => ({
+                    tool_id: tool.toolId,
                     recipe_id: recipeId,
                 })),
-                null,
-                'recipes.recipe_tool'
+                pgpHelpers.columns(['tool_id', 'recipe_id']),
+                pgpHelpers.table('recipe_tool', 'recipes')
             )
         );
     },

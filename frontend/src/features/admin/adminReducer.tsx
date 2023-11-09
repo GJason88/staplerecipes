@@ -48,9 +48,7 @@ const admin = createSlice({
       state.newIngredient.additionalMeasurements = measurements;
     },
     createNewIngredientRequest: (state, action) => {},
-    createNewRecipeRequest: (state, action) => {
-      console.log(action);
-    },
+    createNewRecipeRequest: (state, action) => {},
   },
 });
 

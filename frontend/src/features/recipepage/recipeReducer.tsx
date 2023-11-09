@@ -7,6 +7,7 @@ const initialState = {
   ingredients: [],
   time: '',
   diet: '',
+  servings: '',
   instructions: [],
   invalid: false,
 } as RecipeState;
@@ -32,6 +33,9 @@ const recipe = createSlice({
     setDiet: (state, action) => {
       state.diet = action.payload;
     },
+    setServings: (state, action) => {
+      state.servings = action.payload;
+    },
     setTools: (state, action) => {
       state.tools = action.payload;
     },
@@ -53,6 +57,7 @@ export const {
   setRecipeName,
   setTime,
   setDiet,
+  setServings,
   setTools,
   setIngredients,
   setInstructions,

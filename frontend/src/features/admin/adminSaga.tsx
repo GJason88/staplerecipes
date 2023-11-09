@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fdcApi } from '../../services/api/fdc';
-import { ingredientsApi } from '../../services/api/server';
+import { ingredientsApi, recipesApi } from '../../services/api/server';
 
 function* searchFoods(action: {
   type: string,
@@ -36,7 +36,24 @@ function* createNewIngredient(action: {
       },
     });
   } catch (e) {
-    console.log(e);
+    yield put({
+      type: 'service/setResult',
+      payload: { severity: 'error', message: e.response.data },
+    });
+  }
+}
+
+function* createNewRecipe(action: { type: string, payload: RecipeState }) {
+  try {
+    yield call(recipesApi.create, action.payload);
+    yield put({
+      type: 'service/setResult',
+      payload: {
+        severity: 'success',
+        message: 'Successfully created recipe',
+      },
+    });
+  } catch (e) {
     yield put({
       type: 'service/setResult',
       payload: { severity: 'error', message: e.response.data },
@@ -47,4 +64,5 @@ function* createNewIngredient(action: {
 export default function* adminSaga() {
   yield takeLatest('admin/searchFoodsRequest', searchFoods);
   yield takeLatest('admin/createNewIngredientRequest', createNewIngredient);
+  yield takeLatest('admin/createNewRecipeRequest', createNewRecipe);
 }

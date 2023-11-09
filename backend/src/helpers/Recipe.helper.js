@@ -1,8 +1,9 @@
 export const recipeHelpers = {
     validateCreateInfo: (info) =>
-        info.name &&
+        info.recipeName &&
         info.time &&
         info.diet &&
+        info.servings &&
         info.instructions.length &&
         info.ingredients.length &&
         info.tools.length,

@@ -1,7 +1,7 @@
 import { get, post, put, destroy } from './base';
 
 export const recipesApi = {
-  create: (params: { name: string }) => post('/recipe', null, { params }),
+  create: (data: RecipeState) => post('/recipe', data),
   retrieve: (id: string) => get(`/recipe/${id}`),
   retrieveAll: () => get('/recipes'),
   update: (id: string, params: UpdateRecipeState) =>

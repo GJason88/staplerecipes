@@ -4,11 +4,11 @@ interface RecipeState {
   recipeName: string;
   time: string;
   diet: string;
+  servings: string;
   instructions: Array<string>;
   tools: Array<ToolState>;
   ingredients: Array<IngredientState>;
   invalid: boolean;
-  nutrition?: NutritionState;
 }
 
 interface UpdateRecipeState {

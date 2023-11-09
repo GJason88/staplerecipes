@@ -14,7 +14,6 @@ export default function CreateRecipe() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createNewRecipeRequest(recipe));
-    // dispatch create new recipe request with recipe
   };
   return (
     <form onSubmit={onSubmit}>
@@ -24,6 +23,7 @@ export default function CreateRecipe() {
             recipeName={recipe.recipeName}
             time={recipe.time}
             diet={recipe.diet}
+            servings={recipe.servings}
           />
           <EditRecipeIngredients recipeIngredients={recipe.ingredients} />
           <EditRecipeTools recipeTools={recipe.tools} />
