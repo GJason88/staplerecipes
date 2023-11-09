@@ -3,6 +3,7 @@ import { toolsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { setResult } from '../services/api/serviceReducer';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const useTools = () => {
   const { data: tools } = useQuery('tools', fetchTools);
@@ -15,7 +16,16 @@ const fetchTools = async () => {
     const response = await toolsApi.retrieveAllTools();
     return response.data as Array<ToolState>;
   } catch (e) {
-    dispatch(setResult({ message: e.response.data, severity: 'error' }));
+    let message = 'Failed to fetch tools';
+    if (axios.isAxiosError(e)) {
+      message = e.response?.data ?? message;
+    }
+    dispatch(
+      setResult({
+        message,
+        severity: 'error',
+      })
+    );
   }
 };
 

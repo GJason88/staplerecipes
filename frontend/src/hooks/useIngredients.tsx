@@ -3,6 +3,7 @@ import { ingredientsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
+import axios from 'axios';
 
 const useIngredients = () => {
   const { data: ingredients } = useQuery('ingredients', fetchIngredients);
@@ -15,7 +16,16 @@ const fetchIngredients = async () => {
     const response = await ingredientsApi.retrieveAllIngredients();
     return response.data as Array<IngredientState>;
   } catch (e) {
-    dispatch(setResult({ message: e.response.data, severity: 'error' }));
+    let message = 'Failed to fetch ingredients';
+    if (axios.isAxiosError(e)) {
+      message = e.response?.data ?? message;
+    }
+    dispatch(
+      setResult({
+        message,
+        severity: 'error',
+      })
+    );
   }
 };
 
