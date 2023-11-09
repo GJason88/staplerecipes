@@ -11,7 +11,10 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../../..';
-import { createNewIngredientRequest, setNewIngredient } from '../../adminReducer';
+import {
+  createNewIngredientRequest,
+  setNewIngredient,
+} from '../../adminReducer';
 import NutritionLabel from '../../../../components/nutritionlabel/NutritionLabel';
 import { useState } from 'react';
 import MeasurementList from './MeasurementList';
@@ -51,21 +54,27 @@ export default function IngredientAddTool() {
             flexWrap: 'wrap',
           }}
         >
-          <Box display='flex' flexDirection='column' width='50%' minWidth='50%'>
+          <Box
+            display='flex'
+            flexDirection='column'
+            width='50%'
+            minWidth='50%'
+            alignItems='center'
+          >
             <NutritionLabel
               nutrition={ingredient.nutrientsFor100G}
               center
               minWidth={240}
               maxWidth={330}
+              maxHeight={405}
               fs={12}
             />
-            <MacroPieChart // box around?
+            <MacroPieChart
               nutrition={ingredient.nutrientsFor100G}
               chartWidth={300}
               chartHeight={200}
               minWidth={240}
               maxWidth={330}
-              center
             />
           </Box>
           <Stack gap={4} width='50%' minWidth='50%'>

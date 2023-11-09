@@ -6,15 +6,13 @@ import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
-import { calculateNutrition } from './helpers/calculateNutrition';
-import NutritionLabel from '../../components/nutritionlabel/NutritionLabel';
 import useRecipe from '../../hooks/useRecipe';
+import RecipeNutrition from './components/RecipeNutrition';
 
 export default function RecipePage() {
   const routeParams = useParams();
   const recipe = useRecipe(routeParams.id ?? '');
   if (!Object.keys(recipe).length) return <></>;
-  const nutrition = calculateNutrition(recipe.ingredients);
 
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
@@ -26,9 +24,7 @@ export default function RecipePage() {
           <RecipeTools tools={recipe.tools} />
         </Stack>
         <RecipeInstructions instructions={recipe.instructions} />
-        {Object.values(nutrition).length && (
-          <NutritionLabel nutrition={nutrition} />
-        )}
+        <RecipeNutrition ingredients={recipe.ingredients} />
       </Stack>
     </Container>
   );
