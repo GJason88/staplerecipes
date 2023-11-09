@@ -1,20 +1,15 @@
 import { useQuery } from 'react-query';
 import { recipesApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
-import { setResult } from '../services/api/serviceReducer';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setResult } from '../services/api/serviceReducer';
 
 const useRecipes = () => {
-  const { data: recipes } = useQuery('recipes', fetchRecipes);
-  return camelcaseKeys(recipes ?? [], { deep: true });
-};
-
-const fetchRecipes = async () => {
   const dispatch = useDispatch();
   try {
-    const response = await recipesApi.retrieveAll();
-    return response.data as Array<RecipeCardState>;
+    const { data: recipes } = useQuery('recipes', fetchRecipes);
+    return recipes ? camelcaseKeys(recipes, { deep: true }) : [];
   } catch (e) {
     let message = 'Failed to fetch recipes';
     if (axios.isAxiosError(e)) {
@@ -26,7 +21,13 @@ const fetchRecipes = async () => {
         severity: 'error',
       })
     );
+    console.log(message);
   }
+};
+
+const fetchRecipes = async () => {
+  const response = await recipesApi.retrieveAll();
+  return response.data as Array<RecipeCardState>;
 };
 
 export default useRecipes;

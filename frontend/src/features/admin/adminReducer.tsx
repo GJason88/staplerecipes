@@ -23,6 +23,7 @@ const admin = createSlice({
     searchFoodsRequest: (state, action) => {
       state.isLoading = true;
     },
+    // TODO: move to component and just use setFoods
     setSearchResult: (state, action) => {
       const foods = action.payload.foods;
       state.foods = foods.map((food) => ({
@@ -36,6 +37,7 @@ const admin = createSlice({
     setNewIngredient: (state, action) => {
       state.newIngredient = { ...state.newIngredient, ...action.payload };
     },
+    // TODO: move to component and just use setMeasurement
     addMeasurement: (state, action) => {
       state.newIngredient.additionalMeasurements = {
         ...state.newIngredient.additionalMeasurements,

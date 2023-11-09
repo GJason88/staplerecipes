@@ -6,15 +6,10 @@ import { setResult } from '../services/api/serviceReducer';
 import axios from 'axios';
 
 const useIngredients = () => {
-  const { data: ingredients } = useQuery('ingredients', fetchIngredients);
-  return camelcaseKeys(ingredients ?? [], { deep: true });
-};
-
-const fetchIngredients = async () => {
   const dispatch = useDispatch();
   try {
-    const response = await ingredientsApi.retrieveAllIngredients();
-    return response.data as Array<IngredientState>;
+    const { data: ingredients } = useQuery('ingredients', fetchIngredients);
+    return ingredients ? camelcaseKeys(ingredients, { deep: true }) : [];
   } catch (e) {
     let message = 'Failed to fetch ingredients';
     if (axios.isAxiosError(e)) {
@@ -27,6 +22,11 @@ const fetchIngredients = async () => {
       })
     );
   }
+};
+
+const fetchIngredients = async () => {
+  const response = await ingredientsApi.retrieveAllIngredients();
+  return response.data as Array<IngredientState>;
 };
 
 export default useIngredients;

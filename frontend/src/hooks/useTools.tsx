@@ -6,15 +6,10 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const useTools = () => {
-  const { data: tools } = useQuery('tools', fetchTools);
-  return camelcaseKeys(tools ?? [], { deep: true });
-};
-
-const fetchTools = async () => {
   const dispatch = useDispatch();
   try {
-    const response = await toolsApi.retrieveAllTools();
-    return response.data as Array<ToolState>;
+    const { data: tools } = useQuery('tools', fetchTools);
+    return tools ? camelcaseKeys(tools, { deep: true }) : [];
   } catch (e) {
     let message = 'Failed to fetch tools';
     if (axios.isAxiosError(e)) {
@@ -27,6 +22,11 @@ const fetchTools = async () => {
       })
     );
   }
+};
+
+const fetchTools = async () => {
+  const response = await toolsApi.retrieveAllTools();
+  return response.data as Array<ToolState>;
 };
 
 export default useTools;

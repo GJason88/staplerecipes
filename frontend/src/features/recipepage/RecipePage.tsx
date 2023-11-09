@@ -12,23 +12,13 @@ import RecipeInstructions from './components/RecipeInstructions';
 import { calculateNutrition } from './helpers/calculateNutrition';
 import { IRootState } from '../..';
 import NutritionLabel from '../../components/nutritionlabel/NutritionLabel';
+import useRecipe from '../../hooks/useRecipe';
 
 export default function RecipePage() {
   const routeParams = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const recipe = useSelector<IRootState, RecipeState>((state) => state.recipe);
+  const recipe = useRecipe(routeParams.id ?? '');
+  if (!recipe) return <></>;
   const nutrition = calculateNutrition(recipe.ingredients);
-  useEffect(() => {
-    dispatch(setRecipeId(routeParams.id));
-  }, [dispatch, routeParams]);
-
-  useEffect(() => {
-    if (recipe.invalid) {
-      navigate('/recipes');
-      dispatch(setInvalid(false));
-    }
-  }, [dispatch, navigate, recipe.invalid]);
 
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
