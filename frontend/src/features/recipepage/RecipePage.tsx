@@ -14,7 +14,6 @@ export default function RecipePage() {
   const routeParams = useParams();
   const recipe = useRecipe(routeParams.id ?? '');
   if (!Object.keys(recipe).length) return <></>;
-  console.log(recipe);
   const nutrition = calculateNutrition(recipe.ingredients);
 
   return (
