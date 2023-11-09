@@ -22,7 +22,7 @@ const useRecipe = (recipeId: string) => {
       })
     );
   }
-  return {};
+  return {} as RecipeState;
 };
 
 const fetchRecipe = async (recipeId: string) => {
