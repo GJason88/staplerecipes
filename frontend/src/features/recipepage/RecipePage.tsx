@@ -1,16 +1,12 @@
 import { Container, Stack } from '@mui/material';
 import { recipeWidth } from '../../data/constants';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setInvalid, setRecipeId } from './recipeReducer';
+import { useParams } from 'react-router-dom';
 import RecipeHeading from './components/RecipeHeading';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
 import { calculateNutrition } from './helpers/calculateNutrition';
-import { IRootState } from '../..';
 import NutritionLabel from '../../components/nutritionlabel/NutritionLabel';
 import useRecipe from '../../hooks/useRecipe';
 
@@ -18,6 +14,7 @@ export default function RecipePage() {
   const routeParams = useParams();
   const recipe = useRecipe(routeParams.id ?? '');
   if (!recipe) return <></>;
+  console.log(recipe);
   const nutrition = calculateNutrition(recipe.ingredients);
 
   return (

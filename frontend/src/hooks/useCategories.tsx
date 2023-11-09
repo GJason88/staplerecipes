@@ -16,7 +16,7 @@ const useCategories = (type: 'tools' | 'ingredients') => {
         refetchOnWindowFocus: false,
       }
     );
-    return categories ? camelcaseKeys(categories, { deep: true }) : [];
+    return camelcaseKeys(categories ?? [], { deep: true });
   } catch (e) {
     let message = 'Failed to fetch categories';
     if (axios.isAxiosError(e)) {
@@ -29,6 +29,7 @@ const useCategories = (type: 'tools' | 'ingredients') => {
       })
     );
   }
+  return [];
 };
 
 const fetchCategories = async (type: 'tools' | 'ingredients') => {

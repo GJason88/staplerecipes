@@ -9,9 +9,7 @@ const useRecipe = (recipeId: string) => {
   const dispatch = useDispatch();
   try {
     const { data: recipe } = useQuery('recipe', () => fetchRecipe(recipeId));
-    return (
-      recipe ? camelcaseKeys(recipe, { deep: true }) : undefined
-    ) as RecipeState;
+    return camelcaseKeys(recipe ?? {}, { deep: true }) as RecipeState;
   } catch (e) {
     let message = 'Failed to fetch recipe';
     if (axios.isAxiosError(e)) {
@@ -24,6 +22,7 @@ const useRecipe = (recipeId: string) => {
       })
     );
   }
+  return {};
 };
 
 const fetchRecipe = async (recipeId: string) => {

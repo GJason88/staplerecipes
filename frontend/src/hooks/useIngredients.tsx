@@ -9,7 +9,7 @@ const useIngredients = () => {
   const dispatch = useDispatch();
   try {
     const { data: ingredients } = useQuery('ingredients', fetchIngredients);
-    return ingredients ? camelcaseKeys(ingredients, { deep: true }) : [];
+    return camelcaseKeys(ingredients ?? [], { deep: true });
   } catch (e) {
     let message = 'Failed to fetch ingredients';
     if (axios.isAxiosError(e)) {
@@ -22,6 +22,7 @@ const useIngredients = () => {
       })
     );
   }
+  return [];
 };
 
 const fetchIngredients = async () => {

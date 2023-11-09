@@ -9,7 +9,7 @@ const useTools = () => {
   const dispatch = useDispatch();
   try {
     const { data: tools } = useQuery('tools', fetchTools);
-    return tools ? camelcaseKeys(tools, { deep: true }) : [];
+    return camelcaseKeys(tools ?? [], { deep: true });
   } catch (e) {
     let message = 'Failed to fetch tools';
     if (axios.isAxiosError(e)) {
@@ -22,6 +22,7 @@ const useTools = () => {
       })
     );
   }
+  return [];
 };
 
 const fetchTools = async () => {

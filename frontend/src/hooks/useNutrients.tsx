@@ -12,7 +12,7 @@ const useNutrients = (byId?: boolean) => {
     const { data: nutrients } = useQuery(queryKey, () => fetchNutrients(byId), {
       refetchOnWindowFocus: false,
     });
-    return nutrients ? camelcaseKeys(nutrients, { deep: true }) : undefined;
+    return camelcaseKeys(nutrients ?? {}, { deep: true });
   } catch (e) {
     let message = 'Failed to fetch nutrients';
     if (axios.isAxiosError(e)) {
@@ -25,6 +25,7 @@ const useNutrients = (byId?: boolean) => {
       })
     );
   }
+  return {};
 };
 
 const fetchNutrients = async (byId = false) => {
