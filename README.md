@@ -6,7 +6,7 @@ Staple Recipes is a full-stack web app designed to be a modern, no-frills take o
 
 ### Database Setup
 
-Install [postgreSQL](https://www.postgresql.org/) version 15.4 and create a database
+Install [PostgreSQL](https://www.postgresql.org/) version 15.4 and create a database.
 
 Using Docker:
 ```
@@ -19,7 +19,7 @@ Optionally run the `sample-data.sql` script to insert sample data into the datab
 
 ### Backend Setup
 
-This project is built with NodeJS using the Express framework. 
+This project is built with Node.js using the Express framework. 
 
 Install dependencies
 
