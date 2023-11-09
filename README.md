@@ -13,7 +13,9 @@ Or using Docker:
 docker pull postgres
 ```
 
-Run the `create.sql` script found in the database folder against your postgreSQL database.
+Run the `create.sql` script found in the database folder against your postgreSQL database to set up the schema and initialize the nutrient table.
+
+Optionally run the `sample-data.sql` script to insert sample data into the database.
 
 ### Backend Setup
 
