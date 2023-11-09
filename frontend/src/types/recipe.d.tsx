@@ -24,13 +24,6 @@ interface UpdateRecipeState {
   removeIngredients?: Array<number>;
 }
 
-interface RecipeGridState {
-  recipes: Array<RecipeCardState>;
-  isCreateDialog: boolean;
-  createDialogErrorMessage: string;
-  redirect: string | false;
-}
-
 interface RecipeCardState {
   recipeId: number;
   recipeName: string;

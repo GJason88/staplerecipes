@@ -21,7 +21,6 @@ import serviceReducer from './services/api/serviceReducer.tsx';
 const reducer = combineReducers({
   layout: layoutReducer,
   service: serviceReducer,
-  recipegrid: recipeGridReducer,
   recipe: recipeReducer,
   tools: toolsReducer,
   ingredients: ingredientsReducer,
