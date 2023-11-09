@@ -14,7 +14,7 @@ export const recipeModel = {
         await db.any('SELECT recipe_id, recipe_name FROM recipes.recipe;'),
     getRecipe: async (recipeId) => {
         const recipeQuery =
-            'SELECT recipe_id,recipe_name,time,diet,instructions FROM recipes.recipe WHERE recipe_id = $1;';
+            'SELECT recipe_id,recipe_name,time,diet,servings,instructions FROM recipes.recipe WHERE recipe_id = $1;';
         const ingredientsQuery = `SELECT i.ingredient_id,ingredient_name,amount,default_measurement,g_ml AS ml_for_100g,${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient AS i \
             INNER JOIN recipes.recipe_ingredient AS r_i ON i.ingredient_id = r_i.ingredient_id AND r_i.recipe_id = $1;`;

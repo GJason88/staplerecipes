@@ -18,7 +18,11 @@ export default function RecipePage() {
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>
         <RecipeHeading name={recipe.recipeName} />
-        <RecipeInfo time={recipe.time} diet={recipe.diet} />
+        <RecipeInfo
+          time={recipe.time}
+          diet={recipe.diet}
+          servings={recipe.servings}
+        />
         <Stack flexWrap='wrap' flexDirection='row' gap={1}>
           <RecipeIngredients ingredients={recipe.ingredients} />
           <RecipeTools tools={recipe.tools} />
