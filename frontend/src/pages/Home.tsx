@@ -15,15 +15,6 @@ export default function Home() {
 
   return (
     <Box pl={2} pt={10}>
-      <Typography>
-        Tired of buying obscure tools and ingredients that you only use once to
-        follow a recipe you found on the web?
-      </Typography>
-      <Typography sx={{ pt: 2 }}>
-        How about trying to find the chicken stir-fry recipe you followed last
-        month on a recipe site containing 125 chicken stir-fry recipes under 20
-        different categories?
-      </Typography>
       <Typography sx={{ pt: 2 }}>
         Staple Recipes is a modern, no-frills take on recipes. We aim to provide
         an easy-to-navigate repository of recipes using a set list of common
