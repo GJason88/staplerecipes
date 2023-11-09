@@ -19,7 +19,7 @@ Optionally run the `sample-data.sql` script to insert sample data into the datab
 
 ### Backend Setup
 
-This project is built with NodeJS using the Express framework. 
+This project is built with Node.js using the Express framework. 
 
 Install dependencies
 
