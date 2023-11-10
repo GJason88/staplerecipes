@@ -8,12 +8,21 @@ import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
 import useRecipe from '../../hooks/useRecipe';
 import RecipeNutrition from './components/RecipeNutrition';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setRecipe } from './recipeReducer';
 
 export default function RecipePage() {
+  const dispatch = useDispatch();
   const routeParams = useParams();
   const recipe = useRecipe(routeParams.id ?? '');
-  if (!Object.keys(recipe).length) return <></>;
 
+  useEffect(() => {
+    return () => {
+      dispatch(setRecipe({}));
+    };
+  }, [dispatch]);
+  if (!Object.keys(recipe).length) return <></>;
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>

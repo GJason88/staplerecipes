@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Sidebar from './layouts/Sidebar';
 import { Box } from '@mui/material';
 import TopAppBar from './layouts/TopAppBar';
+import ServiceResult from './components/ServiceResult';
 
 const Home = lazy(() => import('./pages/Home'));
 const Recipes = lazy(() => import('./pages/Recipes'));
@@ -16,6 +17,7 @@ const Admin = lazy(() => import('./pages/Admin'));
 export default function App() {
   return (
     <Box sx={{ display: 'flex' }}>
+      <ServiceResult />
       <Sidebar />
       <TopAppBar />
       <Suspense fallback={<div className='container'>Loading...</div>}>

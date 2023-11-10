@@ -7,27 +7,26 @@ import { setResult } from '../services/api/serviceReducer';
 
 const useRecipes = () => {
   const dispatch = useDispatch();
-  try {
-    const { data: recipes } = useQuery('recipes', fetchRecipes);
-    return camelcaseKeys(recipes ?? [], { deep: true });
-  } catch (e) {
-    let message = 'Failed to fetch recipes';
-    if (axios.isAxiosError(e)) {
-      message = e.response?.data ?? message;
-    }
-    dispatch(
-      setResult({
-        message,
-        severity: 'error',
-      })
-    );
-  }
-  return [];
+  const { data: recipes } = useQuery('recipes', fetchRecipes, {
+    refetchOnWindowFocus: false,
+    retry: false,
+    onError: (e: Error) =>
+      dispatch(setResult({ message: e.message, severity: 'error' })),
+  });
+  return camelcaseKeys(recipes ?? [], { deep: true });
 };
 
 const fetchRecipes = async () => {
-  const response = await recipesApi.retrieveAll();
-  return response.data as Array<RecipeCardState>;
+  try {
+    const response = await recipesApi.retrieveAll();
+    return response.data as Array<RecipeCardState>;
+  } catch (e) {
+    let message = 'Failed to fetch categories';
+    if (axios.isAxiosError(e)) {
+      message = e.response?.data ?? message;
+    }
+    throw new Error(message);
+  }
 };
 
 export default useRecipes;

@@ -17,7 +17,6 @@ export default function ServiceResult() {
     }
     dispatch(setResult({}));
   };
-  console.log('fsdf');
   return (
     message &&
     severity && (

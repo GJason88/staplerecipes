@@ -1,5 +1,4 @@
 import { Box, Tab, Tabs } from '@mui/material';
-import ServiceResult from '../../components/ServiceResult';
 import CreateIngredient from './components/createingredients/CreateIngredient';
 import { useState } from 'react';
 import CreateRecipe from './components/recipes/CreateRecipe';
@@ -17,7 +16,6 @@ export default function AdminPage() {
   const [tab, setTab] = useState(0);
   return (
     <Box width='100%' p={2} pt={10}>
-      <ServiceResult />
       <Tabs value={tab} onChange={(e, newTab: number) => setTab(newTab)}>
         {tabs.map((tab, index) => (
           <Tab key={index} label={tab} value={index} />

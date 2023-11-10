@@ -7,27 +7,26 @@ import axios from 'axios';
 
 const useIngredients = () => {
   const dispatch = useDispatch();
-  try {
-    const { data: ingredients } = useQuery('ingredients', fetchIngredients);
-    return camelcaseKeys(ingredients ?? [], { deep: true });
-  } catch (e) {
-    let message = 'Failed to fetch ingredients';
-    if (axios.isAxiosError(e)) {
-      message = e.response?.data ?? message;
-    }
-    dispatch(
-      setResult({
-        message,
-        severity: 'error',
-      })
-    );
-  }
-  return [];
+  const { data: ingredients } = useQuery('ingredients', fetchIngredients, {
+    refetchOnWindowFocus: false,
+    retry: false,
+    onError: (e: Error) =>
+      dispatch(setResult({ message: e.message, severity: 'error' })),
+  });
+  return camelcaseKeys(ingredients ?? [], { deep: true });
 };
 
 const fetchIngredients = async () => {
-  const response = await ingredientsApi.retrieveAllIngredients();
-  return response.data as Array<IngredientState>;
+  try {
+    const response = await ingredientsApi.retrieveAllIngredients();
+    return response.data as Array<IngredientState>;
+  } catch (e) {
+    let message = 'Failed to fetch recipe';
+    if (axios.isAxiosError(e)) {
+      message = e.response?.data ?? message;
+    }
+    throw new Error(message);
+  }
 };
 
 export default useIngredients;
