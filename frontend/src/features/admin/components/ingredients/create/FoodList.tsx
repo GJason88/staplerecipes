@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setNewIngredient } from '../../adminReducer';
-import useNutrients from '../../../../hooks/useNutrients';
+import useNutrients from '../../../../../hooks/useNutrients';
+import { setIngredient } from '../adminIngredientsReducer';
 
 interface FoodListProps {
   foods: Array<FDCFoodState>;
@@ -17,7 +17,7 @@ export default function FoodList({ foods, isLoading }: FoodListProps) {
       .filter((n) => n.nutrientId in nutrientsById)
       .forEach((n) => (nutrition[n.nutrientId] = n.value));
     dispatch(
-      setNewIngredient({
+      setIngredient({
         ingredientName: food.description,
         nutrientsFor100G: nutrition,
       })

@@ -6,6 +6,7 @@ interface IngredientsPageState {
 interface IngredientState {
   ingredientId: number | null;
   ingredientName: string;
+  categoryId?: string | null;
   categoryName?: string;
   nutrientsFor100G: NutritionState;
   additionalMeasurements: { [key: string]: number };

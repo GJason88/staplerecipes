@@ -2,11 +2,11 @@ import { Button, FormControl, Stack } from '@mui/material';
 import { recipeWidth } from '../../../../data/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../../..';
-import { createNewRecipeRequest } from '../../adminReducer';
 import EditRecipeInfo from './EditRecipeInfo';
 import EditRecipeIngredients from './EditRecipeIngredients';
 import EditRecipeTools from './EditRecipeTools';
 import EditRecipeInstructions from './EditRecipeInstructions';
+import { createNewRecipeRequest } from './adminRecipesReducer';
 
 export default function CreateRecipe() {
   const dispatch = useDispatch();

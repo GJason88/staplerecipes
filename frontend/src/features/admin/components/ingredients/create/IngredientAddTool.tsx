@@ -10,23 +10,22 @@ import {
   TextField,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../../../..';
-import {
-  createNewIngredientRequest,
-  setNewIngredient,
-} from '../../adminReducer';
-import NutritionLabel from '../../../../components/nutritionlabel/NutritionLabel';
+import { IRootState } from '../../../../..';
+import NutritionLabel from '../../../../../components/nutritionlabel/NutritionLabel';
 import { useState } from 'react';
 import MeasurementList from './MeasurementList';
-import useCategories from '../../../../hooks/useCategories';
-import MacroPieChart from '../../../../components/MacroPieChart';
+import useCategories from '../../../../../hooks/useCategories';
+import MacroPieChart from '../../../../../components/MacroPieChart';
+import {
+  createNewIngredientRequest,
+  setIngredient,
+} from '../adminIngredientsReducer';
 
 export default function IngredientAddTool() {
-  // TODO: new ingredient state local
-  const [includeVolume, setIncludeVolume] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const ingredient = useSelector<IRootState, NewIngredientState>(
-    (state) => state.admin.newIngredient
+  const [includeVolume, setIncludeVolume] = useState<boolean>(false);
+  const ingredient = useSelector<IRootState, IngredientState>(
+    (state) => state.adminIngredients.ingredient
   );
   const categories = useCategories('ingredients');
   return (
@@ -82,7 +81,11 @@ export default function IngredientAddTool() {
             <TextField
               value={ingredient.ingredientName}
               onChange={(e) =>
-                dispatch(setNewIngredient({ ingredientName: e.target.value }))
+                dispatch(
+                  setIngredient({
+                    ingredientName: e.target.value,
+                  })
+                )
               }
               label='Ingredient Name'
               required
@@ -97,7 +100,11 @@ export default function IngredientAddTool() {
                 option.categoryId === value.categoryId
               }
               onChange={(e, value) =>
-                dispatch(setNewIngredient({ categoryId: value?.categoryId }))
+                dispatch(
+                  setIngredient({
+                    categoryId: value?.categoryId,
+                  })
+                )
               }
             />
             <MeasurementList />
@@ -109,7 +116,7 @@ export default function IngredientAddTool() {
                     onChange={(e) => {
                       setIncludeVolume(e.target.checked);
                       if (!e.target.checked)
-                        dispatch(setNewIngredient({ mlFor100G: 0 }));
+                        dispatch(setIngredient({ mlFor100G: 0 }));
                     }}
                   />
                 }
@@ -122,7 +129,7 @@ export default function IngredientAddTool() {
                 type='number'
                 value={ingredient.mlFor100G}
                 onChange={(e) =>
-                  dispatch(setNewIngredient({ mlFor100G: e.target.value }))
+                  dispatch(setIngredient({ mlFor100G: e.target.value }))
                 }
               />
             </Stack>

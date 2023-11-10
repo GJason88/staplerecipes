@@ -5,10 +5,10 @@ import {
   Paper,
   TextField,
 } from '@mui/material';
-import useCategories from '../../../../hooks/useCategories';
+import useCategories from '../../../../../hooks/useCategories';
 import { useDispatch } from 'react-redux';
-import { createNewToolRequest } from '../../adminReducer';
 import { useRef, useState } from 'react';
+import { createNewToolRequest } from '../adminToolReducer';
 
 export default function CreateTool() {
   const [categoryId, setCategoryId] = useState<number | null>(null);
@@ -19,7 +19,12 @@ export default function CreateTool() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        dispatch(createNewToolRequest({ toolName: nameRef.current.value, categoryId: categoryId }));
+        dispatch(
+          createNewToolRequest({
+            toolName: nameRef.current.value,
+            categoryId: categoryId,
+          })
+        );
       }}
     >
       <FormControl
@@ -40,7 +45,7 @@ export default function CreateTool() {
             gap: 3,
           }}
         >
-          <TextField required label='Tool Name' inputRef={nameRef}/>
+          <TextField required label='Tool Name' inputRef={nameRef} />
           <Autocomplete
             renderInput={(params) => (
               <TextField {...params} label='Category' required />

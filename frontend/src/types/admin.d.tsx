@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-interface AdminState {
+interface AdminIngredientState {
+  ingredient: IngredientState;
+  fdcSearchResults: FDCSearchResultsState;
+}
+
+interface FDCSearchResultsState {
   foods: Array<FDCFoodState>;
-  newIngredient: NewIngredientState;
   totalPages: number;
   totalHits: number;
   isLoading: boolean;
+}
+
+interface FDCFoodState {
+  description: string;
+  foodNutrients: Array<FDCNutrientState>;
 }
 
 interface NewIngredientState {
@@ -18,11 +27,6 @@ interface NewIngredientState {
 interface NewToolState {
   categoryId: number | null;
   toolName: string;
-}
-
-interface FDCFoodState {
-  description: string;
-  foodNutrients: Array<FDCNutrientState>;
 }
 
 interface FDCNutrientState {

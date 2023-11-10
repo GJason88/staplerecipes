@@ -17,6 +17,7 @@ import layoutReducer from './layouts/layoutReducer.tsx';
 import adminReducer from './features/admin/adminReducer.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import serviceReducer from './services/api/serviceReducer.tsx';
+import adminIngredientsReducer from './features/admin/components/ingredients/adminIngredientsReducer.tsx';
 
 const reducer = combineReducers({
   layout: layoutReducer,
@@ -24,7 +25,7 @@ const reducer = combineReducers({
   recipe: recipeReducer,
   tools: toolsReducer,
   ingredients: ingredientsReducer,
-  admin: adminReducer,
+  adminIngredients: adminIngredientsReducer,
 });
 
 export type IRootState = ReturnType<typeof reducer>;
