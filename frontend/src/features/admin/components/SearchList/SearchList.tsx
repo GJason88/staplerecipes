@@ -13,7 +13,7 @@ export default function SearchList(props: SearchListProps) {
         display: 'flex',
         flexDirection: 'column',
         gap: 1,
-        width: '25%',
+        width: props.width ?? '25%',
         overflow: 'auto',
         p: 2,
       }}

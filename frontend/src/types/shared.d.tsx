@@ -8,5 +8,6 @@ interface SearchListProps {
   title?: string;
   items: Array<string>;
   isLoading?: boolean;
+  width?: string;
   onItemClick: (index: number) => void;
 }
