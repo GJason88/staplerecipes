@@ -23,7 +23,9 @@ const adminIngredients = createSlice({
   name: 'adminIngredients',
   initialState,
   reducers: {
-    // TODO: move to component and just use setFoods
+    resetIngredient: (state) => {
+      state.ingredient = initialIngredientState;
+    },
     setFDCSearchResults: (state, action) => {
       state.fdcSearchResults = action.payload;
       state.fdcSearchResults.isLoading = false;
@@ -38,6 +40,10 @@ const adminIngredients = createSlice({
   },
 });
 
-export const { setIngredient, FDCSearchRequest, createNewIngredientRequest } =
-  adminIngredients.actions;
+export const {
+  resetIngredient,
+  setIngredient,
+  FDCSearchRequest,
+  createNewIngredientRequest,
+} = adminIngredients.actions;
 export default adminIngredients.reducer;
