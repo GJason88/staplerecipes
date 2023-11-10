@@ -5,12 +5,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { recipeWidth } from '../../../../data/constants';
+import { recipeWidth } from '../../../../../data/constants';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useDispatch } from 'react-redux';
-import useTools from '../../../../hooks/useTools';
-import { setTools } from '../../../recipepage/recipeReducer';
+import useTools from '../../../../../hooks/useTools';
+import { setTools } from '../../../../recipepage/recipeReducer';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;

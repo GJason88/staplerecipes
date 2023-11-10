@@ -6,11 +6,12 @@ import {
   Typography,
   Paper,
 } from '@mui/material';
-import FoodList from './FoodList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { IRootState } from '../../../../..';
-import { FDCSearchRequest } from '../adminIngredientsReducer';
+import { FDCSearchRequest, setIngredient } from '../adminIngredientsReducer';
+import useNutrients from '../../../../../hooks/useNutrients';
+import ItemList from '../../../../../components/SearchList/ItemList';
 
 export default function FDCSearch() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function FDCSearch() {
   const fdcSearchResults = useSelector<IRootState, FDCSearchResultsState>(
     (state) => state.adminIngredients.fdcSearchResults
   );
+  const nutrientsById = useNutrients(true);
   const search = (page = 1) =>
     query &&
     dispatch(
@@ -26,6 +28,19 @@ export default function FDCSearch() {
         pageNumber: page,
       })
     );
+  const handleItemClick = (index: number) => {
+    const nutrition: NutritionState = {};
+    const food = fdcSearchResults.foods[index];
+    food.foodNutrients
+      .filter((n) => n.nutrientId in nutrientsById)
+      .forEach((n) => (nutrition[n.nutrientId] = n.value));
+    dispatch(
+      setIngredient({
+        ingredientName: food.description,
+        nutrientsFor100G: nutrition,
+      })
+    );
+  };
   return (
     <Paper
       elevation={3}
@@ -61,8 +76,9 @@ export default function FDCSearch() {
         count={fdcSearchResults.totalPages}
         onChange={(e, newPage) => search(newPage)}
       />
-      <FoodList
-        foods={fdcSearchResults.foods}
+      <ItemList
+        items={fdcSearchResults.foods.map((food) => food.description)}
+        onItemClick={handleItemClick}
         isLoading={fdcSearchResults.isLoading}
       />
     </Paper>

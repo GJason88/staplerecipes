@@ -6,8 +6,8 @@ import {
   Button,
   Paper,
 } from '@mui/material';
-import { recipeWidth, iconButtonWidth } from '../../../../data/constants';
-import { setInstructions } from '../../../recipepage/recipeReducer';
+import { recipeWidth, iconButtonWidth } from '../../../../../data/constants';
+import { setInstructions } from '../../../../recipepage/recipeReducer';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';

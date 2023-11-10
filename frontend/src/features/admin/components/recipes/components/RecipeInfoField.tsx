@@ -1,12 +1,12 @@
 import { Paper, Stack, TextField, Typography } from '@mui/material';
-import { recipeWidth } from '../../../../data/constants';
+import { recipeWidth } from '../../../../../data/constants';
 import { useDispatch } from 'react-redux';
 import {
   setDiet,
   setRecipeName,
   setServings,
   setTime,
-} from '../../../recipepage/recipeReducer';
+} from '../../../../recipepage/recipeReducer';
 
 interface EditRecipeInfoProps {
   recipeName: string;

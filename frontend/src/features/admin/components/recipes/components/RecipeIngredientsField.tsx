@@ -12,14 +12,14 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import { recipeWidth } from '../../../../data/constants';
+import { recipeWidth } from '../../../../../data/constants';
 import { Delete } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { setIngredients } from '../../../recipepage/recipeReducer';
-import useIngredients from '../../../../hooks/useIngredients';
-import { measurements } from '../../../../data/measurements';
+import { setIngredients } from '../../../../recipepage/recipeReducer';
+import useIngredients from '../../../../../hooks/useIngredients';
+import { measurements } from '../../../../../data/measurements';
 
 interface EditRecipeIngredientsProps {
   recipeIngredients: Array<IngredientState>;
