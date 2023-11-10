@@ -5,7 +5,7 @@ interface CategoryState {
 }
 
 interface SearchListProps {
-  title: string;
+  title?: string;
   items: Array<string>;
   isLoading?: boolean;
   onItemClick: (index: number) => void;

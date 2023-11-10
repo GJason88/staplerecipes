@@ -18,9 +18,11 @@ export default function SearchList(props: SearchListProps) {
         p: 2,
       }}
     >
-      <Typography fontWeight='bold' alignSelf='center'>
-        {props.title}
-      </Typography>
+      {props.title && (
+        <Typography fontWeight='bold' alignSelf='center'>
+          {props.title}
+        </Typography>
+      )}
       <TextField
         placeholder='Filter'
         fullWidth
