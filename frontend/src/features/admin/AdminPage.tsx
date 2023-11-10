@@ -2,6 +2,7 @@ import { Box, Tab, Tabs } from '@mui/material';
 import CreateIngredient from './components/createingredients/CreateIngredient';
 import { useState } from 'react';
 import CreateRecipe from './components/recipes/CreateRecipe';
+import CreateTool from './components/createtools/CreateTool';
 
 const tabs = [
   'Create Ingredients',
@@ -23,6 +24,7 @@ export default function AdminPage() {
       </Tabs>
       {tab == 0 && <CreateIngredient />}
       {tab == 2 && <CreateRecipe />}
+      {tab == 4 && <CreateTool />}
     </Box>
   );
 }

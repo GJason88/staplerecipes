@@ -21,9 +21,9 @@ export const toolController = {
     },
     createTool: async (req, res) => {
         try {
-            const toolInfo = req.query;
-            if (!toolInfo || !toolInfo.name)
-                return res.status(400).send('Create Tool Entry requires name.');
+            const toolInfo = req.body;
+            if (!toolInfo || !toolInfo.toolName || !toolInfo.categoryId)
+                return res.status(400).send('Missing required info.');
             await toolModel.createTool(toolInfo);
             res.send('success');
         } catch (e) {

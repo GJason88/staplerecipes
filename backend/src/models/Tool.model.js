@@ -13,7 +13,7 @@ export const toolModel = {
     createTool: async (toolInfo) =>
         await db.none(
             'INSERT INTO recipes.tool(tool_name, category_id) VALUES ($1, $2);',
-            [toolInfo.name, parseInt(toolInfo.category)]
+            [toolInfo.toolName, toolInfo.categoryId]
         ),
     createCategory: async (categoryInfo) =>
         await db.none(

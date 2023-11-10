@@ -22,6 +22,7 @@ import useCategories from '../../../../hooks/useCategories';
 import MacroPieChart from '../../../../components/MacroPieChart';
 
 export default function IngredientAddTool() {
+  // TODO: new ingredient state local
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
   const dispatch = useDispatch();
   const ingredient = useSelector<IRootState, NewIngredientState>(

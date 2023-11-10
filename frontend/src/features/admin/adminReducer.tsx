@@ -51,6 +51,9 @@ const admin = createSlice({
     },
     createNewIngredientRequest: (state, action) => {},
     createNewRecipeRequest: (state, action) => {},
+    createNewToolRequest: (state, action) => {
+      console.log(action);
+    }
   },
 });
 
@@ -60,6 +63,7 @@ export const {
   addMeasurement,
   removeMeasurement,
   createNewIngredientRequest,
-  createNewRecipeRequest
+  createNewRecipeRequest,
+  createNewToolRequest
 } = admin.actions;
 export default admin.reducer;

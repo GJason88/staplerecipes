@@ -10,7 +10,7 @@ export const recipesApi = {
 };
 
 export const toolsApi = {
-  createTool: (params: { name: string }) => post('/tool', null, { params }),
+  createTool: (data: NewToolState) => post('/tool', data),
   createCategory: (params: { name: string }) =>
     post('/tool/category', null, { params }),
   retrieveAllTools: () => get('/tools'),

@@ -15,6 +15,11 @@ interface NewIngredientState {
   mlFor100G: number;
 }
 
+interface NewToolState {
+  categoryId: number | null;
+  toolName: string;
+}
+
 interface FDCFoodState {
   description: string;
   foodNutrients: Array<FDCNutrientState>;
