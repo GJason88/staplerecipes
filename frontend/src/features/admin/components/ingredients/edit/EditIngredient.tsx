@@ -21,6 +21,7 @@ export default function EditIngredient() {
   return (
     <Stack gap={1} flexDirection='row' minHeight={500} height={750}>
       <SearchList
+        title={'Ingredients'}
         items={ingredients.map((i) => i.ingredientName)}
         onItemClick={handleItemClick}
       />

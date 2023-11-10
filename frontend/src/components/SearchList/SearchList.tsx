@@ -1,4 +1,4 @@
-import { Paper, TextField } from '@mui/material';
+import { Paper, TextField, Typography } from '@mui/material';
 import ItemList from './ItemList';
 import { useState } from 'react';
 
@@ -18,6 +18,9 @@ export default function SearchList(props: SearchListProps) {
         p: 2,
       }}
     >
+      <Typography fontWeight='bold' alignSelf='center'>
+        {props.title}
+      </Typography>
       <TextField
         placeholder='Filter'
         fullWidth

@@ -53,6 +53,9 @@ export default function FDCSearch() {
         p: 2,
       }}
     >
+      <Typography fontWeight='bold' alignSelf='center'>
+        Search FDC Database
+      </Typography>
       <Stack flexDirection='row' gap={1}>
         <TextField
           placeholder='Search for ingredient'
