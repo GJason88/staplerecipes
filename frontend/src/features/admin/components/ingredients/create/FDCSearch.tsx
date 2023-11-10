@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { IRootState } from '../../../../..';
 import { FDCSearchRequest, setIngredient } from '../adminIngredientsReducer';
 import useNutrients from '../../../../../hooks/useNutrients';
-import ItemList from '../../../../../components/SearchList/ItemList';
+import ItemList from '../../SearchList/ItemList';
 
 export default function FDCSearch() {
   const dispatch = useDispatch();

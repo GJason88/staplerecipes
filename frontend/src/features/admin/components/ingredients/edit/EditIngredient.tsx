@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import SearchList from '../../../../../components/SearchList/SearchList';
+import SearchList from '../../SearchList/SearchList';
 import useIngredients from '../../../../../hooks/useIngredients';
 import { useDispatch } from 'react-redux';
 import { resetIngredient, setIngredient } from '../adminIngredientsReducer';
