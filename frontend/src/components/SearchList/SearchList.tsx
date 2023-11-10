@@ -19,7 +19,7 @@ export default function SearchList(props: SearchListProps) {
       }}
     >
       <TextField
-        placeholder='Search'
+        placeholder='Filter'
         fullWidth
         onChange={(e) => setFilter(e.target.value)}
       />

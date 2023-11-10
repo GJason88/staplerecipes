@@ -17,9 +17,10 @@ import { IRootState } from '../../../../..';
 
 export default function MeasurementList() {
   const dispatch = useDispatch();
-  const ingredient = useSelector<IRootState, IngredientState>(
-    (state) => state.adminIngredients.ingredient
-  );
+  const curMeasurements =
+    useSelector<IRootState, { [key: string]: number }>(
+      (state) => state.adminIngredients.ingredient.additionalMeasurements
+    ) ?? {};
   const measurementName = useRef({ value: '' });
   const measurementGrams = useRef({ value: 0 });
   const addMeasurement = () =>
@@ -28,13 +29,13 @@ export default function MeasurementList() {
     dispatch(
       setIngredient({
         additionalMeasurements: {
-          ...ingredient.additionalMeasurements,
+          ...curMeasurements,
           [measurementName.current.value]: measurementGrams.current.value,
         },
       })
     );
   const deleteMeasurement = (mName: string) => {
-    const measurements = { ...ingredient.additionalMeasurements };
+    const measurements = { ...curMeasurements };
     delete measurements[mName];
     dispatch(setIngredient({ additionalMeasurements: measurements }));
   };
@@ -61,23 +62,19 @@ export default function MeasurementList() {
         </Button>
       </Stack>
       <List sx={{ overflow: 'auto', boxShadow: 1, height: 200 }}>
-        {Object.entries(ingredient.additionalMeasurements).map(
-          ([mName, grams], index) => (
-            <Box key={index}>
-              <ListItem>
-                <ListItemText>
-                  {mName} {grams}g
-                </ListItemText>
-                <IconButton onClick={() => deleteMeasurement(mName)}>
-                  <Delete />
-                </IconButton>
-              </ListItem>
-              {index <
-                Object.entries(ingredient.additionalMeasurements).length -
-                  1 && <Divider />}
-            </Box>
-          )
-        )}
+        {Object.entries(curMeasurements).map(([mName, grams], index) => (
+          <Box key={index}>
+            <ListItem>
+              <ListItemText>
+                {mName} {grams}g
+              </ListItemText>
+              <IconButton onClick={() => deleteMeasurement(mName)}>
+                <Delete />
+              </IconButton>
+            </ListItem>
+            {index < Object.entries(curMeasurements).length - 1 && <Divider />}
+          </Box>
+        ))}
       </List>
     </Stack>
   );

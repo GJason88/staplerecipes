@@ -9,7 +9,7 @@ export default function CreateIngredient() {
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
-      dispatch(resetIngredient());
+      dispatch(resetIngredient()); // will execute on mount in strict mode
     };
   }, [dispatch]);
   return (
