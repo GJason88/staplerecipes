@@ -1,30 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, select, takeLatest } from 'redux-saga/effects';
 import { recipesApi } from '../../services/api/server';
 import { IRootState } from '../..';
-import camelcaseKeys from 'camelcase-keys';
 
 interface UpdateResponse {
   data: string; // update result
-}
-
-function* getRecipe(action) {
-  try {
-    const response = yield call(recipesApi.retrieve, action.payload);
-    const recipeData = camelcaseKeys(response.data, { deep: true });
-    yield put({
-      type: 'recipe/setRecipe',
-      payload: recipeData,
-    });
-  } catch (e) {
-    console.log(e);
-    yield put({
-      type: 'recipe/setInvalid',
-      payload: true,
-    });
-  }
 }
 
 function* updateRecipe() {
@@ -62,5 +44,4 @@ function* deleteRecipe(action) {
 export default function* recipeSaga() {
   yield takeLatest('recipe/editRecipeRequest', updateRecipe);
   yield takeLatest('recipe/deleteRecipeRequest', deleteRecipe);
-  yield takeLatest('recipe/setRecipeId', getRecipe);
 }

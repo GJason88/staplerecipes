@@ -9,7 +9,6 @@ const initialState = {
   diet: '',
   servings: '',
   instructions: [],
-  invalid: false,
 } as RecipeState;
 
 const recipe = createSlice({
@@ -21,7 +20,6 @@ const recipe = createSlice({
       return state;
     },
     setRecipeId: (state, action) => {
-      // Gets recipe data from db when used.
       state.recipeId = action.payload;
     },
     setRecipeName: (state, action) => {
@@ -45,9 +43,6 @@ const recipe = createSlice({
     setInstructions: (state, action) => {
       state.instructions = action.payload;
     },
-    setInvalid: (state, action) => {
-      state.invalid = action.payload;
-    },
   },
 });
 
@@ -61,6 +56,5 @@ export const {
   setTools,
   setIngredients,
   setInstructions,
-  setInvalid,
 } = recipe.actions;
 export default recipe.reducer;

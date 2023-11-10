@@ -8,7 +8,6 @@ interface RecipeState {
   instructions: Array<string>;
   tools: Array<ToolState>;
   ingredients: Array<IngredientState>;
-  invalid: boolean;
 }
 
 interface UpdateRecipeState {
