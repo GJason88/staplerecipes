@@ -51,9 +51,7 @@ const admin = createSlice({
     },
     createNewIngredientRequest: (state, action) => {},
     createNewRecipeRequest: (state, action) => {},
-    createNewToolRequest: (state, action) => {
-      console.log(action);
-    }
+    createNewToolRequest: (state, action) => {}
   },
 });
 
