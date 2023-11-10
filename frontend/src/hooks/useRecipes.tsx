@@ -21,7 +21,7 @@ const fetchRecipes = async () => {
     const response = await recipesApi.retrieveAll();
     return response.data as Array<RecipeCardState>;
   } catch (e) {
-    let message = 'Failed to fetch categories';
+    let message = 'Failed to fetch recipes';
     if (axios.isAxiosError(e)) {
       message = e.response?.data ?? message;
     }
