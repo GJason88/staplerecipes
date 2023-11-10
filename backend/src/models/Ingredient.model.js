@@ -13,7 +13,7 @@ const pgp = pgPromise({ capSQL: true });
 export const ingredientModel = {
     getIngredients: async () =>
         await db.any(
-            `SELECT i.ingredient_id,ingredient_name,category_name,g_ml as ml_for_100g,${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            `SELECT i.ingredient_id,ingredient_name,category_name,i.category_id,g_ml as ml_for_100g,${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient as i
             INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id;`
         ),
