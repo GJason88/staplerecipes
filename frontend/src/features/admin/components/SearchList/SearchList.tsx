@@ -16,6 +16,7 @@ export default function SearchList(props: SearchListProps) {
         width: props.width ?? '25%',
         overflow: 'auto',
         p: 2,
+        maxHeight: 750,
       }}
     >
       {props.title && (
