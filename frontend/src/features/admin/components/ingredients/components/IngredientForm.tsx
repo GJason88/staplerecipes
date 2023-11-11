@@ -12,24 +12,35 @@ import {
 import NutritionLabel from '../../../../../components/nutritionlabel/NutritionLabel';
 import { setIngredient } from '../adminIngredientsReducer';
 import MeasurementList from '../create/MeasurementList';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useCategories from '../../../../../hooks/useCategories';
+import { IRootState } from '../../../../..';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 interface EditableIngredientProps {
-  ingredient: IngredientState;
   submitBtnText: string;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  submitAction: ActionCreatorWithPayload<any, string>;
 }
 
 export default function IngredientForm({
-  ingredient,
   submitBtnText,
-  handleSubmit,
+  submitAction,
 }: EditableIngredientProps) {
-  const dispatch = useDispatch();
+  const ingredient = useSelector<IRootState, IngredientState>(
+    (state) => state.adminIngredients.ingredient
+  );
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const categories = useCategories('ingredients');
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(submitAction(ingredient));
+  };
+  useEffect(
+    () => setIncludeVolume(Boolean(ingredient.mlFor100G)),
+    [ingredient]
+  );
   return (
     <Paper
       elevation={3}
@@ -99,11 +110,17 @@ export default function IngredientForm({
                 isOptionEqualToValue={(option, value) =>
                   option.categoryId === value.categoryId
                 }
-                // have categorystate and use for ingredient category
+                value={
+                  ingredient.category.categoryId ? ingredient.category : null
+                }
                 onChange={(e, value) =>
                   dispatch(
                     setIngredient({
-                      categoryId: value?.categoryId,
+                      category: {
+                        ...ingredient.category,
+                        categoryName: value?.categoryName ?? '',
+                        categoryId: value?.categoryId ?? null,
+                      },
                     })
                   )
                 }

@@ -1,9 +1,12 @@
 import db from '../configs/db.configs.js';
+import { categorySelectQuery } from '../helpers/utils/nestedSelectQueries.js';
 
 export const toolModel = {
     getTools: async () =>
         await db.any(
-            `SELECT tool_id, tool_name, category_name FROM recipes.tool as t
+            `SELECT tool_id, tool_name, ${categorySelectQuery(
+                'recipes.tool_category'
+            )} FROM recipes.tool as t
              INNER JOIN recipes.tool_category as tc ON t.category_id = tc.category_id;`
         ),
     getCategories: async () =>
