@@ -5,7 +5,7 @@ import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
 import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
 import {
     additionalMeasurementsQuery,
-    categorySelectQuery,
+    ingredientCategorySelectQuery,
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
 
@@ -14,9 +14,7 @@ const pgp = pgPromise({ capSQL: true });
 export const ingredientModel = {
     getIngredients: async () =>
         await db.any(
-            `SELECT i.ingredient_id,ingredient_name,g_ml as ml_for_100g,${categorySelectQuery(
-                'recipes.ingredient_category'
-            )},${nutrientsSelectQuery},${additionalMeasurementsQuery}
+            `SELECT i.ingredient_id,ingredient_name,g_ml as ml_for_100g,${ingredientCategorySelectQuery},${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient as i;`
         ),
     getIngredient: async (ingredientId) =>
