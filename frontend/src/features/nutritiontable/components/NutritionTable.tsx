@@ -21,7 +21,7 @@ export default function NutritionTable() {
             return {
               id: ingredient.ingredientId,
               name: ingredient.ingredientName,
-              category: ingredient.categoryName,
+              category: ingredient.category.categoryName,
               calories: calories,
               protein: protein,
               totalCarbs: totalCarbs,

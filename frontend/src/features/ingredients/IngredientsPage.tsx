@@ -46,7 +46,7 @@ export default function IngredientsPage() {
             category={cat}
             curTabId={curTabId}
             ingredients={ingredients.filter(
-              (ingr) => ingr.categoryName == cat.categoryName
+              (ingr) => ingr.category.categoryName == cat.categoryName
             )}
           ></IngredientsCategory>
         ))}

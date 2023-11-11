@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface CategoryState {
-  categoryId: number;
+  categoryId: number | null;
   categoryName: string;
 }
 

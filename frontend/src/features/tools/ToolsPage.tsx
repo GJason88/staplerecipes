@@ -46,7 +46,7 @@ export default function ToolsPage() {
             category={cat}
             curTabId={curTabId}
             tools={tools.filter(
-              (tool) => tool.categoryName == cat.categoryName
+              (tool) => tool.category.categoryName == cat.categoryName
             )}
           ></ToolsCategory>
         ))}

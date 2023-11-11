@@ -6,5 +6,5 @@ interface ToolsPageState {
 interface ToolState {
   toolId: number;
   toolName: string;
-  categoryName: string;
+  category: CategoryState;
 }
