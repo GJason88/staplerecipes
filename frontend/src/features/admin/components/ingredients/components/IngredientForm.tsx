@@ -42,8 +42,7 @@ export default function IngredientForm({
     [ingredient]
   );
   return (
-    <Paper
-      elevation={3}
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -59,7 +58,6 @@ export default function IngredientForm({
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
-            flexWrap: 'wrap',
             gap: 6,
           }}
         >
@@ -69,15 +67,14 @@ export default function IngredientForm({
               flexDirection: 'row',
               width: '100%',
               flexWrap: 'wrap',
-              gap: 3,
             }}
           >
             <Box
               display='flex'
-              width='48%'
               flexGrow={1}
               alignItems='center'
               justifyContent='center'
+              minWidth={240}
             >
               <NutritionLabel
                 nutrition={ingredient.nutrientsFor100G}
@@ -88,7 +85,7 @@ export default function IngredientForm({
                 fs={12}
               />
             </Box>
-            <Stack gap={4} width='48%' flexGrow={1}>
+            <Stack gap={4} flexGrow={1}>
               <TextField
                 value={ingredient.ingredientName}
                 onChange={(e) =>
@@ -162,6 +159,6 @@ export default function IngredientForm({
           </Button>
         </FormControl>
       </form>
-    </Paper>
+    </Box>
   );
 }
