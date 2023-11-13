@@ -52,6 +52,7 @@ export default function FDCSearch() {
         overflow: 'auto',
         p: 2,
         maxHeight: 750,
+        minWidth: 300,
       }}
     >
       <Typography fontWeight='bold' alignSelf='center'>

@@ -23,7 +23,7 @@ export default function EditIngredient() {
     dispatch(setIngredient(ingredient));
   };
   return (
-    <Stack gap={1} flexDirection='row' minHeight={750}>
+    <Stack flexDirection='row' minHeight={750}>
       <SearchList
         title={'Ingredients'}
         items={ingredients.map((i) => i.ingredientName)}

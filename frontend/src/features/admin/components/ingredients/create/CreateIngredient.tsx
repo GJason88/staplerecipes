@@ -16,7 +16,7 @@ export default function CreateIngredient() {
     };
   }, [dispatch]);
   return (
-    <Stack gap={1} flexDirection='row' minHeight={750}>
+    <Stack flexDirection='row' minHeight={750}>
       <FDCSearch />
       <IngredientForm
         submitBtnText='Create Ingredient'
