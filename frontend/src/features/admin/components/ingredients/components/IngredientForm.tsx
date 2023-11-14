@@ -107,7 +107,6 @@ export default function IngredientForm({
                   dispatch(
                     setIngredient({
                       category: {
-                        ...ingredient.category,
                         categoryName: value?.categoryName ?? '',
                         categoryId: value?.categoryId ?? null,
                       },
