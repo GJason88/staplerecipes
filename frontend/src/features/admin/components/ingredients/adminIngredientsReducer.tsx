@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialIngredientState = {
   ingredientId: null,
   ingredientName: '',
-  category: { categoryId: null, categoryName: '' },
+  category: { categoryId: null, categoryName: '' } as CategoryState,
   nutrientsFor100G: {},
   additionalMeasurements: {},
   mlFor100G: 0,
