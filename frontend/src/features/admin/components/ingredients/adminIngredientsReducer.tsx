@@ -23,14 +23,12 @@ const adminIngredients = createSlice({
   name: 'adminIngredients',
   initialState,
   reducers: {
-    resetIngredient: (state) => {
-      state.ingredient = initialIngredientState;
-    },
     setFDCSearchResults: (state, action) => {
       state.fdcSearchResults = action.payload;
       state.fdcSearchResults.isLoading = false;
     },
     setIngredient: (state, action) => {
+      if (!action.payload) state.ingredient = initialIngredientState;
       state.ingredient = { ...state.ingredient, ...action.payload };
     },
     FDCSearchRequest: (state, action) => {
@@ -42,7 +40,6 @@ const adminIngredients = createSlice({
 });
 
 export const {
-  resetIngredient,
   setIngredient,
   FDCSearchRequest,
   createNewIngredientRequest,

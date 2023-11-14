@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   createNewIngredientRequest,
-  resetIngredient,
+  setIngredient,
 } from '../adminIngredientsReducer';
 import IngredientForm from '../components/IngredientForm';
 
@@ -12,7 +12,7 @@ export default function CreateIngredient() {
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
-      dispatch(resetIngredient()); // will execute on mount in strict mode
+      dispatch(setIngredient(null)); // will execute on mount in strict mode
     };
   }, [dispatch]);
   return (

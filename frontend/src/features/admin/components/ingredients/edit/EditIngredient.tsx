@@ -3,7 +3,6 @@ import SearchList from '../../SearchList/SearchList';
 import useIngredients from '../../../../../hooks/useIngredients';
 import { useDispatch } from 'react-redux';
 import {
-  resetIngredient,
   setIngredient,
   updateIngredientRequest,
 } from '../adminIngredientsReducer';
@@ -15,7 +14,7 @@ export default function EditIngredient() {
   const ingredients = useIngredients();
   useEffect(() => {
     return () => {
-      dispatch(resetIngredient());
+      dispatch(setIngredient(null));
     };
   }, [dispatch]);
   const handleItemClick = (index: number) => {
