@@ -8,16 +8,12 @@ export const recipeHelpers = {
         info.ingredients.length &&
         info.tools.length,
     validateUpdateInfo: (info) =>
-        info.recipeFields?.name ||
-        info.recipeFields.recipeName ||
-        info.recipeFields.diet ||
-        info.recipeFields.instructions?.length ||
-        (info.addIngredients?.length &&
-            info.addIngredients.every(
-                (ingr) =>
-                    ingr.ingredientId && ingr.amount && ingr.defaultMeasurement
-            )) ||
-        info.removeIngredients?.length ||
-        info.addTools?.length ||
-        info.removeTools?.length,
+        typeof info.recipeName === 'string' &&
+        info.recipeName &&
+        Array.isArray(info.tools) &&
+        Array.isArray(info.ingredients) &&
+        typeof info.diet === 'string' &&
+        typeof info.servings === 'string' &&
+        typeof info.time === 'string' &&
+        Array.isArray(info.instructions),
 };

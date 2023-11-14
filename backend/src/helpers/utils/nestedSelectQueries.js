@@ -1,4 +1,4 @@
-const nestSelectQuery = (jsonMethod, query) => {
+export const nestSelectQuery = (jsonMethod, query) => {
     return `(SELECT ${jsonMethod} FROM (${query}) x)`;
 };
 

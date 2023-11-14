@@ -4,8 +4,7 @@ export const recipesApi = {
   create: (data: RecipeState) => post('/recipe', data),
   retrieve: (id: string) => get(`/recipe/${id}`),
   retrieveAll: () => get('/recipes'),
-  update: (id: string, params: UpdateRecipeState) =>
-    put(`/recipe/${id}`, null, { params }),
+  update: (id: string, data: RecipeState) => put(`/recipe/${id}`, data),
   delete: (id: string) => destroy(`/recipe/${id}`),
 };
 

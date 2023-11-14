@@ -29,8 +29,8 @@ const test = async () => {
         //     120,
         //     recipeInfoTest
         // );
-        const jsonResponse = await ingredientModel.getIngredients();
-        console.log(jsonResponse[0].category);
+        const jsonResponse = await recipeModel.getRecipes();
+        console.log(jsonResponse);
     } catch (e) {
         console.log(e);
     }

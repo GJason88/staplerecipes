@@ -4,6 +4,7 @@ import { useState } from 'react';
 import CreateRecipe from './components/recipes/CreateRecipe';
 import CreateTool from './components/tools/create/CreateTool';
 import EditIngredient from './components/ingredients/edit/EditIngredient';
+import EditRecipe from './components/recipes/EditRecipe';
 
 const tabs = [
   'Create Ingredients',
@@ -26,6 +27,7 @@ export default function AdminPage() {
       {tab == 0 && <CreateIngredient />}
       {tab == 1 && <EditIngredient />}
       {tab == 2 && <CreateRecipe />}
+      {tab == 3 && <EditRecipe />}
       {tab == 4 && <CreateTool />}
     </Box>
   );

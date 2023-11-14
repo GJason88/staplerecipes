@@ -6,7 +6,6 @@ import {
   FormControlLabel,
   Checkbox,
   FormControl,
-  Paper,
   Button,
 } from '@mui/material';
 import NutritionLabel from '../../../../../components/nutritionlabel/NutritionLabel';

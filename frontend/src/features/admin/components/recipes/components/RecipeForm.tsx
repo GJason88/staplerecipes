@@ -10,7 +10,7 @@ import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 interface RecipeFormProps {
   submitBtnText: string;
-  submitAction: ActionCreatorWithPayload<any, string>;
+  submitAction: ActionCreatorWithPayload<unknown, string>;
 }
 
 export default function RecipeForm({

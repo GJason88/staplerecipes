@@ -22,8 +22,3 @@ interface UpdateRecipeState {
   addIngredients?: Array<number>;
   removeIngredients?: Array<number>;
 }
-
-interface RecipeCardState {
-  recipeId: number;
-  recipeName: string;
-}

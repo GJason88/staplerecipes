@@ -62,9 +62,10 @@ export const recipeController = {
         try {
             const info = req.body;
             const recipeId = req.params.id;
-            if (!(recipeId && recipeHelpers.validateUpdateInfo(info)))
+            if (!recipeId)
+                return res.status(400).send('Missing recipe Id.');
+            if (!recipeHelpers.validateUpdateInfo(info))
                 return res.status(400).send('Invalid recipe update info.');
-            // const mappedInfo = recipeHelpers.mapUpdateInfo(info); // do in model
             await recipeModel.updateRecipe(recipeId, info);
             res.send('success');
         } catch (e) {

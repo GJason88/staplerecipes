@@ -19,7 +19,7 @@ const useRecipes = () => {
 const fetchRecipes = async () => {
   try {
     const response = await recipesApi.retrieveAll();
-    return response.data as Array<RecipeCardState>;
+    return response.data as Array<RecipeState>;
   } catch (e) {
     let message = 'Failed to fetch recipes';
     if (axios.isAxiosError(e)) {

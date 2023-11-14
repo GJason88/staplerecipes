@@ -11,7 +11,7 @@ recipe.get('/recipe/:id', recipeController.getRecipe);
 
 recipe.post('/recipe', jsonParser, recipeController.createRecipe);
 
-recipe.put('/recipe/:id', recipeController.updateRecipe);
+recipe.put('/recipe/:id', jsonParser, recipeController.updateRecipe);
 
 recipe.delete('/recipe/:id', recipeController.deleteRecipe);
 
