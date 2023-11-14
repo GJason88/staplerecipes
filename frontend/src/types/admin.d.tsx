@@ -16,21 +16,20 @@ interface FDCFoodState {
   foodNutrients: Array<FDCNutrientState>;
 }
 
-interface NewIngredientState {
-  categoryId: number | null;
-  ingredientName: string;
-  nutrientsFor100G: NutritionState;
-  additionalMeasurements: { [key: string]: number };
-  mlFor100G: number;
-}
-
-interface NewToolState {
-  categoryId: number | null;
-  toolName: string;
-}
-
 interface FDCNutrientState {
   nutrientId: number;
   unitName: string;
   value: number;
+}
+
+interface AdminToolState {
+  tool: ToolState;
+}
+
+interface AdminFormProps {
+  submitBtnText: string;
+  submitAction: import('@reduxjs/toolkit').ActionCreatorWithPayload<
+    unknown,
+    string
+  >;
 }

@@ -6,17 +6,11 @@ import EditRecipeInstructions from './RecipeInstructionsField';
 import EditRecipeTools from './RecipeToolsField';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../../../..';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-
-interface RecipeFormProps {
-  submitBtnText: string;
-  submitAction: ActionCreatorWithPayload<unknown, string>;
-}
 
 export default function RecipeForm({
   submitBtnText,
   submitAction,
-}: RecipeFormProps) {
+}: AdminFormProps) {
   const dispatch = useDispatch();
   const recipe = useSelector<IRootState, RecipeState>((state) => state.recipe);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

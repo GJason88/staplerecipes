@@ -15,17 +15,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useCategories from '../../../../../hooks/useCategories';
 import { IRootState } from '../../../../..';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-
-interface EditableIngredientProps {
-  submitBtnText: string;
-  submitAction: ActionCreatorWithPayload<any, string>;
-}
 
 export default function IngredientForm({
   submitBtnText,
   submitAction,
-}: EditableIngredientProps) {
+}: AdminFormProps) {
   const ingredient = useSelector<IRootState, IngredientState>(
     (state) => state.adminIngredients.ingredient
   );
