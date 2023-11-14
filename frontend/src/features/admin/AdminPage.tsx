@@ -5,6 +5,7 @@ import CreateRecipe from './components/recipes/CreateRecipe';
 import CreateTool from './components/tools/create/CreateTool';
 import EditIngredient from './components/ingredients/edit/EditIngredient';
 import EditRecipe from './components/recipes/EditRecipe';
+import EditTool from './components/tools/edit/EditTool';
 
 const tabs = [
   'Create Ingredients',
@@ -29,6 +30,7 @@ export default function AdminPage() {
       {tab == 2 && <CreateRecipe />}
       {tab == 3 && <EditRecipe />}
       {tab == 4 && <CreateTool />}
+      {tab == 5 && <EditTool />}
     </Box>
   );
 }

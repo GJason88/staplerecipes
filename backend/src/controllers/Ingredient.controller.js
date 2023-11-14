@@ -53,7 +53,9 @@ export const ingredientController = {
         } catch (e) {
             switch (e.code) {
                 case '23505':
-                    res.status(400).send('Ingredient with name already exists.');
+                    res.status(400).send(
+                        'Ingredient with name already exists.'
+                    );
                     break;
                 default:
                     res.status(500).send('Something went wrong.');
@@ -75,6 +77,28 @@ export const ingredientController = {
             switch (e.code) {
                 case '23505':
                     res.status(400).send('Category name already exists.');
+                    break;
+                default:
+                    res.status(500).send('Something went wrong.');
+                    console.log(e);
+                    break;
+            }
+        }
+    },
+    updateIngredient: async (req, res) => {
+        try {
+            const info = req.body;
+            const ingrId = req.params?.id;
+            if (!ingrId)
+                return res.status(400).send('No ingredient id provided.');
+            if (!ingredientHelpers.validateCreateInfo(info))
+                return res.status(400).send('Invalid ingredient update info.');
+            await ingredientModel.updateIngredient(ingrId, info);
+            res.send('success');
+        } catch (e) {
+            switch (e.code) {
+                case '23505':
+                    res.status(400).send('Ingredient does not exist.');
                     break;
                 default:
                     res.status(500).send('Something went wrong.');

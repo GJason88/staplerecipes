@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import recipeGridReducer from './features/recipegrid/recipegridReducer.tsx';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import recipeReducer from './features/recipepage/recipeReducer.tsx';
@@ -14,10 +13,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { theme } from './themes.tsx';
 import layoutReducer from './layouts/layoutReducer.tsx';
-import adminReducer from './features/admin/adminReducer.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import serviceReducer from './services/api/serviceReducer.tsx';
 import adminIngredientsReducer from './features/admin/components/ingredients/adminIngredientsReducer.tsx';
+import adminRecipesReducer from './features/admin/components/recipes/adminRecipesReducer.tsx';
+import adminToolsReducer from './features/admin/components/tools/adminToolsReducer.tsx';
 
 const reducer = combineReducers({
   layout: layoutReducer,
@@ -26,6 +26,8 @@ const reducer = combineReducers({
   tools: toolsReducer,
   ingredients: ingredientsReducer,
   adminIngredients: adminIngredientsReducer,
+  adminRecipes: adminRecipesReducer,
+  adminTools: adminToolsReducer,
 });
 
 export type IRootState = ReturnType<typeof reducer>;

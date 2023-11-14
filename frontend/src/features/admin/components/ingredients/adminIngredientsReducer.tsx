@@ -35,7 +35,9 @@ const adminIngredients = createSlice({
       state.fdcSearchResults.isLoading = true;
     },
     createNewIngredientRequest: (state, action) => {},
-    updateIngredientRequest: (state, action) => {},
+    updateIngredientRequest: (state, action) => {
+      console.log(action)
+    },
   },
 });
 

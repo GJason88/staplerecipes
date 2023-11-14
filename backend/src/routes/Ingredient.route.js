@@ -15,6 +15,8 @@ ingredient.post('/ingredient', jsonParser, ingredientController.createIngredient
 
 ingredient.post('/ingredient/category', ingredientController.createCategory);
 
+ingredient.put('/ingredient/:id', jsonParser, ingredientController.updateIngredient);
+
 ingredient.put('/ingredient/nutrients/:id', ingredientController.updateNutrients);
 
 ingredient.delete('/ingredient/:id', ingredientController.deleteIngredient);

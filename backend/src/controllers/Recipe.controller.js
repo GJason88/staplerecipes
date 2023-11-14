@@ -61,7 +61,7 @@ export const recipeController = {
     updateRecipe: async (req, res) => {
         try {
             const info = req.body;
-            const recipeId = req.params.id;
+            const recipeId = req.params?.id;
             if (!recipeId)
                 return res.status(400).send('Missing recipe Id.');
             if (!recipeHelpers.validateUpdateInfo(info))
@@ -82,10 +82,10 @@ export const recipeController = {
     },
     deleteRecipe: async (req, res) => {
         try {
-            const recipeInfo = req.params;
-            if (!recipeInfo || !recipeInfo.id)
-                return res.status(400).send('Invalid recipe info.');
-            await recipeModel.deleteRecipe(recipeInfo.id);
+            const recipeId = req.params?.id;
+            if (!recipeId)
+                return res.status(400).send('No recipe id provided.');
+            await recipeModel.deleteRecipe(recipeId);
             res.send('success');
         } catch (e) {
             switch (e.code) {

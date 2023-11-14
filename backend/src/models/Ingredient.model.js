@@ -35,10 +35,15 @@ export const ingredientModel = {
             [ingredientId]
         ),
     createIngredient: async (info) => {
-        const { ingredient_id: ingredientId } = await db.one(
-            'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
-            [info.ingredientName, info.categoryId, info.mlFor100G ?? 0]
-        );
+        const query = info.ingredientId
+            ? 'INSERT INTO recipes.ingredient(ingredient_id, ingredient_name, category_id, g_ml) VALUES ($1, $2, $3, $4) RETURNING ingredient_id;'
+            : 'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;';
+        const { ingredient_id: ingredientId } = await db.one(query, [
+            ...(info.ingredientId ? [info.ingredientId] : []),
+            info.ingredientName,
+            info.category.categoryId,
+            info.mlFor100G ?? 0,
+        ]);
         Object.keys(info.additionalMeasurements).length &&
             (await db.none(
                 pgp.helpers.insert(
@@ -73,6 +78,10 @@ export const ingredientModel = {
             'INSERT INTO recipes.ingredient_category(category_name) VALUES ($1);',
             [categoryInfo.name]
         ),
+    updateIngredient: async (ingredientId, ingredientInfo) => {
+        await ingredientModel.deleteIngredient(ingredientId);
+        await ingredientModel.createIngredient(ingredientInfo); // includes old id
+    },
     updateNutrients: async (ingredientId, modifiedNutrients) =>
         await db.none(
             pgp.helpers.update(

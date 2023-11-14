@@ -4,7 +4,7 @@ interface ToolsPageState {
 }
 
 interface ToolState {
-  toolId: number;
+  toolId: number | null;
   toolName: string;
   category: CategoryState;
 }

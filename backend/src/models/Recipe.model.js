@@ -5,7 +5,6 @@ import {
     nutrientsSelectQuery,
     nestSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
-import { mapFields } from '../helpers/utils/mapFields.js';
 import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
 
 const pgp = pgPromise({ capSQL: true });
@@ -87,6 +86,6 @@ export const recipeModel = {
         ]),
     updateRecipe: async (recipeId, info) => {
         await recipeModel.deleteRecipe(recipeId);
-        await recipeModel.createRecipe(info);
+        await recipeModel.createRecipe(info); // includes old id
     },
 };

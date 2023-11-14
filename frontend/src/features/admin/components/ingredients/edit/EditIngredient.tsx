@@ -19,6 +19,7 @@ export default function EditIngredient() {
   }, [dispatch]);
   const handleItemClick = (index: number) => {
     const ingredient = ingredients[index];
+    console.log(ingredient);
     dispatch(setIngredient(ingredient));
   };
   return (

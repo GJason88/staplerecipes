@@ -7,7 +7,8 @@ export const ingredientHelpers = {
         })),
     validateCreateInfo: (info) =>
         info &&
+        typeof info.ingredientName === 'string' &&
         info.ingredientName &&
-        info.categoryId &&
+        info.category?.categoryId &&
         Object.keys(info.nutrientsFor100G).length,
 };

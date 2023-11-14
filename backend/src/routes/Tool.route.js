@@ -13,6 +13,8 @@ tool.post('/tool', jsonParser, toolController.createTool);
 
 tool.post('/tool/category', toolController.createCategory);
 
+tool.put('/tool/:id', jsonParser, toolController.updateTool);
+
 tool.delete('/tool/:id', toolController.deleteTool);
 
 tool.delete('/tool/category/:id', toolController.deleteCategory);

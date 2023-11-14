@@ -9,21 +9,24 @@ export const recipesApi = {
 };
 
 export const toolsApi = {
-  createTool: (data: NewToolState) => post('/tool', data),
+  createTool: (data: ToolState) => post('/tool', data),
   createCategory: (params: { name: string }) =>
     post('/tool/category', null, { params }),
   retrieveAllTools: () => get('/tools'),
   retrieveAllCategories: () => get('/tool/categories'),
+  updateTool: (id: string, data: ToolState) => put(`/tool/${id}`, data),
   deleteTool: (id: string) => destroy(`/tool/${id}`),
   deleteCategory: (id: string) => destroy(`/tool/category/${id}`),
 };
 
 export const ingredientsApi = {
-  createIngredient: (data: NewIngredientState) => post('/ingredient', data),
+  createIngredient: (data: IngredientState) => post('/ingredient', data),
   createCategory: (params: { name: string }) =>
     post('/ingredient/category', null, { params }),
   retrieveAllIngredients: () => get('/ingredients'),
   retrieveAllCategories: () => get('/ingredient/categories'),
+  updateIngredient: (id: string, data: IngredientState) =>
+    put(`/ingredient/${id}`, data),
   deleteIngredient: (id: string) => destroy(`/ingredient/${id}`),
   deleteCategory: (id: string) => destroy(`/ingredient/category/${id}`),
   updateNutrition: (id: string, params: Array<NutrientState>) =>

@@ -35,7 +35,7 @@ function* searchFoods(action: {
 
 function* createNewIngredient(action: {
   type: string,
-  payload: NewIngredientState,
+  payload: IngredientState,
 }) {
   try {
     yield call(ingredientsApi.createIngredient, action.payload);
@@ -54,10 +54,36 @@ function* createNewIngredient(action: {
   }
 }
 
+function* updateIngredient(action: { type: string, payload: IngredientState }) {
+  try {
+    yield call(
+      ingredientsApi.updateIngredient,
+      action.payload.ingredientId?.toString() ?? '',
+      action.payload
+    );
+    yield put({
+      type: 'service/setResult',
+      payload: {
+        severity: 'success',
+        message: 'Successfully updated ingredient.',
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: 'service/setResult',
+      payload: { severity: 'error', message: e.response.data },
+    });
+  }
+}
+
 export default function* adminIngredientsSaga() {
   yield takeLatest('adminIngredients/FDCSearchRequest', searchFoods);
   yield takeLatest(
     'adminIngredients/createNewIngredientRequest',
     createNewIngredient
+  );
+  yield takeLatest(
+    'adminIngredients/updateIngredientRequest',
+    updateIngredient
   );
 }
