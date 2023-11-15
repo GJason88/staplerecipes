@@ -15,30 +15,25 @@ const useIngredients = () => {
     onError: (e: Error) =>
       dispatch(setResult({ message: e.message, severity: 'error' })),
   });
+  const mutationSuccess = (action: string) => {
+    queryClient.invalidateQueries(['ingredients']);
+    dispatch(
+      setResult({
+        severity: 'success',
+        message: `Successfully ${action} ingredient.`,
+      })
+    );
+  };
   const updateIngredient = useMutation({
     mutationFn: ({ id, data }: { id: string; data: IngredientState }) =>
       ingredientsApi.updateIngredient(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['ingredients']);
-      dispatch(
-        setResult({
-          severity: 'success',
-          message: 'Successfully updated ingredient.',
-        })
-      );
-    },
+    onSuccess: () => mutationSuccess('updated'),
   });
   const deleteIngredient = useMutation({
     mutationFn: (id: string) => ingredientsApi.deleteIngredient(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['ingredients']);
       dispatch(setIngredient(null));
-      dispatch(
-        setResult({
-          severity: 'success',
-          message: 'Successfully deleted ingredient.',
-        })
-      );
+      mutationSuccess('deleted');
     },
   });
   return {

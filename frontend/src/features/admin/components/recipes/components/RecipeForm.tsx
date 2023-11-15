@@ -4,18 +4,17 @@ import EditRecipeInfo from './RecipeInfoField';
 import EditRecipeIngredients from './RecipeIngredientsField';
 import EditRecipeInstructions from './RecipeInstructionsField';
 import EditRecipeTools from './RecipeToolsField';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IRootState } from '../../../../..';
 
 export default function RecipeForm({
   submitBtnText,
-  submitAction,
+  submitFn,
 }: AdminFormProps) {
-  const dispatch = useDispatch();
   const recipe = useSelector<IRootState, RecipeState>((state) => state.recipe);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(submitAction(recipe));
+    submitFn(recipe);
   };
   return (
     <form onSubmit={onSubmit}>

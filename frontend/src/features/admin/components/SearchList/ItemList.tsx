@@ -14,15 +14,17 @@ export default function ItemList(props: SearchListProps) {
   const confirm = useConfirm();
   return (
     <List dense disablePadding>
-      {props.items.map((name, index) => (
+      {props.items.map(({ name, id }, index) => (
         <ListItem key={index} disableGutters>
           {props.handleItemDelete && (
             <IconButton
               onClick={() => {
                 confirm({ description: 'This action is permanent!' })
                   .then(() => {
-                    props.handleItemDelete && props.handleItemDelete(index);
-                    if (selected === index) setSelected(null);
+                    props.handleItemDelete &&
+                      id &&
+                      props.handleItemDelete(id.toString());
+                    if (selected && selected === id) setSelected(null);
                   })
                   .catch(() => {});
               }}
@@ -31,13 +33,13 @@ export default function ItemList(props: SearchListProps) {
             </IconButton>
           )}
           <ListItemButton
-            selected={selected === index}
+            selected={selected !== null && selected === id}
             disableRipple
             disabled={props.isLoading ?? false}
             sx={{ border: 'dotted black 0.5px' }}
             onClick={() => {
-              setSelected(index);
-              props.handleItemClick(index);
+              setSelected(id);
+              props.handleItemSelect(index);
             }}
           >
             <ListItemText primaryTypographyProps={{ fontWeight: 500 }}>

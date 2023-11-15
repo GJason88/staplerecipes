@@ -24,11 +24,11 @@ export default function EditTools() {
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
         title={'Tools'}
-        items={tools.map((t) => t.toolName)}
+        items={tools.map((t) => ({ name: t.toolName, id: t.toolId }))}
         handleItemClick={handleItemClick}
         handleItemDelete={handleItemDelete}
       />
-      <ToolForm submitBtnText='Update Tool' submitAction={updateToolRequest} />
+      <ToolForm submitBtnText='Update Tool' submitFn={updateToolRequest} />
     </Stack>
   );
 }

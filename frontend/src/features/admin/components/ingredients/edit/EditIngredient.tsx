@@ -14,11 +14,9 @@ export default function EditIngredient() {
       dispatch(setIngredient(null));
     };
   }, [dispatch]);
-  const handleItemClick = (index: number) =>
+  const handleIngredientSelect = (index: number) =>
     dispatch(setIngredient(ingredients[index]));
-  const handleItemDelete = (index: number) =>
-    ingredients[index].ingredientId !== null &&
-    deleteIngredient((ingredients[index].ingredientId as number).toString());
+  const handleIngredientDelete = (id: string) => deleteIngredient(id);
   const handleIngredientUpdate = (ingredient: IngredientState) =>
     updateIngredient({
       id: ingredient.ingredientId?.toString() ?? '',
@@ -28,9 +26,12 @@ export default function EditIngredient() {
     <Stack flexDirection='row' minHeight={750}>
       <SearchList
         title={'Ingredients'}
-        items={ingredients.map((i) => i.ingredientName)}
-        handleItemClick={handleItemClick}
-        handleItemDelete={handleItemDelete}
+        items={ingredients.map((i) => ({
+          name: i.ingredientName,
+          id: i.ingredientId,
+        }))}
+        handleItemSelect={handleIngredientSelect}
+        handleItemDelete={handleIngredientDelete}
       />
       <IngredientForm
         submitBtnText='Update Ingredient'

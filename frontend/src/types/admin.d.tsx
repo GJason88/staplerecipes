@@ -28,5 +28,5 @@ interface AdminToolState {
 
 interface AdminFormProps {
   submitBtnText: string;
-  submitFn: (ingredient: IngredientState) => void;
+  submitFn: (data: any) => void;
 }

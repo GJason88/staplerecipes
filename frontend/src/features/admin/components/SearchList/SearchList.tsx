@@ -5,7 +5,7 @@ import { useState } from 'react';
 export default function SearchList(props: SearchListProps) {
   const [filter, setFilter] = useState<string>('');
   const regex = new RegExp(filter, 'i');
-  const filteredItems = props.items.filter((item) => regex.test(item));
+  const filteredItems = props.items.filter((item) => regex.test(item.name));
   return (
     <Paper
       elevation={3}

@@ -6,9 +6,9 @@ interface CategoryState {
 
 interface SearchListProps {
   title?: string;
-  items: Array<string>;
+  items: Array<{ name: string, id: number | null }>;
   isLoading?: boolean;
   width?: string;
-  handleItemClick: (index: number) => void;
-  handleItemDelete?: (index: number) => false | void;
+  handleItemSelect: (index: number) => void;
+  handleItemDelete?: (id: string) => false | void;
 }

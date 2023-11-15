@@ -22,29 +22,6 @@ function* createNewRecipe(action: { type: string, payload: RecipeState }) {
   }
 }
 
-function* updateRecipe(action: { type: string, payload: RecipeState }) {
-  try {
-    yield call(
-      recipesApi.update,
-      action.payload.recipeId?.toString() ?? '',
-      action.payload
-    );
-    yield put({
-      type: 'service/setResult',
-      payload: {
-        severity: 'success',
-        message: 'Successfully updated recipe',
-      },
-    });
-  } catch (e) {
-    yield put({
-      type: 'service/setResult',
-      payload: { severity: 'error', message: e.response.data },
-    });
-  }
-}
-
 export default function* adminRecipesSaga() {
   yield takeLatest('adminRecipes/createNewRecipeRequest', createNewRecipe);
-  yield takeLatest('adminRecipes/updateRecipeRequest', updateRecipe);
 }

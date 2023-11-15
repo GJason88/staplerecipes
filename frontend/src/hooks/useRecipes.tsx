@@ -15,21 +15,30 @@ const useRecipes = () => {
     onError: (e: Error) =>
       dispatch(setResult({ message: e.message, severity: 'error' })),
   });
+  const mutationSuccess = (action: string) => {
+    queryClient.invalidateQueries(['recipes']);
+    dispatch(
+      setResult({
+        severity: 'success',
+        message: `Successfully ${action} recipe.`,
+      })
+    );
+  };
+  const updateRecipe = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: RecipeState }) =>
+      recipesApi.update(id, data),
+    onSettled: () => mutationSuccess('updated'),
+  });
   const deleteRecipe = useMutation({
     mutationFn: (id: string) => recipesApi.delete(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['recipes']);
       dispatch(setRecipe(null));
-      dispatch(
-        setResult({
-          severity: 'success',
-          message: 'Successfully deleted recipe.',
-        })
-      );
+      mutationSuccess('deleted');
     },
   });
   return {
     recipes: camelcaseKeys(recipes ?? [], { deep: true }),
+    updateRecipe: updateRecipe.mutate,
     deleteRecipe: deleteRecipe.mutate,
   };
 };
