@@ -35,7 +35,7 @@ node server.js
 
 ### Frontend Setup
 
-This project is built with React + TypeScript along with Redux-Saga, and Vite.js as the build tool.
+This project is built with React + TypeScript along with Redux, and Vite.js as the build tool.
 
 Install dependencies
 
