@@ -11,10 +11,7 @@ import useCategories from '../../../../../hooks/useCategories';
 import { IRootState } from '../../../../..';
 import { setTool } from '../adminToolsReducer';
 
-export default function ToolForm({
-  submitBtnText,
-  submitAction,
-}: AdminFormProps) {
+export default function ToolForm({ submitBtnText, submitFn }: AdminFormProps) {
   const tool = useSelector<IRootState, ToolState>(
     (state) => state.adminTools.tool
   );
@@ -33,7 +30,7 @@ export default function ToolForm({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(submitAction(tool));
+          submitFn(tool);
         }}
       >
         <FormControl

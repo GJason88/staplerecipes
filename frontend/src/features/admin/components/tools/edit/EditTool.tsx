@@ -8,27 +8,27 @@ import ToolForm from '../components/ToolForm';
 
 export default function EditTools() {
   const dispatch = useDispatch();
-  const { tools, deleteTool } = useTools();
+  const { tools, updateTool, deleteTool } = useTools();
   useEffect(() => {
     return () => {
       dispatch(setTool(null));
     };
   }, [dispatch]);
-  const handleItemClick = (index: number) => {
+  const handleToolSelect = (index: number) => {
     dispatch(setTool(tools[index]));
   };
-  const handleItemDelete = (index: number) =>
-    tools[index].toolId !== null &&
-    deleteTool((tools[index].toolId as number).toString());
+  const handleToolDelete = (id: string) => deleteTool(id);
+  const handleToolUpdate = (tool: ToolState) =>
+    updateTool({ id: tool.toolId?.toString() ?? '', data: tool });
   return (
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
         title={'Tools'}
         items={tools.map((t) => ({ name: t.toolName, id: t.toolId }))}
-        handleItemClick={handleItemClick}
-        handleItemDelete={handleItemDelete}
+        handleItemSelect={handleToolSelect}
+        handleItemDelete={handleToolDelete}
       />
-      <ToolForm submitBtnText='Update Tool' submitFn={updateToolRequest} />
+      <ToolForm submitBtnText='Update Tool' submitFn={handleToolUpdate} />
     </Stack>
   );
 }

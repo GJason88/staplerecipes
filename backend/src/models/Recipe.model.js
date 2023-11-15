@@ -69,7 +69,7 @@ export const recipeModel = {
                 pgpHelpers.table('recipe_ingredient', 'recipes')
             )
         );
-        await db.none(
+        info.tools.length && await db.none(
             pgp.helpers.insert(
                 info.tools.map((tool) => ({
                     tool_id: tool.toolId,

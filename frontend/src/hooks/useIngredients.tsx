@@ -5,9 +5,11 @@ import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
 import axios from 'axios';
 import { setIngredient } from '../features/admin/components/ingredients/adminIngredientsReducer';
+import useErrorHandler from './useErrorHandler';
 
 const useIngredients = () => {
   const dispatch = useDispatch();
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const { data: ingredients } = useQuery('ingredients', fetchIngredients, {
     refetchOnWindowFocus: false,
@@ -28,6 +30,7 @@ const useIngredients = () => {
     mutationFn: ({ id, data }: { id: string; data: IngredientState }) =>
       ingredientsApi.updateIngredient(id, data),
     onSuccess: () => mutationSuccess('updated'),
+    onError: errorHandler,
   });
   const deleteIngredient = useMutation({
     mutationFn: (id: string) => ingredientsApi.deleteIngredient(id),
@@ -35,6 +38,7 @@ const useIngredients = () => {
       dispatch(setIngredient(null));
       mutationSuccess('deleted');
     },
+    onError: errorHandler,
   });
   return {
     ingredients: camelcaseKeys(ingredients ?? [], { deep: true }),

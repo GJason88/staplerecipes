@@ -42,7 +42,7 @@ export const recipeController = {
     createRecipe: async (req, res) => {
         try {
             const info = req.body;
-            if (!recipeHelpers.validateCreateInfo(info))
+            if (!recipeHelpers.validateInfo(info))
                 return res.status(400).send('Invalid recipe info.');
             const jsonResponse = await recipeModel.createRecipe(info);
             res.json(jsonResponse);
@@ -64,7 +64,7 @@ export const recipeController = {
             const recipeId = req.params?.id;
             if (!recipeId)
                 return res.status(400).send('Missing recipe Id.');
-            if (!recipeHelpers.validateUpdateInfo(info))
+            if (!recipeHelpers.validateInfo(info))
                 return res.status(400).send('Invalid recipe update info.');
             await recipeModel.updateRecipe(recipeId, info);
             res.send('success');

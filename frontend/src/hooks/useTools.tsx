@@ -3,11 +3,13 @@ import { toolsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { setResult } from '../services/api/serviceReducer';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import { setTool } from '../features/admin/components/tools/adminToolsReducer';
+import catchError from './helpers/catchError';
+import useErrorHandler from './useErrorHandler';
 
 const useTools = () => {
   const dispatch = useDispatch();
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const { data: tools } = useQuery('tools', fetchTools, {
     refetchOnWindowFocus: false,
@@ -15,21 +17,32 @@ const useTools = () => {
     onError: (e: Error) =>
       dispatch(setResult({ message: e.message, severity: 'error' })),
   });
+  const mutationSuccess = (action: string) => {
+    queryClient.invalidateQueries(['tools']);
+    dispatch(
+      setResult({
+        severity: 'success',
+        message: `Successfully ${action} tool.`,
+      })
+    );
+  };
+  const updateTool = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: ToolState }) =>
+      toolsApi.updateTool(id, data),
+    onSuccess: () => mutationSuccess('updated'),
+    onError: errorHandler,
+  });
   const deleteTool = useMutation({
     mutationFn: (id: string) => toolsApi.deleteTool(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['tools']);
+      mutationSuccess('deleted');
       dispatch(setTool(null));
-      dispatch(
-        setResult({
-          severity: 'success',
-          message: 'Successfully deleted tool.',
-        })
-      );
     },
+    onError: errorHandler,
   });
   return {
     tools: camelcaseKeys(tools ?? [], { deep: true }),
+    updateTool: updateTool.mutate,
     deleteTool: deleteTool.mutate,
   };
 };
@@ -39,11 +52,7 @@ const fetchTools = async () => {
     const response = await toolsApi.retrieveAllTools();
     return response.data as Array<ToolState>;
   } catch (e) {
-    let message = 'Failed to fetch categories';
-    if (axios.isAxiosError(e)) {
-      message = e.response?.data ?? message;
-    }
-    throw new Error(message);
+    throw new Error(catchError(e));
   }
 };
 

@@ -1,13 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { recipesApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
 import { setRecipe } from '../features/recipepage/recipeReducer';
+import catchError from './helpers/catchError';
+import useErrorHandler from './useErrorHandler';
 
 const useRecipes = () => {
   const dispatch = useDispatch();
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const { data: recipes } = useQuery('recipes', fetchRecipes, {
     refetchOnWindowFocus: false,
@@ -27,7 +29,8 @@ const useRecipes = () => {
   const updateRecipe = useMutation({
     mutationFn: ({ id, data }: { id: string; data: RecipeState }) =>
       recipesApi.update(id, data),
-    onSettled: () => mutationSuccess('updated'),
+    onSuccess: () => mutationSuccess('updated'),
+    onError: errorHandler,
   });
   const deleteRecipe = useMutation({
     mutationFn: (id: string) => recipesApi.delete(id),
@@ -35,6 +38,7 @@ const useRecipes = () => {
       dispatch(setRecipe(null));
       mutationSuccess('deleted');
     },
+    onError: errorHandler,
   });
   return {
     recipes: camelcaseKeys(recipes ?? [], { deep: true }),
@@ -48,11 +52,7 @@ const fetchRecipes = async () => {
     const response = await recipesApi.retrieveAll();
     return response.data as Array<RecipeState>;
   } catch (e) {
-    let message = 'Failed to fetch recipes';
-    if (axios.isAxiosError(e)) {
-      message = e.response?.data ?? message;
-    }
-    throw new Error(message);
+    throw new Error(catchError(e));
   }
 };
 
