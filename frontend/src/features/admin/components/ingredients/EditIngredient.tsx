@@ -1,10 +1,10 @@
 import { Stack } from '@mui/material';
-import SearchList from '../../SearchList/SearchList';
-import useIngredients from '../../../../../hooks/useIngredients';
+import SearchList from '../SearchList/SearchList';
+import useIngredients from '../../../../hooks/useIngredients';
 import { useDispatch } from 'react-redux';
-import { setIngredient } from '../adminIngredientsReducer';
 import { useEffect } from 'react';
-import IngredientForm from '../components/IngredientForm';
+import IngredientForm from './IngredientForm';
+import { setIngredient } from '../../adminReducer';
 
 export default function EditIngredient() {
   const dispatch = useDispatch();

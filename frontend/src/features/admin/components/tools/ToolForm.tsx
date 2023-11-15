@@ -1,20 +1,17 @@
 import {
   FormControl,
-  Paper,
   TextField,
   Autocomplete,
   Button,
   Box,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import useCategories from '../../../../../hooks/useCategories';
-import { IRootState } from '../../../../..';
-import { setTool } from '../adminToolsReducer';
+import useCategories from '../../../../hooks/useCategories';
+import { IRootState } from '../../../..';
+import { setTool } from '../../adminReducer';
 
 export default function ToolForm({ submitBtnText, submitFn }: AdminFormProps) {
-  const tool = useSelector<IRootState, ToolState>(
-    (state) => state.adminTools.tool
-  );
+  const tool = useSelector<IRootState, ToolState>((state) => state.admin.tool);
   const dispatch = useDispatch();
   const categories = useCategories('tools');
   return (

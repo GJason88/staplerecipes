@@ -1,10 +1,10 @@
 import { Stack } from '@mui/material';
-import FDCSearch from './FDCSearch';
+import FDCSearch from './components/FDCSearch';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setIngredient } from '../adminIngredientsReducer';
-import IngredientForm from '../components/IngredientForm';
-import useIngredients from '../../../../../hooks/useIngredients';
+import IngredientForm from './IngredientForm';
+import useIngredients from '../../../../hooks/useIngredients';
+import { setIngredient } from '../../adminReducer';
 
 export default function CreateIngredient() {
   const dispatch = useDispatch();

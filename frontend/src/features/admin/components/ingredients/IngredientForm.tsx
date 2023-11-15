@@ -8,20 +8,20 @@ import {
   FormControl,
   Button,
 } from '@mui/material';
-import NutritionLabel from '../../../../../components/nutritionlabel/NutritionLabel';
-import { setIngredient } from '../adminIngredientsReducer';
-import MeasurementList from '../create/MeasurementList';
+import NutritionLabel from '../../../../components/nutritionlabel/NutritionLabel';
+import MeasurementList from './components/MeasurementList';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useCategories from '../../../../../hooks/useCategories';
-import { IRootState } from '../../../../..';
+import useCategories from '../../../../hooks/useCategories';
+import { IRootState } from '../../../..';
+import { setIngredient } from '../../adminReducer';
 
 export default function IngredientForm({
   submitBtnText,
   submitFn,
 }: AdminFormProps) {
   const ingredient = useSelector<IRootState, IngredientState>(
-    (state) => state.adminIngredients.ingredient
+    (state) => state.admin.ingredient
   );
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
   const dispatch = useDispatch();

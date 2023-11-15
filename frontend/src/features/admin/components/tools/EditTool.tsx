@@ -1,10 +1,10 @@
 import { Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import SearchList from '../../SearchList/SearchList';
-import useTools from '../../../../../hooks/useTools';
-import { setTool, updateToolRequest } from '../adminToolsReducer';
-import ToolForm from '../components/ToolForm';
+import SearchList from '../SearchList/SearchList';
+import useTools from '../../../../hooks/useTools';
+import ToolForm from './ToolForm';
+import { setTool } from '../../adminReducer';
 
 export default function EditTools() {
   const dispatch = useDispatch();

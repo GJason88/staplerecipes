@@ -4,8 +4,8 @@ import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
 import axios from 'axios';
-import { setIngredient } from '../features/admin/components/ingredients/adminIngredientsReducer';
 import useErrorHandler from './useErrorHandler';
+import { setIngredient } from '../features/admin/adminReducer';
 
 const useIngredients = () => {
   const dispatch = useDispatch();

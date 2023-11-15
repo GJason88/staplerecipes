@@ -3,9 +3,9 @@ import { toolsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { setResult } from '../services/api/serviceReducer';
 import { useDispatch } from 'react-redux';
-import { setTool } from '../features/admin/components/tools/adminToolsReducer';
 import catchError from './helpers/catchError';
 import useErrorHandler from './useErrorHandler';
+import { setTool } from '../features/admin/adminReducer';
 
 const useTools = () => {
   const dispatch = useDispatch();

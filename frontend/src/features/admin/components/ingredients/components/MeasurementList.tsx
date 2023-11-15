@@ -12,14 +12,14 @@ import {
 import { useRef } from 'react';
 import { Delete } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIngredient } from '../adminIngredientsReducer';
 import { IRootState } from '../../../../..';
+import { setIngredient } from '../../../adminReducer';
 
 export default function MeasurementList() {
   const dispatch = useDispatch();
   const curMeasurements =
     useSelector<IRootState, { [key: string]: number }>(
-      (state) => state.adminIngredients.ingredient.additionalMeasurements
+      (state) => state.admin.ingredient.additionalMeasurements
     ) ?? {};
   const measurementName = useRef({ value: '' });
   const measurementGrams = useRef({ value: 0 });

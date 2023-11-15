@@ -1,11 +1,11 @@
 import { FormControl, Stack, Button } from '@mui/material';
-import { recipeWidth } from '../../../../../data/constants';
-import EditRecipeInfo from './RecipeInfoField';
-import EditRecipeIngredients from './RecipeIngredientsField';
-import EditRecipeInstructions from './RecipeInstructionsField';
-import EditRecipeTools from './RecipeToolsField';
+import { recipeWidth } from '../../../../data/constants';
+import EditRecipeInfo from './components/RecipeInfoField';
+import EditRecipeIngredients from './components/RecipeIngredientsField';
+import EditRecipeInstructions from './components/RecipeInstructionsField';
+import EditRecipeTools from './components/RecipeToolsField';
 import { useSelector } from 'react-redux';
-import { IRootState } from '../../../../..';
+import { IRootState } from '../../../..';
 
 export default function RecipeForm({
   submitBtnText,

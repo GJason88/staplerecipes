@@ -8,10 +8,10 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
-import { setIngredient } from '../adminIngredientsReducer';
 import useNutrients from '../../../../../hooks/useNutrients';
 import ItemList from '../../SearchList/ItemList';
 import useFDC from '../../../../../hooks/useFDC';
+import { setIngredient } from '../../../adminReducer';
 
 export default function FDCSearch() {
   const dispatch = useDispatch();

@@ -1,11 +1,11 @@
 import { Box, Tab, Tabs } from '@mui/material';
-import CreateIngredient from './components/ingredients/create/CreateIngredient';
+import CreateIngredient from './components/ingredients/CreateIngredient';
 import { useState } from 'react';
 import CreateRecipe from './components/recipes/CreateRecipe';
-import CreateTool from './components/tools/create/CreateTool';
-import EditIngredient from './components/ingredients/edit/EditIngredient';
+import CreateTool from './components/tools/CreateTool';
+import EditIngredient from './components/ingredients/EditIngredient';
 import EditRecipe from './components/recipes/EditRecipe';
-import EditTool from './components/tools/edit/EditTool';
+import EditTool from './components/tools/EditTool';
 
 const tabs = [
   'Create Ingredients',

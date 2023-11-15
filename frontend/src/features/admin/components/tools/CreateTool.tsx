@@ -1,5 +1,5 @@
-import useTools from '../../../../../hooks/useTools';
-import ToolForm from '../components/ToolForm';
+import useTools from '../../../../hooks/useTools';
+import ToolForm from './ToolForm';
 
 export default function CreateTool() {
   const { createTool } = useTools();

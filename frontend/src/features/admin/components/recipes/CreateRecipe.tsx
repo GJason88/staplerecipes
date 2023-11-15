@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import RecipeForm from './components/RecipeForm';
+import RecipeForm from './RecipeForm';
 import { useEffect } from 'react';
 import { setRecipe } from '../../../recipepage/recipeReducer';
 import useRecipes from '../../../../hooks/useRecipes';

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-interface AdminIngredientState {
+interface AdminState {
   ingredient: IngredientState;
-  fdcSearchResults: FDCSearchResultsState;
+  tool: ToolState;
 }
 
 interface FDCSearchResultsState {
@@ -21,10 +21,6 @@ interface FDCNutrientState {
   nutrientId: number;
   unitName: string;
   value: number;
-}
-
-interface AdminToolState {
-  tool: ToolState;
 }
 
 interface AdminFormProps {
