@@ -155,22 +155,6 @@ export default function IngredientForm({
           >
             {submitBtnText}
           </Button>
-          <Button
-            sx={{ width: '70%', alignSelf: 'center' }}
-            variant='contained'
-            color='error'
-            onClick={() => {
-              confirm({ description: 'This action is permanent!' })
-                .then(
-                  () =>
-                    ingredient.ingredientId &&
-                    deleteFn(ingredient.ingredientId.toString())
-                )
-                .catch(() => {});
-            }}
-          >
-            Delete Ingredient
-          </Button>
         </FormControl>
       </form>
     </Box>
