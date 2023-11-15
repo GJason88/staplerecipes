@@ -4,9 +4,15 @@ import SearchList from '../SearchList/SearchList';
 import RecipeForm from './components/RecipeForm';
 import { setRecipe } from '../../../recipepage/recipeReducer';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 export default function EditRecipe() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    return () => {
+      dispatch(setRecipe(null));
+    };
+  }, [dispatch]);
   const { recipes, updateRecipe, deleteRecipe } = useRecipes();
   const handleRecipeClick = (index: number) =>
     dispatch(setRecipe(recipes[index]));
