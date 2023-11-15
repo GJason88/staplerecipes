@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface AdminState {
+  recipe: RecipeState;
   ingredient: IngredientState;
   tool: ToolState;
 }

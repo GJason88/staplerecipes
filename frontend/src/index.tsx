@@ -3,7 +3,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
-import recipeReducer from './features/recipepage/recipeReducer.tsx';
 import React from 'react';
 import toolsReducer from './features/tools/toolsReducer.tsx';
 import ingredientsReducer from './features/ingredients/ingredientsReducer.tsx';
@@ -19,7 +18,6 @@ import adminReducer from './features/admin/adminReducer.tsx';
 const reducer = combineReducers({
   layout: layoutReducer,
   service: serviceReducer,
-  recipe: recipeReducer,
   tools: toolsReducer,
   ingredients: ingredientsReducer,
   admin: adminReducer,

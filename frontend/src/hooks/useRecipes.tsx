@@ -3,9 +3,9 @@ import { recipesApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
-import { setRecipe } from '../features/recipepage/recipeReducer';
 import catchError from './helpers/catchError';
 import useErrorHandler from './useErrorHandler';
+import { setRecipe } from '../features/admin/adminReducer';
 
 const useRecipes = () => {
   const dispatch = useDispatch();

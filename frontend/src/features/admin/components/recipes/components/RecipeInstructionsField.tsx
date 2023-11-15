@@ -7,17 +7,17 @@ import {
   Paper,
 } from '@mui/material';
 import { recipeWidth, iconButtonWidth } from '../../../../../data/constants';
-import { setInstructions } from '../../../../recipepage/recipeReducer';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
+import { setRecipe } from '../../../adminReducer';
 
 interface EditRecipeInstructionsProps {
-  instructions: Array<string>;
+  recipeInstructions: Array<string>;
 }
 
 export default function EditRecipeInstructions({
-  instructions,
+  recipeInstructions,
 }: EditRecipeInstructionsProps) {
   const dispatch = useDispatch();
   return (
@@ -25,7 +25,7 @@ export default function EditRecipeInstructions({
       <Typography variant='h4' pb={2}>
         Instructions
       </Typography>
-      {instructions.map((value, index) => {
+      {recipeInstructions.map((value, index) => {
         return (
           <Box key={index} display='flex' pb={2}>
             <TextField
@@ -35,11 +35,13 @@ export default function EditRecipeInstructions({
               sx={{ width: recipeWidth - iconButtonWidth }}
               onChange={(e) =>
                 dispatch(
-                  setInstructions([
-                    ...instructions.slice(0, index),
-                    e.target.value,
-                    ...instructions.slice(index + 1),
-                  ])
+                  setRecipe({
+                    instructions: [
+                      ...recipeInstructions.slice(0, index),
+                      e.target.value,
+                      ...recipeInstructions.slice(index + 1),
+                    ],
+                  })
                 )
               }
               value={value}
@@ -47,10 +49,12 @@ export default function EditRecipeInstructions({
             <IconButton
               onClick={() =>
                 dispatch(
-                  setInstructions([
-                    ...instructions.slice(0, index),
-                    ...instructions.slice(index + 1),
-                  ])
+                  setRecipe({
+                    instructions: [
+                      ...recipeInstructions.slice(0, index),
+                      ...recipeInstructions.slice(index + 1),
+                    ],
+                  })
                 )
               }
             >
@@ -61,7 +65,9 @@ export default function EditRecipeInstructions({
       })}
       <Button
         sx={{ width: recipeWidth - iconButtonWidth }}
-        onClick={() => dispatch(setInstructions([...instructions, '']))}
+        onClick={() =>
+          dispatch(setRecipe({ instructions: [...recipeInstructions, ''] }))
+        }
         variant='outlined'
       >
         <AddIcon />

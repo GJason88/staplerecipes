@@ -2,9 +2,9 @@ import { Stack } from '@mui/material';
 import useRecipes from '../../../../hooks/useRecipes';
 import SearchList from '../SearchList/SearchList';
 import RecipeForm from './RecipeForm';
-import { setRecipe } from '../../../recipepage/recipeReducer';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { setRecipe } from '../../adminReducer';
 
 export default function EditRecipe() {
   const dispatch = useDispatch();

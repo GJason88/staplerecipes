@@ -17,9 +17,9 @@ import { Delete } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { setIngredients } from '../../../../recipepage/recipeReducer';
 import useIngredients from '../../../../../hooks/useIngredients';
 import { measurements } from '../../../../../data/measurements';
+import { setRecipe } from '../../../adminReducer';
 
 interface EditRecipeIngredientsProps {
   recipeIngredients: Array<IngredientState>;
@@ -61,14 +61,16 @@ export default function EditRecipeIngredients({
       return;
     }
     dispatch(
-      setIngredients([
-        ...recipeIngredients,
-        {
-          ...selectedIngredient,
-          amount: amountRef.current.value,
-          defaultMeasurement: selectedMeasurement,
-        },
-      ])
+      setRecipe({
+        ingredients: [
+          ...recipeIngredients,
+          {
+            ...selectedIngredient,
+            amount: amountRef.current.value,
+            defaultMeasurement: selectedMeasurement,
+          },
+        ],
+      })
     );
   };
 
@@ -144,10 +146,12 @@ export default function EditRecipeIngredients({
               <IconButton
                 onClick={() =>
                   dispatch(
-                    setIngredients([
-                      ...recipeIngredients.slice(0, index),
-                      ...recipeIngredients.slice(index + 1),
-                    ])
+                    setRecipe({
+                      ingredients: [
+                        ...recipeIngredients.slice(0, index),
+                        ...recipeIngredients.slice(index + 1),
+                      ],
+                    })
                   )
                 }
               >

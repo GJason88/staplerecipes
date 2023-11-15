@@ -1,5 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialRecipeState = {
+  recipeId: null,
+  recipeName: '',
+  tools: [],
+  ingredients: [],
+  time: '',
+  diet: '',
+  servings: '',
+  instructions: [],
+} as RecipeState;
+
 const initialIngredientState = {
   ingredientId: null,
   ingredientName: '',
@@ -16,6 +27,7 @@ const initialToolState = {
 } as ToolState;
 
 const initialState = {
+  recipe: initialRecipeState,
   ingredient: initialIngredientState,
   tool: initialToolState,
 } as AdminState;
@@ -24,6 +36,10 @@ const admin = createSlice({
   name: 'admin',
   initialState: initialState,
   reducers: {
+    setRecipe: (state, action) => {
+      if (!action.payload) state.recipe = initialRecipeState;
+      state.recipe = { ...state.recipe, ...action.payload };
+    },
     setIngredient: (state, action) => {
       if (!action.payload) state.ingredient = initialIngredientState;
       state.ingredient = { ...state.ingredient, ...action.payload };
@@ -35,5 +51,5 @@ const admin = createSlice({
   },
 });
 
-export const { setIngredient, setTool } = admin.actions;
+export const { setRecipe, setIngredient, setTool } = admin.actions;
 export default admin.reducer;

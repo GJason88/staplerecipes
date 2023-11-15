@@ -18,6 +18,7 @@ const useRecipe = (recipeId: string) => {
 
 const fetchRecipe = async (recipeId: string) => {
   try {
+    if (!recipeId) return;
     const response = await recipesApi.retrieve(recipeId);
     return response.data as { [key: string]: any };
   } catch (e) {

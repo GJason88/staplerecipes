@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import RecipeForm from './RecipeForm';
 import { useEffect } from 'react';
-import { setRecipe } from '../../../recipepage/recipeReducer';
 import useRecipes from '../../../../hooks/useRecipes';
+import { setRecipe } from '../../adminReducer';
 
 export default function CreateRecipe() {
   const dispatch = useDispatch();

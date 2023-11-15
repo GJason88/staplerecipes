@@ -1,12 +1,7 @@
 import { Paper, Stack, TextField, Typography } from '@mui/material';
 import { recipeWidth } from '../../../../../data/constants';
 import { useDispatch } from 'react-redux';
-import {
-  setDiet,
-  setRecipeName,
-  setServings,
-  setTime,
-} from '../../../../recipepage/recipeReducer';
+import { setRecipe } from '../../../adminReducer';
 
 interface EditRecipeInfoProps {
   recipeName: string;
@@ -26,26 +21,26 @@ export default function EditRecipeInfo(props: EditRecipeInfoProps) {
         <TextField
           label='Recipe Name'
           value={props.recipeName}
-          onChange={(e) => dispatch(setRecipeName(e.target.value))}
+          onChange={(e) => dispatch(setRecipe({ recipeName: e.target.value }))}
         />
         <Stack direction='row' justifyContent='space-between'>
           <TextField
             sx={{ width: '30%' }}
             label='Time'
             value={props.time}
-            onChange={(e) => dispatch(setTime(e.target.value))}
+            onChange={(e) => dispatch(setRecipe({ time: e.target.value }))}
           ></TextField>
           <TextField
             sx={{ width: '30%' }}
             label='Servings'
             value={props.servings}
-            onChange={(e) => dispatch(setServings(e.target.value))}
+            onChange={(e) => dispatch(setRecipe({ servings: e.target.value }))}
           ></TextField>
           <TextField
             sx={{ width: '30%' }}
             label='Diet'
             value={props.diet}
-            onChange={(e) => dispatch(setDiet(e.target.value))}
+            onChange={(e) => dispatch(setRecipe({ diet: e.target.value }))}
           ></TextField>
         </Stack>
       </Stack>

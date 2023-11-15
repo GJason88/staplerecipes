@@ -10,7 +10,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useDispatch } from 'react-redux';
 import useTools from '../../../../../hooks/useTools';
-import { setTools } from '../../../../recipepage/recipeReducer';
+import { setRecipe } from '../../../adminReducer';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
@@ -35,7 +35,7 @@ export default function EditRecipeTools({ recipeTools }: EditRecipeToolsProps) {
         fullWidth
         multiple
         disableCloseOnSelect
-        onChange={(e, value) => dispatch(setTools(value))}
+        onChange={(e, value) => dispatch(setRecipe({ tools: value }))}
         options={allTools}
         value={allTools.filter((tool) =>
           recipeTools.some((recipeTool) => recipeTool.toolId === tool.toolId)

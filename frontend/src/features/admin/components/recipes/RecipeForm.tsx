@@ -28,7 +28,7 @@ export default function RecipeForm({
           />
           <EditRecipeIngredients recipeIngredients={recipe.ingredients} />
           <EditRecipeTools recipeTools={recipe.tools} />
-          <EditRecipeInstructions instructions={recipe.instructions} />
+          <EditRecipeInstructions recipeInstructions={recipe.instructions} />
           <Button
             type='submit'
             variant='contained'
