@@ -5,10 +5,8 @@ const adminRecipes = createSlice({
   initialState: {},
   reducers: {
     createNewRecipeRequest: (state, action) => {},
-    updateRecipeRequest: (state, action) => {},
   },
 });
 
-export const { createNewRecipeRequest, updateRecipeRequest } =
-  adminRecipes.actions;
+export const { createNewRecipeRequest } = adminRecipes.actions;
 export default adminRecipes.reducer;

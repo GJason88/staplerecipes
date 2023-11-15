@@ -26,6 +26,11 @@ const useIngredients = () => {
       })
     );
   };
+  const createIngredient = useMutation({
+    mutationFn: (data: IngredientState) =>
+      ingredientsApi.createIngredient(data),
+    onSuccess: () => mutationSuccess('created'),
+  });
   const updateIngredient = useMutation({
     mutationFn: ({ id, data }: { id: string; data: IngredientState }) =>
       ingredientsApi.updateIngredient(id, data),
@@ -42,6 +47,7 @@ const useIngredients = () => {
   });
   return {
     ingredients: camelcaseKeys(ingredients ?? [], { deep: true }),
+    createIngredient: createIngredient.mutate,
     updateIngredient: updateIngredient.mutate,
     deleteIngredient: deleteIngredient.mutate,
   };

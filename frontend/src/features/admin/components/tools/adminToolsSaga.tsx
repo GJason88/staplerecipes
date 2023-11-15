@@ -22,29 +22,6 @@ function* createNewTool(action: { type: string, payload: ToolState }) {
   }
 }
 
-function* updateTool(action: { type: string, payload: ToolState }) {
-  try {
-    yield call(
-      toolsApi.updateTool,
-      action.payload.toolId?.toString() ?? '',
-      action.payload
-    );
-    yield put({
-      type: 'service/setResult',
-      payload: {
-        severity: 'success',
-        message: 'Successfully updated tool.',
-      },
-    });
-  } catch (e) {
-    yield put({
-      type: 'service/setResult',
-      payload: { severity: 'error', message: e.response.data },
-    });
-  }
-}
-
 export default function* adminToolsSaga() {
   yield takeLatest('adminTools/createNewToolRequest', createNewTool);
-  yield takeLatest('adminTools/updateToolRequest', updateTool);
 }

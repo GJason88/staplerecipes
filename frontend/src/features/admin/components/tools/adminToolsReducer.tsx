@@ -17,10 +17,8 @@ const adminTools = createSlice({
       state.tool = { ...state.tool, ...action.payload };
     },
     createNewToolRequest: (state, action) => {},
-    updateToolRequest: (state, action) => {},
   },
 });
 
-export const { setTool, createNewToolRequest, updateToolRequest } =
-  adminTools.actions;
+export const { setTool, createNewToolRequest } = adminTools.actions;
 export default adminTools.reducer;

@@ -26,6 +26,10 @@ const useRecipes = () => {
       })
     );
   };
+  const createRecipe = useMutation({
+    mutationFn: (data: RecipeState) => recipesApi.create(data),
+    onSuccess: () => mutationSuccess('created'),
+  });
   const updateRecipe = useMutation({
     mutationFn: ({ id, data }: { id: string; data: RecipeState }) =>
       recipesApi.update(id, data),
@@ -42,6 +46,7 @@ const useRecipes = () => {
   });
   return {
     recipes: camelcaseKeys(recipes ?? [], { deep: true }),
+    createRecipe: createRecipe.mutate,
     updateRecipe: updateRecipe.mutate,
     deleteRecipe: deleteRecipe.mutate,
   };

@@ -26,6 +26,10 @@ const useTools = () => {
       })
     );
   };
+  const createTool = useMutation({
+    mutationFn: (data: ToolState) => toolsApi.createTool(data),
+    onSuccess: () => mutationSuccess('created'),
+  });
   const updateTool = useMutation({
     mutationFn: ({ id, data }: { id: string; data: ToolState }) =>
       toolsApi.updateTool(id, data),
@@ -42,6 +46,7 @@ const useTools = () => {
   });
   return {
     tools: camelcaseKeys(tools ?? [], { deep: true }),
+    createTool: createTool.mutate,
     updateTool: updateTool.mutate,
     deleteTool: deleteTool.mutate,
   };
