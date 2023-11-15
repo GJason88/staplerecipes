@@ -6,7 +6,7 @@ import { CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 interface RecipeCardProps {
-  recipeId: number;
+  recipeId: number | null;
   name: string;
 }
 

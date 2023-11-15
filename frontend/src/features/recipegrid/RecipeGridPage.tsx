@@ -3,7 +3,7 @@ import RecipeCard from './components/RecipeCard';
 import useRecipes from '../../hooks/useRecipes';
 
 export default function RecipeGridPage() {
-  const recipes = useRecipes();
+  const { recipes } = useRecipes();
 
   return (
     <>

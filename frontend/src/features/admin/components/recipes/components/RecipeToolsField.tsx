@@ -21,7 +21,7 @@ interface EditRecipeToolsProps {
 
 export default function EditRecipeTools({ recipeTools }: EditRecipeToolsProps) {
   const dispatch = useDispatch();
-  const allTools = useTools();
+  const { tools: allTools } = useTools();
   return (
     <Paper elevation={2} sx={{ width: recipeWidth, p: 2 }}>
       <Typography variant='h4' pb={2}>

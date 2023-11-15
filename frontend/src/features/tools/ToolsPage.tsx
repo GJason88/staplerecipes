@@ -12,7 +12,7 @@ import useTools from '../../hooks/useTools';
 export default function ToolsPage() {
   const dispatch = useDispatch();
   const categories = useCategories('tools');
-  const tools = useTools();
+  const { tools } = useTools();
   const curTabId = useSelector<IRootState, number | false>(
     (state) => state.tools.curTabId
   );

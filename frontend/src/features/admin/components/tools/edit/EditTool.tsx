@@ -8,7 +8,7 @@ import ToolForm from '../components/ToolForm';
 
 export default function EditTools() {
   const dispatch = useDispatch();
-  const tools = useTools();
+  const { tools, deleteTool } = useTools();
   useEffect(() => {
     return () => {
       dispatch(setTool(null));
@@ -17,12 +17,16 @@ export default function EditTools() {
   const handleItemClick = (index: number) => {
     dispatch(setTool(tools[index]));
   };
+  const handleItemDelete = (index: number) =>
+    tools[index].toolId !== null &&
+    deleteTool((tools[index].toolId as number).toString());
   return (
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
         title={'Tools'}
         items={tools.map((t) => t.toolName)}
         handleItemClick={handleItemClick}
+        handleItemDelete={handleItemDelete}
       />
       <ToolForm submitBtnText='Update Tool' submitAction={updateToolRequest} />
     </Stack>

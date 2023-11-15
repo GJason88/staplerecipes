@@ -8,15 +8,19 @@ import { useDispatch } from 'react-redux';
 
 export default function EditRecipe() {
   const dispatch = useDispatch();
-  const recipes = useRecipes();
+  const { recipes, deleteRecipe } = useRecipes();
   const handleItemClick = (index: number) =>
     dispatch(setRecipe(recipes[index]));
+  const handleItemDelete = (index: number) =>
+    recipes[index].recipeId !== null &&
+    deleteRecipe((recipes[index].recipeId as number).toString());
   return (
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
         title={'Recipes'}
         items={recipes.map((r) => r.recipeName)}
         handleItemClick={handleItemClick}
+        handleItemDelete={handleItemDelete}
       />
       <RecipeForm
         submitBtnText='Update Recipe'
