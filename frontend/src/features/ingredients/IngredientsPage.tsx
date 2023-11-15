@@ -8,10 +8,9 @@ import useCategories from '../../hooks/useCategories';
 import { useState } from 'react';
 
 export default function IngredientsPage() {
-  const [tabId, setTabId] = useState<number>(0);
+  const [tabId, setTabId] = useState<number | false>(false);
   const { ingredients } = useIngredients();
   const categories = useCategories('ingredients');
-
   return (
     <Box sx={{ m: 2 }}>
       <Paper sx={{ mt: 8 }}>
@@ -39,7 +38,7 @@ export default function IngredientsPage() {
             category={cat}
             tabId={tabId}
             ingredients={ingredients.filter(
-              (ingr) => ingr.category.categoryName == cat.categoryName
+              (ingr) => ingr.category.categoryName === cat.categoryName
             )}
           ></IngredientsCategory>
         ))}

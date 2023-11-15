@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
-import toolsReducer from './features/tools/toolsReducer.tsx';
-import ingredientsReducer from './features/ingredients/ingredientsReducer.tsx';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { theme } from './themes.tsx';
@@ -18,8 +16,6 @@ import adminReducer from './features/admin/adminReducer.tsx';
 const reducer = combineReducers({
   layout: layoutReducer,
   service: serviceReducer,
-  tools: toolsReducer,
-  ingredients: ingredientsReducer,
   admin: adminReducer,
 });
 

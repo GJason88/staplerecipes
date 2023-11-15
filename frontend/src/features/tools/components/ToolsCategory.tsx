@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface ToolsCategoryProps {
-  curTabId?: number | false;
+  tabId: number | false;
   category: CategoryState;
   tools: Array<ToolState>;
 }
@@ -19,7 +19,7 @@ interface ToolsCategoryProps {
 export default function ToolsCategory(props: ToolsCategoryProps) {
   return (
     <>
-      {props.curTabId == props.category.categoryId && (
+      {props.tabId === props.category.categoryId && (
         <List dense={false}>
           {props.tools.map((tool, index) => (
             <ListItem key={index}>
