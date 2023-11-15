@@ -27,9 +27,6 @@ export default function IngredientsPage() {
               />
             ))}
           </Tabs>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
         </Box>
 
         {categories.map((cat, index) => (
@@ -43,9 +40,6 @@ export default function IngredientsPage() {
           ></IngredientsCategory>
         ))}
       </Paper>
-      <Button sx={{ mt: 1 }} fullWidth variant='outlined' color='error'>
-        Delete Category
-      </Button>
     </Box>
   );
 }

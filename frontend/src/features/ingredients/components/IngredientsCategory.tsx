@@ -7,8 +7,6 @@ import {
   ListItemText,
 } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 interface IngredientsCategoryProps {
   tabId: number | false;
@@ -29,16 +27,8 @@ export default function IngredientsCategory(props: IngredientsCategoryProps) {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={ingr.ingredientName} />
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
             </ListItem>
           ))}
-          <ListItem>
-            <IconButton>
-              <AddIcon />
-            </IconButton>
-          </ListItem>
         </List>
       )}
     </>

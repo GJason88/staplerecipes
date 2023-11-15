@@ -28,9 +28,6 @@ export default function ToolsPage() {
               />
             ))}
           </Tabs>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
         </Box>
 
         {categories.map((cat, index) => (
@@ -44,9 +41,6 @@ export default function ToolsPage() {
           ></ToolsCategory>
         ))}
       </Paper>
-      <Button sx={{ mt: 1 }} fullWidth variant='outlined' color='error'>
-        Delete Category
-      </Button>
     </Box>
   );
 }

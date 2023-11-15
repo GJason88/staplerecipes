@@ -29,16 +29,8 @@ export default function ToolsCategory(props: ToolsCategoryProps) {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={tool.toolName} />
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
             </ListItem>
           ))}
-          <ListItem>
-            <IconButton>
-              <AddIcon />
-            </IconButton>
-          </ListItem>
         </List>
       )}
     </>
