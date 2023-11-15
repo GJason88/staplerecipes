@@ -2,16 +2,13 @@ import { Stack } from '@mui/material';
 import SearchList from '../../SearchList/SearchList';
 import useIngredients from '../../../../../hooks/useIngredients';
 import { useDispatch } from 'react-redux';
-import {
-  setIngredient,
-  updateIngredientRequest,
-} from '../adminIngredientsReducer';
+import { setIngredient } from '../adminIngredientsReducer';
 import { useEffect } from 'react';
 import IngredientForm from '../components/IngredientForm';
 
 export default function EditIngredient() {
   const dispatch = useDispatch();
-  const { ingredients, deleteIngredient } = useIngredients();
+  const { ingredients, updateIngredient, deleteIngredient } = useIngredients();
   useEffect(() => {
     return () => {
       dispatch(setIngredient(null));
@@ -22,6 +19,11 @@ export default function EditIngredient() {
   const handleItemDelete = (index: number) =>
     ingredients[index].ingredientId !== null &&
     deleteIngredient((ingredients[index].ingredientId as number).toString());
+  const handleIngredientUpdate = (ingredient: IngredientState) =>
+    updateIngredient({
+      id: ingredient.ingredientId?.toString() ?? '',
+      data: ingredient,
+    });
   return (
     <Stack flexDirection='row' minHeight={750}>
       <SearchList
@@ -32,7 +34,7 @@ export default function EditIngredient() {
       />
       <IngredientForm
         submitBtnText='Update Ingredient'
-        submitAction={updateIngredientRequest}
+        submitFn={handleIngredientUpdate}
       />
     </Stack>
   );

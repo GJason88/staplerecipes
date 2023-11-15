@@ -28,8 +28,5 @@ interface AdminToolState {
 
 interface AdminFormProps {
   submitBtnText: string;
-  submitAction: import('@reduxjs/toolkit').ActionCreatorWithPayload<
-    unknown,
-    string
-  >;
+  submitFn: (ingredient: IngredientState) => void;
 }

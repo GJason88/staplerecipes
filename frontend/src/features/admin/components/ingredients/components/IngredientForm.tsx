@@ -9,32 +9,26 @@ import {
   Button,
 } from '@mui/material';
 import NutritionLabel from '../../../../../components/nutritionlabel/NutritionLabel';
-import {
-  deleteIngredientRequest,
-  setIngredient,
-} from '../adminIngredientsReducer';
+import { setIngredient } from '../adminIngredientsReducer';
 import MeasurementList from '../create/MeasurementList';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useCategories from '../../../../../hooks/useCategories';
 import { IRootState } from '../../../../..';
-import { useConfirm } from 'material-ui-confirm';
 
 export default function IngredientForm({
   submitBtnText,
-  submitAction,
-  deleteFn,
+  submitFn,
 }: AdminFormProps) {
   const ingredient = useSelector<IRootState, IngredientState>(
     (state) => state.adminIngredients.ingredient
   );
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
-  const confirm = useConfirm();
   const dispatch = useDispatch();
   const categories = useCategories('ingredients');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(submitAction(ingredient));
+    submitFn(ingredient);
   };
   useEffect(
     () => setIncludeVolume(Boolean(ingredient.mlFor100G)),

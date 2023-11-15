@@ -15,6 +15,19 @@ const useIngredients = () => {
     onError: (e: Error) =>
       dispatch(setResult({ message: e.message, severity: 'error' })),
   });
+  const updateIngredient = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: IngredientState }) =>
+      ingredientsApi.updateIngredient(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['ingredients']);
+      dispatch(
+        setResult({
+          severity: 'success',
+          message: 'Successfully updated ingredient.',
+        })
+      );
+    },
+  });
   const deleteIngredient = useMutation({
     mutationFn: (id: string) => ingredientsApi.deleteIngredient(id),
     onSuccess: () => {
@@ -30,6 +43,7 @@ const useIngredients = () => {
   });
   return {
     ingredients: camelcaseKeys(ingredients ?? [], { deep: true }),
+    updateIngredient: updateIngredient.mutate,
     deleteIngredient: deleteIngredient.mutate,
   };
 };
