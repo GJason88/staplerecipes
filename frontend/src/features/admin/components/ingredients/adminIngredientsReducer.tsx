@@ -35,16 +35,9 @@ const adminIngredients = createSlice({
       state.fdcSearchResults.isLoading = true;
     },
     createNewIngredientRequest: (state, action) => {},
-    updateIngredientRequest: (state, action) => {},
-    deleteIngredientRequest: (state, action) => {},
   },
 });
 
-export const {
-  setIngredient,
-  FDCSearchRequest,
-  createNewIngredientRequest,
-  updateIngredientRequest,
-  deleteIngredientRequest,
-} = adminIngredients.actions;
+export const { setIngredient, FDCSearchRequest, createNewIngredientRequest } =
+  adminIngredients.actions;
 export default adminIngredients.reducer;

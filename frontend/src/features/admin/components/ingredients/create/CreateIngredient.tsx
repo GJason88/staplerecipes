@@ -15,12 +15,14 @@ export default function CreateIngredient() {
       dispatch(setIngredient(null)); // will execute on mount in strict mode
     };
   }, [dispatch]);
+  const handleIngredientCreate = (ingredient: IngredientState) =>
+    dispatch(createNewIngredientRequest(ingredient));
   return (
     <Stack flexDirection='row' minHeight={750}>
       <FDCSearch />
       <IngredientForm
         submitBtnText='Create Ingredient'
-        submitAction={createNewIngredientRequest}
+        submitFn={handleIngredientCreate}
       />
     </Stack>
   );
