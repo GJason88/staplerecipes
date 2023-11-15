@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface IngredientsCategoryProps {
-  curTabId?: number | false;
+  tabId?: number | false;
   category: CategoryState;
   ingredients: Array<IngredientState>;
 }
@@ -19,7 +19,7 @@ interface IngredientsCategoryProps {
 export default function IngredientsCategory(props: IngredientsCategoryProps) {
   return (
     <>
-      {props.curTabId == props.category.categoryId && (
+      {props.tabId == props.category.categoryId && (
         <List dense={false}>
           {props.ingredients.map((ingr, index) => (
             <ListItem key={index}>

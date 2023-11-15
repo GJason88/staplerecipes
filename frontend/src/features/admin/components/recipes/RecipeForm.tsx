@@ -11,7 +11,9 @@ export default function RecipeForm({
   submitBtnText,
   submitFn,
 }: AdminFormProps) {
-  const recipe = useSelector<IRootState, RecipeState>((state) => state.recipe);
+  const recipe = useSelector<IRootState, RecipeState>(
+    (state) => state.admin.recipe
+  );
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     submitFn(recipe);
