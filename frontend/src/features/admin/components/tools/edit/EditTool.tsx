@@ -22,7 +22,7 @@ export default function EditTools() {
       <SearchList
         title={'Tools'}
         items={tools.map((t) => t.toolName)}
-        onItemClick={handleItemClick}
+        handleItemClick={handleItemClick}
       />
       <ToolForm submitBtnText='Update Tool' submitAction={updateToolRequest} />
     </Stack>

@@ -36,7 +36,7 @@ export default function EditRecipeIngredients({
   );
   const [alert, setAlert] = useState<string>('');
   const dispatch = useDispatch();
-  const allIngredients = useIngredients();
+  const { ingredients: allIngredients } = useIngredients();
   const availableMeasurements = [
     ...measurements.weight,
     ...(selectedIngredient?.mlFor100G ? measurements.volume : []),

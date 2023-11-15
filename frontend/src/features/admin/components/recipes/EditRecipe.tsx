@@ -16,7 +16,7 @@ export default function EditRecipe() {
       <SearchList
         title={'Recipes'}
         items={recipes.map((r) => r.recipeName)}
-        onItemClick={handleItemClick}
+        handleItemClick={handleItemClick}
       />
       <RecipeForm
         submitBtnText='Update Recipe'

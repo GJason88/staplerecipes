@@ -9,5 +9,6 @@ interface SearchListProps {
   items: Array<string>;
   isLoading?: boolean;
   width?: string;
-  onItemClick: (index: number) => void;
+  handleItemClick: (index: number) => void;
+  handleItemDelete?: (index: number) => false | void;
 }

@@ -83,7 +83,7 @@ export default function FDCSearch() {
       />
       <ItemList
         items={fdcSearchResults.foods.map((food) => food.description)}
-        onItemClick={handleItemClick}
+        handleItemClick={handleItemClick}
         isLoading={fdcSearchResults.isLoading}
       />
     </Paper>

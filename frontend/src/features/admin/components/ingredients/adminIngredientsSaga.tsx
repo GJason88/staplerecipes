@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { fdcApi } from '../../../../services/api/fdc';
 import { ingredientsApi } from '../../../../services/api/server';
 
 function* searchFoods(action: {
-  type: string,
-  payload: { query: string, pageNumber: number },
+  type: string;
+  payload: { query: string; pageNumber: number };
 }) {
   try {
     const response = yield call(
@@ -34,8 +34,8 @@ function* searchFoods(action: {
 }
 
 function* createNewIngredient(action: {
-  type: string,
-  payload: IngredientState,
+  type: string;
+  payload: IngredientState;
 }) {
   try {
     yield call(ingredientsApi.createIngredient, action.payload);
@@ -54,7 +54,7 @@ function* createNewIngredient(action: {
   }
 }
 
-function* updateIngredient(action: { type: string, payload: IngredientState }) {
+function* updateIngredient(action: { type: string; payload: IngredientState }) {
   try {
     yield call(
       ingredientsApi.updateIngredient,
@@ -76,6 +76,30 @@ function* updateIngredient(action: { type: string, payload: IngredientState }) {
   }
 }
 
+function* deleteIngredient(action: { type: string; payload: string }) {
+  try {
+    yield call(ingredientsApi.deleteIngredient, action.payload);
+    yield all([
+      put({
+        type: 'service/setResult',
+        payload: {
+          severity: 'success',
+          message: 'Successfully deleted ingredient.',
+        },
+      }),
+      put({
+        type: 'adminIngredients/setIngredient',
+        payload: null,
+      }),
+    ]);
+  } catch (e) {
+    yield put({
+      type: 'service/setResult',
+      payload: { severity: 'error', message: e.response.data },
+    });
+  }
+}
+
 export default function* adminIngredientsSaga() {
   yield takeLatest('adminIngredients/FDCSearchRequest', searchFoods);
   yield takeLatest(
@@ -85,5 +109,9 @@ export default function* adminIngredientsSaga() {
   yield takeLatest(
     'adminIngredients/updateIngredientRequest',
     updateIngredient
+  );
+  yield takeLatest(
+    'adminIngredients/deleteIngredientRequest',
+    deleteIngredient
   );
 }

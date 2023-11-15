@@ -18,6 +18,7 @@ import serviceReducer from './services/api/serviceReducer.tsx';
 import adminIngredientsReducer from './features/admin/components/ingredients/adminIngredientsReducer.tsx';
 import adminRecipesReducer from './features/admin/components/recipes/adminRecipesReducer.tsx';
 import adminToolsReducer from './features/admin/components/tools/adminToolsReducer.tsx';
+import { ConfirmProvider } from 'material-ui-confirm';
 
 const reducer = combineReducers({
   layout: layoutReducer,
@@ -49,12 +50,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Provider store={store}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </Provider>
+        <ConfirmProvider>
+          <CssBaseline />
+          <Provider store={store}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Provider>
+        </ConfirmProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>

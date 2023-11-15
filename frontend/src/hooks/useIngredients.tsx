@@ -1,19 +1,37 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { ingredientsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
 import axios from 'axios';
+import { setIngredient } from '../features/admin/components/ingredients/adminIngredientsReducer';
 
 const useIngredients = () => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const { data: ingredients } = useQuery('ingredients', fetchIngredients, {
     refetchOnWindowFocus: false,
     retry: false,
     onError: (e: Error) =>
       dispatch(setResult({ message: e.message, severity: 'error' })),
   });
-  return camelcaseKeys(ingredients ?? [], { deep: true });
+  const deleteIngredient = useMutation({
+    mutationFn: (id: string) => ingredientsApi.deleteIngredient(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['ingredients']);
+      dispatch(setIngredient(null));
+      dispatch(
+        setResult({
+          severity: 'success',
+          message: 'Successfully deleted ingredient.',
+        })
+      );
+    },
+  });
+  return {
+    ingredients: camelcaseKeys(ingredients ?? [], { deep: true }),
+    deleteIngredient: deleteIngredient.mutate,
+  };
 };
 
 const fetchIngredients = async () => {

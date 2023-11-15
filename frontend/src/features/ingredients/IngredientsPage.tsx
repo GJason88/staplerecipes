@@ -11,7 +11,7 @@ import useCategories from '../../hooks/useCategories';
 
 export default function IngredientsPage() {
   const dispatch = useDispatch();
-  const ingredients = useIngredients();
+  const { ingredients } = useIngredients();
   const categories = useCategories('ingredients');
   const curTabId = useSelector<IRootState, number | false>(
     (state) => state.ingredients.curTabId

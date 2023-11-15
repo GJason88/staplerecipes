@@ -11,23 +11,24 @@ import IngredientForm from '../components/IngredientForm';
 
 export default function EditIngredient() {
   const dispatch = useDispatch();
-  const ingredients = useIngredients();
+  const { ingredients, deleteIngredient } = useIngredients();
   useEffect(() => {
     return () => {
       dispatch(setIngredient(null));
     };
   }, [dispatch]);
-  const handleItemClick = (index: number) => {
-    const ingredient = ingredients[index];
-    console.log(ingredient);
-    dispatch(setIngredient(ingredient));
-  };
+  const handleItemClick = (index: number) =>
+    dispatch(setIngredient(ingredients[index]));
+  const handleItemDelete = (index: number) =>
+    ingredients[index].ingredientId !== null &&
+    deleteIngredient((ingredients[index].ingredientId as number).toString());
   return (
     <Stack flexDirection='row' minHeight={750}>
       <SearchList
         title={'Ingredients'}
         items={ingredients.map((i) => i.ingredientName)}
-        onItemClick={handleItemClick}
+        handleItemClick={handleItemClick}
+        handleItemDelete={handleItemDelete}
       />
       <IngredientForm
         submitBtnText='Update Ingredient'

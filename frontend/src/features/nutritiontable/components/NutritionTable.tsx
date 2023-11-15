@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import useNutrients from '../../../hooks/useNutrients';
 
 export default function NutritionTable() {
-  const ingredients = useIngredients();
+  const { ingredients } = useIngredients();
   const nutrients = useNutrients();
   const rows = useMemo(
     () =>
