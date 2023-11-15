@@ -12,6 +12,7 @@ interface FDCSearchResultsState {
 }
 
 interface FDCFoodState {
+  fdcId: number;
   description: string;
   foodNutrients: Array<FDCNutrientState>;
 }

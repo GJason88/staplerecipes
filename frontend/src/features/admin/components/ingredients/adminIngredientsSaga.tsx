@@ -3,35 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { fdcApi } from '../../../../services/api/fdc';
 import { ingredientsApi } from '../../../../services/api/server';
-
-function* searchFoods(action: {
-  type: string;
-  payload: { query: string; pageNumber: number };
-}) {
-  try {
-    const response = yield call(
-      fdcApi.searchFoods,
-      action.payload.query,
-      action.payload.pageNumber
-    );
-    const foods = response.data.foods.map((food) => ({
-      description: food.description,
-      foodNutrients: food.foodNutrients,
-    }));
-    yield put({
-      type: 'adminIngredients/setFDCSearchResults',
-      payload: {
-        foods: foods,
-        totalPages: response.data.totalPages,
-        totalHits: response.data.totalHits,
-      },
-    });
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 function* createNewIngredient(action: {
   type: string;
@@ -55,7 +27,6 @@ function* createNewIngredient(action: {
 }
 
 export default function* adminIngredientsSaga() {
-  yield takeLatest('adminIngredients/FDCSearchRequest', searchFoods);
   yield takeLatest(
     'adminIngredients/createNewIngredientRequest',
     createNewIngredient
