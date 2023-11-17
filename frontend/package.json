@@ -21,6 +21,8 @@
     "axios": "^1.5.0",
     "camelcase-keys": "^9.0.0",
     "eslint-plugin-react": "^7.33.2",
+    "firebase": "^10.6.0",
+    "firebaseui": "^6.1.0",
     "material-ui-confirm": "^3.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
