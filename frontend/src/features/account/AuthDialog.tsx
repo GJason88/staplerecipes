@@ -2,16 +2,26 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../data/constants';
 import useAuth from '../../hooks/useAuth';
-import { Dialog, Tab, Tabs } from '@mui/material';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  FormControlLabel,
+  InputAdornment,
+  Stack,
+  TextField,
+  Link,
+  Typography,
+} from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
 
 export default function AuthDialog() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(true);
   const { currentUser, login, setError } = useAuth();
 
   useEffect(() => {
@@ -22,11 +32,12 @@ export default function AuthDialog() {
     e.preventDefault();
     try {
       setError('');
-      setLoading(true);
+      setIsLoading(true);
       await login(email, password);
     } catch (error) {
       setError('Failed to login');
     }
+    setIsLoading(false);
   };
 
   return (
@@ -35,16 +46,72 @@ export default function AuthDialog() {
       fullWidth
       PaperProps={{ sx: { backgroundColor: '#f0f0f0' } }}
     >
-      <Tabs
-        variant='fullWidth'
-        value={tab}
-        onChange={(e, newTab: number) => setTab(newTab)}
+      <form
+        style={{
+          margin: 16,
+          padding: 16,
+          borderRadius: 8,
+          backgroundColor: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
       >
-        <Tab label='Sign In'></Tab>
-        <Tab label='Sign Up'></Tab>
-      </Tabs>
-      {tab == 0 && <SignIn />}
-      {tab == 1 && <SignUp />}
+        <Stack gap={2} width='65%' alignSelf='center'>
+          <Typography fontSize={24} fontWeight={700}>
+            {isSignIn ? 'Sign In' : 'Sign Up'}
+          </Typography>
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <EmailIcon />
+                </InputAdornment>
+              ),
+            }}
+            placeholder='E-mail Address'
+          />
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <LockIcon />
+                </InputAdornment>
+              ),
+            }}
+            placeholder='Password'
+          />
+          {isSignIn && (
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label='Remember me'
+            />
+          )}
+          <Button variant='contained' color='success'>
+            {isSignIn ? 'Sign In' : 'Sign Up'}
+          </Button>
+          {isSignIn && (
+            <Link fontSize={12} href='' underline='hover'>
+              Forgot Password?
+            </Link>
+          )}
+          <Typography fontSize={12}>
+            {isSignIn ? 'Need an account?' : 'Already have an account?'}
+            <Button
+              color='success'
+              disableRipple
+              onClick={() => setIsSignIn(!isSignIn)}
+              sx={{
+                fontSize: 12,
+                textTransform: 'inherit',
+                '&:hover': { backgroundColor: 'transparent' },
+              }}
+            >
+              {isSignIn ? 'Sign up' : 'Sign in'}
+            </Button>
+          </Typography>
+        </Stack>
+      </form>
     </Dialog>
   );
 }
