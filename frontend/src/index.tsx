@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import serviceReducer from './services/api/serviceReducer.tsx';
 import { ConfirmProvider } from 'material-ui-confirm';
 import adminReducer from './features/admin/adminReducer.tsx';
+import { AuthProvider } from './contexts/AuthContext.tsx';
 
 const reducer = combineReducers({
   layout: layoutReducer,
@@ -30,14 +31,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <ConfirmProvider>
-          <CssBaseline />
-          <Provider store={store}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </Provider>
-        </ConfirmProvider>
+        <AuthProvider>
+          <ConfirmProvider>
+            <CssBaseline />
+            <Provider store={store}>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </Provider>
+          </ConfirmProvider>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
