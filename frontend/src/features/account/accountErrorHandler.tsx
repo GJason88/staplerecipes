@@ -13,6 +13,6 @@ export const accountErrorHandler = (error: Error) => {
       default:
         break;
     }
-    return message;
   }
+  return message;
 };

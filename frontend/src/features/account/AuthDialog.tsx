@@ -13,11 +13,13 @@ import {
   Link,
   Typography,
   Divider,
+  Alert,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import { FirebaseError } from 'firebase/app';
 import GoogleButton from 'react-google-button';
+import { accountErrorHandler } from './accountErrorHandler';
 
 export default function AuthDialog() {
   const navigate = useNavigate();
@@ -41,9 +43,8 @@ export default function AuthDialog() {
         console.log('fdsffd');
         navigate('/');
       })
-      .catch((error) => {
-        console.log(error);
-        setError('Failed to login');
+      .catch((error: Error) => {
+        setError(accountErrorHandler(error));
       })
       .finally(() => {
         setIsLoading(false);
@@ -72,6 +73,7 @@ export default function AuthDialog() {
           <Typography fontSize={24} fontWeight={700}>
             {isSignIn ? 'Sign In' : 'Sign Up'}
           </Typography>
+          {error && <Alert severity='error'>{error}</Alert>}
           <TextField
             required
             value={email}
