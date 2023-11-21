@@ -5,7 +5,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { updateIsMobile } from './layoutReducer';
 import { drawerWidth } from '../data/constants';
-import { Breadcrumbs, Button, Link, Stack, Typography } from '@mui/material';
+import {
+  Alert,
+  Breadcrumbs,
+  Button,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { IRootState } from '..';
 import useAuth from '../hooks/useAuth';
 import AccountDialog from '../features/account/AccountDialog';
@@ -63,6 +70,11 @@ export default function TopAppBar() {
             </Typography>
           </Breadcrumbs>
           <Stack gap={2} ml='auto' flexDirection='row'>
+            {currentUser && !currentUser.emailVerified && (
+              <Alert sx={{ borderRadius: 20 }} severity='warning'>
+                Please complete email verification
+              </Alert>
+            )}
             {currentUser ? (
               <>
                 <Typography alignSelf='center'>

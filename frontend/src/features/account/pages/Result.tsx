@@ -29,11 +29,11 @@ export default function Result({
         <ErrorOutlineIcon sx={{ fontSize: 200, color: '#FFA500' }} />
       )}
       <Button
-        onClick={() => setDialogType('form')}
+        onClick={() => setDialogType(null)}
         variant='contained'
         size='large'
       >
-        Return to Login
+        Close
       </Button>
     </Stack>
   );

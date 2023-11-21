@@ -11,7 +11,8 @@ export default function AccountForm({
   currentUser,
   login,
   register,
-  logout,
+  updateUserProfile,
+  dialogType,
   error,
   setError,
   setDialogType,
@@ -25,8 +26,10 @@ export default function AccountForm({
 
   useEffect(() => {
     setError('');
-    if (currentUser && currentUser.emailVerified) setDialogType(null);
-  }, [currentUser, navigate, setDialogType, setError]);
+    if (currentUser && dialogType === 'form') {
+      setDialogType(null);
+    }
+  }, [currentUser, navigate, setDialogType, setError, dialogType]);
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -35,28 +38,15 @@ export default function AccountForm({
       const userCredential = isSignIn
         ? await login(email, password)
         : await register(email, password);
-      isSignIn
-        ? await handleSignIn(userCredential.user)
-        : await handleSignUp(userCredential.user);
+      !isSignIn && (await updateUserProfile({ displayName }));
+      if (!userCredential.user.emailVerified) {
+        setDialogType(isSignIn ? 'unverified-email' : 'signup-success');
+        await sendEmailVerification(userCredential.user);
+      }
     } catch (error: unknown) {
-      console.log(error);
       setError(accountErrorHandler(error));
     }
     setIsLoading(false);
-  };
-  const handleSignIn = async (user: User) => {
-    if (!user.emailVerified) {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      await sendEmailVerification(user).finally(() => logout());
-      setDialogType('unverified-email');
-      return;
-    }
-    setDialogType(null);
-  };
-  const handleSignUp = async (user: User) => {
-    await sendEmailVerification(user);
-    await logout();
-    setDialogType('signup-success');
   };
   const signInProps = {
     email,
