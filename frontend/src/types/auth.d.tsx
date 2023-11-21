@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface AuthContextState {
   currentUser: import('firebase/auth').User | null;
-  error: string;
   dialogType: DialogType | null;
   login: (
     email: string,
@@ -17,8 +16,8 @@ interface AuthContextState {
     displayName?: string;
     photoURL?: string;
   }) => Promise<void>;
-  setError: React.Dispatch<React.SetStateAction<string>>;
   setDialogType: React.Dispatch<React.SetStateAction<DialogType | null>>;
+  sendPWResetEmail: (email: string) => Promise<void>;
 }
 
 interface AccountFormProps {
@@ -39,10 +38,17 @@ interface SignUpProps extends AccountFormProps {
   setDisplayName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-type DialogType = 'form' | 'signup-success' | 'unverified-email';
+type DialogType =
+  | 'form'
+  | 'signup-success'
+  | 'unverified-email'
+  | 'forgot-password'
+  | 'forgot-password-success';
 
 interface ResultProps {
   result: 'success' | 'failure';
   resultText: string;
-  setDialogType: React.Dispatch<React.SetStateAction<DialogType | null>>;
+  secondaryText: string;
+  btnText: string;
+  btnAction: () => void;
 }

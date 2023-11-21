@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Stack, Typography, Divider, Alert } from '@mui/material';
+import { Button, Stack, Typography, Divider, Alert, Link } from '@mui/material';
 import GoogleButton from 'react-google-button';
 import { accountErrorHandler } from './helpers';
 import SignIn from './pages/SignIn';
@@ -13,11 +13,10 @@ export default function AccountForm({
   register,
   updateUserProfile,
   dialogType,
-  error,
-  setError,
   setDialogType,
 }: AuthContextState) {
   const navigate = useNavigate();
+  const [error, setError] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -60,15 +59,9 @@ export default function AccountForm({
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleFormSubmit}
-      style={{
-        padding: 28,
-        backgroundColor: '#f0f0f0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
+      style={{ padding: 28, display: 'flex', justifyContent: 'center' }}
     >
-      <Stack gap={2} width='65%' alignSelf='center'>
+      <Stack gap={2} width='65%'>
         <Typography fontSize={24} fontWeight={700}>
           {isSignIn ? 'Sign In' : 'Sign Up'}
         </Typography>
@@ -85,6 +78,23 @@ export default function AccountForm({
             displayName={displayName}
             setDisplayName={setDisplayName}
           />
+        )}
+        {isSignIn && (
+          <Button
+            disableRipple
+            sx={{
+              width: 'fit-content',
+              fontSize: 12,
+              textTransform: 'inherit',
+              '&:hover': {
+                backgroundColor: 'transparent',
+                textDecoration: 'underline',
+              },
+            }}
+            onClick={() => setDialogType('forgot-password')}
+          >
+            Forgot Password?
+          </Button>
         )}
         <Divider sx={{ fontSize: 12 }}>OR</Divider>
         <GoogleButton style={{ alignSelf: 'center' }} />

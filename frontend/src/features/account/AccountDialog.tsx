@@ -3,9 +3,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import useAuth from '../../hooks/useAuth';
 import AccountForm from './AccountForm';
 import Result from './pages/Result';
+import ForgotPassword from './pages/ForgotPassword';
 
 export default function AccountDialog() {
   const auth = useAuth();
+  console.log(auth.dialogType);
   return (
     <Dialog
       open={true}
@@ -29,14 +31,33 @@ export default function AccountDialog() {
         <Result
           result='success'
           resultText='Signed up successfully'
-          setDialogType={auth.setDialogType}
+          secondaryText='A verification link has been sent to your email'
+          btnText='Close'
+          btnAction={() => auth.setDialogType(null)}
         />
       )}
       {auth.dialogType === 'unverified-email' && (
         <Result
           result='failure'
-          resultText='Email is not verified'
+          resultText='Email is not verified. Verification has been resent.'
+          secondaryText='A verification link has been sent to your email'
+          btnText='Close'
+          btnAction={() => auth.setDialogType(null)}
+        />
+      )}
+      {auth.dialogType === 'forgot-password' && (
+        <ForgotPassword
           setDialogType={auth.setDialogType}
+          sendPWResetEmail={auth.sendPWResetEmail}
+        />
+      )}
+      {auth.dialogType === 'forgot-password-success' && (
+        <Result
+          result='success'
+          resultText='Success!'
+          secondaryText='A password reset link has been sent to your email if an account was associated with it'
+          btnText='Return to login'
+          btnAction={() => auth.setDialogType(null)}
         />
       )}
     </Dialog>

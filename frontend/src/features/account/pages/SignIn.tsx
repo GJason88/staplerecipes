@@ -55,7 +55,6 @@ export default function SignIn({
         onChange={(e) => setPersist((e.target as HTMLInputElement).checked)}
         label='Remember me'
       />
-
       <Button
         disabled={isLoading}
         type='submit'
@@ -64,15 +63,6 @@ export default function SignIn({
       >
         Sign In
       </Button>
-
-      <Link
-        style={{ width: 'fit-content' }}
-        fontSize={12}
-        href=''
-        underline='hover'
-      >
-        Forgot Password?
-      </Link>
     </>
   );
 }

@@ -5,7 +5,9 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 export default function Result({
   result,
   resultText,
-  setDialogType,
+  secondaryText,
+  btnAction,
+  btnText,
 }: ResultProps) {
   return (
     <Stack
@@ -21,19 +23,15 @@ export default function Result({
         {resultText}
       </Typography>
       <Typography textAlign='center' fontSize={16}>
-        A verification link has been sent to your email
+        {secondaryText}
       </Typography>
       {result === 'success' ? (
         <CheckCircleOutlineIcon sx={{ fontSize: 200, color: '#4bb543' }} />
       ) : (
         <ErrorOutlineIcon sx={{ fontSize: 200, color: '#FFA500' }} />
       )}
-      <Button
-        onClick={() => setDialogType(null)}
-        variant='contained'
-        size='large'
-      >
-        Close
+      <Button onClick={btnAction} variant='contained' size='large'>
+        {btnText}
       </Button>
     </Stack>
   );
