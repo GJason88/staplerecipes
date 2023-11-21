@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { useState } from 'react';
-import { accountErrorHandler } from '../helpers';
+import { accountErrorHandler, validEmail, validateEmail } from '../helpers';
 
 interface ForgotPasswordProps {
   setDialogType: React.Dispatch<React.SetStateAction<DialogType | null>>;
@@ -26,17 +26,20 @@ export default function ForgotPassword({
     e.preventDefault();
     setIsLoading(true);
     try {
+      if (!validEmail(email)) {
+        setError('Invalid E-mail');
+        return;
+      }
       await sendPWResetEmail(email);
       setDialogType('forgot-password-success');
     } catch (e) {
       setError(accountErrorHandler(e));
     }
-    setIsLoading(false);
   };
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onSubmit={handleFormSubmit}
+      onSubmit={(e) => handleFormSubmit(e).finally(() => setIsLoading(false))}
       style={{ padding: 28, display: 'flex', justifyContent: 'center' }}
     >
       <Stack gap={2} width='65%'>
