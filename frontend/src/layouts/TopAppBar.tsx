@@ -71,9 +71,7 @@ export default function TopAppBar() {
                 <Button onClick={handleSignOut}>Sign Out</Button>
               </>
             ) : (
-              <Button onClick={() => setDialogType('unverified-email')}>
-                Sign In
-              </Button>
+              <Button onClick={() => setDialogType('form')}>Sign In</Button>
             )}
           </Stack>
         </Toolbar>
