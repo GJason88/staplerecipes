@@ -5,7 +5,7 @@ import GoogleButton from 'react-google-button';
 import { accountErrorHandler } from './helpers';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import { User, sendEmailVerification } from 'firebase/auth';
+import { sendEmailVerification } from 'firebase/auth';
 
 export default function AccountForm({
   currentUser,
@@ -21,9 +21,9 @@ export default function AccountForm({
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [persist, setPersist] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
-
   useEffect(() => {
     setError('');
     if (currentUser && dialogType === 'form') {
@@ -36,7 +36,7 @@ export default function AccountForm({
     setIsLoading(true);
     try {
       const userCredential = isSignIn
-        ? await login(email, password)
+        ? await login(email, password, persist)
         : await register(email, password);
       !isSignIn && (await updateUserProfile({ displayName }));
       if (!userCredential.user.emailVerified) {
@@ -48,7 +48,7 @@ export default function AccountForm({
     }
     setIsLoading(false);
   };
-  const signInProps = {
+  const accountFormProps = {
     email,
     password,
     setEmail,
@@ -74,12 +74,16 @@ export default function AccountForm({
         </Typography>
         {error && <Alert severity='error'>{error}</Alert>}
         {isSignIn ? (
-          <SignIn {...signInProps} />
+          <SignIn
+            {...accountFormProps}
+            persist={persist}
+            setPersist={setPersist}
+          />
         ) : (
           <SignUp
+            {...accountFormProps}
             displayName={displayName}
             setDisplayName={setDisplayName}
-            {...signInProps}
           />
         )}
         <Divider sx={{ fontSize: 12 }}>OR</Divider>

@@ -2,9 +2,11 @@ import { ReactNode, createContext, useEffect, useState } from 'react';
 import auth from '../config/firebase.config';
 import {
   User,
-  UserCredential,
+  browserLocalPersistence,
+  browserSessionPersistence,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  setPersistence,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -21,8 +23,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = (email: string, password: string) =>
     createUserWithEmailAndPassword(auth, email, password);
 
-  const login = (email: string, password: string) =>
-    signInWithEmailAndPassword(auth, email, password);
+  const login = (email: string, password: string, persist?: boolean) => {
+    setPersistence(
+      auth,
+      persist ? browserLocalPersistence : browserSessionPersistence
+    );
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   const logout = () => signOut(auth);
 

@@ -5,7 +5,8 @@ interface AuthContextState {
   dialogType: DialogType | null;
   login: (
     email: string,
-    password: string
+    password: string,
+    persist?: boolean
   ) => Promise<import('firebase/auth').UserCredential>;
   logout: () => Promise<void>;
   register: (
@@ -20,7 +21,7 @@ interface AuthContextState {
   setDialogType: React.Dispatch<React.SetStateAction<DialogType | null>>;
 }
 
-interface SignInProps {
+interface AccountFormProps {
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
@@ -28,7 +29,12 @@ interface SignInProps {
   isLoading: boolean;
 }
 
-interface SignUpProps extends SignInProps {
+interface SignInProps extends AccountFormProps {
+  persist: boolean;
+  setPersist: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface SignUpProps extends AccountFormProps {
   displayName: string;
   setDisplayName: React.Dispatch<React.SetStateAction<string>>;
 }

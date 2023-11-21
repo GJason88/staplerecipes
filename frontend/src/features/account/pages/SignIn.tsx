@@ -15,6 +15,8 @@ export default function SignIn({
   password,
   setPassword,
   isLoading,
+  persist,
+  setPersist,
 }: SignInProps) {
   return (
     <>
@@ -48,7 +50,9 @@ export default function SignIn({
 
       <FormControlLabel
         style={{ width: 'fit-content' }}
-        control={<Checkbox disableRipple defaultChecked />}
+        control={<Checkbox disableRipple />}
+        checked={persist}
+        onChange={(e) => setPersist((e.target as HTMLInputElement).checked)}
         label='Remember me'
       />
 
