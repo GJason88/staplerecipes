@@ -10,6 +10,7 @@ import { sendEmailVerification } from 'firebase/auth';
 export default function AccountForm({
   currentUser,
   login,
+  loginWithGoogle,
   register,
   updateUserProfile,
   dialogType,
@@ -45,10 +46,19 @@ export default function AccountForm({
         setDialogType(isSignIn ? 'unverified-email' : 'signup-success');
         await sendEmailVerification(userCredential.user);
       }
-    } catch (error: unknown) {
+    } catch (error) {
       setError(accountErrorHandler(error));
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+    } catch (e) {
+      setError(accountErrorHandler(error));
+    }
+  };
+
   const accountFormProps = {
     email,
     password,
@@ -99,7 +109,11 @@ export default function AccountForm({
           </Button>
         )}
         <Divider sx={{ fontSize: 12 }}>OR</Divider>
-        <GoogleButton style={{ alignSelf: 'center' }} />
+        <GoogleButton
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onClick={handleGoogleSignIn}
+          style={{ alignSelf: 'center' }}
+        />
         <Typography fontSize={12}>
           {isSignIn ? 'Need an account?' : 'Already have an account?'}
           <Button

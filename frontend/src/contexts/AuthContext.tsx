@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import auth from '../config/firebase.config';
 import {
+  GoogleAuthProvider,
   User,
   browserLocalPersistence,
   browserSessionPersistence,
@@ -9,6 +10,7 @@ import {
   sendPasswordResetEmail,
   setPersistence,
   signInWithEmailAndPassword,
+  signInWithRedirect,
   signOut,
   updateProfile,
 } from 'firebase/auth';
@@ -29,6 +31,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       persist ? browserLocalPersistence : browserSessionPersistence
     );
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const loginWithGoogle = () => {
+    signInWithRedirect(auth, new GoogleAuthProvider());
   };
 
   const logout = () => signOut(auth);
@@ -53,6 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value = {
     currentUser,
     login,
+    loginWithGoogle,
     logout,
     register,
     updateUserProfile,

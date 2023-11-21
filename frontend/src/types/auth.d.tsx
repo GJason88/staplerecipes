@@ -7,6 +7,7 @@ interface AuthContextState {
     password: string,
     persist?: boolean
   ) => Promise<import('firebase/auth').UserCredential>;
+  loginWithGoogle: () => Promise<never>;
   logout: () => Promise<void>;
   register: (
     email: string,

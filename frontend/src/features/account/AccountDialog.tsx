@@ -7,7 +7,6 @@ import ForgotPassword from './pages/ForgotPassword';
 
 export default function AccountDialog() {
   const auth = useAuth();
-  console.log(auth.dialogType);
   return (
     <Dialog
       open={true}
