@@ -18,9 +18,10 @@ const layout = createSlice({
     },
     setActiveRoute: (state, action) => {
       state.activeRoute = action.payload;
-    }
+    },
   },
 });
 
-export const { updateIsMobile, setBreadcrumbs, setActiveRoute } = layout.actions;
+export const { updateIsMobile, setBreadcrumbs, setActiveRoute } =
+  layout.actions;
 export default layout.reducer;

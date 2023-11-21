@@ -5,16 +5,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { updateIsMobile } from './layoutReducer';
 import { drawerWidth } from '../data/constants';
-import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
+import { Breadcrumbs, Button, Link, Stack, Typography } from '@mui/material';
 import { IRootState } from '..';
+import useAuth from '../hooks/useAuth';
+import AccountDialog from '../features/account/AccountDialog';
 
 export default function TopAppBar() {
   const dispatch = useDispatch();
+  const { dialogType, setDialogType, currentUser, logout } = useAuth();
   const breadcrumbs = useSelector<IRootState, Array<BreadcrumbState>>(
     (state) => state.layout.breadcrumbs
   );
+  const handleSignOut = () => {
+    logout()
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(() => {
+        window.location.reload();
+      });
+  };
   return (
     <div>
+      {!!dialogType && <AccountDialog />}
       <AppBar
         position='fixed'
         sx={{
@@ -49,9 +62,20 @@ export default function TopAppBar() {
                 breadcrumbs[breadcrumbs.length - 1].name}
             </Typography>
           </Breadcrumbs>
-          <Box marginLeft='auto'>
-            <Button>Log In</Button>|<Button>Sign Up</Button>
-          </Box>
+          <Stack gap={2} ml='auto' flexDirection='row'>
+            {currentUser ? (
+              <>
+                <Typography alignSelf='center'>
+                  Signed in as {currentUser.displayName ?? currentUser.email}
+                </Typography>
+                <Button onClick={handleSignOut}>Sign Out</Button>
+              </>
+            ) : (
+              <Button onClick={() => setDialogType('unverified-email')}>
+                Sign In
+              </Button>
+            )}
+          </Stack>
         </Toolbar>
       </AppBar>
     </div>

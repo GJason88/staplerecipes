@@ -7,16 +7,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
-
-interface AuthContextState {
-  currentUser: User | null;
-  error: string;
-  login: (email: string, password: string) => Promise<UserCredential>;
-  logout: () => Promise<void>;
-  register: (email: string, password: string) => Promise<UserCredential>;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-}
 
 export const AuthContext = createContext<AuthContextState | null>(null);
 
@@ -24,7 +16,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [popup, setPopup] = useState('');
+  const [dialogType, setDialogType] = useState<DialogType | null>(null);
 
   const register = (email: string, password: string) =>
     createUserWithEmailAndPassword(auth, email, password);
@@ -33,6 +25,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     signInWithEmailAndPassword(auth, email, password);
 
   const logout = () => signOut(auth);
+
+  const updateUserProfile = (userdata: {
+    displayName?: string;
+    photoURL?: string;
+  }) => {
+    return updateProfile(auth.currentUser as User, userdata);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -48,10 +47,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login,
     logout,
     register,
+    updateUserProfile,
     error,
     setError,
-    popup,
-    setPopup,
+    dialogType,
+    setDialogType,
   };
 
   return (

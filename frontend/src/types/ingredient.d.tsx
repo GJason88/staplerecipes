@@ -10,14 +10,4 @@ interface IngredientState {
   defaultMeasurement?: string;
 }
 
-enum Measurement {
-  // weight
-  Gram = 'g',
-  Ounce = 'oz',
-  // volume
-  ML = 'ml',
-  L = 'l',
-  Tsp = 'tsp',
-  Tbsp = 'tbsp',
-  Cup = 'cup',
-}
+type Measurement = 'g' | 'oz' | 'ml' | 'l' | 'tsp' | 'tbsp' | 'cup';
