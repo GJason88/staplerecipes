@@ -24,12 +24,12 @@ export default function ForgotPassword({
   const [isLoading, setIsLoading] = useState(false);
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validEmail(email)) {
+      setError('Invalid E-mail');
+      return;
+    }
     setIsLoading(true);
     try {
-      if (!validEmail(email)) {
-        setError('Invalid E-mail');
-        return;
-      }
       await sendPWResetEmail(email);
       setDialogType('forgot-password-success');
     } catch (e) {

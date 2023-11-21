@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Stack, Typography, Divider, Alert, Link } from '@mui/material';
+import { Button, Stack, Typography, Divider, Alert } from '@mui/material';
 import GoogleButton from 'react-google-button';
-import { accountErrorHandler } from './helpers';
+import { accountErrorHandler, validEmail } from './helpers';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import { sendEmailVerification } from 'firebase/auth';
@@ -24,13 +24,16 @@ export default function AccountForm({
   const [isLoading, setIsLoading] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
   useEffect(() => {
-    setError('');
     if (currentUser && dialogType === 'form') {
       setDialogType(null);
     }
   }, [currentUser, navigate, setDialogType, setError, dialogType]);
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validEmail(email)) {
+      setError('Invalid E-mail');
+      return;
+    }
     setError('');
     setIsLoading(true);
     try {
@@ -45,7 +48,6 @@ export default function AccountForm({
     } catch (error: unknown) {
       setError(accountErrorHandler(error));
     }
-    setIsLoading(false);
   };
   const accountFormProps = {
     email,
@@ -58,7 +60,7 @@ export default function AccountForm({
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onSubmit={handleFormSubmit}
+      onSubmit={(e) => handleFormSubmit(e).finally(() => setIsLoading(false))}
       style={{ padding: 28, display: 'flex', justifyContent: 'center' }}
     >
       <Stack gap={2} width='65%'>
