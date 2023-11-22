@@ -1,4 +1,4 @@
-import db from '../configs/db.configs.js';
+import db from '../configs/db.config.js';
 
 const selectNutrients =
     'SELECT lookup, nutrient_id, nutrient_name, unit, dv FROM recipes.nutrient';

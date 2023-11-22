@@ -1,4 +1,4 @@
-import db from '../configs/db.configs.js';
+import db from '../configs/db.config.js';
 import { toolCategorySelectQuery } from '../helpers/utils/nestedSelectQueries.js';
 
 export const toolModel = {

@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import pgPromise from 'pg-promise';
-import db from '../configs/db.configs.js';
+import db from '../configs/db.config.js';
 import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
 import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
 import {

@@ -1,5 +1,5 @@
 import pgPromise from 'pg-promise';
-import db from '../configs/db.configs.js';
+import db from '../configs/db.config.js';
 import {
     additionalMeasurementsQuery,
     nutrientsSelectQuery,
