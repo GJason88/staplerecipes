@@ -1,55 +1,44 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { ingredientsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
-import axios from 'axios';
-import useErrorHandler from './useErrorHandler';
-import { setIngredient } from '../features/admin/adminReducer';
+import useMutationHelper from './helpers/useMutationHelper';
+import { getCurrentUserToken } from './helpers/functions/getCurrentUserToken';
+import catchError from './helpers/functions/catchError';
 
 const useIngredients = () => {
   const dispatch = useDispatch();
-  const errorHandler = useErrorHandler();
-  const queryClient = useQueryClient();
   const { data: ingredients } = useQuery('ingredients', fetchIngredients, {
     refetchOnWindowFocus: false,
     retry: false,
-    onError: (e: Error) =>
-      dispatch(setResult({ message: e.message, severity: 'error' })),
+    onError: (e) =>
+      dispatch(setResult({ message: catchError(e), severity: 'error' })),
   });
-  const mutationSuccess = (action: string) => {
-    queryClient.invalidateQueries(['ingredients']);
-    dispatch(
-      setResult({
-        severity: 'success',
-        message: `Successfully ${action} ingredient.`,
-      })
-    );
-  };
-  const createIngredient = useMutation({
-    mutationFn: (data: IngredientState) =>
-      ingredientsApi.createIngredient(data),
-    onSuccess: () => mutationSuccess('created'),
-  });
-  const updateIngredient = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: IngredientState }) =>
-      ingredientsApi.updateIngredient(id, data),
-    onSuccess: () => mutationSuccess('updated'),
-    onError: errorHandler,
-  });
-  const deleteIngredient = useMutation({
-    mutationFn: (id: string) => ingredientsApi.deleteIngredient(id),
-    onSuccess: () => {
-      dispatch(setIngredient(null));
-      mutationSuccess('deleted');
-    },
-    onError: errorHandler,
-  });
+  const queriesToInvalidateOnMutate = ['ingredients'];
+  const createIngredient = useMutationHelper(
+    async (data: IngredientState) =>
+      ingredientsApi.createIngredient(data, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully created ingredient'
+  );
+  const updateIngredient = useMutationHelper(
+    async ({ id, data }: { id: string; data: IngredientState }) =>
+      ingredientsApi.updateIngredient(id, data, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully updated ingredient'
+  );
+  const deleteIngredient = useMutationHelper(
+    async (id: string) =>
+      ingredientsApi.deleteIngredient(id, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully deleted ingredient'
+  );
   return {
     ingredients: camelcaseKeys(ingredients ?? [], { deep: true }),
-    createIngredient: createIngredient.mutate,
-    updateIngredient: updateIngredient.mutate,
-    deleteIngredient: deleteIngredient.mutate,
+    createIngredient,
+    updateIngredient,
+    deleteIngredient,
   };
 };
 
@@ -58,11 +47,7 @@ const fetchIngredients = async () => {
     const response = await ingredientsApi.retrieveAllIngredients();
     return response.data as Array<IngredientState>;
   } catch (e) {
-    let message = 'Failed to fetch recipe';
-    if (axios.isAxiosError(e)) {
-      message = e.response?.data ?? message;
-    }
-    throw new Error(message);
+    Promise.reject(new Error(catchError(e)));
   }
 };
 

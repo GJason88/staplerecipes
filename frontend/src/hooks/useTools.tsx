@@ -1,54 +1,43 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { toolsApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { setResult } from '../services/api/serviceReducer';
 import { useDispatch } from 'react-redux';
-import catchError from './helpers/catchError';
-import useErrorHandler from './useErrorHandler';
-import { setTool } from '../features/admin/adminReducer';
+import catchError from './helpers/functions/catchError';
+import { getCurrentUserToken } from './helpers/functions/getCurrentUserToken';
+import useMutationHelper from './helpers/useMutationHelper';
 
 const useTools = () => {
   const dispatch = useDispatch();
-  const errorHandler = useErrorHandler();
-  const queryClient = useQueryClient();
   const { data: tools } = useQuery('tools', fetchTools, {
     refetchOnWindowFocus: false,
     retry: false,
-    onError: (e: Error) =>
-      dispatch(setResult({ message: e.message, severity: 'error' })),
+    onError: (e) =>
+      dispatch(setResult({ message: catchError(e), severity: 'error' })),
   });
-  const mutationSuccess = (action: string) => {
-    queryClient.invalidateQueries(['tools']);
-    dispatch(
-      setResult({
-        severity: 'success',
-        message: `Successfully ${action} tool.`,
-      })
-    );
-  };
-  const createTool = useMutation({
-    mutationFn: (data: ToolState) => toolsApi.createTool(data),
-    onSuccess: () => mutationSuccess('created'),
-  });
-  const updateTool = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: ToolState }) =>
-      toolsApi.updateTool(id, data),
-    onSuccess: () => mutationSuccess('updated'),
-    onError: errorHandler,
-  });
-  const deleteTool = useMutation({
-    mutationFn: (id: string) => toolsApi.deleteTool(id),
-    onSuccess: () => {
-      mutationSuccess('deleted');
-      dispatch(setTool(null));
-    },
-    onError: errorHandler,
-  });
+  const queriesToInvalidateOnMutate = ['tools'];
+  const createTool = useMutationHelper(
+    async (data: ToolState) =>
+      toolsApi.createTool(data, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully created tool'
+  );
+  const updateTool = useMutationHelper(
+    async ({ id, data }: { id: string; data: ToolState }) =>
+      toolsApi.updateTool(id, data, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully updated tool'
+  );
+  const deleteTool = useMutationHelper(
+    async (id: string) => toolsApi.deleteTool(id, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully deleted tool'
+  );
   return {
     tools: camelcaseKeys(tools ?? [], { deep: true }),
-    createTool: createTool.mutate,
-    updateTool: updateTool.mutate,
-    deleteTool: deleteTool.mutate,
+    createTool,
+    updateTool,
+    deleteTool,
   };
 };
 
@@ -57,7 +46,7 @@ const fetchTools = async () => {
     const response = await toolsApi.retrieveAllTools();
     return response.data as Array<ToolState>;
   } catch (e) {
-    throw new Error(catchError(e));
+    Promise.reject(new Error(catchError(e)));
   }
 };
 

@@ -25,3 +25,7 @@ dist-ssr
 
 .env
 .env.dev
+
+service-account-file.json
+add-admin.js
+test.js

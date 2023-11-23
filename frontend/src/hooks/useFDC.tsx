@@ -1,17 +1,19 @@
 import { useQuery } from 'react-query';
 import { fdcApi } from '../services/api/fdc';
-import useErrorHandler from './useErrorHandler';
-import catchError from './helpers/catchError';
+import catchError from './helpers/functions/catchError';
+import { useDispatch } from 'react-redux';
+import { setResult } from '../services/api/serviceReducer';
 
 const useFDC = ({ query, page }: { query: string; page: number }) => {
-  const errorHandler = useErrorHandler();
+  const dispatch = useDispatch();
   const { data: fdcResults, isLoading } = useQuery(
     ['fdc', query, page],
     () => fetchFDC(query, page),
     {
       refetchOnWindowFocus: false,
       retry: false,
-      onError: errorHandler,
+      onError: (e) =>
+        dispatch(setResult({ message: catchError(e), severity: 'error' })),
     }
   );
   const foods =
@@ -37,7 +39,7 @@ const fetchFDC = async (query: string, page: number) => {
     const response = await fdcApi.searchFoods(query, page);
     return response.data as FDCSearchResultsState;
   } catch (e) {
-    throw new Error(catchError(e));
+    Promise.reject(new Error(catchError(e)));
   }
 };
 

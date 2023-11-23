@@ -1,54 +1,43 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { recipesApi } from '../services/api/server';
 import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
-import catchError from './helpers/catchError';
-import useErrorHandler from './useErrorHandler';
-import { setRecipe } from '../features/admin/adminReducer';
+import catchError from './helpers/functions/catchError';
+import { getCurrentUserToken } from './helpers/functions/getCurrentUserToken';
+import useMutationHelper from './helpers/useMutationHelper';
 
 const useRecipes = () => {
   const dispatch = useDispatch();
-  const errorHandler = useErrorHandler();
-  const queryClient = useQueryClient();
   const { data: recipes } = useQuery('recipes', fetchRecipes, {
     refetchOnWindowFocus: false,
     retry: false,
-    onError: (e: Error) =>
-      dispatch(setResult({ message: e.message, severity: 'error' })),
+    onError: (e) =>
+      dispatch(setResult({ message: catchError(e), severity: 'error' })),
   });
-  const mutationSuccess = (action: string) => {
-    queryClient.invalidateQueries(['recipes']);
-    dispatch(
-      setResult({
-        severity: 'success',
-        message: `Successfully ${action} recipe.`,
-      })
-    );
-  };
-  const createRecipe = useMutation({
-    mutationFn: (data: RecipeState) => recipesApi.create(data),
-    onSuccess: () => mutationSuccess('created'),
-  });
-  const updateRecipe = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: RecipeState }) =>
-      recipesApi.update(id, data),
-    onSuccess: () => mutationSuccess('updated'),
-    onError: errorHandler,
-  });
-  const deleteRecipe = useMutation({
-    mutationFn: (id: string) => recipesApi.delete(id),
-    onSuccess: () => {
-      dispatch(setRecipe(null));
-      mutationSuccess('deleted');
-    },
-    onError: errorHandler,
-  });
+  const queriesToInvalidateOnMutate = ['recipes'];
+  const createRecipe = useMutationHelper(
+    async (data: RecipeState) =>
+      recipesApi.create(data, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully created recipe'
+  );
+  const updateRecipe = useMutationHelper(
+    async ({ id, data }: { id: string; data: RecipeState }) =>
+      recipesApi.update(id, data, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully updated recipe'
+  );
+  const deleteRecipe = useMutationHelper(
+    async (id: string) => recipesApi.delete(id, await getCurrentUserToken()),
+    queriesToInvalidateOnMutate,
+    'Successfully deleted recipe'
+  );
   return {
     recipes: camelcaseKeys(recipes ?? [], { deep: true }),
-    createRecipe: createRecipe.mutate,
-    updateRecipe: updateRecipe.mutate,
-    deleteRecipe: deleteRecipe.mutate,
+    createRecipe,
+    updateRecipe,
+    deleteRecipe,
   };
 };
 
@@ -57,7 +46,7 @@ const fetchRecipes = async () => {
     const response = await recipesApi.retrieveAll();
     return response.data as Array<RecipeState>;
   } catch (e) {
-    throw new Error(catchError(e));
+    Promise.reject(new Error(catchError(e)));
   }
 };
 
