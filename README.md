@@ -52,3 +52,6 @@ yarn dev
 ## Authors
 
 [Jason Gin](https://github.com/GJason88)
+
+## Contributors
+
