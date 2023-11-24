@@ -10,14 +10,14 @@ tool.get('/tools', toolController.getTools);
 
 tool.get('/tool/categories', toolController.getCategories);
 
-tool.post('/tool', jsonParser, adminAuth, toolController.createTool);
+tool.post('/admin/tool', jsonParser, toolController.createTool);
 
-tool.post('/tool/category', adminAuth, toolController.createCategory);
+tool.post('/admin/tool/category', toolController.createCategory);
 
-tool.put('/tool/:id', adminAuth, jsonParser, toolController.updateTool);
+tool.put('/admin/tool/:id', jsonParser, toolController.updateTool);
 
-tool.delete('/tool/:id', adminAuth, toolController.deleteTool);
+tool.delete('/admin/tool/:id', toolController.deleteTool);
 
-tool.delete('/tool/category/:id', adminAuth, toolController.deleteCategory);
+tool.delete('/admin/tool/category/:id', toolController.deleteCategory);
 
 export default tool;

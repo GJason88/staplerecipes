@@ -10,10 +10,10 @@ recipe.get('/recipes', recipeController.getRecipes);
 
 recipe.get('/recipe/:id', recipeController.getRecipe);
 
-recipe.post('/recipe', adminAuth, jsonParser, recipeController.createRecipe);
+recipe.post('/admin/recipe', jsonParser, recipeController.createRecipe);
 
-recipe.put('/recipe/:id', adminAuth, jsonParser, recipeController.updateRecipe);
+recipe.put('/admin/recipe/:id', jsonParser, recipeController.updateRecipe);
 
-recipe.delete('/recipe/:id', adminAuth, recipeController.deleteRecipe);
+recipe.delete('/admin/recipe/:id', recipeController.deleteRecipe);
 
 export default recipe;

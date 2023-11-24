@@ -12,16 +12,16 @@ ingredient.get('/ingredient/:id', ingredientController.getIngredient);
 
 ingredient.get('/ingredients', ingredientController.getIngredients);
 
-ingredient.post('/ingredient', adminAuth, jsonParser, ingredientController.createIngredient);
+ingredient.post('/admin/ingredient', jsonParser, ingredientController.createIngredient);
 
-ingredient.post('/ingredient/category', adminAuth, ingredientController.createCategory);
+ingredient.post('/admin/ingredient/category', ingredientController.createCategory);
 
-ingredient.put('/ingredient/:id', jsonParser, adminAuth, ingredientController.updateIngredient);
+ingredient.put('/admin/ingredient/:id', jsonParser, ingredientController.updateIngredient);
 
-ingredient.put('/ingredient/nutrients/:id', adminAuth, ingredientController.updateNutrients);
+ingredient.put('/admin/ingredient/nutrients/:id', ingredientController.updateNutrients);
 
-ingredient.delete('/ingredient/:id', adminAuth, ingredientController.deleteIngredient);
+ingredient.delete('/admin/ingredient/:id', ingredientController.deleteIngredient);
 
-ingredient.delete('/ingredient/category/:id', adminAuth, ingredientController.deleteCategory);
+ingredient.delete('/admin/ingredient/category/:id', ingredientController.deleteCategory);
 
 export default ingredient;
