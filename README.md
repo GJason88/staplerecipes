@@ -1,6 +1,6 @@
 # Staple Recipes
 
-Staple Recipes is a full-stack web app designed to be a modern, no-frills take on a recipe site. It aims to provide an easy-to-navigate repository of recipes using a set list of common pantry staples and other ubiquitous ingredients that can be made with standard kitchen tools. All of the recipes are focused on being quick and easy to cook and clean, while also being delicious and nutritious. Ingredients and their nutrition facts come from official FDC source, and the nutrition facts of recipes are auto calculated based on their ingredients.
+Staple Recipes is a full-stack web app designed to be a modern, no-frills take on a recipe site. It aims to provide an easy-to-navigate repository of recipes that can be made with standard kitchen tools, using a set list of common pantry staples and other ubiquitous ingredients. All of the recipes are focused on being quick and easy to cook and clean, while also being delicious and nutritious. Ingredients and their nutrition facts come from the Food Data Central (FDC), and the nutrition facts of recipes are auto calculated based on their ingredients.
 
 ## Getting Started
 
@@ -24,13 +24,13 @@ This project is built with Node.js using the Express framework.
 Install dependencies
 
 ```
-npm install
+yarn
 ```
 
 Start server locally
 
 ```
-node server.js
+yarn dev
 ```
 
 ### Frontend Setup
@@ -52,3 +52,6 @@ yarn dev
 ## Authors
 
 [Jason Gin](https://github.com/GJason88)
+
+## Contributors
+
