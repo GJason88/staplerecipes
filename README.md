@@ -24,13 +24,13 @@ This project is built with Node.js using the Express framework.
 Install dependencies
 
 ```
-npm install
+yarn
 ```
 
 Start server locally
 
 ```
-node server.js
+yarn dev
 ```
 
 ### Frontend Setup
