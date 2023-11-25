@@ -9,6 +9,7 @@ const initialRecipeState = {
   diet: '',
   servings: '',
   instructions: [],
+  reviews: [],
 } as RecipeState;
 
 const initialIngredientState = {

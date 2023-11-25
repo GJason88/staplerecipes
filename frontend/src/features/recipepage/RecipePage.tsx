@@ -6,6 +6,7 @@ import RecipeIngredients from './components/RecipeIngredients';
 import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
 import RecipeNutrition from './components/RecipeNutrition';
+import RecipeReviews from './components/reviews/RecipeReviews';
 
 export default function RecipePage({ recipe }: { recipe: RecipeState }) {
   return (
@@ -23,6 +24,7 @@ export default function RecipePage({ recipe }: { recipe: RecipeState }) {
         </Stack>
         <RecipeInstructions instructions={recipe.instructions} />
         <RecipeNutrition ingredients={recipe.ingredients} />
+        <RecipeReviews />
       </Stack>
     </Container>
   );

@@ -8,17 +8,13 @@ interface RecipeState {
   instructions: Array<string>;
   tools: Array<ToolState>;
   ingredients: Array<IngredientState>;
+  reviews: Array<ReviewState>;
 }
 
-interface UpdateRecipeState {
-  recipeInfo?: {
-    recipeName?: string,
-    time?: string,
-    diet?: string,
-    instructions?: Array<string>,
-  };
-  addTools?: Array<number>;
-  removeTools?: Array<number>;
-  addIngredients?: Array<number>;
-  removeIngredients?: Array<number>;
+interface ReviewState {
+  uid?: string; // only for current user if logged in
+  date: Date;
+  displayName: string;
+  rating: number; // between 1 and 5
+  reviewText: string;
 }
