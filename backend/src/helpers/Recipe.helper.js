@@ -39,8 +39,4 @@ export const recipeHelpers = {
         info.instructions,
     getRecipesQuery: `SELECT r.recipe_id,recipe_name,time,diet,servings,instructions,${queries.recipeIngredientsQuery},${queries.recipeToolsQuery},${queries.recipeReviewsQuery} 
                       FROM recipes.recipe as r`,
-    parseReviewDates: (review) => ({
-        ...review,
-        date: Date.parse(review.date),
-    }),
 };
