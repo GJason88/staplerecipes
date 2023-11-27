@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { recipeWidth } from '../../../../data/constants';
 
 interface ReviewFormProps {
-  submitFn: (review: ReviewState) => void;
+  submitFn: (rating: number, reviewText: string, date: number) => void;
   submitBtnText: string;
   currentReview?: ExistingReviewState;
 }
@@ -18,7 +18,7 @@ export default function ReviewForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!rating) return;
-    submitFn({ rating, reviewText, date: Date.now() });
+    submitFn(rating, reviewText, Date.now());
   };
   return (
     <form

@@ -8,7 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 
 interface CurrentUserReviewProps {
   currentReview: ExistingReviewState;
-  handleUpdateReview: (review: ReviewState) => void;
+  handleUpdateReview: (
+    rating: number,
+    reviewText: string,
+    date: number
+  ) => void;
   handleDeleteReview: () => void;
 }
 

@@ -11,6 +11,7 @@ import useAuth from '../../../../hooks/useAuth';
 import useUserReview from '../../../../hooks/useUserReview';
 import CurrentUserReview from './CurrentUserReview';
 import ReviewForm from './ReviewForm';
+import { UseMutateFunction } from 'react-query';
 
 // const testReviews = [
 //   {
@@ -43,8 +44,10 @@ export default function RecipeReviews({
   recipeId,
 }: RecipeReviewsProps) {
   const { currentUser, setDialogType } = useAuth();
-  const { createReview, updateReview, deleteReview } =
-    useUserReview(recipeId?.toString() ?? '', currentUser?.uid ?? '');
+  const { createReview, updateReview, deleteReview } = useUserReview(
+    recipeId?.toString() ?? '',
+    currentUser?.uid ?? ''
+  );
   const userReview = {
     reviewId: 1,
     date: 1699142400,
@@ -52,19 +55,36 @@ export default function RecipeReviews({
     rating: 5,
     reviewText: 'This recipe is great.',
   };
-  const handleCreateReview = (newReview: ReviewState) => {
+  const getReview = (rating: number, reviewText: string, date: number) => ({
+    rating,
+    reviewText,
+    date,
+    uid: currentUser?.uid ?? '',
+    displayName: currentUser?.displayName ?? '',
+  });
+
+  const handleCreateReview = (
+    rating: number,
+    reviewText: string,
+    date: number
+  ) => {
     createReview({
-      recipeId,
-      data: { uid: currentUser?.uid ?? '', ...newReview },
+      recipeId: recipeId?.toString() ?? '',
+      data: getReview(rating, reviewText, date),
     });
   };
-  const handleUpdateReview = (updatedReview: ReviewState) => {
-    const reviewId = userReview?.reviewId.toString() ?? '';
+
+  const handleUpdateReview = (
+    rating: number,
+    reviewText: string,
+    date: number
+  ) => {
     updateReview({
-      reviewId,
-      data: { reviewId, ...updatedReview },
+      reviewId: userReview?.reviewId.toString() ?? '',
+      data: getReview(rating, reviewText, date),
     });
   };
+
   const handleDeleteReview = () => {
     const reviewId = userReview?.reviewId.toString() ?? '';
     deleteReview(reviewId);
