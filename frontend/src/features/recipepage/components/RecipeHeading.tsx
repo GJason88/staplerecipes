@@ -11,26 +11,26 @@ import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 
-const testReviews = [
-  {
-    date: new Date(2023, 11, 24),
-    displayName: 'John Smith',
-    rating: 5,
-    reviewText: 'This is a great recipe!',
-  },
-  {
-    date: new Date(2023, 11, 21),
-    displayName: 'David Kurt',
-    rating: 3,
-    reviewText: 'This recipe is okay.',
-  },
-  {
-    date: new Date(2023, 11, 20),
-    displayName: 'Kim R',
-    rating: 5,
-    reviewText: 'This recipe is great.',
-  },
-] as Array<ExistingReviewState>;
+// const testReviews = [
+//   {
+//     date: 1699142400,
+//     displayName: 'John Smith',
+//     rating: 5,
+//     reviewText: 'This is a great recipe!',
+//   },
+//   {
+//     date: 1699142400,
+//     displayName: 'David Kurt',
+//     rating: 3,
+//     reviewText: 'This recipe is okay.',
+//   },
+//   {
+//     date: 1699142400,
+//     displayName: 'Kim R',
+//     rating: 5,
+//     reviewText: 'This recipe is great.',
+//   },
+// ] as Array<ExistingReviewState>;
 
 interface RecipeHeadingProps {
   name: string;
@@ -41,9 +41,9 @@ export default function RecipeHeading({
   name,
   recipeReviews,
 }: RecipeHeadingProps) {
-  const numReviews = testReviews.length;
+  const numReviews = recipeReviews.length;
   const averageRating =
-    testReviews
+    recipeReviews
       .map((review) => review.rating)
       .reduce((prev, cur) => (prev += cur)) / numReviews;
   return (

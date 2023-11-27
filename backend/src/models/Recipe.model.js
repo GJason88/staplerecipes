@@ -8,7 +8,7 @@ const pgp = pgPromise({ capSQL: true });
 export const recipeModel = {
     getRecipes: async () => await db.any(`${recipeHelpers.getRecipesQuery};`),
     getRecipe: async (recipeId) =>
-        await db.one(`${recipeHelpers.getRecipesQuery} WHERE recipe_id = $1;`, [
+        await db.oneOrNone(`${recipeHelpers.getRecipesQuery} WHERE recipe_id = $1;`, [
             recipeId,
         ]),
     createRecipe: async (info) => {

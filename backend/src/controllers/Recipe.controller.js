@@ -18,15 +18,10 @@ export const recipeController = {
                 return res.status(400).send('Invalid recipe info.');
             }
             const jsonResponse = await recipeModel.getRecipe(recipeId);
-            if (jsonResponse[0].length === 0) {
+            if (!jsonResponse) {
                 return res.status(400).send(`No recipe with ID ${recipeId}`);
             }
-            const [info, ingredients, tools] = jsonResponse;
-            res.json({
-                ...info[0],
-                ingredients: ingredients,
-                tools: tools,
-            });
+            res.json(jsonResponse);
         } catch (e) {
             switch (e.code) {
                 case '23505':
@@ -62,8 +57,7 @@ export const recipeController = {
         try {
             const info = req.body;
             const recipeId = req.params?.id;
-            if (!recipeId)
-                return res.status(400).send('Missing recipe Id.');
+            if (!recipeId) return res.status(400).send('Missing recipe Id.');
             if (!recipeHelpers.validateInfo(info))
                 return res.status(400).send('Invalid recipe update info.');
             await recipeModel.updateRecipe(recipeId, info);

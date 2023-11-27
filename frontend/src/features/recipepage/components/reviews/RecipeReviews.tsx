@@ -12,26 +12,26 @@ import useUserReview from '../../../../hooks/useUserReview';
 import CurrentUserReview from './CurrentUserReview';
 import ReviewForm from './ReviewForm';
 
-const testReviews = [
-  {
-    date: new Date(2023, 11, 24),
-    displayName: 'John Smith',
-    rating: 5,
-    reviewText: 'This is a great recipe!',
-  },
-  {
-    date: new Date(2023, 11, 21),
-    displayName: 'David Kurt',
-    rating: 3,
-    reviewText: 'This recipe is okay.',
-  },
-  {
-    date: new Date(2023, 11, 20),
-    displayName: 'Kim R',
-    rating: 5,
-    reviewText: 'This recipe is great.',
-  },
-] as Array<ExistingReviewState>;
+// const testReviews = [
+//   {
+//     date: 1699142400,
+//     displayName: 'John Smith',
+//     rating: 5,
+//     reviewText: 'This is a great recipe!',
+//   },
+//   {
+//     date: 1699142400,
+//     displayName: 'David Kurt',
+//     rating: 3,
+//     reviewText: 'This recipe is okay.',
+//   },
+//   {
+//     date: 1699142400,
+//     displayName: 'Kim R',
+//     rating: 5,
+//     reviewText: 'This recipe is great.',
+//   },
+// ] as Array<ExistingReviewState>;
 
 interface RecipeReviewsProps {
   recipeReviews: Array<ExistingReviewState>;
@@ -43,13 +43,11 @@ export default function RecipeReviews({
   recipeId,
 }: RecipeReviewsProps) {
   const { currentUser, setDialogType } = useAuth();
-  const { createReview, updateReview, deleteReview } = useUserReview(
-    recipeId?.toString() ?? '',
-    currentUser?.uid ?? ''
-  );
+  const { createReview, updateReview, deleteReview } =
+    useUserReview(recipeId?.toString() ?? '', currentUser?.uid ?? '');
   const userReview = {
     reviewId: 1,
-    date: new Date(2023, 11, 20),
+    date: 1699142400,
     displayName: 'Kim R',
     rating: 5,
     reviewText: 'This recipe is great.',
@@ -108,12 +106,12 @@ export default function RecipeReviews({
       )}
       <Divider sx={{ backgroundColor: 'darkgrey' }} />
       <List disablePadding>
-        {testReviews.map((review, index) => (
+        {recipeReviews.map((review, index) => (
           <div key={index}>
             <ListItem sx={{ m: 1.5 }} key={index}>
               <UserReview {...review} />
             </ListItem>
-            {index < testReviews.length - 1 && <Divider />}
+            {index < recipeReviews.length - 1 && <Divider />}
           </div>
         ))}
       </List>

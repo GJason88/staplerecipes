@@ -13,7 +13,7 @@ interface RecipeState {
 
 interface ReviewState {
   displayName?: string;
-  date: Date;
+  date: number; // epoch timestamp in seconds
   rating: number; // between 1 and 5
   reviewText: string;
 }

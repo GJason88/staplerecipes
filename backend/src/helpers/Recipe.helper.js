@@ -19,7 +19,7 @@ const queries = {
     )}, '[]'::json) AS tools`,
     recipeReviewsQuery: `coalesce(${nestSelectQuery(
         'array_to_json(array_agg(x))',
-        `SELECT review_id,rating,review_text,date 
+        `SELECT review_id,rating,review_text,(select extract(epoch from date) as date) 
          FROM recipes.recipe_review as rr 
          WHERE r.recipe_id = rr.recipe_id`
     )}, '[]'::json) AS reviews`,
@@ -39,4 +39,8 @@ export const recipeHelpers = {
         info.instructions,
     getRecipesQuery: `SELECT r.recipe_id,recipe_name,time,diet,servings,instructions,${queries.recipeIngredientsQuery},${queries.recipeToolsQuery},${queries.recipeReviewsQuery} 
                       FROM recipes.recipe as r`,
+    parseReviewDates: (review) => ({
+        ...review,
+        date: Date.parse(review.date),
+    }),
 };

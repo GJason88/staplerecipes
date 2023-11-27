@@ -8,9 +8,9 @@ export default function UserReview({
 }: ReviewState) {
   return (
     <Stack gap={1}>
-      <Typography fontWeight={700}>{displayName}</Typography>
+      <Typography fontWeight={700}>{displayName ?? 'Anonymous'}</Typography>
       <Typography fontSize={12}>
-        {date.toDateString().replace(/^\S+\s/, '')}
+        {new Date(date * 1000).toDateString().replace(/^\S+\s/, '')}
       </Typography>
       <Rating readOnly defaultValue={rating} />
       <Typography>{reviewText}</Typography>

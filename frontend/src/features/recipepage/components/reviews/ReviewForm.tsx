@@ -18,7 +18,7 @@ export default function ReviewForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!rating) return;
-    submitFn({ rating, reviewText, date: new Date() });
+    submitFn({ rating, reviewText, date: Date.now() });
   };
   return (
     <form
