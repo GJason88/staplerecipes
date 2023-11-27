@@ -1,14 +1,24 @@
 import { Button, Rating, Stack, Typography } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { recipeWidth } from '../../../../data/constants';
 
-export default function CreateReview() {
-  const [rating, setRating] = useState<number>();
-  const reviewTextRef = useRef<HTMLTextAreaElement>(null);
+interface ReviewFormProps {
+  submitFn: (review: ReviewState) => void;
+  submitBtnText: string;
+  currentReview?: ExistingReviewState;
+}
+
+export default function ReviewForm({
+  submitFn,
+  submitBtnText,
+  currentReview,
+}: ReviewFormProps) {
+  const [rating, setRating] = useState(currentReview?.rating);
+  const [reviewText, setReviewText] = useState(currentReview?.reviewText ?? '');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!rating) return;
-    console.log(reviewTextRef.current?.value ?? '');
+    submitFn({ rating, reviewText, date: new Date() });
   };
   return (
     <form
@@ -20,13 +30,15 @@ export default function CreateReview() {
           Rating <i style={{ fontSize: 12, fontWeight: 400 }}>(required)</i>
         </Typography>
         <Rating
+          value={rating}
           onChange={(e, newRating) => setRating(newRating ?? undefined)}
           sx={{ width: 'fit-content', fontSize: 38 }}
           precision={0.5}
         />
       </Stack>
       <textarea
-        ref={reviewTextRef}
+        value={reviewText}
+        onChange={(e) => setReviewText(e.target.value)}
         placeholder={'Write your review (optional)'}
         style={{
           fontFamily: 'roboto',
@@ -36,8 +48,8 @@ export default function CreateReview() {
           maxHeight: 400,
         }}
       ></textarea>
-      <Button disabled={!rating} type='submit'>
-        Create Review
+      <Button variant='contained' disabled={!rating} type='submit'>
+        {submitBtnText}
       </Button>
     </form>
   );

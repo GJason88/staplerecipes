@@ -12,9 +12,16 @@ interface RecipeState {
 }
 
 interface ReviewState {
-  uid?: string; // only for current user if logged in
+  displayName?: string;
   date: Date;
-  displayName: string;
   rating: number; // between 1 and 5
   reviewText: string;
+}
+
+interface NewReviewState extends ReviewState {
+  uid: string;
+}
+
+interface ExistingReviewState extends ReviewState {
+  reviewId: number;
 }

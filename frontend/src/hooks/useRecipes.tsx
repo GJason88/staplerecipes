@@ -34,7 +34,7 @@ const useRecipes = () => {
     'Successfully deleted recipe'
   );
   return {
-    recipes: camelcaseKeys(recipes ?? [], { deep: true }),
+    recipes: camelcaseKeys(recipes ?? [], { deep: true }) as Array<RecipeState>,
     createRecipe,
     updateRecipe,
     deleteRecipe,

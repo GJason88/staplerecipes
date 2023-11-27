@@ -12,7 +12,10 @@ export default function RecipePage({ recipe }: { recipe: RecipeState }) {
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>
-        <RecipeHeading name={recipe.recipeName} />
+        <RecipeHeading
+          name={recipe.recipeName}
+          recipeReviews={recipe.reviews}
+        />
         <RecipeInfo
           time={recipe.time}
           diet={recipe.diet}
@@ -24,7 +27,10 @@ export default function RecipePage({ recipe }: { recipe: RecipeState }) {
         </Stack>
         <RecipeInstructions instructions={recipe.instructions} />
         <RecipeNutrition ingredients={recipe.ingredients} />
-        <RecipeReviews />
+        <RecipeReviews
+          recipeReviews={recipe.reviews}
+          recipeId={recipe.recipeId}
+        />
       </Stack>
     </Container>
   );

@@ -16,6 +16,17 @@ export const recipesApi = {
     destroy(`/admin/recipe/${id}`, { headers: getHeaders(token) }),
 };
 
+export const reviewsApi = {
+  create: (recipeId: string, data: NewReviewState, token: string) =>
+    post(`/recipe/${recipeId}/review`, data, { headers: getHeaders(token) }),
+  retrieve: (recipeId: string, uid: string, token: string) =>
+    get(`/recipe/${recipeId}/review/${uid}`, { headers: getHeaders(token) }),
+  update: (reviewId: string, data: ExistingReviewState, token: string) =>
+    put(`/recipe/review/${reviewId}`, data, { headers: getHeaders(token) }),
+  delete: (reviewId: string, token: string) =>
+    destroy(`/recipe/review/${reviewId}`, { headers: getHeaders(token) }),
+};
+
 export const toolsApi = {
   createTool: (data: ToolState, token: string) =>
     post('/admin/tool', data, { headers: getHeaders(token) }),
