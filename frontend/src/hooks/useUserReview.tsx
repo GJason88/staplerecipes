@@ -21,13 +21,13 @@ const useUserReview = (recipeId: string, uid: string) => {
   );
   const queriesToInvalidateOnMutate = ['currentUserReview', 'recipe'];
   const createReview = useMutationHelper(
-    async (recipeId: string, data: NewReviewState) =>
+    async (recipeId: string, data: ReviewState) =>
       reviewsApi.create(recipeId, data, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
     'Successfully created review'
   );
   const updateReview = useMutationHelper(
-    async (reviewId: string, data: ExistingReviewState) =>
+    async (reviewId: string, data: ReviewState) =>
       reviewId &&
       reviewsApi.update(reviewId, data, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
@@ -42,7 +42,7 @@ const useUserReview = (recipeId: string, uid: string) => {
   return {
     userReview: camelcaseKeys(userReview ?? {}, {
       deep: true,
-    }) as ExistingReviewState,
+    }) as ReviewState,
     createReview,
     updateReview,
     deleteReview,
@@ -57,7 +57,7 @@ const fetchUserReview = async (recipeId: string, uid: string) => {
       uid,
       await getCurrentUserToken()
     );
-    return response.data as Array<ExistingReviewState>;
+    return response.data as Array<ReviewState>;
   } catch (e) {
     Promise.reject(new Error(catchError(e)));
   }

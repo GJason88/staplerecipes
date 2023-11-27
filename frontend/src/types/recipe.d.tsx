@@ -12,16 +12,10 @@ interface RecipeState {
 }
 
 interface ReviewState {
+  reviewId: number | null;
   displayName: string;
+  uid?: string;
   date: number; // epoch timestamp in seconds
   rating: number; // between 1 and 5
   reviewText: string;
-}
-
-interface NewReviewState extends ReviewState {
-  uid: string;
-}
-
-interface ExistingReviewState extends ReviewState {
-  reviewId: number;
 }

@@ -34,7 +34,7 @@ import RateReviewIcon from '@mui/icons-material/RateReview';
 
 interface RecipeHeadingProps {
   name: string;
-  recipeReviews: Array<ExistingReviewState>;
+  recipeReviews: Array<ReviewState>;
 }
 
 export default function RecipeHeading({

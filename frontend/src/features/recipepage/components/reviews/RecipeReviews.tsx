@@ -35,7 +35,7 @@ import { UseMutateFunction } from 'react-query';
 // ] as Array<ExistingReviewState>;
 
 interface RecipeReviewsProps {
-  recipeReviews: Array<ExistingReviewState>;
+  recipeReviews: Array<ReviewState>;
   recipeId: number | null;
 }
 
@@ -55,35 +55,12 @@ export default function RecipeReviews({
     rating: 5,
     reviewText: 'This recipe is great.',
   };
-  const getReview = (rating: number, reviewText: string, date: number) => ({
-    rating,
-    reviewText,
-    date,
-    uid: currentUser?.uid ?? '',
-    displayName: currentUser?.displayName ?? '',
-  });
 
-  const handleCreateReview = (
-    rating: number,
-    reviewText: string,
-    date: number
-  ) => {
-    createReview({
-      recipeId: recipeId?.toString() ?? '',
-      data: getReview(rating, reviewText, date),
-    });
-  };
+  const handleCreateReview = (data: ReviewState) =>
+    createReview({ recipeId: recipeId?.toString() ?? '', data });
 
-  const handleUpdateReview = (
-    rating: number,
-    reviewText: string,
-    date: number
-  ) => {
-    updateReview({
-      reviewId: userReview?.reviewId.toString() ?? '',
-      data: getReview(rating, reviewText, date),
-    });
-  };
+  const handleUpdateReview = (data: ReviewState) =>
+    updateReview({ reviewId: userReview?.reviewId.toString() ?? '', data });
 
   const handleDeleteReview = () => {
     const reviewId = userReview?.reviewId.toString() ?? '';
@@ -104,12 +81,14 @@ export default function RecipeReviews({
       {currentUser ? (
         Object.keys(userReview).length ? (
           <CurrentUserReview
+            currentUser={currentUser}
             currentReview={userReview}
             handleUpdateReview={handleUpdateReview}
             handleDeleteReview={handleDeleteReview}
           />
         ) : (
           <ReviewForm
+            currentUser={currentUser}
             submitFn={handleCreateReview}
             submitBtnText='Create Review'
           />

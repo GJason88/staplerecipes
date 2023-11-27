@@ -5,18 +5,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import ReviewForm from './ReviewForm';
 import CloseIcon from '@mui/icons-material/Close';
+import { User } from 'firebase/auth';
 
 interface CurrentUserReviewProps {
-  currentReview: ExistingReviewState;
-  handleUpdateReview: (
-    rating: number,
-    reviewText: string,
-    date: number
-  ) => void;
+  currentUser: User;
+  currentReview: ReviewState;
+  handleUpdateReview: (review: ReviewState) => void;
   handleDeleteReview: () => void;
 }
 
 export default function CurrentUserReview({
+  currentUser,
   currentReview,
   handleUpdateReview,
   handleDeleteReview,
@@ -31,6 +30,7 @@ export default function CurrentUserReview({
         <ReviewForm
           submitFn={handleUpdateReview}
           submitBtnText='Update Review'
+          currentUser={currentUser}
           currentReview={currentReview}
         />
       ) : (

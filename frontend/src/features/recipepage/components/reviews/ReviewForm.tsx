@@ -1,16 +1,19 @@
 import { Button, Rating, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { recipeWidth } from '../../../../data/constants';
+import { User } from 'firebase/auth';
 
 interface ReviewFormProps {
-  submitFn: (rating: number, reviewText: string, date: number) => void;
+  submitFn: (review: ReviewState) => void;
   submitBtnText: string;
-  currentReview?: ExistingReviewState;
+  currentUser: User;
+  currentReview?: ReviewState;
 }
 
 export default function ReviewForm({
   submitFn,
   submitBtnText,
+  currentUser,
   currentReview,
 }: ReviewFormProps) {
   const [rating, setRating] = useState(currentReview?.rating);
@@ -18,7 +21,14 @@ export default function ReviewForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!rating) return;
-    submitFn(rating, reviewText, Date.now());
+    submitFn({
+      reviewId: currentReview?.reviewId ?? null,
+      uid: currentUser?.uid ?? '',
+      displayName: currentUser?.displayName ?? '',
+      rating,
+      reviewText,
+      date: Date.now(),
+    });
   };
   return (
     <form
