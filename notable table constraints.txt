@@ -1,0 +1,24 @@
+Table cascade deletion constraints:
+	recipe tables:
+		delete from recipe
+			delete from recipe_ingredient with same recipe_id
+			delete from recipe_tool with same recipe_id
+			delete from recipe_nutrient with same recipe_id
+
+	ingredient tables:
+		delete from ingredient_category
+			delete from ingredient with same category_id
+				delete from ingredient_nutrition with same ingredient_id
+				delete from ingredient_measurement with same ingredient_id
+				delete from recipe_ingredient with same ingredient_id
+
+	tool tables:
+		delete from tool_category
+			delete from tool with same category_id
+				delete from recipe_tool with same tool_id
+
+
+Other notable constraints:
+	recipe_review
+		unique (recipe_id, uid)
+		
