@@ -42,10 +42,11 @@ export default function RecipeHeading({
   recipeReviews,
 }: RecipeHeadingProps) {
   const numReviews = recipeReviews.length;
-  const averageRating =
-    recipeReviews
-      .map((review) => review.rating)
-      .reduce((prev, cur) => (prev += cur)) / numReviews;
+  const averageRating = numReviews
+    ? recipeReviews
+        .map((review) => review.rating)
+        .reduce((prev, cur) => (prev += cur)) / numReviews
+    : 0;
   return (
     <>
       <Typography mb={-2} fontSize={38} fontWeight={600}>
