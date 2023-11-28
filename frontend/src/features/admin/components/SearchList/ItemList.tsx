@@ -24,7 +24,8 @@ export default function ItemList(props: SearchListProps) {
                     props.handleItemDelete &&
                       id &&
                       props.handleItemDelete(id.toString());
-                    if (selected && selected === id) setSelected(null);
+                    if (selected && selected.toString() === id)
+                      setSelected(null);
                   })
                   .catch(() => {});
               }}
