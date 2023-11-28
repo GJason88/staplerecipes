@@ -7,8 +7,16 @@ import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
 import RecipeNutrition from './components/RecipeNutrition';
 import RecipeReviews from './components/reviews/RecipeReviews';
+import { useEffect } from 'react';
+import { useQueryClient } from 'react-query';
 
 export default function RecipePage({ recipe }: { recipe: RecipeState }) {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(['recipe']); // prevent previous rendered recipe data from being rendered.
+    };
+  }, [queryClient]);
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>
