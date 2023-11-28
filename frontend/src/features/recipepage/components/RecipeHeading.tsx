@@ -52,7 +52,7 @@ export default function RecipeHeading({
         {name}
       </Typography>
       <Box display='flex'>
-        <Rating readOnly precision={0.2} defaultValue={averageRating} />
+        <Rating readOnly precision={0.2} value={averageRating} />
         <Typography pl={'8px'} pr={'12px'} pt={'2px'}>
           <Link>{averageRating.toFixed(1)}</Link> ({numReviews})
         </Typography>

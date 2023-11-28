@@ -12,8 +12,10 @@ const useMutationHelper = (
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: mutationFn as MutationFunction,
-    onSuccess: () => {
-      queryClient.invalidateQueries(queriesToInvalidate);
+    onSuccess: async () => {
+      queriesToInvalidate.forEach((query) =>
+        queryClient.invalidateQueries([query])
+      );
       dispatch(
         setResult({
           severity: 'success',

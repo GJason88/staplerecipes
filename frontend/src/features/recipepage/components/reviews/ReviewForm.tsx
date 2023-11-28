@@ -44,7 +44,6 @@ export default function ReviewForm({
           value={rating ?? 0}
           onChange={(e, newRating) => setRating(newRating ?? undefined)}
           sx={{ width: 'fit-content', fontSize: 38 }}
-          precision={0.5}
         />
       </Stack>
       <textarea

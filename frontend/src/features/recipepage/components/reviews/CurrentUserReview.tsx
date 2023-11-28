@@ -28,7 +28,10 @@ export default function CurrentUserReview({
       </Typography>
       {isEditMode ? (
         <ReviewForm
-          submitFn={handleUpdateReview}
+          submitFn={(review: ReviewState) => {
+            setIsEditMode(false);
+            handleUpdateReview(review);
+          }}
           submitBtnText='Update Review'
           currentUser={currentUser}
           currentReview={currentReview}

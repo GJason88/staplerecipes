@@ -12,7 +12,7 @@ export default function UserReview({
       <Typography fontSize={12}>
         {new Date(date * 1000).toDateString().replace(/^\S+\s/, '')}
       </Typography>
-      <Rating readOnly defaultValue={rating} />
+      <Rating readOnly value={rating} />
       <Typography>{reviewText}</Typography>
     </Stack>
   );

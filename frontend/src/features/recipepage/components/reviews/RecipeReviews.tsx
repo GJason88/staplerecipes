@@ -11,7 +11,6 @@ import useAuth from '../../../../hooks/useAuth';
 import useUserReview from '../../../../hooks/useUserReview';
 import CurrentUserReview from './CurrentUserReview';
 import ReviewForm from './ReviewForm';
-import { UseMutateFunction } from 'react-query';
 
 // const testReviews = [
 //   {
