@@ -10,7 +10,7 @@ import { useConfirm } from 'material-ui-confirm';
 import { useState } from 'react';
 
 export default function ItemList(props: SearchListProps) {
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<string>('');
   const confirm = useConfirm();
   return (
     <List dense disablePadding>
@@ -24,8 +24,7 @@ export default function ItemList(props: SearchListProps) {
                     props.handleItemDelete &&
                       id &&
                       props.handleItemDelete(id.toString());
-                    if (selected && selected.toString() === id)
-                      setSelected(null);
+                    if (selected && selected === id) setSelected('');
                   })
                   .catch(() => {});
               }}
