@@ -21,13 +21,13 @@ const useUserReview = (recipeId: string, uid: string) => {
   );
   const queriesToInvalidateOnMutate = ['currentUserReview', 'recipe'];
   const createReview = useMutationHelper(
-    async (recipeId: string, data: ReviewState) =>
+    async ({ recipeId, data }: { recipeId: string; data: ReviewState }) =>
       reviewsApi.create(recipeId, data, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
     'Successfully created review'
   );
   const updateReview = useMutationHelper(
-    async (reviewId: string, data: ReviewState) =>
+    async ({ reviewId, data }: { reviewId: string; data: ReviewState }) =>
       reviewId &&
       reviewsApi.update(reviewId, data, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,

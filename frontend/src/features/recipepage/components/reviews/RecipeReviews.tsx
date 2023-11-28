@@ -36,7 +36,7 @@ import { UseMutateFunction } from 'react-query';
 
 interface RecipeReviewsProps {
   recipeReviews: Array<ReviewState>;
-  recipeId: number | null;
+  recipeId: string;
 }
 
 export default function RecipeReviews({
@@ -44,26 +44,24 @@ export default function RecipeReviews({
   recipeId,
 }: RecipeReviewsProps) {
   const { currentUser, setDialogType } = useAuth();
-  const { createReview, updateReview, deleteReview } = useUserReview(
-    recipeId?.toString() ?? '',
-    currentUser?.uid ?? ''
-  );
-  const userReview = {
-    reviewId: 1,
-    date: 1699142400,
-    displayName: 'Kim R',
-    rating: 5,
-    reviewText: 'This recipe is great.',
-  };
+  const { userReview, createReview, updateReview, deleteReview } =
+    useUserReview(recipeId, currentUser?.uid ?? '');
+  // const userReview = {
+  //   reviewId: 1,
+  //   date: 1699142400,
+  //   displayName: 'Kim R',
+  //   rating: 5,
+  //   reviewText: 'This recipe is great.',
+  // };
 
   const handleCreateReview = (data: ReviewState) =>
-    createReview({ recipeId: recipeId?.toString() ?? '', data });
+    createReview({ recipeId: recipeId, data });
 
   const handleUpdateReview = (data: ReviewState) =>
-    updateReview({ reviewId: userReview?.reviewId.toString() ?? '', data });
+    updateReview({ reviewId: userReview.reviewId, data });
 
   const handleDeleteReview = () => {
-    const reviewId = userReview?.reviewId.toString() ?? '';
+    const reviewId = userReview.reviewId?.toString() ?? '';
     deleteReview(reviewId);
   };
   return (

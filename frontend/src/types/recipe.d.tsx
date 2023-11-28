@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface RecipeState {
-  recipeId: number | null;
+  recipeId: string;
   recipeName: string;
   time: string;
   diet: string;
@@ -12,7 +12,8 @@ interface RecipeState {
 }
 
 interface ReviewState {
-  reviewId: number | null;
+  reviewId: string;
+  recipeId: string;
   displayName: string;
   uid?: string;
   date: number; // epoch timestamp in seconds

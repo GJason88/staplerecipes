@@ -17,14 +17,14 @@ export const recipesApi = {
 };
 
 export const reviewsApi = {
-  create: (recipeId: string, data: NewReviewState, token: string) =>
+  create: (recipeId: string, data: ReviewState, token: string) =>
     post(`/recipe/${recipeId}/review`, data, { headers: getHeaders(token) }),
   retrieve: (recipeId: string, uid: string, token: string) =>
     get(`/recipe/${recipeId}/review/${uid}`, { headers: getHeaders(token) }),
-  update: (reviewId: string, data: ExistingReviewState, token: string) =>
-    put(`/recipe/review/${reviewId}`, data, { headers: getHeaders(token) }),
+  update: (reviewId: string, data: ReviewState, token: string) =>
+    put(`/review/${reviewId}`, data, { headers: getHeaders(token) }),
   delete: (reviewId: string, token: string) =>
-    destroy(`/recipe/review/${reviewId}`, { headers: getHeaders(token) }),
+    destroy(`/review/${reviewId}`, { headers: getHeaders(token) }),
 };
 
 export const toolsApi = {

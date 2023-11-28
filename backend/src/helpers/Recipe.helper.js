@@ -1,3 +1,4 @@
+import { reviewHelpers } from './Review.helper.js';
 import {
     additionalMeasurementsQuery,
     nestSelectQuery,
@@ -14,14 +15,12 @@ const queries = {
     recipeToolsQuery: `coalesce(${nestSelectQuery(
         'array_to_json(array_agg(x))',
         `SELECT t.tool_id,tool_name 
-         FROM recipes.tool as t
+         FROM recipes.tool as t 
          INNER JOIN recipes.recipe_tool as rt ON t.tool_id = rt.tool_id AND r.recipe_id = rt.recipe_id`
     )}, '[]'::json) AS tools`,
     recipeReviewsQuery: `coalesce(${nestSelectQuery(
         'array_to_json(array_agg(x))',
-        `SELECT review_id,display_name,rating,review_text,(select extract(epoch from date) as date) 
-         FROM recipes.recipe_review as rr 
-         WHERE r.recipe_id = rr.recipe_id`
+        `${reviewHelpers.getReviewsQuery} WHERE r.recipe_id = rr.recipe_id`
     )}, '[]'::json) AS reviews`,
 };
 

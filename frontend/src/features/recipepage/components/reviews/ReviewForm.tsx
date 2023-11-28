@@ -22,7 +22,8 @@ export default function ReviewForm({
     e.preventDefault();
     if (!rating) return;
     submitFn({
-      reviewId: currentReview?.reviewId ?? null,
+      reviewId: currentReview?.reviewId ?? '',
+      recipeId: currentReview?.recipeId ?? '',
       uid: currentUser?.uid ?? '',
       displayName: currentUser?.displayName ?? '',
       rating,
@@ -40,7 +41,7 @@ export default function ReviewForm({
           Rating <i style={{ fontSize: 12, fontWeight: 400 }}>(required)</i>
         </Typography>
         <Rating
-          value={rating}
+          value={rating ?? 0}
           onChange={(e, newRating) => setRating(newRating ?? undefined)}
           sx={{ width: 'fit-content', fontSize: 38 }}
           precision={0.5}

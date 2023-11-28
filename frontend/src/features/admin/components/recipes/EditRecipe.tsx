@@ -18,7 +18,7 @@ export default function EditRecipe() {
     dispatch(setRecipe(recipes[index]));
   const handleRecipeDelete = (id: string) => deleteRecipe(id);
   const handleRecipeUpdate = (recipe: RecipeState) =>
-    updateRecipe({ id: recipe.recipeId?.toString() ?? '', data: recipe });
+    updateRecipe({ id: recipe.recipeId, data: recipe });
   return (
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
