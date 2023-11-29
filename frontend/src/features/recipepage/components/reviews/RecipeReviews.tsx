@@ -12,46 +12,20 @@ import useUserReview from '../../../../hooks/useUserReview';
 import CurrentUserReview from './CurrentUserReview';
 import ReviewForm from './ReviewForm';
 
-// const testReviews = [
-//   {
-//     date: 1699142400,
-//     displayName: 'John Smith',
-//     rating: 5,
-//     reviewText: 'This is a great recipe!',
-//   },
-//   {
-//     date: 1699142400,
-//     displayName: 'David Kurt',
-//     rating: 3,
-//     reviewText: 'This recipe is okay.',
-//   },
-//   {
-//     date: 1699142400,
-//     displayName: 'Kim R',
-//     rating: 5,
-//     reviewText: 'This recipe is great.',
-//   },
-// ] as Array<ExistingReviewState>;
-
 interface RecipeReviewsProps {
+  reviewsRef: React.MutableRefObject<HTMLDivElement | null>;
   recipeReviews: Array<ReviewState>;
   recipeId: string;
 }
 
 export default function RecipeReviews({
+  reviewsRef,
   recipeReviews,
   recipeId,
 }: RecipeReviewsProps) {
   const { currentUser, setDialogType } = useAuth();
   const { userReview, createReview, updateReview, deleteReview } =
     useUserReview(recipeId, currentUser?.uid ?? '');
-  // const userReview = {
-  //   reviewId: 1,
-  //   date: 1699142400,
-  //   displayName: 'Kim R',
-  //   rating: 5,
-  //   reviewText: 'This recipe is great.',
-  // };
 
   const handleCreateReview = (data: ReviewState) =>
     createReview({ recipeId: recipeId, data });
@@ -64,53 +38,55 @@ export default function RecipeReviews({
     deleteReview(reviewId);
   };
   return (
-    <Paper
-      sx={{
-        p: 3,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 3,
-      }}
-    >
-      <Typography fontSize={18} fontWeight={600}>
-        Reviews
-      </Typography>
-      {currentUser ? (
-        Object.keys(userReview).length ? (
-          <CurrentUserReview
-            currentUser={currentUser}
-            currentReview={userReview}
-            handleUpdateReview={handleUpdateReview}
-            handleDeleteReview={handleDeleteReview}
-          />
+    <div ref={reviewsRef}>
+      <Paper
+        sx={{
+          p: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 3,
+        }}
+      >
+        <Typography fontSize={18} fontWeight={600}>
+          Reviews
+        </Typography>
+        {currentUser ? (
+          Object.keys(userReview).length ? (
+            <CurrentUserReview
+              currentUser={currentUser}
+              currentReview={userReview}
+              handleUpdateReview={handleUpdateReview}
+              handleDeleteReview={handleDeleteReview}
+            />
+          ) : (
+            <ReviewForm
+              currentUser={currentUser}
+              submitFn={handleCreateReview}
+              submitBtnText='Create Review'
+            />
+          )
         ) : (
-          <ReviewForm
-            currentUser={currentUser}
-            submitFn={handleCreateReview}
-            submitBtnText='Create Review'
-          />
-        )
-      ) : (
-        <Button
-          disableRipple
-          sx={{ width: '75%', alignSelf: 'center' }}
-          onClick={() => setDialogType('form')}
-          variant='contained'
-        >
-          Write a Review
-        </Button>
-      )}
-      <Divider sx={{ backgroundColor: 'darkgrey' }} />
-      <List disablePadding>
-        {recipeReviews.map((review, index) => (
-          <div key={index}>
-            <ListItem sx={{ m: 1.5 }} key={index}>
-              <UserReview {...review} />
-            </ListItem>
-            {index < recipeReviews.length - 1 && <Divider />}
-          </div>
-        ))}
-      </List>
-    </Paper>
+          <Button
+            disableRipple
+            sx={{ width: '75%', alignSelf: 'center' }}
+            onClick={() => setDialogType('form')}
+            variant='contained'
+          >
+            Write a Review
+          </Button>
+        )}
+        <Divider sx={{ backgroundColor: 'darkgrey' }} />
+        <List disablePadding>
+          {recipeReviews.map((review, index) => (
+            <div key={index}>
+              <ListItem sx={{ m: 1.5 }} key={index}>
+                <UserReview {...review} />
+              </ListItem>
+              {index < recipeReviews.length - 1 && <Divider />}
+            </div>
+          ))}
+        </List>
+      </Paper>
+    </div>
   );
 }

@@ -1,44 +1,21 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Link,
-  Rating,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Link, Rating, Stack, Typography } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-
-// const testReviews = [
-//   {
-//     date: 1699142400,
-//     displayName: 'John Smith',
-//     rating: 5,
-//     reviewText: 'This is a great recipe!',
-//   },
-//   {
-//     date: 1699142400,
-//     displayName: 'David Kurt',
-//     rating: 3,
-//     reviewText: 'This recipe is okay.',
-//   },
-//   {
-//     date: 1699142400,
-//     displayName: 'Kim R',
-//     rating: 5,
-//     reviewText: 'This recipe is great.',
-//   },
-// ] as Array<ExistingReviewState>;
+import { useReactToPrint } from 'react-to-print';
+import ShareButton from './ShareButton';
 
 interface RecipeHeadingProps {
   name: string;
+  reviewsRef: React.MutableRefObject<HTMLDivElement | null>;
+  printRef: React.MutableRefObject<HTMLDivElement | null>;
   recipeReviews: Array<ReviewState>;
 }
 
 export default function RecipeHeading({
   name,
+  reviewsRef,
+  printRef,
   recipeReviews,
 }: RecipeHeadingProps) {
   const numReviews = recipeReviews.length;
@@ -47,6 +24,16 @@ export default function RecipeHeading({
         .map((review) => review.rating)
         .reduce((prev, cur) => (prev += cur)) / numReviews
     : 0;
+  const handleRateClick = () =>
+    reviewsRef.current &&
+    window.scrollTo({
+      top: reviewsRef.current.getBoundingClientRect().top + window.scrollY - 72, // account for topappbar
+      behavior: 'smooth',
+    });
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+    copyStyles: true,
+  });
   return (
     <>
       <Typography mb={-2} fontSize={38} fontWeight={600}>
@@ -65,11 +52,23 @@ export default function RecipeHeading({
       >
         Save Recipe
       </Button>
-      <ButtonGroup size='small'>
-        <Button startIcon={<RateReviewIcon />}>Rate</Button>
-        <Button startIcon={<PrintIcon />}>Print</Button>
-        <Button startIcon={<ShareIcon />}>Share</Button>
-      </ButtonGroup>
+      <Stack flexDirection={'row'}>
+        <Button
+          variant='outlined'
+          onClick={handleRateClick}
+          startIcon={<RateReviewIcon />}
+        >
+          Rate
+        </Button>
+        <Button
+          variant='outlined'
+          onClick={handlePrint}
+          startIcon={<PrintIcon />}
+        >
+          Print
+        </Button>
+        <ShareButton />
+      </Stack>
       <img src='/assets/black.jpg'></img>
     </>
   );

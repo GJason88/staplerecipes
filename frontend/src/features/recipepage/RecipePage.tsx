@@ -7,13 +7,18 @@ import RecipeTools from './components/RecipeTools';
 import RecipeInstructions from './components/RecipeInstructions';
 import RecipeNutrition from './components/RecipeNutrition';
 import RecipeReviews from './components/reviews/RecipeReviews';
+import { useRef } from 'react';
 
 export default function RecipePage({ recipe }: { recipe: RecipeState }) {
+  const reviewsRef = useRef<HTMLDivElement>(null);
+  const printRef = useRef<HTMLDivElement>(null);
   return (
     <Container sx={{ pt: 10, pb: 10 }}>
       <Stack maxWidth={recipeWidth} gap={2}>
         <RecipeHeading
           name={recipe.recipeName}
+          reviewsRef={reviewsRef}
+          printRef={printRef}
           recipeReviews={recipe.reviews}
         />
         <RecipeInfo
@@ -21,13 +26,16 @@ export default function RecipePage({ recipe }: { recipe: RecipeState }) {
           diet={recipe.diet}
           servings={recipe.servings}
         />
-        <Stack flexWrap='wrap' flexDirection='row' gap={1}>
-          <RecipeIngredients ingredients={recipe.ingredients} />
-          <RecipeTools tools={recipe.tools} />
-        </Stack>
-        <RecipeInstructions instructions={recipe.instructions} />
+        <div style={{ all: 'inherit' }} ref={printRef}>
+          <Stack flexWrap='wrap' flexDirection='row' gap={1}>
+            <RecipeIngredients ingredients={recipe.ingredients} />
+            <RecipeTools tools={recipe.tools} />
+          </Stack>
+          <RecipeInstructions instructions={recipe.instructions} />
+        </div>
         <RecipeNutrition ingredients={recipe.ingredients} />
         <RecipeReviews
+          reviewsRef={reviewsRef}
           recipeReviews={recipe.reviews}
           recipeId={recipe.recipeId}
         />
