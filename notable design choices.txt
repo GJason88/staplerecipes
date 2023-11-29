@@ -5,6 +5,7 @@ Database:
 				delete from recipe_ingredient with same recipe_id
 				delete from recipe_tool with same recipe_id
 				delete from recipe_nutrient with same recipe_id
+				delete from recipe_review with same recipe_id
 
 		ingredient tables:
 			delete from ingredient_category
@@ -24,4 +25,5 @@ Database:
 			unique (recipe_id, uid)
 
 Reviews:
-	Store display name of user at time of creating review to prevent having to call getUser(uid) for every review every time anybody loads a recipe page. If user's display name changes, the review will still contain the old display name unless user makes changes to review. The uid will still be associated with the review.
+	Store display name of user at time of creating review to prevent having to call getUser(uid) for every review every time anybody loads a recipe page. If user's display name changes, the review will still contain the old display name unless user updates review. The uid will still be associated with the review.
+	

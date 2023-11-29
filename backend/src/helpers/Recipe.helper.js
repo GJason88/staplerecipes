@@ -1,9 +1,13 @@
+import pgPromise from 'pg-promise';
 import { reviewHelpers } from './Review.helper.js';
 import {
     additionalMeasurementsQuery,
     nestSelectQuery,
     nutrientsSelectQuery,
 } from './utils/nestedSelectQueries.js';
+import { pgpHelpers } from './utils/pgpHelpers.js';
+
+const pgp = pgPromise({ capSQL: true });
 
 const queries = {
     recipeIngredientsQuery: `coalesce(${nestSelectQuery(
@@ -38,4 +42,29 @@ export const recipeHelpers = {
         info.instructions,
     getRecipesQuery: `SELECT r.recipe_id,recipe_name,time,diet,servings,instructions,${queries.recipeIngredientsQuery},${queries.recipeToolsQuery},${queries.recipeReviewsQuery} 
                       FROM recipes.recipe as r`,
+    insertIngredientsQuery: (ingredients, recipeId) =>
+        pgp.helpers.insert(
+            ingredients.map((ingr) => ({
+                ingredient_id: ingr.ingredientId,
+                recipe_id: recipeId,
+                amount: ingr.amount,
+                default_measurement: ingr.defaultMeasurement,
+            })),
+            pgpHelpers.columns([
+                'ingredient_id',
+                'recipe_id',
+                'amount',
+                'default_measurement',
+            ]),
+            pgpHelpers.table('recipe_ingredient', 'recipes')
+        ),
+    insertToolsQuery: (tools, recipeId) =>
+        pgp.helpers.insert(
+            tools.map((tool) => ({
+                tool_id: tool.toolId,
+                recipe_id: recipeId,
+            })),
+            pgpHelpers.columns(['tool_id', 'recipe_id']),
+            pgpHelpers.table('recipe_tool', 'recipes')
+        ),
 };
