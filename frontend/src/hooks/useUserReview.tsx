@@ -50,10 +50,12 @@ const useUserReview = (recipeId: string) => {
 };
 
 const fetchUserReview = async (recipeId: string) => {
-  const userToken = await getCurrentUserToken();
-  if (!userToken || !recipeId) return;
+  if (!recipeId) return;
   try {
-    const response = await reviewsApi.retrieve(recipeId, userToken);
+    const response = await reviewsApi.retrieve(
+      recipeId,
+      await getCurrentUserToken()
+    );
     return response.data as Array<ReviewState>;
   } catch (e) {
     Promise.reject(new Error(catchError(e)));
