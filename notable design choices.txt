@@ -23,7 +23,40 @@ Database:
 	Other notable constraints:
 		recipe_review
 			unique (recipe_id, uid)
-
+	
+	RLS:
+		client_update on recipes.recipe_review
+			uid = current_setting('rls.uid')
+		client_delete on recipes.recipe_review
+			uid = current_setting('rls.uid')
+			
+	Client role permissions:
+		USAGE
+			schema recipes
+		SELECT
+			ingredient
+			ingredient_category
+			ingredient_measurement
+			ingredient_nutrition
+			tool
+			tool_category
+			recipe
+			recipe_review
+				public.client_review_view
+					with columns review_id, recipe_id, display_name, date, rating, review_text
+			recipe_tool
+			recipe_ingredient
+			nutrient
+		INSERT
+			recipe_review
+		UPDATE
+			recipe_review
+				when uid from jwt matches row to be updated
+		DELETE
+			recipe_review
+				when uid from jwt matches row to be deleted
+			
+	
 Reviews:
 	Store display name of user at time of creating review to prevent having to call getUser(uid) for every review every time anybody loads a recipe page. If user's display name changes, the review will still contain the old display name unless user updates review. The uid will still be associated with the review.
-	
+	RLS for reviews isn't really necessary because the uid is extracted from the JWT token anyways in the backend, but already implemented.

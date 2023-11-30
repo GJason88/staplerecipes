@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser';
 import { Router } from 'express';
 import { recipeController } from '../controllers/Recipe.controller.js';
-import { adminAuth } from '../middlewares/authorization.middleware.js';
 
 const recipe = Router();
 const jsonParser = bodyParser.json();

@@ -22,9 +22,6 @@ export default function ReviewForm({
     e.preventDefault();
     if (!rating) return;
     submitFn({
-      reviewId: currentReview?.reviewId ?? '',
-      recipeId: currentReview?.recipeId ?? '',
-      uid: currentUser?.uid ?? '',
       displayName: currentUser?.displayName ?? '',
       rating,
       reviewText,

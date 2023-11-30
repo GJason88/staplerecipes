@@ -1,8 +1,12 @@
+import db from "../configs/db.config.js";
+
 export const reviewHelpers = {
-    validateReview: (review, update = false) =>
-        (!update || review.reviewId) &&
-        typeof review.uid === 'string' &&
-        review.uid &&
+    doTaskWithRLS: async (query, params, uid) =>
+        await db.task('review-rls-task', async (t) => {
+            await t.none('SET rls.uid = ${uid}', { uid });
+            await t.none(query, params);
+        }),
+    validateReview: (review) =>
         typeof review.reviewText === 'string' &&
         review.reviewText &&
         typeof review.rating === 'number' &&
@@ -12,6 +16,6 @@ export const reviewHelpers = {
         review.displayName &&
         typeof review.date === 'number' &&
         review.date,
-    getReviewsQuery: `SELECT review_id,recipe_id,display_name,rating,review_text,(select extract(epoch from date) as date)::int 
+    getReviewsQuery: `SELECT display_name,rating,review_text,(select extract(epoch from date) as date)::int 
                       FROM recipes.recipe_review as rr`,
 };

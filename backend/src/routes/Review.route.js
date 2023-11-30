@@ -5,12 +5,12 @@ import { reviewController } from '../controllers/Review.controller.js';
 const review = Router();
 const jsonParser = bodyParser.json();
 
-review.get('/recipe/:recipeId/review/:uid', reviewController.getReview);
+review.get('/recipe/:recipeId/review', reviewController.getReview);
 
 review.post('/recipe/:recipeId/review', jsonParser, reviewController.createReview);
 
-review.put('/review/:reviewId', jsonParser, reviewController.updateReview);
+review.put('/recipe/:recipeId/review', jsonParser, reviewController.updateReview);
 
-review.delete('/review/:reviewId', reviewController.deleteReview);
+review.delete('/recipe/:recipeId/review', reviewController.deleteReview);
 
 export default review;

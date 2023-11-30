@@ -25,18 +25,8 @@ export default function RecipeReviews({
 }: RecipeReviewsProps) {
   const { currentUser, setDialogType } = useAuth();
   const { userReview, createReview, updateReview, deleteReview } =
-    useUserReview(recipeId, currentUser?.uid ?? '');
+    useUserReview(recipeId);
 
-  const handleCreateReview = (data: ReviewState) =>
-    createReview({ recipeId: recipeId, data });
-
-  const handleUpdateReview = (data: ReviewState) =>
-    updateReview({ reviewId: userReview.reviewId, data });
-
-  const handleDeleteReview = () => {
-    const reviewId = userReview.reviewId?.toString() ?? '';
-    deleteReview(reviewId);
-  };
   return (
     <div ref={reviewsRef}>
       <Paper
@@ -55,13 +45,17 @@ export default function RecipeReviews({
             <CurrentUserReview
               currentUser={currentUser}
               currentReview={userReview}
-              handleUpdateReview={handleUpdateReview}
-              handleDeleteReview={handleDeleteReview}
+              handleUpdateReview={(data: ReviewState) =>
+                updateReview({ recipeId: recipeId, data })
+              }
+              handleDeleteReview={() => deleteReview(recipeId)}
             />
           ) : (
             <ReviewForm
               currentUser={currentUser}
-              submitFn={handleCreateReview}
+              submitFn={(data: ReviewState) =>
+                createReview({ recipeId: recipeId, data })
+              }
               submitBtnText='Create Review'
             />
           )

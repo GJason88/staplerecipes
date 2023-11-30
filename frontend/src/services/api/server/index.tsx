@@ -19,12 +19,12 @@ export const recipesApi = {
 export const reviewsApi = {
   create: (recipeId: string, data: ReviewState, token: string) =>
     post(`/recipe/${recipeId}/review`, data, { headers: getHeaders(token) }),
-  retrieve: (recipeId: string, uid: string, token: string) =>
-    get(`/recipe/${recipeId}/review/${uid}`, { headers: getHeaders(token) }),
-  update: (reviewId: string, data: ReviewState, token: string) =>
-    put(`/review/${reviewId}`, data, { headers: getHeaders(token) }),
-  delete: (reviewId: string, token: string) =>
-    destroy(`/review/${reviewId}`, { headers: getHeaders(token) }),
+  retrieve: (recipeId: string, token: string) =>
+    get(`/recipe/${recipeId}/review`, { headers: getHeaders(token) }),
+  update: (recipeId: string, data: ReviewState, token: string) =>
+    put(`/recipe/${recipeId}/review`, data, { headers: getHeaders(token) }),
+  delete: (recipeId: string, token: string) =>
+    destroy(`/recipe/${recipeId}/review`, { headers: getHeaders(token) }),
 };
 
 export const toolsApi = {

@@ -7,11 +7,11 @@ import { useQuery } from 'react-query';
 import catchError from './helpers/functions/catchError';
 import { setResult } from '../services/api/serviceReducer';
 
-const useUserReview = (recipeId: string, uid: string) => {
+const useUserReview = (recipeId: string) => {
   const dispatch = useDispatch();
   const { data: userReview } = useQuery(
     'currentUserReview',
-    () => fetchUserReview(recipeId, uid),
+    () => fetchUserReview(recipeId),
     {
       refetchOnWindowFocus: false,
       retry: false,
@@ -27,15 +27,15 @@ const useUserReview = (recipeId: string, uid: string) => {
     'Successfully created review'
   );
   const updateReview = useMutationHelper(
-    async ({ reviewId, data }: { reviewId: string; data: ReviewState }) =>
-      reviewId &&
-      reviewsApi.update(reviewId, data, await getCurrentUserToken()),
+    async ({ recipeId, data }: { recipeId: string; data: ReviewState }) =>
+      recipeId &&
+      reviewsApi.update(recipeId, data, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
     'Successfully updated review'
   );
   const deleteReview = useMutationHelper(
-    async (reviewId: string) =>
-      reviewId && reviewsApi.delete(reviewId, await getCurrentUserToken()),
+    async (recipeId: string) =>
+      recipeId && reviewsApi.delete(recipeId, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
     'Successfully deleted review'
   );
@@ -49,14 +49,11 @@ const useUserReview = (recipeId: string, uid: string) => {
   };
 };
 
-const fetchUserReview = async (recipeId: string, uid: string) => {
-  if (!recipeId || !uid) return;
+const fetchUserReview = async (recipeId: string) => {
+  const userToken = await getCurrentUserToken();
+  if (!userToken || !recipeId) return;
   try {
-    const response = await reviewsApi.retrieve(
-      recipeId,
-      uid,
-      await getCurrentUserToken()
-    );
+    const response = await reviewsApi.retrieve(recipeId, userToken);
     return response.data as Array<ReviewState>;
   } catch (e) {
     Promise.reject(new Error(catchError(e)));
