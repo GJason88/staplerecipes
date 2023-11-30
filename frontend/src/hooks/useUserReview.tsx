@@ -58,7 +58,8 @@ const fetchUserReview = async (recipeId: string) => {
     );
     return response.data as Array<ReviewState>;
   } catch (e) {
-    Promise.reject(new Error(catchError(e)));
+    const message = catchError(e);
+    if (message !== 'Unauthorized') throw new Error(message);
   }
 };
 
