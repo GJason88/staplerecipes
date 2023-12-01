@@ -18,7 +18,6 @@ COPY recipes.ingredient_category (category_id, category_name) FROM stdin;
 --
 
 COPY recipes.ingredient (ingredient_id, ingredient_name, category_id, g_ml) FROM stdin;
-54	Potato	5	0
 118	Milk, whole	7	97
 119	Onion	5	0
 120	Garlic	5	0
@@ -28,6 +27,7 @@ COPY recipes.ingredient (ingredient_id, ingredient_name, category_id, g_ml) FROM
 110	Bread, whole-wheat	6	0
 113	Pasta	6	0
 56	White rice	6	118
+54	Potato	5	0
 114	Tomato	5	0
 \.
 
@@ -37,9 +37,6 @@ COPY recipes.ingredient (ingredient_id, ingredient_name, category_id, g_ml) FROM
 --
 
 COPY recipes.ingredient_measurement (measurement_id, ingredient_id, measurement_name, grams) FROM stdin;
-7	54	small	170
-8	54	medium	213
-9	54	large	369
 15	119	small	70
 16	119	medium	110
 17	119	large	150
@@ -47,15 +44,18 @@ COPY recipes.ingredient_measurement (measurement_id, ingredient_id, measurement_
 22	122	test	3443
 26	111	whole	50
 28	110	slice	40
-34	114	small	91
-35	114	medium	123
-36	114	large	182
+43	54	small	170
+44	54	medium	213
+45	54	large	369
+46	114	small	91
+47	114	medium	123
+48	114	large	182
 \.
 
 
--- --
--- -- Data for Name: nutrient; Type: TABLE DATA; Schema: recipes; Owner: postgres
--- --
+--
+-- Data for Name: nutrient; Type: TABLE DATA; Schema: recipes; Owner: postgres
+--
 
 -- COPY recipes.nutrient (nutrient_id, nutrient_name, unit, dv, lookup) FROM stdin;
 -- 1258	Saturated Fat	g	20	saturatedFat
@@ -134,37 +134,29 @@ COPY recipes.ingredient_nutrient (ingredient_id, nutrient_id, amount, ingredient
 119	1185	0	364
 119	1253	0	365
 119	1257	0	366
-54	1003	2	31
-54	1004	0	32
-54	1005	18	33
-54	1079	2	34
-54	1087	12	35
-54	1089	1	36
-54	1090	23	37
-54	1092	425	38
-54	1093	6	39
-54	1095	0	40
-54	1098	0	41
-54	1101	0	42
-54	1103	0	43
-54	1106	0	44
-54	1107	1	45
-54	1108	0	46
-54	1109	0	47
-54	1114	0	48
-54	1162	20	49
-54	1165	0	50
-54	1166	0	51
-54	1167	1	52
-54	1170	0	53
-54	1175	0	54
-54	1177	15	55
-54	1178	0	56
-54	1180	12	57
-54	1185	2	58
-54	1253	0	59
-54	1257	0	60
-54	1258	0	61
+114	1003	1	2165
+114	1004	0	2166
+114	1005	4	2167
+114	1079	1	2168
+114	1087	10	2169
+114	1089	0	2170
+114	1090	8	2171
+114	1092	193	2172
+114	1093	0	2173
+114	1095	0	2174
+114	1098	0	2175
+114	1101	0	2176
+114	1103	0	2177
+114	1106	24	2178
+114	1107	276	2179
+114	1108	1	2180
+114	1162	18	2181
+114	1165	0	2182
+114	1166	0	2183
+114	1167	1	2184
+114	1175	0	2185
+114	1176	0	2186
+114	1177	10	2187
 112	1003	14	1316
 112	1004	6	1317
 112	1005	64	1318
@@ -348,6 +340,25 @@ COPY recipes.ingredient_nutrient (ingredient_id, nutrient_id, amount, ingredient
 120	1253	0	396
 120	1257	0	397
 120	1258	0	398
+54	1003	2	2134
+54	1004	0	2135
+54	1005	18	2136
+54	1079	2	2137
+54	1087	12	2138
+54	1089	1	2139
+54	1090	23	2140
+54	1092	425	2141
+54	1093	6	2142
+54	1095	0	2143
+54	1098	0	2144
+54	1101	0	2145
+54	1103	0	2146
+54	1106	0	2147
+54	1107	1	2148
+54	1108	0	2149
+54	1109	0	2150
+54	1114	0	2151
+54	1162	20	2152
 113	1003	13	1801
 113	1004	2	1802
 113	1005	75	1803
@@ -379,29 +390,18 @@ COPY recipes.ingredient_nutrient (ingredient_id, nutrient_id, amount, ingredient
 113	1253	0	1829
 113	1257	0	1830
 113	1258	0	1831
-114	1003	1	1969
-114	1004	0	1970
-114	1005	4	1971
-114	1079	1	1972
-114	1087	10	1973
-114	1089	0	1974
-114	1090	8	1975
-114	1092	193	1976
-114	1093	0	1977
-114	1095	0	1978
-114	1098	0	1979
-114	1101	0	1980
-114	1103	0	1981
-114	1106	24	1982
-114	1107	276	1983
-114	1108	1	1984
-114	1162	18	1985
-114	1165	0	1986
-114	1166	0	1987
-114	1167	1	1988
-114	1175	0	1989
-114	1176	0	1990
-114	1177	10	1991
+54	1165	0	2153
+54	1166	0	2154
+54	1167	1	2155
+54	1170	0	2156
+54	1175	0	2157
+54	1177	15	2158
+54	1178	0	2159
+54	1180	12	2160
+54	1185	2	2161
+54	1253	0	2162
+54	1257	0	2163
+54	1258	0	2164
 \.
 
 
@@ -501,14 +501,14 @@ SELECT pg_catalog.setval('recipes.ingredient_ingredient_id_seq', 158, true);
 -- Name: ingredient_measurement_measurement_id_seq; Type: SEQUENCE SET; Schema: recipes; Owner: postgres
 --
 
-SELECT pg_catalog.setval('recipes.ingredient_measurement_measurement_id_seq', 36, true);
+SELECT pg_catalog.setval('recipes.ingredient_measurement_measurement_id_seq', 48, true);
 
 
 --
 -- Name: ingredient_nutrient_ingredient_nutrient_id_seq; Type: SEQUENCE SET; Schema: recipes; Owner: postgres
 --
 
-SELECT pg_catalog.setval('recipes.ingredient_nutrient_ingredient_nutrient_id_seq', 2071, true);
+SELECT pg_catalog.setval('recipes.ingredient_nutrient_ingredient_nutrient_id_seq', 2187, true);
 
 
 --
