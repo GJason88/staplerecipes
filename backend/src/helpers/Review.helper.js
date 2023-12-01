@@ -1,10 +1,11 @@
-import db from "../configs/db.config.js";
+import { userDB } from "../configs/db.config.js";
 
 export const reviewHelpers = {
     doTaskWithRLS: async (query, params, uid) =>
-        await db.task('review-rls-task', async (t) => {
+        await userDB.tx('review-rls-tx', async (t) => {
             await t.none('SET rls.uid = ${uid}', { uid });
             await t.none(query, params);
+            await t.commit();
         }),
     validateReview: (review) =>
         typeof review.reviewText === 'string' &&

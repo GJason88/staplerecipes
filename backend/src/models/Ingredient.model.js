@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import pgPromise from 'pg-promise';
-import db from '../configs/db.config.js';
 import { ingredientHelpers } from '../helpers/Ingredient.helpers.js';
 import { pgpHelpers } from '../helpers/utils/pgpHelpers.js';
 import {
@@ -8,17 +7,18 @@ import {
     ingredientCategorySelectQuery,
     nutrientsSelectQuery,
 } from '../helpers/utils/nestedSelectQueries.js';
+import { adminDb, userDB } from '../configs/db.config.js';
 
 const pgp = pgPromise({ capSQL: true });
 
 export const ingredientModel = {
     getIngredients: async () =>
-        await db.any(
+        await userDB.any(
             `SELECT i.ingredient_id,ingredient_name,g_ml as ml_for_100g,${ingredientCategorySelectQuery},${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient as i;`
         ),
     getIngredient: async (ingredientId) =>
-        await db.one(
+        await userDB.one(
             `SELECT ingredient_name,category_name,g_ml,${nutrientsSelectQuery},${additionalMeasurementsQuery}
             FROM recipes.ingredient as i
             INNER JOIN recipes.ingredient_category as i_c ON i.category_id = i_c.category_id
@@ -26,11 +26,11 @@ export const ingredientModel = {
             [ingredientId]
         ),
     getCategories: async () =>
-        await db.any(
+        await userDB.any(
             'SELECT category_id, category_name FROM recipes.ingredient_category;'
         ),
     getNutrients: async (ingredientId) =>
-        await db.any(
+        await userDB.any(
             'SELECT * FROM recipes.ingredient_nutrient WHERE ingredient_id = $1;',
             [ingredientId]
         ),
@@ -38,14 +38,14 @@ export const ingredientModel = {
         const query = info.ingredientId
             ? 'INSERT INTO recipes.ingredient(ingredient_id, ingredient_name, category_id, g_ml) VALUES ($1, $2, $3, $4) RETURNING ingredient_id;'
             : 'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;';
-        const { ingredient_id: ingredientId } = await db.one(query, [
+        const { ingredient_id: ingredientId } = await adminDb.one(query, [
             ...(info.ingredientId ? [info.ingredientId] : []),
             info.ingredientName,
             info.category.categoryId,
             info.mlFor100G ?? 0,
         ]);
         Object.keys(info.additionalMeasurements).length &&
-            (await db.none(
+            (await adminDb.none(
                 pgp.helpers.insert(
                     ingredientHelpers.mapMeasurements(
                         ingredientId,
@@ -59,7 +59,7 @@ export const ingredientModel = {
                     pgpHelpers.table('ingredient_measurement', 'recipes')
                 )
             ));
-        await db.none(
+        await adminDb.none(
             pgp.helpers.insert(
                 Object.entries(info.nutrientsFor100G).map(
                     ([nutrient_id, amount]) => ({
@@ -74,16 +74,17 @@ export const ingredientModel = {
         );
     },
     createCategory: async (categoryInfo) =>
-        await db.none(
+        await adminDb.none(
             'INSERT INTO recipes.ingredient_category(category_name) VALUES ($1);',
             [categoryInfo.name]
         ),
     updateIngredient: async (ingredientId, ingredientInfo) => {
+        // change to use update
         await ingredientModel.deleteIngredient(ingredientId);
         await ingredientModel.createIngredient(ingredientInfo); // includes old id
     },
     updateNutrients: async (ingredientId, modifiedNutrients) =>
-        await db.none(
+        await adminDb.none(
             pgp.helpers.update(
                 modifiedNutrients,
                 null,
@@ -91,12 +92,12 @@ export const ingredientModel = {
             ) + pgpHelpers.createCondition('ingredient_id', ingredientId)
         ),
     deleteIngredient: async (ingredientId) =>
-        await db.none(
+        await adminDb.none(
             'DELETE FROM recipes.ingredient WHERE ingredient_id = $1;',
             [ingredientId]
         ),
     deleteCategory: async (categoryId) =>
-        await db.none(
+        await adminDb.none(
             'DELETE FROM recipes.ingredient_category WHERE category_id = $1;',
             [categoryId]
         ),

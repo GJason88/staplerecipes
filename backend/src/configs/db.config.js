@@ -6,13 +6,10 @@ const cn = {
     host: 'localhost',
     port: 5432,
     database: 'postgres',
-    user: 'client',
-    password: 'user',
-    max: 30 // use up to 30 connections
+    max: 30, // use up to 30 connections
 
     // "types" - in case you want to set custom type parsers on the pool level
 };
 
-const db = pgp(cn);
-
-export default db;
+export const userDB = pgp({ ...cn, user: 'client', password: 'user' });
+export const adminDb = pgp({ ...cn, user: 'admin', password: 'admin' });
