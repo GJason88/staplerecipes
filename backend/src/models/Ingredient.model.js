@@ -35,43 +35,22 @@ export const ingredientModel = {
             [ingredientId]
         ),
     createIngredient: async (info) => {
-        const query = info.ingredientId
-            ? 'INSERT INTO recipes.ingredient(ingredient_id, ingredient_name, category_id, g_ml) VALUES ($1, $2, $3, $4) RETURNING ingredient_id;'
-            : 'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;';
-        const { ingredient_id: ingredientId } = await adminDb.one(query, [
-            ...(info.ingredientId ? [info.ingredientId] : []),
-            info.ingredientName,
-            info.category.categoryId,
-            info.mlFor100G ?? 0,
-        ]);
-        Object.keys(info.additionalMeasurements).length &&
-            (await adminDb.none(
-                pgp.helpers.insert(
-                    ingredientHelpers.mapMeasurements(
-                        ingredientId,
-                        info.additionalMeasurements
-                    ),
-                    pgpHelpers.columns([
-                        'ingredient_id',
-                        'measurement_name',
-                        'grams',
-                    ]),
-                    pgpHelpers.table('ingredient_measurement', 'recipes')
-                )
-            ));
-        await adminDb.none(
-            pgp.helpers.insert(
-                Object.entries(info.nutrientsFor100G).map(
-                    ([nutrient_id, amount]) => ({
-                        ingredient_id: ingredientId,
-                        nutrient_id,
-                        amount,
-                    })
-                ),
-                pgpHelpers.columns(['ingredient_id', 'nutrient_id', 'amount']),
-                pgpHelpers.table('ingredient_nutrient', 'recipes')
-            )
-        );
+        await adminDb.tx(async (t) => {
+            const { ingredient_id: ingredientId } = await t.one(
+                'INSERT INTO recipes.ingredient(ingredient_name, category_id, g_ml) VALUES ($1, $2, $3) RETURNING ingredient_id;',
+                [
+                    info.ingredientName,
+                    info.category.categoryId,
+                    info.mlFor100G ?? 0,
+                ]
+            );
+            await ingredientHelpers.insertMeasurementsAndNutrition(
+                t,
+                ingredientId,
+                info.additionalMeasurements,
+                info.nutrientsFor100G
+            );
+        });
     },
     createCategory: async (categoryInfo) =>
         await adminDb.none(
@@ -79,9 +58,23 @@ export const ingredientModel = {
             [categoryInfo.name]
         ),
     updateIngredient: async (ingredientId, ingredientInfo) => {
-        // change to use update
-        await ingredientModel.deleteIngredient(ingredientId);
-        await ingredientModel.createIngredient(ingredientInfo); // includes old id
+        await adminDb.tx(async (t) => {
+            await t.none(
+                'UPDATE recipes.ingredient SET ingredient_name=$2,category_id=$3,g_ml=$4 WHERE ingredient_id=$1',
+                [
+                    ingredientId,
+                    ingredientInfo.ingredientName,
+                    ingredientInfo.category.categoryId,
+                    ingredientInfo.mlFor100G ?? 0,
+                ]
+            );
+            await ingredientHelpers.insertMeasurementsAndNutrition(
+                t,
+                ingredientId,
+                ingredientInfo.additionalMeasurements,
+                ingredientInfo.nutrientsFor100G
+            );
+        });
     },
     updateNutrients: async (ingredientId, modifiedNutrients) =>
         await adminDb.none(
