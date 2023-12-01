@@ -10,28 +10,29 @@ export const toolModel = {
         await userDB.any(
             'SELECT category_id, category_name FROM recipes.tool_category;'
         ),
-    createTool: async (toolInfo) => {
-        const query = toolInfo.toolId
-            ? 'INSERT INTO recipes.tool(tool_id, tool_name, category_id) VALUES ($1, $2, $3);'
-            : 'INSERT INTO recipes.tool(tool_name, category_id) VALUES ($1, $2);';
-        await adminDb.none(query, [
-            ...(toolInfo.toolId ? [toolInfo.toolId] : []),
-            toolInfo.toolName,
-            toolInfo.category.categoryId,
-        ]);
-    },
+    createTool: async (toolInfo) =>
+        await adminDb.none(
+            'INSERT INTO recipes.tool(tool_name, category_id) VALUES ($1, $2);',
+            [
+                ...(toolInfo.toolId ? [toolInfo.toolId] : []),
+                toolInfo.toolName,
+                toolInfo.category.categoryId,
+            ]
+        ),
     createCategory: async (categoryInfo) =>
         await adminDb.none(
             'INSERT INTO recipes.tool_category(category_name) VALUES ($1);',
             [categoryInfo.name]
         ),
-    updateTool: async (toolId, info) => {
-        // change to use update
-        await toolModel.deleteTool(toolId);
-        await toolModel.createTool(info); // includes old id
-    },
+    updateTool: async (toolId, info) =>
+        await adminDb.none(
+            'UPDATE recipes.tool SET tool_name=$2,category_id=$3 WHERE tool_id=$1',
+            [toolId, info.toolName, info.category.categoryId]
+        ),
     deleteTool: async (toolId) =>
-        await adminDb.none('DELETE FROM recipes.tool WHERE tool_id = $1;', [toolId]),
+        await adminDb.none('DELETE FROM recipes.tool WHERE tool_id = $1;', [
+            toolId,
+        ]),
     deleteCategory: async (categoryInfo) =>
         await adminDb.none(
             'DELETE FROM recipes.tool_category WHERE category_id = $1;',
