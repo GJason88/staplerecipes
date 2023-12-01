@@ -68,6 +68,8 @@ export const ingredientModel = {
                     ingredientInfo.mlFor100G ?? 0,
                 ]
             );
+            await t.none('DELETE FROM recipes.ingredient_measurement WHERE ingredient_id=$1', [ingredientId]);
+            await t.none('DELETE FROM recipes.ingredient_nutrient WHERE ingredient_id=$1', [ingredientId]);
             await ingredientHelpers.insertMeasurementsAndNutrition(
                 t,
                 ingredientId,
