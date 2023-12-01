@@ -19,6 +19,7 @@ export default function EditRecipeInfo(props: EditRecipeInfoProps) {
       </Typography>
       <Stack gap={2}>
         <TextField
+          required
           label='Recipe Name'
           value={props.recipeName}
           onChange={(e) => dispatch(setRecipe({ recipeName: e.target.value }))}

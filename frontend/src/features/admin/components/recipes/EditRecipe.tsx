@@ -16,9 +16,12 @@ export default function EditRecipe() {
   const { recipes, updateRecipe, deleteRecipe } = useRecipes();
   const handleRecipeClick = (index: number) =>
     dispatch(setRecipe(recipes[index]));
-  const handleRecipeDelete = (id: string) => deleteRecipe(id);
+  const handleRecipeDelete = (id: string) => {
+    dispatch(setRecipe(null));
+    deleteRecipe(id);
+  };
   const handleRecipeUpdate = (recipe: RecipeState) =>
-    updateRecipe({ id: recipe.recipeId, data: recipe });
+    recipe.recipeId && updateRecipe({ id: recipe.recipeId, data: recipe });
   return (
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
