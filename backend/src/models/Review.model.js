@@ -10,18 +10,18 @@ export const reviewModel = {
             `${reviewHelpers.getReviewsQuery} WHERE recipe_id = $1 AND uid = $2;`,
             [recipeId, uid]
         ),
-    createReview: async (review, recipeId, uid) => {
-        const createReviewQuery =
-            'INSERT INTO recipes.recipe_review(recipe_id,uid,display_name,rating,review_text,date) VALUES ($1,$2,$3,$4,$5,$6)';
-        return await userDB.none(createReviewQuery, [
-            recipeId,
-            uid,
-            review.displayName,
-            review.rating,
-            review.reviewText,
-            pgp.as.date(new Date(review.date)),
-        ]);
-    },
+    createReview: async (review, recipeId, uid) =>
+        await userDB.none(
+            'INSERT INTO recipes.recipe_review(recipe_id,uid,display_name,rating,review_text,date) VALUES ($1,$2,$3,$4,$5,$6)',
+            [
+                recipeId,
+                uid,
+                review.displayName,
+                review.rating,
+                review.reviewText,
+                pgp.as.date(new Date(review.date)),
+            ]
+        ),
     deleteReview: async (recipeId, uid) =>
         reviewHelpers.doTaskWithRLS(
             'DELETE FROM recipes.recipe_review WHERE recipe_id = $1 AND uid = $2',
