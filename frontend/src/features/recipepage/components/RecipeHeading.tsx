@@ -6,23 +6,17 @@ import { useReactToPrint } from 'react-to-print';
 import ShareButton from './ShareButton';
 
 interface RecipeHeadingProps {
+  recipeId: string;
   name: string;
   reviewsRef: React.MutableRefObject<HTMLDivElement | null>;
   printRef: React.MutableRefObject<HTMLDivElement | null>;
   recipeReviews: Array<ReviewState>;
 }
 
-export default function RecipeHeading({
-  name,
-  reviewsRef,
-  printRef,
-  recipeReviews,
-}: RecipeHeadingProps) {
+export default function RecipeHeading({ recipeId, name, reviewsRef, printRef, recipeReviews }: RecipeHeadingProps) {
   const numReviews = recipeReviews.length;
   const averageRating = numReviews
-    ? recipeReviews
-        .map((review) => review.rating)
-        .reduce((prev, cur) => (prev += cur)) / numReviews
+    ? recipeReviews.map((review) => review.rating).reduce((prev, cur) => (prev += cur)) / numReviews
     : 0;
   const handleRateClick = () =>
     reviewsRef.current &&
@@ -45,31 +39,37 @@ export default function RecipeHeading({
           <Link>{averageRating.toFixed(1)}</Link> ({numReviews})
         </Typography>
       </Box>
-      <Button
-        startIcon={<BookmarkBorderIcon />}
-        variant='outlined'
-        sx={{ width: 200 }}
-      >
+      <Button startIcon={<BookmarkBorderIcon />} variant='outlined' sx={{ width: 200 }}>
         Save Recipe
       </Button>
       <Stack flexDirection={'row'}>
-        <Button
-          variant='outlined'
-          onClick={handleRateClick}
-          startIcon={<RateReviewIcon />}
-        >
+        <Button variant='outlined' onClick={handleRateClick} startIcon={<RateReviewIcon />}>
           Rate
         </Button>
-        <Button
-          variant='outlined'
-          onClick={handlePrint}
-          startIcon={<PrintIcon />}
-        >
+        <Button variant='outlined' onClick={handlePrint} startIcon={<PrintIcon />}>
           Print
         </Button>
         <ShareButton />
       </Stack>
-      <img src='/assets/black.jpg'></img>
+      <Box
+        boxShadow={1}
+        display='flex'
+        maxWidth={900}
+        height={500}
+        alignItems='center'
+        justifyContent='center'
+      >
+        <img
+          style={{ objectFit: 'contain' }}
+          height='100%'
+          width='100%'
+          src={`https://firebasestorage.googleapis.com/v0/b/staple-recipes.appspot.com/o/recipe_images%2F${recipeId}?alt=media`}
+          onError={(e) => {
+            (e.target as HTMLImageElement).onerror = null;
+            (e.target as HTMLImageElement).src = '/assets/default.jpg';
+          }}
+        />
+      </Box>
     </>
   );
 }
