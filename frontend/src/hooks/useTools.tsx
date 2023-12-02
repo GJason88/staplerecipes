@@ -4,7 +4,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { setResult } from '../services/api/serviceReducer';
 import { useDispatch } from 'react-redux';
 import catchError from './helpers/functions/catchError';
-import { getCurrentUserToken } from './helpers/functions/getCurrentUserToken';
+import getCurrentUserToken from './helpers/functions/getCurrentUserToken';
 import useMutationHelper from './helpers/useMutationHelper';
 
 const useTools = () => {

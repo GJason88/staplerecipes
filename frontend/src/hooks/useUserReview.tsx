@@ -1,6 +1,6 @@
 import { reviewsApi } from '../services/api/server';
 import useMutationHelper from './helpers/useMutationHelper';
-import { getCurrentUserToken } from './helpers/functions/getCurrentUserToken';
+import getCurrentUserToken from './helpers/functions/getCurrentUserToken';
 import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';

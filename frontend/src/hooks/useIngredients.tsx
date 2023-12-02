@@ -4,7 +4,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { useDispatch } from 'react-redux';
 import { setResult } from '../services/api/serviceReducer';
 import useMutationHelper from './helpers/useMutationHelper';
-import { getCurrentUserToken } from './helpers/functions/getCurrentUserToken';
+import getCurrentUserToken from './helpers/functions/getCurrentUserToken';
 import catchError from './helpers/functions/catchError';
 
 const useIngredients = () => {
