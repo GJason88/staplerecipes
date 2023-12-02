@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
-import { routes } from '../data/constants';
+import { publicRoutes } from '../data/constants';
 import { Box, Typography } from '@mui/material';
 
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
-      setBreadcrumbs([{ name: routes.home.name, href: routes.home.route }])
+      setBreadcrumbs([{ name: publicRoutes.home.name, href: publicRoutes.home.route }])
     );
-    dispatch(setActiveRoute(routes.home.route));
+    dispatch(setActiveRoute(publicRoutes.home.route));
   }, [dispatch]);
 
   return (

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
 import { useEffect } from 'react';
-import { routes } from '../data/constants';
+import { publicRoutes } from '../data/constants';
 import NutritionTablePage from '../features/nutritiontable/NutritionTablePage';
 
 export default function Nutrition() {
@@ -9,10 +9,10 @@ export default function Nutrition() {
   useEffect(() => {
     dispatch(
       setBreadcrumbs([
-        { name: routes.nutrition.name, href: routes.nutrition.route },
+        { name: publicRoutes.nutrition.name, href: publicRoutes.nutrition.route },
       ])
     );
-    dispatch(setActiveRoute(routes.nutrition.route));
+    dispatch(setActiveRoute(publicRoutes.nutrition.route));
   }, [dispatch]);
 
   return <NutritionTablePage />;

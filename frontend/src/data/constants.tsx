@@ -20,7 +20,7 @@ export const pLen = 16;
 
 export const tags = ['Under 20 Minutes', 'Easy Cleanup', 'High Protein'];
 
-export const routes = {
+export const publicRoutes = {
   home: {
     name: 'Home',
     route: '/',
@@ -51,9 +51,10 @@ export const routes = {
     route: '/mealplans',
     icon: <CalendarViewMonthIcon key='mealplan' />,
   },
-  admin: {
-    name: 'Admin',
-    route: '/admin',
-    icon: <AdminPanelSettingsIcon key='admin' />,
-  },
+};
+
+export const adminRoute = {
+  name: 'Admin',
+  route: '/admin',
+  icon: <AdminPanelSettingsIcon key='admin' />,
 };

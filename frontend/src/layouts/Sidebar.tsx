@@ -10,18 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveRoute, updateIsMobile } from './layoutReducer';
 import { IRootState } from '../index';
 import { useNavigate } from 'react-router-dom';
-import { drawerWidth, routes } from '../data/constants';
+import { drawerWidth, publicRoutes } from '../data/constants';
 import { Button } from '@mui/material';
 
 export default function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isMobile = useSelector<IRootState, boolean>(
-    (state) => state.layout.isMobile
-  );
-  const activeRoute = useSelector<IRootState, string>(
-    (state) => state.layout.activeRoute
-  );
+  const isMobile = useSelector<IRootState, boolean>((state) => state.layout.isMobile);
+  const activeRoute = useSelector<IRootState, string>((state) => state.layout.activeRoute);
   const drawer = (
     <Box>
       <Button
@@ -35,11 +31,7 @@ export default function Sidebar() {
         }}
         onClick={() => navigate('/')}
       >
-        <img
-          src='/assets/darklogo-612x612.png'
-          width='75'
-          style={{ marginLeft: -15, marginRight: -12 }}
-        />
+        <img src='/assets/darklogo-612x612.png' width='75' style={{ marginLeft: -15, marginRight: -12 }} />
         <Typography
           pl='9px'
           align='center'
@@ -53,7 +45,7 @@ export default function Sidebar() {
         </Typography>
       </Button>
       <List>
-        {Object.values(routes).map((item, index) => (
+        {Object.values(publicRoutes).map((item, index) => (
           <ListItem key={index} disablePadding sx={{ height: 50, mt: 1, p: 1 }}>
             <ListItemButton
               sx={{ height: 50, borderRadius: 3 }}
