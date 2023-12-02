@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialRecipeState = {

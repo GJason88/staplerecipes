@@ -9,7 +9,7 @@ export const recipeModel = {
             `${recipeHelpers.getRecipesQuery} WHERE recipe_id = $1;`,
             [recipeId]
         ),
-    createRecipe: async (info) => {
+    createRecipe: async (info) =>
         await adminDb.tx(async (t) => {
             const { recipe_id: recipeId } = await t.one(
                 'INSERT INTO recipes.recipe(recipe_name, time, diet, servings, instructions) VALUES ($1, $2, $3, $4, $5) RETURNING recipe_id;',
@@ -28,8 +28,8 @@ export const recipeModel = {
                 info.ingredients,
                 info.tools
             );
-        });
-    },
+            return recipeId;
+        }),
     deleteRecipe: async (recipeId) =>
         await adminDb.none('DELETE FROM recipes.recipe WHERE recipe_id = $1;', [
             recipeId,

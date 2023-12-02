@@ -13,12 +13,8 @@ export default function CreateRecipe() {
       dispatch(setRecipe(null));
     };
   }, [dispatch]);
-  const handleCreateRecipe = (recipe: RecipeState) => {
-    if (
-      !recipe.recipeName ||
-      !recipe.ingredients.length ||
-      !recipe.instructions.length
-    ) {
+  const handleCreateRecipe = (recipe: RecipeState, image: File | null) => {
+    if (!recipe.recipeName || !recipe.ingredients.length || !recipe.instructions.length) {
       dispatch(
         setResult({
           message: 'Missing name, ingredients, and/or instructions',
@@ -27,10 +23,8 @@ export default function CreateRecipe() {
       );
       return;
     }
-    createRecipe(recipe);
+    createRecipe({ data: recipe, image });
   };
 
-  return (
-    <RecipeForm submitBtnText='Create Recipe' submitFn={handleCreateRecipe} />
-  );
+  return <RecipeForm submitBtnText='Create Recipe' submitFn={handleCreateRecipe} />;
 }

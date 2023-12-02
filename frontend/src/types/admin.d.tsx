@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface AdminState {
   recipe: RecipeState;
+  recipeImageFile: File | null;
   ingredient: IngredientState;
   tool: ToolState;
 }
@@ -26,5 +27,5 @@ interface FDCNutrientState {
 
 interface AdminFormProps {
   submitBtnText: string;
-  submitFn: (data: any) => void;
+  submitFn: (data: RecipeState, image: File | null) => void;
 }

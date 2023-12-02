@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {} as ServiceState;
@@ -8,7 +9,7 @@ const service = createSlice({
   reducers: {
     setResult(state, action) {
       state = action.payload;
-      return state
+      return state;
     },
   },
 });

@@ -14,14 +14,13 @@ export default function EditRecipe() {
     };
   }, [dispatch]);
   const { recipes, updateRecipe, deleteRecipe } = useRecipes();
-  const handleRecipeClick = (index: number) =>
-    dispatch(setRecipe(recipes[index]));
-  const handleRecipeDelete = (id: string) => {
+  const handleRecipeClick = (index: number) => dispatch(setRecipe(recipes[index]));
+  const handleRecipeDelete = (recipeId: string) => {
     dispatch(setRecipe(null));
-    deleteRecipe(id);
+    deleteRecipe(recipeId);
   };
-  const handleRecipeUpdate = (recipe: RecipeState) =>
-    recipe.recipeId && updateRecipe({ id: recipe.recipeId, data: recipe });
+  const handleRecipeUpdate = (recipe: RecipeState, image: File | null) =>
+    recipe.recipeId && updateRecipe({ recipeId: recipe.recipeId, data: recipe, image });
   return (
     <Stack gap={2} flexDirection='row' minHeight={750}>
       <SearchList
