@@ -1,10 +1,10 @@
-import { Button, Paper, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Dialog, Link, Modal, Paper, Stack, TextField, Typography } from '@mui/material';
 import { recipeWidth } from '../../../../../data/constants';
 import { useDispatch } from 'react-redux';
 import { setRecipe } from '../../../adminReducer';
 import { setResult } from '../../../../../services/api/serviceReducer';
 import { Upload } from '@mui/icons-material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface EditRecipeInfoProps {
   recipeId: string;
@@ -17,6 +17,7 @@ interface EditRecipeInfoProps {
 }
 
 export default function EditRecipeInfo({ recipeId, setImage, ...props }: EditRecipeInfoProps) {
+  const [imageDialogOpen, setImageDialogOpen] = useState(false);
   const dispatch = useDispatch();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let file = e.target.files?.[0] ?? null;
@@ -36,6 +37,21 @@ export default function EditRecipeInfo({ recipeId, setImage, ...props }: EditRec
         Information
       </Typography>
       <Stack gap={2}>
+        <Button onClick={() => setImageDialogOpen(true)}>Show current image</Button>
+        <Dialog onClose={() => setImageDialogOpen(false)} open={imageDialogOpen}>
+          <Box display='flex' maxWidth={900} maxHeight={500} alignItems='center' justifyContent='center'>
+            <img
+              style={{ objectFit: 'contain' }}
+              height='100%'
+              width='100%'
+              src={`https://firebasestorage.googleapis.com/v0/b/staple-recipes.appspot.com/o/recipe_images%2F${recipeId}?alt=media`}
+              onError={(e) => {
+                (e.target as HTMLImageElement).onerror = null;
+                (e.target as HTMLImageElement).src = '/assets/default.jpg';
+              }}
+            />
+          </Box>
+        </Dialog>
         <Stack direction='row' gap={1} p={2} border='1px solid lightgrey' borderRadius={3}>
           <Button sx={{ width: '20%' }} variant='outlined' component='label' startIcon={<Upload />}>
             Upload Image
