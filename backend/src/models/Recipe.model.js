@@ -52,7 +52,7 @@ export const recipeModel = {
                 [recipeId]
             );
             await t.none(
-                'DELETE FROM recipes.recipe_ingredient WHERE recipe_id = $1;',
+                'DELETE FROM recipes.recipe_tool WHERE recipe_id = $1;',
                 [recipeId]
             );
             await recipeHelpers.insertToolsAndIngredients(
