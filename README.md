@@ -19,6 +19,10 @@ Optionally run the `insert-default-nutrients.sql` and `insert-sample-data.sql` s
 
 ### Backend Setup
 
+Node.js version 18.17.1
+
+Yarn version v1.22.19
+
 This project is built with Node.js using the Express framework. 
 
 Install dependencies
@@ -34,6 +38,10 @@ yarn dev
 ```
 
 ### Frontend Setup
+
+Node.js version 18.17.1
+
+Yarn version v1.22.19
 
 This project is built with React + TypeScript along with Redux, and Vite.js as the build tool.
 
