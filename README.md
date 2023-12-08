@@ -8,6 +8,10 @@ Frontend: React + TypeScript along with Redux, and Vite.js as the build tool.
 
 Backend: Node.js using the Express framework
 
+Reverse Proxy: Nginx
+
+Deployment: AWS EC2, AWS RDS, Docker, PM2
+
 ## Requirements
 
 Node 18.17.1
