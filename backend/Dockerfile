@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package.json ./
 
-# remove --prod for dev
-RUN yarn --frozen-lockfile --prod
+# use --prod for prod
+RUN yarn --frozen-lockfile
 
 COPY . .
 

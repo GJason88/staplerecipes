@@ -29,6 +29,10 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
+CREATE USER client WITH PASSWORD 'user';
+
+CREATE USER admin WITH PASSWORD 'admin';
+
 --
 -- Name: ingredient; Type: TABLE; Schema: recipes; Owner: postgres
 --
