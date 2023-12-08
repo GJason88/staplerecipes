@@ -2,3 +2,5 @@ node_modules
 sql
 .eslintrc.json
 .prettierrc.json
+Dockerfile
+.dockerignore

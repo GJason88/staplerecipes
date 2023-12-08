@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    tty: true
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=dev
+      - POSTGRES_DB=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  backend:
+    restart: always
+    tty: true
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=db
+    depends_on:
+      - db
+  nginx:
+    restart: always
+    tty: true
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+volumes:
+  pgdata:
