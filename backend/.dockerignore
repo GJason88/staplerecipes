@@ -4,3 +4,7 @@ sql
 .prettierrc.json
 Dockerfile
 .dockerignore
+.env
+service-account-file.json
+add-admin.js
+firebase
