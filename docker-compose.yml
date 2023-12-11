@@ -1,36 +1,27 @@
-version: '3.8'
+version: "3"
 services:
-  db:
-    image: postgres:15-alpine
-    tty: true
-    ports:
-      - '5432:5432'
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=dev
-      - POSTGRES_DB=postgres
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      # - ./database/combined.sql:/docker-entrypoint-initdb.d/init.sql
   backend:
-    restart: always
     tty: true
+    container_name: "staplerecipes-backend"
+    restart: always
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - "3000:3000"
     environment:
-      - DATABASE_URL=db
-    depends_on:
-      - db
-  nginx:
-    restart: always
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      - DATABASE_URL=${DATABASE_URL}
+  frontend:
     tty: true
+    container_name: "staplerecipes-frontend"
+    restart: always
     build:
-      context: ./nginx
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - '80:80'
-volumes:
-  pgdata:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./fullchain.pem:/etc/nginx/certs/fullchain.pem
+      - ./privkey.pem:/etc/nginx/certs/privkey.pem

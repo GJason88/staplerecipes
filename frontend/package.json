@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --port 3001",
     "build": "vite build --mode production",
+    "devbuild": "vite build --mode development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -33,21 +34,21 @@
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3",
     "sass": "^1.69.3",
-    "use-debounce": "^9.0.4"
+    "use-debounce": "^9.0.4",
+    "vite": "^4.4.5",
+    "@vitejs/plugin-react": "^4.0.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
-    "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.5"
+    "typescript": "^5.2.2"
   }
 }
