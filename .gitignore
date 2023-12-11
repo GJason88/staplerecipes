@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 .env
-.env.dev
+.env.*
 
 service-account-file.json
 add-admin.js
