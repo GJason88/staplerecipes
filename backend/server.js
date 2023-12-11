@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import recipe from './src/routes/Recipe.route.js';
 import tool from './src/routes/Tool.route.js';
 import ingredient from './src/routes/Ingredient.route.js';
