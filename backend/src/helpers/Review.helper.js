@@ -5,7 +5,6 @@ export const reviewHelpers = {
         await userDB.tx('review-rls-tx', async (t) => {
             await t.none('SET rls.uid = ${uid}', { uid });
             await t.none(query, params);
-            await t.commit();
         }),
     validateReview: (review) =>
         typeof review.reviewText === 'string' &&
