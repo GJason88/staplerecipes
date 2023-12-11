@@ -1,10 +1,4 @@
 node_modules
-sql
 .eslintrc.json
 .prettierrc.json
-Dockerfile
-.dockerignore
-.env
-service-account-file.json
-add-admin.js
-firebase
+test.js

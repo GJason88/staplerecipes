@@ -3,7 +3,7 @@ import pgPromise from 'pg-promise';
 const pgp = pgPromise();
 
 const cn = {
-    host: process.env.DATABASE_URL,
+    host: process.env.DATABASE_URL ?? 'localhost',
     port: 5432,
     database: 'postgres',
     max: 30, // use up to 30 connections

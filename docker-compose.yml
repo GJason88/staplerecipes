@@ -22,7 +22,6 @@ services:
       - '3000:3000'
     environment:
       - DATABASE_URL=db
-      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
     depends_on:
       - db
   nginx:
