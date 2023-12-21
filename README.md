@@ -2,6 +2,8 @@
 
 Staple Recipes is a full-stack web app designed to be a modern, no-frills take on a recipe site. It aims to provide an easy-to-navigate repository of recipes that can be made with standard kitchen tools, using a set list of common pantry staples and other ubiquitous ingredients. All of the recipes are focused on being quick and easy to cook and clean, while also being delicious and nutritious. Ingredients and their nutrition facts come from the Food Data Central (FDC), and the nutrition facts of recipes are auto calculated based on their ingredients.
 
+<a href="https://staplerecipes.com" target="_blank" rel='noopener noreferrer'>View Live</a>
+
 ## Information
 
 Frontend: React + TypeScript along with Redux, and Vite.js as the build tool.
@@ -10,7 +12,7 @@ Backend: Node.js using the Express framework
 
 Reverse Proxy: Nginx
 
-Deployment: AWS EC2, AWS RDS, Docker, PM2
+Deployment: AWS EC2, AWS RDS, Docker
 
 Other Tools: Firebase Auth, Firebase Cloud Storage
 
