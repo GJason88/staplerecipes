@@ -1,16 +1,18 @@
 # Staple Recipes
 
-Staple Recipes is a full-stack web app designed to be a modern, no-frills take on a recipe site. It aims to provide an easy-to-navigate repository of recipes that can be made with standard kitchen tools, using a set list of common pantry staples and other ubiquitous ingredients. All of the recipes are focused on being quick and easy to cook and clean, while also being delicious and nutritious. Ingredients and their nutrition facts come from the Food Data Central (FDC), and the nutrition facts of recipes are auto calculated based on their ingredients.
+Staple Recipes is a full-stack web app designed to be a modern, no-frills take on a recipe site. It aims to provide an easy-to-navigate repository of recipes that can be made with standard kitchen tools, using a set list of common pantry staples and other ubiquitous ingredients. Ingredients and their nutrition facts come from the Food Data Central (FDC), and the nutrition facts of recipes are auto calculated based on their ingredients.
+
+<a href="https://staplerecipes.com" target="_blank" rel='noopener noreferrer'>View Live</a>
 
 ## Information
 
-Frontend: React + TypeScript along with Redux, and Vite.js as the build tool.
+Frontend: React + TypeScript with Redux and Vite as the build tool.
 
-Backend: Node.js using the Express framework
+Backend: Node + Express
 
-Reverse Proxy: Nginx
+Reverse Proxy: NGINX
 
-Deployment: AWS EC2, AWS RDS, Docker, PM2
+Deployment: AWS EC2, AWS RDS, Docker
 
 Other Tools: Firebase Auth, Firebase Cloud Storage
 
@@ -23,18 +25,6 @@ Yarn 1.22.19
 Install dependencies in frontend and backend directories using `yarn`
 
 ## Getting Started
-
-Note: Features relying on external services will not be functional.
-
-### Preview production build with docker compose
-
-Note: Currently not working without including firebase auth api key in environment variables
-
-- Uncomment [this line](https://github.com/GJason88/staplerecipes/blob/f9635bf8a7bfa5cb71cafd3ea217d40c9ce2764d/docker-compose.yml#L14) to run an initial db script on build.
-- Ensure `--prod` is not present [here](https://github.com/GJason88/staplerecipes/blob/f9635bf8a7bfa5cb71cafd3ea217d40c9ce2764d/backend/Dockerfile#L10).
-- Run `yarn build` in the frontend directory.
-- Use `docker-compose up --build` to build the images and start the containers.
-- Visit http://localhost:80
 
 ### Setting up a local development environment
 
