@@ -14,7 +14,7 @@
         "prettier": "^3.0.3"
     },
     "scripts": {
-        "dev": "node -r dotenv/config server.js",
+        "dev": "node -r dotenv/config dev-server.js",
         "start": "node server.js",
         "format:check": "prettier --check .",
         "format:write": "prettier --write .",

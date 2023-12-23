@@ -51,19 +51,14 @@ export default function RecipeHeading({ recipeId, name, reviewsRef, printRef, re
         </Button>
         <ShareButton />
       </Stack>
-      <Box
-        boxShadow={1}
-        display='flex'
-        maxWidth={900}
-        height={500}
-        alignItems='center'
-        justifyContent='center'
-      >
+      <Box boxShadow={1} display='flex' maxWidth={900} height={500} alignItems='center' justifyContent='center'>
         <img
           style={{ objectFit: 'contain' }}
           height='100%'
           width='100%'
-          src={`https://firebasestorage.googleapis.com/v0/b/staple-recipes.appspot.com/o/recipe_images%2F${recipeId}?alt=media`}
+          src={`https://firebasestorage.googleapis.com/v0/b/${
+            import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
+          }/o/recipe_images%2F${recipeId}?alt=media`}
           onError={(e) => {
             (e.target as HTMLImageElement).onerror = null;
             (e.target as HTMLImageElement).src = '/assets/default.jpg';

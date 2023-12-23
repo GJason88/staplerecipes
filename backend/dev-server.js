@@ -8,9 +8,17 @@ import {
     adminAuth,
     userAuth,
 } from './src/middlewares/Authorization.middleware.js';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
+
+// for local development
+app.use(
+    cors({
+        origin: 'http://localhost:3001',
+    })
+);
 
 app.use('*/review', userAuth);
 app.use('/admin', adminAuth);

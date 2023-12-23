@@ -27,6 +27,7 @@ dist-ssr
 .env.*
 
 service-account-file.json
+dev-service-account-file.json
 add-admin.js
 test.js
 firebase
