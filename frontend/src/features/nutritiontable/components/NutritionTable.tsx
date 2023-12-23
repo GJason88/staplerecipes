@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import useIngredients from '../../../hooks/useIngredients';
 import { useMemo } from 'react';
@@ -11,12 +11,9 @@ export default function NutritionTable() {
     () =>
       ingredients && Object.keys(nutrients).length
         ? ingredients.map((ingredient) => {
-            const protein =
-              ingredient.nutrientsFor100G[nutrients.protein.nutrientId];
-            const totalCarbs =
-              ingredient.nutrientsFor100G[nutrients.totalCarbs.nutrientId];
-            const totalFat =
-              ingredient.nutrientsFor100G[nutrients.totalFat.nutrientId];
+            const protein = ingredient.nutrientsFor100G[nutrients.protein.nutrientId];
+            const totalCarbs = ingredient.nutrientsFor100G[nutrients.totalCarbs.nutrientId];
+            const totalFat = ingredient.nutrientsFor100G[nutrients.totalFat.nutrientId];
             const calories = protein * 4 + totalCarbs * 4 + totalFat * 9;
             return {
               id: ingredient.ingredientId,
@@ -57,7 +54,7 @@ export default function NutritionTable() {
       editable: true,
     },
     {
-      field: 'carbs',
+      field: 'totalCarbs',
       headerName: 'Carbs',
       type: 'number',
       width: 170,
@@ -75,7 +72,7 @@ export default function NutritionTable() {
       editable: true,
     },
     {
-      field: 'fat',
+      field: 'totalFat',
       headerName: 'Fat',
       type: 'number',
       width: 170,
@@ -84,6 +81,17 @@ export default function NutritionTable() {
       editable: true,
     },
   ];
+
+  const NutritionToolbar = () => {
+    return (
+      <>
+        <GridToolbar showQuickFilter />
+        <Typography fontWeight={700} p={1} variant='h4' textAlign='center'>
+          Ingredient Data per 100g
+        </Typography>
+      </>
+    );
+  };
 
   return (
     <Box
@@ -111,7 +119,7 @@ export default function NutritionTable() {
         editMode='row'
         disableRowSelectionOnClick
         disableColumnSelector
-        slots={{ toolbar: GridToolbar }}
+        slots={{ toolbar: NutritionToolbar }}
         slotProps={{ toolbar: { showQuickFilter: true } }}
       />
     </Box>

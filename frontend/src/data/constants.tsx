@@ -1,7 +1,7 @@
 import FlatwareIcon from '@mui/icons-material/Flatware';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import FeedIcon from '@mui/icons-material/Feed';
-import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
+// import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -46,11 +46,11 @@ export const publicRoutes = {
     route: '/nutrition',
     icon: <FeedIcon key='nutrition' />,
   },
-  mealplans: {
-    name: 'Meal Plans',
-    route: '/mealplans',
-    icon: <CalendarViewMonthIcon key='mealplan' />,
-  },
+  // mealplans: {
+  //   name: 'Meal Plans',
+  //   route: '/mealplans',
+  //   icon: <CalendarViewMonthIcon key='mealplan' />,
+  // },
 };
 
 export const adminRoute = {
