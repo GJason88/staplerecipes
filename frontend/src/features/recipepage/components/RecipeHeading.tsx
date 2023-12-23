@@ -4,6 +4,7 @@ import PrintIcon from '@mui/icons-material/Print';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useReactToPrint } from 'react-to-print';
 import ShareButton from './ShareButton';
+import { red } from '@mui/material/colors';
 
 interface RecipeHeadingProps {
   recipeId: string;
@@ -39,7 +40,12 @@ export default function RecipeHeading({ recipeId, name, reviewsRef, printRef, re
           <Link>{averageRating.toFixed(1)}</Link> ({numReviews})
         </Typography>
       </Box>
-      <Button startIcon={<BookmarkBorderIcon />} variant='outlined' sx={{ width: 200 }}>
+      <Button
+        disabled
+        startIcon={<BookmarkBorderIcon sx={{ opacity: '20%' }} />}
+        variant='outlined'
+        sx={{ width: 200 }}
+      >
         Save Recipe
       </Button>
       <Stack flexDirection={'row'}>
