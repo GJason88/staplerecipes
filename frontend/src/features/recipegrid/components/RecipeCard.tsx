@@ -32,7 +32,12 @@ export default function RecipeCard(props: RecipeCardProps) {
       >
         <CardMedia
           component='img'
-          image='\assets\darklogo-612x612.png'
+          image={`https://firebasestorage.googleapis.com/v0/b/${
+            import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
+          }/o/recipe_images%2F${props.recipeId}?alt=media`}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/assets/darklogo-612x612.png';
+          }}
           sx={{ m: 'auto', height: 200, width: 300 }}
         />
         <CardContent
@@ -43,11 +48,7 @@ export default function RecipeCard(props: RecipeCardProps) {
             boxShadow: 5,
           }}
         >
-          <Typography
-            sx={{ wordBreak: 'break-word' }}
-            variant='h5'
-            component='div'
-          >
+          <Typography sx={{ wordBreak: 'break-word' }} variant='h5' component='div'>
             {props.name}
           </Typography>
         </CardContent>
