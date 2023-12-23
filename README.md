@@ -26,18 +26,6 @@ Install dependencies in frontend and backend directories using `yarn`
 
 ## Getting Started
 
-Note: Features relying on external services will not be functional.
-
-### Preview production build with docker compose
-
-Note: Currently not working without including firebase auth api key in environment variables
-
-- Uncomment [this line](https://github.com/GJason88/staplerecipes/blob/f9635bf8a7bfa5cb71cafd3ea217d40c9ce2764d/docker-compose.yml#L14) to run an initial db script on build.
-- Ensure `--prod` is not present [here](https://github.com/GJason88/staplerecipes/blob/f9635bf8a7bfa5cb71cafd3ea217d40c9ce2764d/backend/Dockerfile#L10).
-- Run `yarn build` in the frontend directory.
-- Use `docker-compose up --build` to build the images and start the containers.
-- Visit http://localhost:80
-
 ### Setting up a local development environment
 
 - Install [PostgreSQL](https://www.postgresql.org/) version 15.4 and create a database. Using docker, this can be done with `docker pull postgres`.
