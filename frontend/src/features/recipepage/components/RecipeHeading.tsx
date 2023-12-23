@@ -4,7 +4,6 @@ import PrintIcon from '@mui/icons-material/Print';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useReactToPrint } from 'react-to-print';
 import ShareButton from './ShareButton';
-import { red } from '@mui/material/colors';
 
 interface RecipeHeadingProps {
   recipeId: string;

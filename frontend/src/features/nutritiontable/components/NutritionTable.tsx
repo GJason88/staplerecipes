@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridColumnHeaderTitle, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import useIngredients from '../../../hooks/useIngredients';
 import { useMemo } from 'react';
 import useNutrients from '../../../hooks/useNutrients';
@@ -7,7 +7,6 @@ import useNutrients from '../../../hooks/useNutrients';
 export default function NutritionTable() {
   const { ingredients } = useIngredients();
   const nutrients = useNutrients();
-  console.log(nutrients);
   const rows = useMemo(
     () =>
       ingredients && Object.keys(nutrients).length
@@ -87,7 +86,9 @@ export default function NutritionTable() {
     return (
       <>
         <GridToolbar showQuickFilter />
-        <Typography fontWeight={700} p={1} variant='h4' textAlign='center'>Ingredient Data per 100g</Typography>
+        <Typography fontWeight={700} p={1} variant='h4' textAlign='center'>
+          Ingredient Data per 100g
+        </Typography>
       </>
     );
   };
