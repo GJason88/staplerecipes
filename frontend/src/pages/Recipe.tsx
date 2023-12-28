@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveRoute, setBreadcrumbs } from '../layouts/layoutReducer';
+import { setActiveRoute } from '../layouts/layoutReducer';
 import { publicRoutes } from '../data/constants';
 import RecipePage from '../features/recipepage/RecipePage';
 import useRecipe from '../hooks/useRecipe';
@@ -19,16 +19,7 @@ export default function Recipe() {
   }, [queryClient]);
 
   useEffect(() => {
-    dispatch(
-      setBreadcrumbs([
-        { name: publicRoutes.recipes.name, href: publicRoutes.recipes.route },
-        {
-          name: recipe.recipeName,
-          href: `${publicRoutes.recipes.route}/${recipe.recipeId}`,
-        },
-      ])
-    );
-    dispatch(setActiveRoute(publicRoutes.recipes.route));
+    dispatch(setActiveRoute(publicRoutes.recipes));
   }, [dispatch, recipe]);
 
   return !Object.keys(recipe).length ? <></> : <RecipePage recipe={recipe} />;

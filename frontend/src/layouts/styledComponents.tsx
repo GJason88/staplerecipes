@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Stack } from '@mui/material';
+import { AppBar, Box, Button, Stack, ToggleButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { theme } from '../themes';
 import { appbarL, appbarM, appbarS, appbarXL } from '../data/constants';
@@ -38,11 +38,23 @@ export const AppbarButtons = styled(Stack)(() => ({
   },
 }));
 
-export const AppbarButton = styled(Button)(() => ({
+export const AppbarButton = styled(ToggleButton)(() => ({
   borderRadius: '32px',
   padding: '12px 24px',
   fontSize: '20px',
   fontWeight: 'bold',
+  border: 'none',
+  color: '#AB5353',
+  ':hover': {
+    backgroundColor: 'rgba(249, 178, 98, 0.5)',
+  },
+  '&.Mui-selected': {
+    backgroundColor: 'rgba(249, 178, 98, 1)',
+    color: '#AB5353',
+    ':hover': {
+      backgroundColor: 'rgba(249, 178, 98, 1)',
+    },
+  },
   [theme.breakpoints.down('xl')]: {
     fontSize: '16px',
   },

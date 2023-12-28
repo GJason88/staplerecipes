@@ -4,8 +4,17 @@ import useAuth from '../hooks/useAuth';
 import AccountDialog from '../features/account/AccountDialog';
 import { AppbarButton, AppbarButtons, AppbarProfile, StyledAppbar } from './styledComponents';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
+import { publicRoutes } from '../data/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveRoute } from './layoutReducer';
+import { IRootState } from '..';
+import React from 'react';
 
 export default function Appbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const activeRoute = useSelector((state: IRootState) => state.layout.activeRoute);
   const { dialogType, setDialogType, currentUser, logout } = useAuth();
   const handleSignOut = () => {
     logout()
@@ -26,16 +35,29 @@ export default function Appbar() {
               <MenuIcon />
             </IconButton>
             <AppbarButtons>
-              <AppbarButton className=' .appbar-button'>HOME</AppbarButton>
-              <AppbarButton className='appbar-button'>RECIPES</AppbarButton>
-              <AppbarButton className='appbar-button'>INFO</AppbarButton>
-              <img className='appbar-logo' src='/wheat-logo.png' />
-              <AppbarButton className='appbar-button'>SHOP</AppbarButton>
-              <AppbarButton className='appbar-button'>ABOUT</AppbarButton>
+              {Object.entries(publicRoutes).map(([key, val], i) => (
+                <React.Fragment key={i}>
+                  <AppbarButton
+                    value={val}
+                    selected={activeRoute === val}
+                    onClick={() => {
+                      dispatch(setActiveRoute(val));
+                      navigate(val);
+                    }}
+                  >
+                    {key.toUpperCase()}
+                  </AppbarButton>
+                  {i === 2 && <img className='appbar-logo' src='/wheat-logo.png' />}
+                </React.Fragment>
+              ))}
             </AppbarButtons>
             {currentUser ? (
               // TODO: build profile dialog
-              <Avatar sx={{ ':hover': { cursor: 'pointer' } }} src='/blank-profile.png' onClick={handleSignOut} />
+              <Avatar
+                sx={{ ':hover': { cursor: 'pointer' } }}
+                src={currentUser.photoURL ?? '/blank-profile.png'}
+                onClick={handleSignOut}
+              />
             ) : (
               <AppbarProfile onClick={() => setDialogType('form')}>Sign In</AppbarProfile>
             )}

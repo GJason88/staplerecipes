@@ -29,36 +29,11 @@ export const pLen = 16;
 export const tags = ['Under 20 Minutes', 'Easy Cleanup', 'High Protein'];
 
 export const publicRoutes = {
-  home: {
-    name: 'Home',
-    route: '/',
-    icon: <HomeIcon key='home' />,
-  },
-  recipes: {
-    name: 'Recipes',
-    route: '/recipes',
-    icon: <MenuBookTwoToneIcon key='recipes' />,
-  },
-  tools: {
-    name: 'Tools',
-    route: '/tools',
-    icon: <FlatwareIcon key='tools' />,
-  },
-  ingredients: {
-    name: 'Ingredients',
-    route: '/ingredients',
-    icon: <KitchenIcon key='ingredients' />,
-  },
-  nutrition: {
-    name: 'Nutrition',
-    route: '/nutrition',
-    icon: <FeedIcon key='nutrition' />,
-  },
-  // mealplans: {
-  //   name: 'Meal Plans',
-  //   route: '/mealplans',
-  //   icon: <CalendarViewMonthIcon key='mealplan' />,
-  // },
+  home: '/',
+  recipes: '/recipes',
+  info: '/info',
+  shop: '/shop',
+  about: '/about',
 };
 
 export const adminRoute = {

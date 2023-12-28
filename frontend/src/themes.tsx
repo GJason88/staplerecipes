@@ -12,6 +12,11 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
