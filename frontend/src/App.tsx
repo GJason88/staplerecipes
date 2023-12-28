@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Sidebar from './layouts/Sidebar';
-import { Box } from '@mui/material';
-import TopAppBar from './layouts/TopAppBar';
+import { Box, Stack } from '@mui/material';
+import Appbar from './layouts/Appbar';
 import ServiceResult from './components/ServiceResult';
+import { Content } from './layouts/styledComponents';
 
 const Home = lazy(() => import('./pages/Home'));
 const Recipes = lazy(() => import('./pages/Recipes'));
@@ -16,22 +16,23 @@ const Admin = lazy(() => import('./pages/Admin'));
 
 export default function App() {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Stack gap={'24px'} alignItems='center'>
       <ServiceResult />
-      <Sidebar />
-      <TopAppBar />
-      <Suspense fallback={<div className='container'>Loading...</div>}>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/recipes' element={<Recipes />} />
-          <Route path='/recipes/:id' element={<Recipe />} />
-          <Route path='/tools' element={<Tools />} />
-          <Route path='/ingredients' element={<Ingredients />} />
-          <Route path='/nutrition' element={<Nutrition />} />
-          <Route path='/mealplans' element={<MealPlans />} />
-          <Route path='/admin' element={<Admin />} />
-        </Routes>
-      </Suspense>
-    </Box>
+      <Appbar />
+      <Content>
+        <Suspense fallback={<div className='container'>Loading...</div>}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/recipes' element={<Recipes />} />
+            <Route path='/recipes/:id' element={<Recipe />} />
+            <Route path='/tools' element={<Tools />} />
+            <Route path='/ingredients' element={<Ingredients />} />
+            <Route path='/nutrition' element={<Nutrition />} />
+            <Route path='/mealplans' element={<MealPlans />} />
+            <Route path='/admin' element={<Admin />} />
+          </Routes>
+        </Suspense>
+      </Content>
+    </Stack>
   );
 }

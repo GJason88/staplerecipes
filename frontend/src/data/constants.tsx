@@ -6,6 +6,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
+export const appbarXL = '128px';
+
+export const appbarL = '114px';
+
+export const appbarM = '89px';
+
+export const appbarS = '65px';
+
 export const drawerWidth = 270;
 
 export const recipeWidth = 900;

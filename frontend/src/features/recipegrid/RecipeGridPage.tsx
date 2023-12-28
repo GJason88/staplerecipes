@@ -7,18 +7,9 @@ export default function RecipeGridPage() {
 
   return (
     <>
-      <Box
-        sx={{ mt: 8 }}
-        display='flex'
-        justifyContent='flex-start'
-        flexWrap='wrap'
-      >
+      <Box display='flex' justifyContent='flex-start' flexWrap='wrap'>
         {recipes.map((recipe) => (
-          <RecipeCard
-            key={recipe.recipeId}
-            name={recipe.recipeName}
-            recipeId={recipe.recipeId}
-          ></RecipeCard>
+          <RecipeCard key={recipe.recipeId} name={recipe.recipeName} recipeId={recipe.recipeId}></RecipeCard>
         ))}
       </Box>
     </>
