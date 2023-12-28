@@ -87,6 +87,7 @@ export const Content = styled(Box)(() => ({
   boxShadow: '-1px -1px 4px 0px rgba(0, 0, 0, 0.25), 1px 1px 4px 0px rgba(0, 0, 0, 0.25)',
   borderRadius: '32px',
   maxWidth: '960px',
+  width: '100%',
   flexShrink: 1,
   minHeight: `calc(100vh - 48px - ${appbarXL})`,
   [theme.breakpoints.down('xl')]: {
