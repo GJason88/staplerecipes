@@ -10,6 +10,10 @@ export const theme = createTheme({
       default: '#FFD495',
       paper: '#FFD495',
     },
+    text: {
+      primary: '#AB5353',
+      secondary: 'black',
+    },
   },
   components: {
     MuiButtonBase: {
