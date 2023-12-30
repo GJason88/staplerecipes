@@ -17,6 +17,7 @@ export default function RecipeCard(props: RecipeCardProps) {
           '.MuiCardActionArea-focusHighlight': {
             background: 'black',
           },
+          padding: '8px'
         }}
         onClick={() => {
           navigate(`/recipes/${props.recipeId}`);
@@ -31,7 +32,7 @@ export default function RecipeCard(props: RecipeCardProps) {
             (e.target as HTMLImageElement).src = '/assets/darklogo-612x612.png';
           }}
         />
-        <StyledCardText>{props.name}</StyledCardText>
+        <StyledCardText>{props.name}dfsdgfsdfgdfgdfgdfgdfg</StyledCardText>
       </CardActionArea>
     </StyledCard>
   );

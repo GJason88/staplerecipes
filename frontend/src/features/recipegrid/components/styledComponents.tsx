@@ -3,7 +3,7 @@ import { theme } from '../../../themes';
 
 export const StyledCard = styled(Card)(() => ({
   maxWidth: '32%',
-  maxHeight: '208px',
+  maxHeight: '219px',
   flex: '1 1 32%',
   borderRadius: '8px',
   marginTop: '16px',
@@ -28,7 +28,7 @@ export const PlaceholderCard = styled(Card)(() => ({
 }));
 
 export const StyledMedia = styled(CardMedia)(() => ({
-  height: '150px',
+  height: '142px',
   borderRadius: '8px',
   border: '1px solid rgba(0,0,0,0.25)',
 }));
@@ -40,7 +40,7 @@ export const StyledCardText = styled(Typography)(() => ({
   display: '-webkit-box',
   WebkitLineClamp: '2',
   WebkitBoxOrient: 'vertical',
-  height: '68px',
+  height: '60px',
   padding: '4px 0px',
   fontSize: '20px',
   fontWeight: 'medium',
