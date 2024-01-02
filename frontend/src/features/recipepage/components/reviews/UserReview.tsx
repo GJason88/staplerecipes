@@ -10,7 +10,7 @@ export default function UserReview({ displayName, date, rating, reviewText }: Re
         sx={{
           wordWrap: 'break-word',
           borderRadius: '8px',
-          padding: '4px',
+          padding: '8px',
           border: '1px solid rgba(0,0,0,0.1)',
           '&::-webkit-scrollbar': {
             backgroundColor: 'inherit',

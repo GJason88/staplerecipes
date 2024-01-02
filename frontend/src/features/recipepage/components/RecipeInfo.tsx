@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { BodyTypography, HeadingTypography, RecipePaper } from './styledComponents';
 
 interface RecipeInfoProps {
