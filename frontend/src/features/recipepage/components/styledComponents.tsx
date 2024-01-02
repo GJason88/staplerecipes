@@ -13,7 +13,7 @@ export const RecipePaper = styled(Paper)(() => ({
   minWidth: '290px',
   flexGrow: 1,
   textAlign: 'start',
-  width: '100%'
+  width: '100%',
 }));
 
 export const RecipeNutritionPaper = styled(Paper)(() => ({
@@ -59,7 +59,6 @@ export const HeadingTypography = styled(Typography)(() => ({
 
 export const BodyTypography = styled(Typography)(() => ({
   fontSize: '16px',
-  textAlign: 'center',
   [theme.breakpoints.down('sm')]: {
     fontSize: '12px',
   },
