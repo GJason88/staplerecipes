@@ -8,7 +8,7 @@ export default function RecipeGridPage() {
   const { recipes } = useRecipes();
 
   return (
-    <Stack>
+    <Stack width='100%'>
       <RecipeFilter />
       <Grid container justifyContent='space-between' alignContent='start'>
         {recipes.map((recipe) => (

@@ -1,14 +1,6 @@
-import {
-  Checkbox,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  Typography,
-} from '@mui/material';
+import { Checkbox, List, ListItem, ListItemButton, ListItemIcon } from '@mui/material';
 import { useState } from 'react';
+import { BodyListItemText, HeadingTypography, RecipePaper } from './styledComponents';
 
 interface RecipeToolsProps {
   tools: Array<ToolState>;
@@ -29,11 +21,11 @@ export default function RecipeTools(props: RecipeToolsProps) {
     setChecked(newChecked);
   };
   return (
-    <Paper sx={{ minWidth: 290, width: '49%', flexGrow: 1, p: 3 }}>
-      <Typography fontSize={18} fontWeight={600}>
+    <RecipePaper sx={{ width: '49%' }}>
+      <HeadingTypography fontSize={18} fontWeight={600}>
         Tools
-      </Typography>
-      <List>
+      </HeadingTypography>
+      <List sx={{ mb: -1 }}>
         {props.tools.map((value, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
@@ -48,19 +40,14 @@ export default function RecipeTools(props: RecipeToolsProps) {
               onClick={handleToggle(index)}
             >
               <ListItemIcon sx={{ mr: -3 }}>
-                <Checkbox
-                  sx={{ p: 0 }}
-                  checked={checked.indexOf(index) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                />
+                <Checkbox sx={{ p: 0 }} checked={checked.indexOf(index) !== -1} tabIndex={-1} disableRipple />
               </ListItemIcon>
-              <ListItemText
+              <BodyListItemText
                 sx={
                   checked.indexOf(index) !== -1
                     ? {
                         textDecoration: 'line-through',
-                        color: 'darkgrey',
+                        color: 'rgba(0,0,0,0.4)',
                       }
                     : {}
                 }
@@ -70,6 +57,6 @@ export default function RecipeTools(props: RecipeToolsProps) {
           </ListItem>
         ))}
       </List>
-    </Paper>
+    </RecipePaper>
   );
 }

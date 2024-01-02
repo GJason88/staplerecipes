@@ -7,6 +7,7 @@ export const StyledCard = styled(Card)(() => ({
   flex: '1 1 32%',
   borderRadius: '8px',
   marginTop: '16px',
+  background: 'transparent',
   [theme.breakpoints.down('md')]: {
     maxWidth: '48%',
     flex: '1 1 48%',
@@ -21,6 +22,7 @@ export const StyledCard = styled(Card)(() => ({
 export const PlaceholderCard = styled(Card)(() => ({
   maxWidth: '32%',
   flex: '1 1 32%',
+  background: 'transparent',
   [theme.breakpoints.down('md')]: {
     maxWidth: '48%',
     flex: '1 1 48%',

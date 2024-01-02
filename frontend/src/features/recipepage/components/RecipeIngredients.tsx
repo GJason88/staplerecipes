@@ -1,14 +1,6 @@
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  Checkbox,
-  ListItemText,
-  Paper,
-} from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemIcon, Checkbox } from '@mui/material';
 import { useState } from 'react';
+import { BodyListItemText, HeadingTypography, RecipePaper } from './styledComponents';
 
 interface RecipeIngredientsProps {
   ingredients: Array<IngredientState>;
@@ -29,11 +21,9 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
     setChecked(newChecked);
   };
   return (
-    <Paper sx={{ minWidth: 290, width: '49%', flexGrow: 1, p: 3 }}>
-      <Typography fontSize={18} fontWeight={600}>
-        Ingredients
-      </Typography>
-      <List>
+    <RecipePaper sx={{ width: '49%' }}>
+      <HeadingTypography>Ingredients</HeadingTypography>
+      <List sx={{ mb: -1 }}>
         {props.ingredients.map((value, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
@@ -48,19 +38,14 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
               onClick={handleToggle(index)}
             >
               <ListItemIcon sx={{ mr: -3 }}>
-                <Checkbox
-                  sx={{ p: 0, mt: -2 }}
-                  checked={checked.indexOf(index) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                />
+                <Checkbox sx={{ p: 0, mt: -2 }} checked={checked.indexOf(index) !== -1} tabIndex={-1} disableRipple />
               </ListItemIcon>
-              <ListItemText
+              <BodyListItemText
                 sx={
                   checked.indexOf(index) !== -1
                     ? {
                         textDecoration: 'line-through',
-                        color: 'darkgrey',
+                        color: 'rgba(0,0,0,0.4)',
                       }
                     : {}
                 }
@@ -75,6 +60,6 @@ export default function RecipeIngredients(props: RecipeIngredientsProps) {
           </ListItem>
         ))}
       </List>
-    </Paper>
+    </RecipePaper>
   );
 }

@@ -8,13 +8,14 @@ import RecipeInstructions from './components/RecipeInstructions';
 import RecipeNutrition from './components/RecipeNutrition';
 import RecipeReviews from './components/reviews/RecipeReviews';
 import { useRef } from 'react';
+import { RecipeStack } from './components/styledComponents';
 
 export default function RecipePage({ recipe }: { recipe: RecipeState }) {
   const reviewsRef = useRef<HTMLDivElement>(null);
   const printRef = useRef<HTMLDivElement>(null);
   return (
-    <Container sx={{ pt: 10, pb: 10 }}>
-      <Stack maxWidth={recipeWidth} gap={2}>
+    <Container>
+      <RecipeStack maxWidth={recipeWidth} gap={2}>
         <RecipeHeading
           recipeId={recipe.recipeId}
           name={recipe.recipeName}
@@ -24,7 +25,7 @@ export default function RecipePage({ recipe }: { recipe: RecipeState }) {
         />
         <RecipeInfo time={recipe.time} diet={recipe.diet} servings={recipe.servings} />
         <div style={{ all: 'inherit' }} ref={printRef}>
-          <Stack flexWrap='wrap' flexDirection='row' gap={1}>
+          <Stack flexWrap='wrap' flexDirection='row' gap={2}>
             <RecipeIngredients ingredients={recipe.ingredients} />
             <RecipeTools tools={recipe.tools} />
           </Stack>
@@ -32,7 +33,7 @@ export default function RecipePage({ recipe }: { recipe: RecipeState }) {
         </div>
         <RecipeNutrition ingredients={recipe.ingredients} />
         <RecipeReviews reviewsRef={reviewsRef} recipeReviews={recipe.reviews} recipeId={recipe.recipeId} />
-      </Stack>
+      </RecipeStack>
     </Container>
   );
 }

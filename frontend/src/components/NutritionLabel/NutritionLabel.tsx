@@ -1,23 +1,21 @@
-import { Box, Typography, Divider } from '@mui/material';
+import { Box } from '@mui/material';
 import Macronutrients from './components/Macronutrients';
 import Micronutrients from './components/Micronutrients';
 import useNutrients from '../../hooks/useNutrients';
+import {
+  NutritionBox,
+  NutritionCaloriesTypography,
+  NutritionDivider,
+  NutritionFooter,
+  NutritionHeaderTypography,
+  NutritionText,
+} from './components/styledComponents';
 
 interface NutritionLabelProps {
   nutrition: NutritionState;
-  center?: boolean;
-  minWidth?: number;
-  maxWidth?: number;
-  maxHeight?: number;
-  fs?: number;
-  p?: number;
 }
 
-export default function NutritionLabel({
-  nutrition,
-  ...props
-}: NutritionLabelProps) {
-  const fs = props.fs ?? 16;
+export default function NutritionLabel({ nutrition }: NutritionLabelProps) {
   const nutrients = useNutrients();
   const calories =
     Object.keys(nutrients).length && Object.keys(nutrition).length
@@ -29,59 +27,31 @@ export default function NutritionLabel({
       : 0;
   return (
     Object.keys(nutrients).length > 0 && (
-      <Box
-        flexGrow={1}
-        minWidth={props.minWidth ?? 290}
-        maxWidth={props.maxWidth ?? 380}
-        maxHeight={props.maxHeight ?? 600}
+      <NutritionBox
         p={1}
-        mb={1}
         sx={{ outline: 'solid dimgrey' }}
       >
-        <Typography mt={-1} mb={-1} fontSize={fs * 2.4} fontWeight={1000}>
-          Nutrition Facts
-        </Typography>
-        <Divider sx={{ mt: 1, mb: 1, borderColor: 'dimgrey' }} />
-        <Typography fontSize={fs - 2} fontWeight={600}>
-          Amount Per Serving
-        </Typography>
+        <NutritionHeaderTypography>Nutrition Facts</NutritionHeaderTypography>
+        <NutritionDivider />
+        <NutritionText fontWeight='bold'>Amount Per Serving</NutritionText>
         <Box display='flex' justifyContent='space-between'>
-          <Typography fontSize={fs * 1.6} fontWeight={1000}>
-            Calories
-          </Typography>
-          <Typography fontSize={fs * 1.6} fontWeight={1000}>
-            {calories}
-          </Typography>
+          <NutritionCaloriesTypography>Calories</NutritionCaloriesTypography>
+          <NutritionCaloriesTypography>{calories}</NutritionCaloriesTypography>
         </Box>
-        <Divider sx={{ mb: 1, borderColor: 'dimgrey', borderBottomWidth: 5 }} />
-        <Typography align='right' fontSize={fs}>
+        <NutritionDivider sx={{ m: 0, mb: 1, borderBottomWidth: 5 }} />
+        <NutritionText align='right'>
           <strong>% Daily Value*</strong>
-        </Typography>
-        <Divider sx={{ borderStyle: 'dotted', borderColor: 'dimgrey' }} />
-        <Macronutrients fs={fs} nutrition={nutrition} nutrients={nutrients} />
-        <Divider
-          sx={{
-            mt: 1,
-            mb: 1,
-            borderColor: 'dimgrey',
-            borderBottomWidth: 10,
-          }}
-        />
-        <Micronutrients fs={fs} nutrition={nutrition} nutrients={nutrients} />
-        <Divider
-          sx={{
-            mt: 1,
-            mb: 1,
-            borderColor: 'dimgrey',
-            borderBottomWidth: 5,
-          }}
-        />
-        <Typography fontSize={fs - 6}>
-          The % Daily Value (DV) tells you how much a nutrient in a serving of
-          food contributes to a daily diet. 2,000 calories a day is used for
-          general nutrition advice.
-        </Typography>
-      </Box>
+        </NutritionText>
+        <NutritionDivider sx={{ borderStyle: 'dotted', m: 0 }} />
+        <Macronutrients nutrition={nutrition} nutrients={nutrients} />
+        <NutritionDivider sx={{ borderBottomWidth: 10 }} />
+        <Micronutrients nutrition={nutrition} nutrients={nutrients} />
+        <NutritionDivider sx={{ borderBottomWidth: 5 }} />
+        <NutritionFooter>
+          The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000
+          calories a day is used for general nutrition advice.
+        </NutritionFooter>
+      </NutritionBox>
     )
   );
 }

@@ -5,7 +5,6 @@ import { useState } from 'react';
 export default function Micronutrients({
   nutrition,
   nutrients,
-  fs,
 }: NutritionProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [filter, setFilter] = useState<string>('');
@@ -46,7 +45,6 @@ export default function Micronutrients({
               nutrient={nutrient}
               amount={nutrition[nutrient.nutrientId]}
               noDivider={index === micronutrients.length - 1}
-              fs={fs}
             />
           ))}
         </Box>

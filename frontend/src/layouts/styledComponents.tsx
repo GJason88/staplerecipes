@@ -50,6 +50,7 @@ export const AppbarButton = styled(ToggleButton)(() => ({
   },
   '&.Mui-selected': {
     backgroundColor: 'rgba(249, 178, 98, 1)',
+    color: '#AB5353',
     ':hover': {
       backgroundColor: 'rgba(249, 178, 98, 1)',
     },
@@ -102,5 +103,8 @@ export const Content = styled(Box)(() => ({
   [theme.breakpoints.down('md')]: {
     marginTop: appbarS,
     minHeight: `calc(100vh - 48px - ${appbarS})`,
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '16px 8px',
   },
 }));

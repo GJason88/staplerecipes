@@ -1,4 +1,5 @@
 import { Paper, Stack, Typography } from '@mui/material';
+import { BodyTypography, HeadingTypography, RecipePaper } from './styledComponents';
 
 interface RecipeInfoProps {
   time: string;
@@ -13,23 +14,21 @@ export default function RecipeInfo(props: RecipeInfoProps) {
     { name: 'Diet', value: props.diet },
   ];
   return (
-    <Stack flexDirection='row' gap={1}>
+    <Stack flexDirection='row' gap={1} minWidth='290px' width='100%'>
       {info.map((data, index) => (
-        <Paper
+        <RecipePaper
           key={index}
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            p: 3,
             width: '100%',
+            minWidth: '0px',
           }}
         >
-          <Typography fontSize={18} fontWeight={600}>
-            {data.name}:
-          </Typography>
-          <Typography align='center'>{data.value}</Typography>
-        </Paper>
+          <HeadingTypography>{data.name}:</HeadingTypography>
+          <BodyTypography>{data.value}</BodyTypography>
+        </RecipePaper>
       ))}
     </Stack>
   );

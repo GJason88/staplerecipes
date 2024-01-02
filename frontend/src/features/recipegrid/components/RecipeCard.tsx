@@ -32,7 +32,7 @@ export default function RecipeCard(props: RecipeCardProps) {
             (e.target as HTMLImageElement).src = '/assets/darklogo-612x612.png';
           }}
         />
-        <StyledCardText>{props.name}dfsdgfsdfgdfgdfgdfgdfg</StyledCardText>
+        <StyledCardText>{props.name}</StyledCardText>
       </CardActionArea>
     </StyledCard>
   );

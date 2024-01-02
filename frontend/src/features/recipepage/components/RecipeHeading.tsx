@@ -1,9 +1,10 @@
-import { Box, Button, Link, Rating, Stack, Typography } from '@mui/material';
+import { Box, Link, Rating, Stack, Typography } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import PrintIcon from '@mui/icons-material/Print';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useReactToPrint } from 'react-to-print';
 import ShareButton from './ShareButton';
+import { RecipeButton } from './styledComponents';
 
 interface RecipeHeadingProps {
   recipeId: string;
@@ -33,32 +34,36 @@ export default function RecipeHeading({ recipeId, name, reviewsRef, printRef, re
       <Typography mb={-2} fontSize={38} fontWeight={600}>
         {name}
       </Typography>
-      <Box display='flex'>
+      <Box display='flex' minWidth='188px'>
         <Rating readOnly precision={0.2} value={averageRating} />
-        <Typography pl={'8px'} pr={'12px'} pt={'2px'}>
+        <Typography pl={'8px'} pr={'12px'} pt={'2px'} noWrap>
           <Link>{averageRating.toFixed(1)}</Link> ({numReviews})
         </Typography>
       </Box>
-      <Button
+      <RecipeButton
         disabled
         startIcon={<BookmarkBorderIcon sx={{ opacity: '20%' }} />}
         variant='outlined'
         sx={{ width: 200 }}
       >
         Save Recipe
-      </Button>
-      <Stack flexDirection={'row'}>
-        <Button variant='outlined' onClick={handleRateClick} startIcon={<RateReviewIcon />}>
+      </RecipeButton>
+      <Stack gap={'4px'} flexDirection={'row'} minWidth='264px'>
+        <RecipeButton
+          variant='outlined'
+          onClick={handleRateClick}
+          startIcon={<RateReviewIcon sx={{ color: 'inherit' }} />}
+        >
           Rate
-        </Button>
-        <Button variant='outlined' onClick={handlePrint} startIcon={<PrintIcon />}>
+        </RecipeButton>
+        <RecipeButton variant='outlined' onClick={handlePrint} startIcon={<PrintIcon sx={{ color: 'inherit' }} />}>
           Print
-        </Button>
+        </RecipeButton>
         <ShareButton />
       </Stack>
-      <Box boxShadow={1} display='flex' maxWidth={900} height={500} alignItems='center' justifyContent='center'>
+      <Box boxShadow={1} sx={{ display: 'flex', maxWidth: '900px', maxHeight: '500px', minWidth: '290px' }}>
         <img
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'cover' }}
           height='100%'
           width='100%'
           src={`https://firebasestorage.googleapis.com/v0/b/${
