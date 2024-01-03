@@ -1,6 +1,7 @@
 import { InputAdornment, Stack, TextField, ToggleButton, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
+import { RecipeFilterStack } from './styledComponents';
 
 export default function RecipeFilter() {
   const isSearchSelected = true;
@@ -16,7 +17,7 @@ export default function RecipeFilter() {
   );
 
   return (
-    <Stack gap='8px' direction='row' width='100%' justifyContent='center' mb={'8px'}>
+    <RecipeFilterStack>
       <TextField
         sx={{
           maxWidth: '600px',
@@ -32,6 +33,7 @@ export default function RecipeFilter() {
             '&.Mui-focused': {
               borderColor: 'red',
             },
+            borderRadius: '12px'
           },
         }}
         placeholder='Search Recipes'
@@ -39,6 +41,6 @@ export default function RecipeFilter() {
       <ToggleButton sx={{ opacity: '50%' }} disabled value='show-filters'>
         <TuneIcon />
       </ToggleButton>
-    </Stack>
+    </RecipeFilterStack>
   );
 }

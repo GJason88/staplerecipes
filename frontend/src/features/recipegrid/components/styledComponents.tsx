@@ -1,4 +1,4 @@
-import { Card, CardMedia, Typography, styled } from '@mui/material';
+import { Card, CardMedia, Stack, Typography, styled } from '@mui/material';
 import { theme } from '../../../themes';
 
 export const StyledCard = styled(Card)(() => ({
@@ -47,4 +47,15 @@ export const StyledCardText = styled(Typography)(() => ({
   fontSize: '20px',
   fontWeight: 'medium',
   textAlign: 'center',
+}));
+
+export const RecipeFilterStack = styled(Stack)(() => ({
+  gap: '8px',
+  flexDirection: 'row',
+  width: '100%',
+  justifyContent: 'center',
+  marginBottom: '8px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '0px 16px'
+  }
 }));
