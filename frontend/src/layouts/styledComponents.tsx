@@ -161,3 +161,29 @@ export const EmailVerificationAlert = styled(Alert)(() => ({
     marginBottom: `-${appbarS}`,
   },
 }));
+
+export const Profile = styled(Stack)(() => ({
+  boxShadow: '1px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+  padding: '16px',
+  position: 'absolute',
+  right: '0%',
+  top: '84px',
+  borderRadius: '16px',
+  backgroundColor: '#FFD495',
+  flexDirection: 'column',
+  width: '300px',
+  opacity: '95%',
+  color: 'black',
+  gap: '32px',
+  [theme.breakpoints.down('xl')]: {
+    top: '72px'
+  },
+  [theme.breakpoints.down('lg')]: {
+    top: '60px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center',
+    textAlign: 'center',
+    width: '200px'
+  },
+}));

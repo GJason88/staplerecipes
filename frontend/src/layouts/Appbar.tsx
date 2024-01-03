@@ -1,5 +1,5 @@
 import Toolbar from '@mui/material/Toolbar';
-import { Alert, Avatar, Box, IconButton, Stack } from '@mui/material';
+import { Alert, Avatar, Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 import AccountDialog from '../features/account/AccountDialog';
 import {
@@ -9,6 +9,7 @@ import {
   EmailVerificationAlert,
   MobileAppbarButton,
   MobileAppbarButtons,
+  Profile,
   StyledAppbar,
 } from './styledComponents';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,6 +22,7 @@ import React, { useState } from 'react';
 
 export default function Appbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const activeRoute = useSelector((state: IRootState) => state.layout.activeRoute);
@@ -69,10 +71,22 @@ export default function Appbar() {
               <Avatar
                 sx={{ ':hover': { cursor: 'pointer' } }}
                 src={currentUser.photoURL ?? '/blank-profile.png'}
-                onClick={handleSignOut}
+                onClick={() => setProfileOpen(!profileOpen)}
               />
             ) : (
-              <AppbarProfile onClick={() => setDialogType('form')}>Sign In</AppbarProfile>
+              <Button sx={{ fontSize: '12px', fontWeight: 'medium' }} onClick={() => setDialogType('form')}>
+                Sign In
+              </Button>
+            )}
+            {profileOpen && (
+              <Profile>
+                <Stack>
+                  <Typography sx={{opacity: '50%'}}>Display Name:</Typography>
+                  <Typography fontWeight='bold'>{currentUser?.displayName ?? 'Guest'}</Typography>
+                </Stack>
+
+                <Button onClick={handleSignOut} variant='outlined' fullWidth>Sign Out</Button>
+              </Profile>
             )}
             {menuOpen && (
               <MobileAppbarButtons>
