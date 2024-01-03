@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Stack, ToggleButton } from '@mui/material';
+import { Alert, AppBar, Box, Button, Stack, ToggleButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { theme } from '../themes';
 import { appbarL, appbarM, appbarS, appbarXL } from '../data/constants';
@@ -35,6 +35,41 @@ export const AppbarButtons = styled(Stack)(() => ({
   },
   [theme.breakpoints.down(700)]: {
     gap: '20px',
+  },
+}));
+
+export const MobileAppbarButtons = styled(Stack)(() => ({
+  boxShadow: '1px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+  position: 'absolute',
+  borderRadius: '32px',
+  marginTop: '290px',
+  marginLeft: '-16px',
+  backgroundColor: '#FFD495',
+  flexDirection: 'column',
+  width: '100%',
+  opacity: '95%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexGrow: 1,
+}));
+
+export const MobileAppbarButton = styled(ToggleButton)(() => ({
+  borderRadius: '8px',
+  padding: '12px 24px',
+  fontSize: '12px',
+  fontWeight: 'bold',
+  border: 'none',
+  color: '#AB5353',
+  width: '100%',
+  ':hover': {
+    backgroundColor: 'rgba(249, 178, 98, 0.5)',
+  },
+  '&.Mui-selected': {
+    backgroundColor: 'rgba(249, 178, 98, 1)',
+    color: '#AB5353',
+    ':hover': {
+      backgroundColor: 'rgba(249, 178, 98, 1)',
+    },
   },
 }));
 
@@ -106,5 +141,23 @@ export const Content = styled(Box)(() => ({
   },
   [theme.breakpoints.down('sm')]: {
     padding: '16px 8px',
+  },
+}));
+
+export const EmailVerificationAlert = styled(Alert)(() => ({
+  borderRadius: 20,
+  marginTop: appbarXL,
+  marginBottom: `-${appbarXL}`,
+  [theme.breakpoints.down('xl')]: {
+    marginTop: appbarL,
+    marginBottom: `-${appbarL}`,
+  },
+  [theme.breakpoints.down('lg')]: {
+    marginTop: appbarM,
+    marginBottom: `-${appbarM}`,
+  },
+  [theme.breakpoints.down('md')]: {
+    marginTop: appbarS,
+    marginBottom: `-${appbarS}`,
   },
 }));

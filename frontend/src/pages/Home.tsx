@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <Stack alignItems='center' gap='64px'>
-      <Typography textAlign='center' fontWeight='bold' fontSize={48}>
+      <Typography color='#AB5353' textAlign='center' fontWeight='bold' fontSize={48}>
         STAPLE RECIPES
       </Typography>
       <Stack gap='24px'>
