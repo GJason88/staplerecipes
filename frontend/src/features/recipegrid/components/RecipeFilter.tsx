@@ -1,21 +1,12 @@
-import { InputAdornment, Stack, TextField, ToggleButton, Typography } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { TextField, ToggleButton } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
 import { RecipeFilterStack } from './styledComponents';
 
-export default function RecipeFilter() {
-  const isSearchSelected = true;
-  const searchAdornment = (
-    <InputAdornment position='start' disablePointerEvents>
-      <SearchIcon fontSize='large' />
-      {isSearchSelected ? null : (
-        <Typography sx={{ pl: '5px' }} fontSize={20}>
-          Search for Recipes
-        </Typography>
-      )}
-    </InputAdornment>
-  );
+interface RecipeFilterProps {
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
+}
 
+export default function RecipeFilter({ setFilter }: RecipeFilterProps) {
   return (
     <RecipeFilterStack>
       <TextField
@@ -33,10 +24,11 @@ export default function RecipeFilter() {
             '&.Mui-focused': {
               borderColor: 'red',
             },
-            borderRadius: '12px'
+            borderRadius: '12px',
           },
         }}
         placeholder='Search Recipes'
+        onChange={(e) => setFilter(e.target.value)}
       ></TextField>
       <ToggleButton sx={{ opacity: '50%' }} disabled value='show-filters'>
         <TuneIcon />
