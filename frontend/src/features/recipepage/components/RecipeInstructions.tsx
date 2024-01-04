@@ -1,4 +1,5 @@
-import { Paper, Typography, List, ListItem, Box } from '@mui/material';
+import { Stack } from '@mui/material';
+import { BodyTypography, HeadingTypography, RecipePaper } from './styledComponents';
 
 interface RecipeInstructionsProps {
   instructions: Array<string>;
@@ -6,20 +7,22 @@ interface RecipeInstructionsProps {
 
 export default function RecipeInstructions(props: RecipeInstructionsProps) {
   return (
-    <Paper sx={{ p: 3 }}>
-      <Typography fontSize={18} fontWeight={600}>
-        Instructions
-      </Typography>
-      <List>
-        {props.instructions.map((instruction, index) => (
-          <ListItem key={index}>
-            <Box>
-              <Typography fontWeight={600}>Step {index + 1}</Typography>
-              <Typography>{instruction}</Typography>
-            </Box>
-          </ListItem>
-        ))}
-      </List>
-    </Paper>
+    <RecipePaper>
+      <Stack gap='12px'>
+        <HeadingTypography fontSize={18} fontWeight={600}>
+          Instructions
+        </HeadingTypography>
+        <Stack gap='8px'>
+          {props.instructions.map((instruction, index) => (
+            <Stack key={index} gap='4px'>
+              <BodyTypography fontWeight='bold' sx={{ textDecoration: 'underline' }}>
+                Step {index + 1}
+              </BodyTypography>
+              <BodyTypography>{instruction}</BodyTypography>
+            </Stack>
+          ))}
+        </Stack>
+      </Stack>
+    </RecipePaper>
   );
 }

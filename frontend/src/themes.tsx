@@ -4,30 +4,37 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#686868',
+      main: '#AB5353',
+    },
+    secondary: {
+      main: '#000000',
     },
     background: {
-      default: '#f0f0f0',
-      paper: '#f8f8f8',
+      default: '#FFD495',
+      paper: 'rgba(247,198,142,0.9)',
+    },
+    text: {
+      primary: '#000000',
     },
   },
   components: {
-    MuiDrawer: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiCssBaseline: {
       styleOverrides: {
-        paper: {
-          backgroundColor: '#f0f0f0',
-          color: '#424242',
+        body: {
+          backgroundImage: 'url(/pantry.jpg)',
+          backgroundSize: '400px',
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#f0f0f0',
-          color: 'black',
-          '& .MuiTypography-root': {
-            fontWeight: 500,
-          },
+          backgroundColor: '#FFD495',
         },
       },
     },
@@ -35,28 +42,6 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           color: '#424242',
-        },
-      },
-    },
-    MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          '&:hover': {
-            backgroundColor: '#d5d5d5',
-          },
-          '&.Mui-selected': {
-            backgroundColor: '#d5d5d5',
-            '&:hover': {
-              backgroundColor: '#d5d5d5',
-            },
-            '& .MuiTypography-root': {
-              fontWeight: 500,
-              color: 'black',
-            },
-            '& .MuiSvgIcon-root': {
-              color: 'black',
-            },
-          },
         },
       },
     },

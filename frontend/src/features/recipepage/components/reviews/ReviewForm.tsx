@@ -2,6 +2,7 @@ import { Button, Rating, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { recipeWidth } from '../../../../data/constants';
 import { User } from 'firebase/auth';
+import { RecipeButton } from '../styledComponents';
 
 interface ReviewFormProps {
   submitFn: (review: ReviewState) => void;
@@ -10,12 +11,7 @@ interface ReviewFormProps {
   currentReview?: ReviewState;
 }
 
-export default function ReviewForm({
-  submitFn,
-  submitBtnText,
-  currentUser,
-  currentReview,
-}: ReviewFormProps) {
+export default function ReviewForm({ submitFn, submitBtnText, currentUser, currentReview }: ReviewFormProps) {
   const [rating, setRating] = useState(currentReview?.rating);
   const [reviewText, setReviewText] = useState(currentReview?.reviewText ?? '');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,10 +25,7 @@ export default function ReviewForm({
     });
   };
   return (
-    <form
-      style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
-      onSubmit={handleSubmit}
-    >
+    <form style={{ display: 'flex', flexDirection: 'column', gap: '24px' }} onSubmit={handleSubmit}>
       <Stack gap='4px'>
         <Typography fontWeight={600}>
           Rating <i style={{ fontSize: 12, fontWeight: 400 }}>(required)</i>
@@ -55,9 +48,9 @@ export default function ReviewForm({
           maxHeight: 400,
         }}
       ></textarea>
-      <Button variant='contained' disabled={!rating} type='submit'>
+      <RecipeButton variant='outlined' disabled={!rating} type='submit'>
         {submitBtnText}
-      </Button>
+      </RecipeButton>
     </form>
   );
 }

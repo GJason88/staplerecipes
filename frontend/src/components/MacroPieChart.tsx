@@ -1,94 +1,61 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Box, Typography } from '@mui/material';
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import { Theme, useMediaQuery } from '@mui/material';
+import { PieChart } from '@mui/x-charts';
 import useNutrients from '../hooks/useNutrients';
+import { theme } from '../themes';
 
 interface MacroPieChartProps {
   nutrition: NutritionState;
-  chartHeight?: number;
-  chartWidth?: number;
+  chartDimension?: number;
   showPercentages?: boolean;
-  minWidth?: number;
-  maxWidth?: number;
-  p?: number;
-  pr?: number;
-  border?: boolean;
 }
 
-export default function MacroPieChart({
-  nutrition,
-  chartWidth,
-  chartHeight,
-  showPercentages,
-  minWidth,
-  maxWidth,
-  p,
-  pr,
-  border,
-}: MacroPieChartProps) {
+export default function MacroPieChart({ nutrition, chartDimension, showPercentages }: MacroPieChartProps) {
+  const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const nutrients = useNutrients();
-  if (!Object.keys(nutrients).length || !Object.keys(nutrition).length)
-    return <></>;
-
+  if (!Object.keys(nutrients).length || !Object.keys(nutrition).length) return <></>;
+  const pieDimension = chartDimension ?? isSmallScreen ? 250 : 300;
   const pieSizing = {
-    width: chartWidth ?? 400,
-    height: chartHeight ?? 300,
+    width: pieDimension,
+    height: pieDimension,
   };
   const protein = nutrition[nutrients.protein.nutrientId];
   const carbs = nutrition[nutrients.totalCarbs.nutrientId];
   const fat = nutrition[nutrients.totalFat.nutrientId];
   const calories = Math.round(protein * 4 + carbs * 4 + fat * 9);
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
-      flexGrow={1}
-      p={p ?? 0}
-      pr={pr ?? p}
-      border={border ? 'solid dimgrey' : 'none'}
-      minWidth={minWidth ?? 290}
-      maxWidth={maxWidth ?? 380}
-    >
-      <Typography fontSize={24} fontWeight={600}>
-        Caloric Distribution
-      </Typography>
-      <PieChart
-        series={[
-          {
-            arcLabel: showPercentages
-              ? (item) => `${Math.round((item.value / calories) * 100)}%`
-              : undefined,
-            data: [
-              {
-                id: 0,
-                value: Math.round(fat * 9),
-                label: 'Fat',
-                color: 'darkorange',
-              },
-              {
-                id: 1,
-                value: Math.round(carbs * 4),
-                label: 'Carbs',
-                color: '#a67b5b',
-              },
-              {
-                id: 2,
-                value: Math.round(protein * 4),
-                label: 'Protein',
-                color: 'darkred',
-              },
-            ],
-          },
-        ]}
-        sx={{
-          [`& .${pieArcLabelClasses.root}`]: {
-            fill: 'white',
-            fontSize: 12,
-          },
-        }}
-        {...pieSizing}
-      />
-    </Box>
+    <PieChart
+      sx={{
+        [theme.breakpoints.down('md')]: {
+          marginBottom: '-104px',
+        },
+      }}
+      series={[
+        {
+          arcLabel: showPercentages ? (item) => `${Math.round((item.value / calories) * 100)}%` : undefined,
+          data: [
+            {
+              id: 0,
+              value: Math.round(fat * 9),
+              label: 'Fat',
+              color: 'darkorange',
+            },
+            {
+              id: 1,
+              value: Math.round(carbs * 4),
+              label: 'Carbs',
+              color: '#a67b5b',
+            },
+            {
+              id: 2,
+              value: Math.round(protein * 4),
+              label: 'Protein',
+              color: 'darkred',
+            },
+          ],
+        },
+      ]}
+      {...pieSizing}
+    />
   );
 }

@@ -13,6 +13,7 @@ import serviceReducer from './services/api/serviceReducer.tsx';
 import { ConfirmProvider } from 'material-ui-confirm';
 import adminReducer from './features/admin/adminReducer.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
+import './styles/main.scss';
 
 const reducer = combineReducers({
   layout: layoutReducer,
