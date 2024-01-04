@@ -61,10 +61,18 @@ export default function RecipeHeading({ recipeId, name, reviewsRef, printRef, re
         </RecipeButton>
         <ShareButton />
       </Stack>
-      <Box boxShadow={1} sx={{ display: 'flex', maxWidth: '900px', maxHeight: '500px', minWidth: '290px' }}>
+      <Box
+        boxShadow={1}
+        sx={{
+          display: 'flex',
+          maxWidth: '900px',
+          maxHeight: '500px',
+          minHeight: '100px',
+          minWidth: '290px',
+        }}
+      >
         <img
-          style={{ objectFit: 'cover' }}
-          height='100%'
+          style={{ objectFit: 'cover', maxHeight: '500px' }}
           width='100%'
           src={`https://firebasestorage.googleapis.com/v0/b/${
             import.meta.env.VITE_FIREBASE_STORAGE_BUCKET

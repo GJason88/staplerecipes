@@ -7,19 +7,20 @@ interface NutrientProps {
   bold?: boolean;
   pl?: number;
   noDivider?: boolean;
+  fs?: string;
 }
 
 export default function Nutrient(props: NutrientProps) {
   return (
     <>
       <Box pl={props.pl ?? 0} display='flex' justifyContent='space-between'>
-        <NutritionText>
+        <NutritionText sx={{fontSize: props.fs ?? 'inherit'}}>
           {props.bold ? <strong>{props.nutrient.nutrientName}</strong> : props.nutrient.nutrientName}{' '}
           {props.amount ?? 0}
           {props.nutrient.unit}
         </NutritionText>
         {props.nutrient.dv && (
-          <NutritionText fontWeight='bold'>
+          <NutritionText sx={{fontSize: props.fs ?? 'inherit'}} fontWeight='bold'>
             {Math.round(((props.amount ?? 0) / props.nutrient.dv) * 100)}%
           </NutritionText>
         )}

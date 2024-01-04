@@ -21,9 +21,6 @@ export default function RecipeFilter({ setFilter }: RecipeFilterProps) {
           sx: {
             fontSize: '20px',
             height: '50px',
-            '&.Mui-focused': {
-              borderColor: 'red',
-            },
             borderRadius: '12px',
           },
         }}

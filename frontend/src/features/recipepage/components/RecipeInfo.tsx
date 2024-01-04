@@ -27,7 +27,7 @@ export default function RecipeInfo(props: RecipeInfoProps) {
           }}
         >
           <HeadingTypography>{data.name}:</HeadingTypography>
-          <BodyTypography>{data.value}</BodyTypography>
+          <BodyTypography textAlign='center'>{data.value}</BodyTypography>
         </RecipePaper>
       ))}
     </Stack>
