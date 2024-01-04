@@ -12,7 +12,7 @@ export default function Shop() {
 
   return (
     <Box display='flex' fontSize='48px' width='100%' justifyContent='center'>
-      <Typography fontSize='64px' fontStyle='italic'>
+      <Typography fontSize='64px' fontStyle='italic' textAlign='center'>
         Coming Soon
       </Typography>
     </Box>
