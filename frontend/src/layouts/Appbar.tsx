@@ -1,11 +1,10 @@
 import Toolbar from '@mui/material/Toolbar';
-import { Alert, Avatar, Box, Button, IconButton, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 import AccountDialog from '../features/account/AccountDialog';
 import {
   AppbarButton,
   AppbarButtons,
-  AppbarProfile,
   EmailVerificationAlert,
   MobileAppbarButton,
   MobileAppbarButtons,
@@ -81,11 +80,13 @@ export default function Appbar() {
             {profileOpen && (
               <Profile>
                 <Stack>
-                  <Typography sx={{opacity: '50%'}}>Display Name:</Typography>
+                  <Typography sx={{ opacity: '50%' }}>Display Name:</Typography>
                   <Typography fontWeight='bold'>{currentUser?.displayName ?? 'Guest'}</Typography>
                 </Stack>
 
-                <Button onClick={handleSignOut} variant='outlined' fullWidth>Sign Out</Button>
+                <Button onClick={handleSignOut} variant='outlined' fullWidth>
+                  Sign Out
+                </Button>
               </Profile>
             )}
             {menuOpen && (

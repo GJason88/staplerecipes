@@ -5,17 +5,12 @@ import { appbarL, appbarM, appbarS, appbarXL } from '../data/constants';
 
 export const StyledAppbar = styled(AppBar)(() => ({
   boxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
-  height: appbarXL,
+  height: appbarM,
   display: 'flex',
   alignItems: 'space-between',
   justifyContent: 'center',
   borderRadius: '32px',
-  [theme.breakpoints.down('xl')]: {
-    height: appbarL,
-  },
-  [theme.breakpoints.down('lg')]: {
-    height: appbarM,
-  },
+  opacity: '95%',
   [theme.breakpoints.down('md')]: {
     height: appbarS,
   },
@@ -114,7 +109,7 @@ export const AppbarProfile = styled(Button)(() => ({
 
 export const Content = styled(Box)(() => ({
   display: 'flex',
-  marginTop: appbarXL,
+  marginTop: appbarM,
   marginBottom: '24px',
   padding: '32px',
   backgroundColor: '#FFD495',
@@ -125,15 +120,7 @@ export const Content = styled(Box)(() => ({
   width: '100%',
   flexShrink: 1,
   overflow: 'auto',
-  minHeight: `calc(100vh - 48px - ${appbarXL})`,
-  [theme.breakpoints.down('xl')]: {
-    marginTop: appbarL,
-    minHeight: `calc(100vh - 48px - ${appbarL})`,
-  },
-  [theme.breakpoints.down('lg')]: {
-    marginTop: appbarM,
-    minHeight: `calc(100vh - 48px - ${appbarM})`,
-  },
+  minHeight: `calc(100vh - 48px - ${appbarM})`,
   [theme.breakpoints.down('md')]: {
     marginTop: appbarS,
     minHeight: `calc(100vh - 48px - ${appbarS})`,
@@ -166,22 +153,19 @@ export const Profile = styled(Stack)(() => ({
   padding: '16px',
   position: 'absolute',
   right: '0%',
-  top: '84px',
+  top: '60px',
   borderRadius: '16px',
   backgroundColor: 'rgba(247,198,142,0.9)',
   flexDirection: 'column',
   width: '300px',
   color: 'black',
   gap: '32px',
-  [theme.breakpoints.down('xl')]: {
-    top: '72px'
-  },
   [theme.breakpoints.down('lg')]: {
-    top: '60px'
+    width: '250px',
   },
   [theme.breakpoints.down('sm')]: {
     alignItems: 'center',
     textAlign: 'center',
-    width: '200px'
+    width: '200px',
   },
 }));
