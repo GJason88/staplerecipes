@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import { setActiveRoute } from '../layouts/layoutReducer';
 import { useEffect } from 'react';
 import { publicRoutes } from '../data/constants';
-import { Box, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import { InfoBox } from '../features/info/styledComponents';
 
 export default function Info() {
   const dispatch = useDispatch();
@@ -11,10 +12,28 @@ export default function Info() {
   }, [dispatch]);
 
   return (
-    <Box display='flex' fontSize='48px' width='100%' justifyContent='center'>
-      <Typography fontSize='64px' fontStyle='italic' textAlign='center'>
-        Coming Soon
-      </Typography>
-    </Box>
+    <Stack width='100%' gap='32px'>
+      <InfoBox
+        sx={{
+          backgroundImage: 'url(/assets/tools.jpg)',
+        }}
+      >
+        Tools
+      </InfoBox>
+      <InfoBox
+        sx={{
+          backgroundImage: 'url(/assets/ingredients.png)',
+        }}
+      >
+        Ingredients
+      </InfoBox>
+      <InfoBox
+        sx={{
+          backgroundImage: 'url(/assets/nutrition.png)',
+        }}
+      >
+        Nutritional Data
+      </InfoBox>
+    </Stack>
   );
 }
