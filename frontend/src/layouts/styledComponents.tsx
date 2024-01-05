@@ -45,6 +45,9 @@ export const MobileAppbarButtons = styled(Stack)(() => ({
   alignItems: 'center',
   justifyContent: 'center',
   flexGrow: 1,
+  [theme.breakpoints.up('sm')]: {
+    display: 'none',
+  },
 }));
 
 export const MobileAppbarButton = styled(ToggleButton)(() => ({
