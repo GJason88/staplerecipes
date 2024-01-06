@@ -7,7 +7,6 @@ const deleteImage = async (recipeId: string) => {
     const imageRef = ref(storage, `recipe_images/${recipeId}`);
     await deleteObject(imageRef);
   } catch (e) {
-    console.log(e);
     throw new Error('Recipe deleted but failed to delete image');
   }
 };

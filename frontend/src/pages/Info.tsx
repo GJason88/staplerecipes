@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import { publicRoutes } from '../data/constants';
 import { Stack } from '@mui/material';
 import { InfoBox } from '../features/info/styledComponents';
+import { useNavigate } from 'react-router-dom';
 
 export default function Info() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setActiveRoute(publicRoutes.info));
@@ -14,6 +16,7 @@ export default function Info() {
   return (
     <Stack width='100%' gap='32px'>
       <InfoBox
+        onClick={() => navigate('/info/tools')}
         sx={{
           backgroundImage: 'url(/assets/tools.jpg)',
         }}
@@ -21,6 +24,7 @@ export default function Info() {
         Tools
       </InfoBox>
       <InfoBox
+        onClick={() => navigate('/info/ingredients')}
         sx={{
           backgroundImage: 'url(/assets/ingredients.png)',
         }}
@@ -28,6 +32,7 @@ export default function Info() {
         Ingredients
       </InfoBox>
       <InfoBox
+        onClick={() => navigate('/info/nutrition')}
         sx={{
           backgroundImage: 'url(/assets/nutrition.png)',
         }}

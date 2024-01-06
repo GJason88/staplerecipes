@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { setActiveRoute } from '../layouts/layoutReducer';
 import { useEffect } from 'react';
 import { publicRoutes } from '../data/constants';
-import NutritionTablePage from '../features/nutritiontable/NutritionTablePage';
+import { Box, Typography } from '@mui/material';
 
 export default function Nutrition() {
   const dispatch = useDispatch();
@@ -10,5 +10,11 @@ export default function Nutrition() {
     dispatch(setActiveRoute(publicRoutes.info));
   }, [dispatch]);
 
-  return <NutritionTablePage />;
+  return (
+    <Box display='flex' fontSize='48px' width='100%' justifyContent='center'>
+      <Typography fontSize='64px' fontStyle='italic' textAlign='center'>
+        Coming Soon
+      </Typography>
+    </Box>
+  );
 }

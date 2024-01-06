@@ -9,6 +9,9 @@ const Home = lazy(() => import('./pages/Home'));
 const Recipes = lazy(() => import('./pages/Recipes'));
 const Recipe = lazy(() => import('./pages/Recipe'));
 const Info = lazy(() => import('./pages/Info'));
+const Tools = lazy(() => import('./pages/Tools'));
+const Ingredients = lazy(() => import('./pages/Ingredients'));
+const Nutrition = lazy(() => import('./pages/Nutrition'));
 const Shop = lazy(() => import('./pages/Shop'));
 const About = lazy(() => import('./pages/About'));
 const Admin = lazy(() => import('./pages/Admin'));
@@ -25,6 +28,9 @@ export default function App() {
             <Route path='/recipes' element={<Recipes />} />
             <Route path='/recipes/:id' element={<Recipe />} />
             <Route path='/info' element={<Info />} />
+            <Route path='/info/tools' element={<Tools />} />
+            <Route path='/info/ingredients' element={<Ingredients />} />
+            <Route path='/info/nutrition' element={<Nutrition />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/about' element={<About />} />
             <Route path='/admin' element={<Admin />} />
