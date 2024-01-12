@@ -1,29 +1,20 @@
-import {
-  FormControl,
-  TextField,
-  Autocomplete,
-  Button,
-  Box,
-} from '@mui/material';
+import { FormControl, TextField, Autocomplete, Button, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import useCategories from '../../../../hooks/useCategories';
 import { IRootState } from '../../../..';
 import { setTool } from '../../adminReducer';
 
-export default function ToolForm({ submitBtnText, submitFn }: AdminFormProps) {
+interface ToolFormProps {
+  submitBtnText: string;
+  submitFn: (tool: ToolState) => void;
+}
+
+export default function ToolForm({ submitBtnText, submitFn }: ToolFormProps) {
   const tool = useSelector<IRootState, ToolState>((state) => state.admin.tool);
   const dispatch = useDispatch();
   const categories = useCategories('tools');
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1,
-        width: '75%',
-        p: 2,
-      }}
-    >
+    <Stack gap='16px'>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -43,14 +34,10 @@ export default function ToolForm({ submitBtnText, submitFn }: AdminFormProps) {
             onChange={(e) => dispatch(setTool({ toolName: e.target.value }))}
           />
           <Autocomplete
-            renderInput={(params) => (
-              <TextField {...params} label='Category' required />
-            )}
-            options={categories as Array<CategoryState>}
+            renderInput={(params) => <TextField {...params} label='Category' required />}
+            options={categories}
             getOptionLabel={(option) => option.categoryName}
-            isOptionEqualToValue={(option, value) =>
-              option.categoryId === value.categoryId
-            }
+            isOptionEqualToValue={(option, value) => option.categoryId === value.categoryId}
             value={tool.category.categoryId ? tool.category : null}
             onChange={(e, cat) =>
               dispatch(
@@ -63,11 +50,11 @@ export default function ToolForm({ submitBtnText, submitFn }: AdminFormProps) {
               )
             }
           />
-          <Button type='submit' variant='outlined'>
+          <Button type='submit' variant='contained'>
             {submitBtnText}
           </Button>
         </FormControl>
       </form>
-    </Box>
+    </Stack>
   );
 }

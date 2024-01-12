@@ -16,7 +16,7 @@ export default function SearchList({ open, setOpen, ...props }: SearchListProps 
   const handleClose = () => setOpen(false);
   return (
     <SearchDialog open={open} onClose={handleClose}>
-      <IconButton sx={{ ml: 'auto', mb: '-24px' }} onClick={handleClose}>
+      <IconButton sx={{ mr: 'auto', mb: '-24px' }} onClick={handleClose}>
         <CloseIcon />
       </IconButton>
       <DialogContent>

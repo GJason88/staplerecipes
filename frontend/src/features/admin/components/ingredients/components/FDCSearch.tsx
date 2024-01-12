@@ -68,7 +68,7 @@ export default function FDCSearch({ open, setOpen }: FDCSearchProps) {
   };
   return (
     <SearchDialog open={open} onClose={() => setOpen(false)}>
-      <IconButton sx={{ ml: 'auto', mb: '-24px' }} onClick={() => setOpen(false)}>
+      <IconButton sx={{ mr: 'auto', mb: '-24px' }} onClick={() => setOpen(false)}>
         <CloseIcon />
       </IconButton>
       <DialogContent>
