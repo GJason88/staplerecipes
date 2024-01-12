@@ -1,12 +1,13 @@
-import { Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import useRecipes from '../../../../hooks/useRecipes';
 import SearchList from '../SearchList/SearchList';
 import RecipeForm from './RecipeForm';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setRecipe } from '../../adminReducer';
 
 export default function EditRecipe() {
+  const [recipesVisible, setRecipesVisible] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
@@ -22,13 +23,20 @@ export default function EditRecipe() {
   const handleRecipeUpdate = (recipe: RecipeState, image: File | null) =>
     recipe.recipeId && updateRecipe({ recipeId: recipe.recipeId, data: recipe, image });
   return (
-    <Stack gap={2} flexDirection='row' minHeight={750}>
-      <SearchList
-        title={'Recipes'}
-        items={recipes.map((r) => ({ name: r.recipeName, id: r.recipeId }))}
-        handleItemSelect={handleRecipeClick}
-        handleItemDelete={handleRecipeDelete}
-      />
+    <Stack gap={2}>
+      {recipesVisible && (
+        <SearchList
+          title={'Recipes'}
+          items={recipes.map((r) => ({ name: r.recipeName, id: r.recipeId }))}
+          open={recipesVisible}
+          setOpen={setRecipesVisible}
+          handleItemSelect={handleRecipeClick}
+          handleItemDelete={handleRecipeDelete}
+        />
+      )}
+      <Button variant='outlined' onClick={() => setRecipesVisible(true)}>
+        Show Recipes
+      </Button>
       <RecipeForm submitBtnText='Update Recipe' submitFn={handleRecipeUpdate} />
     </Stack>
   );
