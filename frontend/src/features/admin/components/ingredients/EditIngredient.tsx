@@ -31,6 +31,8 @@ export default function EditIngredient() {
             name: i.ingredientName,
             id: i.ingredientId,
           }))}
+          open={ingredientsVisible}
+          setOpen={setIngredientsVisible}
           handleItemSelect={handleIngredientSelect}
           handleItemDelete={handleIngredientDelete}
         />
