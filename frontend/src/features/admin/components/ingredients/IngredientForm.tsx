@@ -1,4 +1,4 @@
-import { Stack, Box, TextField, Autocomplete, FormControlLabel, Checkbox, FormControl, Button } from '@mui/material';
+import { Stack, TextField, Autocomplete, FormControlLabel, Checkbox, Button } from '@mui/material';
 import NutritionLabel from '../../../../components/nutritionlabel/NutritionLabel';
 import MeasurementList from './components/MeasurementList';
 import { useEffect, useState } from 'react';
@@ -10,11 +10,17 @@ import { CreateIngredientStack } from './components/styledComponents';
 
 interface IngredientFormProps {
   setSearchVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  showSearchText: string;
   submitBtnText: string;
   submitFn: (data: IngredientState) => void;
 }
 
-export default function IngredientForm({ setSearchVisible, submitBtnText, submitFn }: IngredientFormProps) {
+export default function IngredientForm({
+  setSearchVisible,
+  showSearchText,
+  submitBtnText,
+  submitFn,
+}: IngredientFormProps) {
   const ingredient = useSelector<IRootState, IngredientState>((state) => state.admin.ingredient);
   const [includeVolume, setIncludeVolume] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -27,11 +33,11 @@ export default function IngredientForm({ setSearchVisible, submitBtnText, submit
   return (
     <Stack gap='16px' alignItems='center' width='100%'>
       <Button fullWidth variant='outlined' onClick={() => setSearchVisible(true)}>
-        Show FDC Search
+        {showSearchText}
       </Button>
       <CreateIngredientStack>
-          <NutritionLabel width='60%' nutrition={ingredient.nutrientsFor100G} />
-        <form onSubmit={handleSubmit} style={{ width: '100%'}}>
+        <NutritionLabel width='60%' nutrition={ingredient.nutrientsFor100G} />
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           <Stack gap='16px'>
             <TextField
               value={ingredient.ingredientName}

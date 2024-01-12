@@ -21,6 +21,7 @@ export default function CreateIngredient() {
       {fdcVisible && <FDCSearch open={fdcVisible} setOpen={setFdcVisible} />}
       <IngredientForm
         setSearchVisible={setFdcVisible}
+        showSearchText='Show FDC Search'
         submitBtnText='Create Ingredient'
         submitFn={handleIngredientCreate}
       />

@@ -1,13 +1,14 @@
-import { Stack, TextField, Button, Pagination, Typography, DialogContent } from '@mui/material';
+import { Stack, TextField, Button, Pagination, Typography, DialogContent, Box, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from 'react';
 import useNutrients from '../../../../../hooks/useNutrients';
 import ItemList from '../../SearchList/ItemList';
 import { setFdcSearchData, setIngredient } from '../../../adminReducer';
-import { FDCSearchDialog } from './styledComponents';
+import { FDCSearchDialog, SearchDialog } from './styledComponents';
 import { IRootState } from '../../../../..';
 import catchError from '../../../../../hooks/helpers/functions/catchError';
 import { fdcApi } from '../../../../../services/api/fdc';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface FDCSearchProps {
   open: boolean;
@@ -65,9 +66,11 @@ export default function FDCSearch({ open, setOpen }: FDCSearchProps) {
     fetchFDC(curQuery, 1);
     dispatch(setFdcSearchData({ query: curQuery }));
   };
-  console.log(foods);
   return (
-    <FDCSearchDialog open={open} onClose={() => setOpen(false)}>
+    <SearchDialog open={open} onClose={() => setOpen(false)}>
+      <IconButton sx={{ ml: 'auto', mb: '-24px' }} onClick={() => setOpen(false)}>
+        <CloseIcon />
+      </IconButton>
       <DialogContent>
         <Typography fontWeight='bold' alignSelf='center'>
           Search FDC Database
@@ -101,6 +104,6 @@ export default function FDCSearch({ open, setOpen }: FDCSearchProps) {
           isLoading={isLoading}
         />
       </DialogContent>
-    </FDCSearchDialog>
+    </SearchDialog>
   );
 }

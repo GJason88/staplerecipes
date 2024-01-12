@@ -1,7 +1,7 @@
 import { Dialog, Stack, styled } from '@mui/material';
 import { theme } from '../../../../../themes';
 
-export const FDCSearchDialog = styled(Dialog)(() => ({
+export const SearchDialog = styled(Dialog)(() => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
