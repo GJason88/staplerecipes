@@ -23,7 +23,7 @@ export default function EditIngredient() {
       data: ingredient,
     });
   return (
-    <Stack flexDirection='row' minHeight={750}>
+    <Stack flexDirection='row'>
       {ingredientsVisible && (
         <SearchList
           title={'Ingredients'}

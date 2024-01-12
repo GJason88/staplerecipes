@@ -14,7 +14,6 @@ export default function AdminPage() {
   return (
     <Box width='100%' mt='-16px'>
       <Tabs
-        sx={{ mb: '16px' }}
         variant='scrollable'
         scrollButtons
         allowScrollButtonsMobile

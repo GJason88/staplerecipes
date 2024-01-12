@@ -17,7 +17,7 @@ export default function CreateIngredient() {
   }, [dispatch]);
   const handleIngredientCreate = (ingredient: IngredientState) => createIngredient(ingredient);
   return (
-    <Stack flexDirection='row' minHeight={750}>
+    <Stack flexDirection='row'>
       {fdcVisible && <FDCSearch open={fdcVisible} setOpen={setFdcVisible} />}
       <IngredientForm
         setSearchVisible={setFdcVisible}
