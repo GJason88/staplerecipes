@@ -1,4 +1,4 @@
-import { Alert, AppBar, Box, Button, Stack, ToggleButton } from '@mui/material';
+import { Alert, AppBar, Box, Button, IconButton, Stack, ToggleButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { theme } from '../themes';
 import { appbarL, appbarM, appbarS, appbarXL } from '../data/constants';
@@ -115,6 +115,7 @@ export const Content = styled(Box)(() => ({
   marginTop: appbarM,
   marginBottom: '24px',
   padding: '32px',
+  paddingTop: '48px',
   backgroundColor: '#FFD495',
   boxShadow: '-1px -1px 4px 0px rgba(0, 0, 0, 0.25), 1px 1px 4px 0px rgba(0, 0, 0, 0.25)',
   borderRadius: '32px',
@@ -129,7 +130,17 @@ export const Content = styled(Box)(() => ({
     minHeight: `calc(100vh - 48px - ${appbarS})`,
   },
   [theme.breakpoints.down('sm')]: {
-    padding: '16px 8px',
+    padding: '40px 12px',
+  },
+}));
+
+export const BackButton = styled(IconButton)(() => ({
+  marginTop: '-40px',
+  marginLeft: '-24px',
+  position: 'absolute',
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: '-4px',
+    marginTop: '-32px',
   },
 }));
 
