@@ -5,6 +5,7 @@ import AccountDialog from '../features/account/AccountDialog';
 import {
   AppbarButton,
   AppbarButtons,
+  AppbarContent,
   EmailVerificationAlert,
   MobileAppbarButton,
   MobileAppbarButtons,
@@ -17,7 +18,7 @@ import { publicRoutes } from '../data/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveRoute } from './layoutReducer';
 import { IRootState } from '..';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function Appbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,45 +36,49 @@ export default function Appbar() {
         window.location.reload();
       });
   };
+  const appbarButtons = (s: number, e?: number) =>
+    Object.entries(publicRoutes)
+      .slice(s, e)
+      .map(([key, val], i) => (
+        <AppbarButton
+          key={i}
+          value={val}
+          selected={activeRoute === val}
+          onClick={() => {
+            dispatch(setActiveRoute(val));
+            navigate(val);
+          }}
+        >
+          {key.toUpperCase()}
+        </AppbarButton>
+      ));
   return (
     <>
       <Box>
         {!!dialogType && <AccountDialog />}
         <StyledAppbar>
-          <Toolbar>
+          <AppbarContent>
             <IconButton
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label='open drawer'
-              sx={{ display: { sm: 'none' } }}
+              sx={{ position: 'absolute', left: '16px', display: { sm: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
-            <AppbarButtons>
-              {Object.entries(publicRoutes).map(([key, val], i) => (
-                <React.Fragment key={i}>
-                  <AppbarButton
-                    value={val}
-                    selected={activeRoute === val}
-                    onClick={() => {
-                      dispatch(setActiveRoute(val));
-                      navigate(val);
-                    }}
-                  >
-                    {key.toUpperCase()}
-                  </AppbarButton>
-                  {i === 2 && <img className='appbar-logo' src='/wheat-logo.png' />}
-                </React.Fragment>
-              ))}
-            </AppbarButtons>
+            <AppbarButtons justifyContent='end'>{appbarButtons(0, 3)}</AppbarButtons>
+            <img className='appbar-logo' src='/wheat-logo.png' />
+            <AppbarButtons justifyContent='start'>{appbarButtons(3)}</AppbarButtons>
             {currentUser ? (
-              // TODO: build profile dialog
               <Avatar
-                sx={{ ':hover': { cursor: 'pointer' } }}
+                sx={{ position: 'absolute', right: '16px', ':hover': { cursor: 'pointer' } }}
                 src={currentUser.photoURL ?? '/blank-profile.png'}
                 onClick={() => setProfileOpen(!profileOpen)}
               />
             ) : (
-              <Button sx={{ fontSize: '12px', fontWeight: 'medium' }} onClick={() => setDialogType('form')}>
+              <Button
+                sx={{ position: 'absolute', right: '16px', fontSize: '12px', fontWeight: 'medium' }}
+                onClick={() => setDialogType('form')}
+              >
                 Sign In
               </Button>
             )}
@@ -106,7 +111,7 @@ export default function Appbar() {
                 ))}
               </MobileAppbarButtons>
             )}
-          </Toolbar>
+          </AppbarContent>
         </StyledAppbar>
       </Box>
       {currentUser && !currentUser.emailVerified && (

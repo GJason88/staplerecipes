@@ -1,4 +1,4 @@
-import { Alert, AppBar, Box, Button, IconButton, Stack, ToggleButton } from '@mui/material';
+import { Alert, AppBar, Box, Button, IconButton, Stack, ToggleButton, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { theme } from '../themes';
 import { appbarL, appbarM, appbarS, appbarXL } from '../data/constants';
@@ -7,7 +7,6 @@ export const StyledAppbar = styled(AppBar)(() => ({
   boxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
   height: appbarM,
   display: 'flex',
-  alignItems: 'space-between',
   justifyContent: 'center',
   borderRadius: '32px',
   opacity: '95%',
@@ -16,12 +15,25 @@ export const StyledAppbar = styled(AppBar)(() => ({
   },
 }));
 
+export const AppbarContent = styled(Toolbar)(() => ({
+  gap: '100px',
+  [theme.breakpoints.down('xl')]: {
+    gap: '80px',
+  },
+  [theme.breakpoints.down('lg')]: {
+    gap: '40px',
+  },
+  [theme.breakpoints.down(700)]: {
+    gap: '20px',
+  },
+}));
+
 export const AppbarButtons = styled(Stack)(() => ({
   gap: '100px',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
-  flexGrow: 1,
+  width: '50%',
+  flex: 1,
   [theme.breakpoints.down('xl')]: {
     gap: '80px',
   },
