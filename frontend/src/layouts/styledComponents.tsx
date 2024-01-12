@@ -115,7 +115,6 @@ export const Content = styled(Box)(() => ({
   marginTop: appbarM,
   marginBottom: '24px',
   padding: '32px',
-  paddingTop: '48px',
   backgroundColor: '#FFD495',
   boxShadow: '-1px -1px 4px 0px rgba(0, 0, 0, 0.25), 1px 1px 4px 0px rgba(0, 0, 0, 0.25)',
   borderRadius: '32px',
@@ -130,7 +129,7 @@ export const Content = styled(Box)(() => ({
     minHeight: `calc(100vh - 48px - ${appbarS})`,
   },
   [theme.breakpoints.down('sm')]: {
-    padding: '40px 12px',
+    padding: '24px 12px',
   },
 }));
 
@@ -140,7 +139,6 @@ export const BackButton = styled(IconButton)(() => ({
   position: 'absolute',
   [theme.breakpoints.down('sm')]: {
     marginLeft: '-4px',
-    marginTop: '-32px',
   },
 }));
 

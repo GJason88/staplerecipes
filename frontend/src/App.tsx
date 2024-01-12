@@ -1,10 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { IconButton, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import Appbar from './layouts/Appbar';
 import ServiceResult from './components/ServiceResult';
 import { BackButton, Content } from './layouts/styledComponents';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { theme } from './themes';
 
 const Home = lazy(() => import('./pages/Home'));
 const Recipes = lazy(() => import('./pages/Recipes'));
@@ -20,12 +21,15 @@ const Admin = lazy(() => import('./pages/Admin'));
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const isInnerPath = location.pathname.split('/').length > 2;
   return (
     <Stack gap={'24px'} alignItems='center'>
       <ServiceResult />
       <Appbar />
-      <Content>
-        {location.pathname.split('/').length > 2 && (
+      <Content
+        sx={{ pt: isInnerPath ? '48px' : '', [theme.breakpoints.down('sm')]: { pt: isInnerPath ? '48px' : '' } }}
+      >
+        {isInnerPath && (
           <BackButton onClick={() => navigate(-1)}>
             <ArrowBackIcon />
           </BackButton>
