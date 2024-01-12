@@ -1,4 +1,4 @@
-import { Stack, TextField, Button, Pagination, Typography, DialogContent, Box, IconButton } from '@mui/material';
+import { Stack, TextField, Button, Pagination, Typography, DialogContent, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from 'react';
 import useNutrients from '../../../../../hooks/useNutrients';
