@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useCategories from '../../../../hooks/useCategories';
 import { IRootState } from '../../../..';
 import { setIngredient } from '../../adminReducer';
-import { CreateIngredientStack } from './components/styledComponents';
+import { CreateIngredientStack } from '../styledComponents';
 
 interface IngredientFormProps {
   setSearchVisible: React.Dispatch<React.SetStateAction<boolean>>;

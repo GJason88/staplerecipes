@@ -1,7 +1,7 @@
 import { DialogContent, IconButton, TextField, Typography } from '@mui/material';
 import ItemList from './ItemList';
 import { useState } from 'react';
-import { SearchDialog } from '../ingredients/components/styledComponents';
+import { SearchDialog } from '../styledComponents';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface AdditionalProps {

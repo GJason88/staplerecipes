@@ -1,10 +1,11 @@
-import { Box, Button, Dialog, Link, Modal, Paper, Stack, TextField, Typography } from '@mui/material';
-import { recipeWidth } from '../../../../../data/constants';
+import { Box, Button, Dialog, Stack, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setRecipe } from '../../../adminReducer';
 import { setResult } from '../../../../../services/api/serviceReducer';
 import { Upload } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
+import { RecipeFormPaper } from '../../styledComponents';
+import { theme } from '../../../../../themes';
 
 interface EditRecipeInfoProps {
   recipeId: string;
@@ -32,7 +33,7 @@ export default function EditRecipeInfo({ recipeId, setImage, ...props }: EditRec
     (document.getElementById('recipe-image-file') as HTMLInputElement).value = '';
   }, [recipeId, setImage]);
   return (
-    <Paper elevation={2} sx={{ width: recipeWidth, p: 2 }}>
+    <RecipeFormPaper elevation={2}>
       <Typography pb={2} variant='h4'>
         Information
       </Typography>
@@ -55,7 +56,17 @@ export default function EditRecipeInfo({ recipeId, setImage, ...props }: EditRec
           </Box>
         </Dialog>
         <Stack direction='row' gap={1} p={2} border='1px solid lightgrey' borderRadius={3}>
-          <Button sx={{ width: '20%' }} variant='outlined' component='label' startIcon={<Upload />}>
+          <Button
+            sx={{
+              width: '20%',
+              [theme.breakpoints.down('sm')]: {
+                fontSize: '8px',
+              },
+            }}
+            variant='outlined'
+            component='label'
+            startIcon={<Upload />}
+          >
             Upload Image
             <input id='recipe-image-file' onChange={handleFileChange} type='file' hidden accept='image/*' />
           </Button>
@@ -88,6 +99,6 @@ export default function EditRecipeInfo({ recipeId, setImage, ...props }: EditRec
           ></TextField>
         </Stack>
       </Stack>
-    </Paper>
+    </RecipeFormPaper>
   );
 }

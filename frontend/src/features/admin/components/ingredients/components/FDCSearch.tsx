@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import useNutrients from '../../../../../hooks/useNutrients';
 import ItemList from '../../SearchList/ItemList';
 import { setFdcSearchData, setIngredient } from '../../../adminReducer';
-import { SearchDialog } from './styledComponents';
+import { SearchDialog } from '../../styledComponents';
 import { IRootState } from '../../../../..';
 import catchError from '../../../../../hooks/helpers/functions/catchError';
 import { fdcApi } from '../../../../../services/api/fdc';

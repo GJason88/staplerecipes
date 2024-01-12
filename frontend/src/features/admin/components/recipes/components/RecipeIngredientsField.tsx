@@ -1,5 +1,4 @@
 import {
-  Paper,
   Box,
   Autocomplete,
   TextField,
@@ -11,6 +10,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Stack,
 } from '@mui/material';
 import { recipeWidth } from '../../../../../data/constants';
 import { Delete } from '@mui/icons-material';
@@ -20,20 +20,16 @@ import { useEffect, useRef, useState } from 'react';
 import useIngredients from '../../../../../hooks/useIngredients';
 import { measurements } from '../../../../../data/measurements';
 import { setRecipe } from '../../../adminReducer';
+import { CreateRecipeIngredients, RecipeFormPaper } from '../../styledComponents';
+import { theme } from '../../../../../themes';
 
 interface EditRecipeIngredientsProps {
   recipeIngredients: Array<IngredientState>;
 }
 
-export default function EditRecipeIngredients({
-  recipeIngredients,
-}: EditRecipeIngredientsProps) {
-  const [selectedIngredient, setSelectedIngredient] =
-    useState<IngredientState | null>(null);
-  // eslint-disable-next-line prettier/prettier
-  const [selectedMeasurement, setSelectedMeasurement] = useState<string | null>(
-    null
-  );
+export default function EditRecipeIngredients({ recipeIngredients }: EditRecipeIngredientsProps) {
+  const [selectedIngredient, setSelectedIngredient] = useState<IngredientState | null>(null);
+  const [selectedMeasurement, setSelectedMeasurement] = useState<string | null>(null);
   const [alert, setAlert] = useState<string>('');
   const dispatch = useDispatch();
   const { ingredients: allIngredients } = useIngredients();
@@ -45,18 +41,10 @@ export default function EditRecipeIngredients({
 
   const amountRef = useRef({ value: 0 });
   const addIngredient = () => {
-    if (
-      !selectedIngredient ||
-      !amountRef.current.value ||
-      !selectedMeasurement
-    ) {
+    if (!selectedIngredient || !amountRef.current.value || !selectedMeasurement) {
       return;
     }
-    if (
-      recipeIngredients.some(
-        (ingr) => ingr.ingredientId === selectedIngredient?.ingredientId
-      )
-    ) {
+    if (recipeIngredients.some((ingr) => ingr.ingredientId === selectedIngredient?.ingredientId)) {
       setAlert('Ingredient Already Exists');
       return;
     }
@@ -76,81 +64,70 @@ export default function EditRecipeIngredients({
 
   useEffect(() => setAlert(''), [recipeIngredients]);
   return (
-    <Paper elevation={2} sx={{ width: recipeWidth, p: 2 }}>
+    <RecipeFormPaper elevation={2}>
       <Typography variant='h4' pb={2}>
         Ingredients
       </Typography>
-      <Box pb={2} display='flex'>
+      <CreateRecipeIngredients>
         <Autocomplete
-          sx={{ width: '60%' }}
+          sx={{
+            width: '60%',
+            [theme.breakpoints.down('sm')]: {
+              width: '100%',
+            },
+          }}
           options={allIngredients}
           getOptionLabel={(option) => option.ingredientName}
-          isOptionEqualToValue={(option, value) =>
-            option.ingredientId === value.ingredientId
-          }
+          isOptionEqualToValue={(option, value) => option.ingredientId === value.ingredientId}
           onChange={(e, value) => {
             setSelectedIngredient(value);
             setSelectedMeasurement(null);
           }}
-          renderInput={(params) => (
-            <TextField {...params} label={'Ingredient'} />
-          )}
+          renderInput={(params) => <TextField {...params} label={'Ingredient'} />}
         />
         <TextField
           label='Amount'
           inputRef={amountRef}
           type='number'
-          sx={{ width: '20%' }}
+          sx={{
+            width: '20%',
+            [theme.breakpoints.down('sm')]: {
+              width: '100%',
+            },
+          }}
         ></TextField>
         <Autocomplete
-          sx={{ width: '20%' }}
+          sx={{
+            width: '20%',
+            [theme.breakpoints.down('sm')]: {
+              width: '100%',
+            },
+          }}
           options={availableMeasurements}
           getOptionLabel={(option) => option}
           value={selectedMeasurement}
           onChange={(e, value) => setSelectedMeasurement(value)}
-          renderInput={(params) => (
-            <TextField {...params} label={'Measurement'} />
-          )}
+          renderInput={(params) => <TextField {...params} label={'Measurement'} />}
         />
-        <Button
-          sx={{
-            marginLeft: '10px',
-            width: 90,
-            alignSelf: 'center',
-          }}
-          variant='outlined'
-          onClick={addIngredient}
-        >
+        <Button variant='outlined' onClick={addIngredient}>
           <AddIcon />
         </Button>
-      </Box>
+      </CreateRecipeIngredients>
       {alert && (
-        <Alert
-          severity='warning'
-          sx={{ marginBottom: 1, width: recipeWidth - 30 }}
-        >
+        <Alert severity='warning' sx={{ marginBottom: 1, width: recipeWidth - 30 }}>
           {alert}
         </Alert>
       )}
-      <List
-        dense
-        sx={{ overflow: 'auto', boxShadow: 1, minHeight: 50, maxHeight: 400 }}
-      >
+      <List dense sx={{ overflow: 'auto', boxShadow: 1, minHeight: 50, maxHeight: 400 }}>
         {recipeIngredients.map((ingr, index) => (
           <Box key={index}>
             <ListItem>
-              <ListItemText
-                primary={ingr.ingredientName}
-                secondary={`${ingr.amount} ${ingr.defaultMeasurement}`}
-              />
+              <ListItemText primary={ingr.ingredientName} secondary={`${ingr.amount} ${ingr.defaultMeasurement}`} />
               <IconButton
                 onClick={() =>
                   dispatch(
                     setRecipe({
-                      ingredients: [
-                        ...recipeIngredients.slice(0, index),
-                        ...recipeIngredients.slice(index + 1),
-                      ],
+                      ingredients: [...recipeIngredients.slice(0, index), ...recipeIngredients.slice(index + 1)],
                     })
                   )
                 }
@@ -158,12 +135,10 @@ export default function EditRecipeIngredients({
                 <Delete />
               </IconButton>
             </ListItem>
-            {index < Object.entries(recipeIngredients).length - 1 && (
-              <Divider />
-            )}
+            {index < Object.entries(recipeIngredients).length - 1 && <Divider />}
           </Box>
         ))}
       </List>
-    </Paper>
+    </RecipeFormPaper>
   );
 }

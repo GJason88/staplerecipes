@@ -1,27 +1,19 @@
-import {
-  Typography,
-  Box,
-  TextField,
-  IconButton,
-  Button,
-  Paper,
-} from '@mui/material';
+import { Typography, Box, TextField, IconButton, Button } from '@mui/material';
 import { recipeWidth, iconButtonWidth } from '../../../../../data/constants';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import { setRecipe } from '../../../adminReducer';
+import { RecipeFormPaper } from '../../styledComponents';
 
 interface EditRecipeInstructionsProps {
   recipeInstructions: Array<string>;
 }
 
-export default function EditRecipeInstructions({
-  recipeInstructions,
-}: EditRecipeInstructionsProps) {
+export default function EditRecipeInstructions({ recipeInstructions }: EditRecipeInstructionsProps) {
   const dispatch = useDispatch();
   return (
-    <Paper elevation={2} sx={{ width: recipeWidth, p: 2 }}>
+    <RecipeFormPaper elevation={2}>
       <Typography variant='h4' pb={2}>
         Instructions
       </Typography>
@@ -50,10 +42,7 @@ export default function EditRecipeInstructions({
               onClick={() =>
                 dispatch(
                   setRecipe({
-                    instructions: [
-                      ...recipeInstructions.slice(0, index),
-                      ...recipeInstructions.slice(index + 1),
-                    ],
+                    instructions: [...recipeInstructions.slice(0, index), ...recipeInstructions.slice(index + 1)],
                   })
                 )
               }
@@ -64,14 +53,12 @@ export default function EditRecipeInstructions({
         );
       })}
       <Button
-        sx={{ width: recipeWidth - iconButtonWidth }}
-        onClick={() =>
-          dispatch(setRecipe({ instructions: [...recipeInstructions, ''] }))
-        }
+        fullWidth
+        onClick={() => dispatch(setRecipe({ instructions: [...recipeInstructions, ''] }))}
         variant='outlined'
       >
         <AddIcon />
       </Button>
-    </Paper>
+    </RecipeFormPaper>
   );
 }

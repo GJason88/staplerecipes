@@ -1,5 +1,4 @@
-import { FormControl, Stack, Button } from '@mui/material';
-import { recipeWidth } from '../../../../data/constants';
+import { Stack, Button } from '@mui/material';
 import EditRecipeInfo from './components/RecipeInfoField';
 import EditRecipeIngredients from './components/RecipeIngredientsField';
 import EditRecipeInstructions from './components/RecipeInstructionsField';
@@ -22,25 +21,23 @@ export default function RecipeForm({ submitBtnText, submitFn }: RecipeFormProps)
   };
   return (
     <form onSubmit={onSubmit}>
-      <FormControl fullWidth>
-        <Stack gap={3} alignItems='center'>
-          <EditRecipeInfo
-            recipeId={recipe.recipeId}
-            recipeName={recipe.recipeName}
-            time={recipe.time}
-            diet={recipe.diet}
-            servings={recipe.servings}
-            image={image}
-            setImage={setImage}
-          />
-          <EditRecipeIngredients recipeIngredients={recipe.ingredients} />
-          <EditRecipeTools recipeTools={recipe.tools} />
-          <EditRecipeInstructions recipeInstructions={recipe.instructions} />
-          <Button type='submit' variant='contained' sx={{ width: recipeWidth, mb: 3 }}>
-            {submitBtnText}
-          </Button>
-        </Stack>
-      </FormControl>
+      <Stack gap={3} alignItems='center'>
+        <EditRecipeInfo
+          recipeId={recipe.recipeId}
+          recipeName={recipe.recipeName}
+          time={recipe.time}
+          diet={recipe.diet}
+          servings={recipe.servings}
+          image={image}
+          setImage={setImage}
+        />
+        <EditRecipeIngredients recipeIngredients={recipe.ingredients} />
+        <EditRecipeTools recipeTools={recipe.tools} />
+        <EditRecipeInstructions recipeInstructions={recipe.instructions} />
+        <Button type='submit' variant='contained' fullWidth>
+          {submitBtnText}
+        </Button>
+      </Stack>
     </form>
   );
 }
