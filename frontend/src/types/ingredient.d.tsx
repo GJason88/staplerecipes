@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface IngredientState {
-  ingredientId: number | null;
+  ingredientId: string;
   ingredientName: string;
   category: CategoryState;
   nutrientsFor100G: NutritionState;

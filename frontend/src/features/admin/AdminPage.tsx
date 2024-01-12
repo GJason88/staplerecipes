@@ -7,20 +7,20 @@ import EditIngredient from './components/ingredients/EditIngredient';
 import EditRecipe from './components/recipes/EditRecipe';
 import EditTool from './components/tools/EditTool';
 
-const tabs = [
-  'Create Ingredients',
-  'Edit Ingredients',
-  'Create Recipes',
-  'Edit Recipes',
-  'Create Tools',
-  'Edit Tools',
-];
+const tabs = ['Create Ingredients', 'Edit Ingredients', 'Create Recipes', 'Edit Recipes', 'Create Tools', 'Edit Tools'];
 
 export default function AdminPage() {
   const [tab, setTab] = useState(0);
   return (
-    <Box width='100%' p={2} pt={10}>
-      <Tabs value={tab} onChange={(e, newTab: number) => setTab(newTab)}>
+    <Box width='100%' mt='-16px'>
+      <Tabs
+        sx={{ mb: '16px' }}
+        variant='scrollable'
+        scrollButtons
+        allowScrollButtonsMobile
+        value={tab}
+        onChange={(e, newTab: number) => setTab(newTab)}
+      >
         {tabs.map((tab, index) => (
           <Tab key={index} label={tab} value={index} />
         ))}

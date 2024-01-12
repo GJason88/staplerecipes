@@ -4,13 +4,15 @@ interface AdminState {
   recipeImageFile: File | null;
   ingredient: IngredientState;
   tool: ToolState;
+  fdcSearchData: FDCSearchResultsState;
 }
 
 interface FDCSearchResultsState {
-  foods: Array<FDCFoodState>;
+  query: string;
+  page: number;
+  foods: { [key: number]: Array<FDCFoodState> }; // page: food
   totalPages: number;
   totalHits: number;
-  isLoading: boolean;
 }
 
 interface FDCFoodState {
@@ -23,9 +25,4 @@ interface FDCNutrientState {
   nutrientId: number;
   unitName: string;
   value: number;
-}
-
-interface AdminFormProps {
-  submitBtnText: string;
-  submitFn: (data: RecipeState, image: File | null) => void;
 }

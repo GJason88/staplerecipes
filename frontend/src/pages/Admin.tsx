@@ -17,5 +17,5 @@ export default function Admin() {
     dispatch(setActiveRoute(adminRoute.route));
   }, [dispatch]);
 
-  return isAdmin ? <AdminPage /> : <div style={{ paddingTop: 80, paddingLeft: 16 }}>Unauthorized User</div>;
+  return isAdmin ? <AdminPage /> : <div>Unauthorized</div>;
 }

@@ -12,13 +12,11 @@ const useIngredients = () => {
   const { data: ingredients } = useQuery('ingredients', fetchIngredients, {
     refetchOnWindowFocus: false,
     retry: false,
-    onError: (e) =>
-      dispatch(setResult({ message: catchError(e), severity: 'error' })),
+    onError: (e) => dispatch(setResult({ message: catchError(e), severity: 'error' })),
   });
   const queriesToInvalidateOnMutate = ['ingredients'];
   const createIngredient = useMutationHelper(
-    async (data: IngredientState) =>
-      ingredientsApi.createIngredient(data, await getCurrentUserToken()),
+    async (data: IngredientState) => ingredientsApi.createIngredient(data, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
     'Successfully created ingredient'
   );
@@ -29,8 +27,7 @@ const useIngredients = () => {
     'Successfully updated ingredient'
   );
   const deleteIngredient = useMutationHelper(
-    async (id: string) =>
-      ingredientsApi.deleteIngredient(id, await getCurrentUserToken()),
+    async (id: string) => ingredientsApi.deleteIngredient(id, await getCurrentUserToken()),
     queriesToInvalidateOnMutate,
     'Successfully deleted ingredient'
   );
@@ -47,7 +44,7 @@ const fetchIngredients = async () => {
     const response = await ingredientsApi.retrieveAllIngredients();
     return response.data as Array<IngredientState>;
   } catch (e) {
-    Promise.reject(new Error(catchError(e)));
+    throw new Error(catchError(e));
   }
 };
 

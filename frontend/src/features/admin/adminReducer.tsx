@@ -14,7 +14,7 @@ const initialRecipeState = {
 } as RecipeState;
 
 const initialIngredientState = {
-  ingredientId: null,
+  ingredientId: '',
   ingredientName: '',
   category: { categoryId: null, categoryName: '' } as CategoryState,
   nutrientsFor100G: {},
@@ -28,10 +28,19 @@ const initialToolState = {
   category: { categoryId: null, categoryName: '' } as CategoryState,
 } as ToolState;
 
+const initialFdcSearchData = {
+  query: '',
+  page: 1,
+  foods: {},
+  totalPages: 0,
+  totalHits: 0,
+} as FDCSearchResultsState;
+
 const initialState = {
   recipe: initialRecipeState,
   ingredient: initialIngredientState,
   tool: initialToolState,
+  fdcSearchData: initialFdcSearchData,
 } as AdminState;
 
 const admin = createSlice({
@@ -50,8 +59,12 @@ const admin = createSlice({
       if (!action.payload) state.tool = initialToolState;
       state.tool = { ...state.tool, ...action.payload };
     },
+    setFdcSearchData: (state, action) => {
+      if (!action.payload) state.fdcSearchData = initialFdcSearchData;
+      state.fdcSearchData = { ...state.fdcSearchData, ...action.payload };
+    },
   },
 });
 
-export const { setRecipe, setIngredient, setTool } = admin.actions;
+export const { setRecipe, setIngredient, setTool, setFdcSearchData } = admin.actions;
 export default admin.reducer;

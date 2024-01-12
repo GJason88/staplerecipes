@@ -48,7 +48,7 @@ export default function MeasurementList() {
           inputRef={measurementName}
         />
         <TextField
-          sx={{ width: '20%' }}
+          sx={{ width: '20%', minWidth: '70px' }}
           label='grams'
           type='number'
           inputRef={measurementGrams}

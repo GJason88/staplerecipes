@@ -1,30 +1,30 @@
-import {
-  Stack,
-  TextField,
-  Button,
-  Pagination,
-  Typography,
-  Paper,
-} from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { Stack, TextField, Button, Pagination, Typography, DialogContent } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from 'react';
 import useNutrients from '../../../../../hooks/useNutrients';
 import ItemList from '../../SearchList/ItemList';
-import useFDC from '../../../../../hooks/useFDC';
-import { setIngredient } from '../../../adminReducer';
+import { setFdcSearchData, setIngredient } from '../../../adminReducer';
+import { FDCSearchDialog } from './styledComponents';
+import { IRootState } from '../../../../..';
+import catchError from '../../../../../hooks/helpers/functions/catchError';
+import { fdcApi } from '../../../../../services/api/fdc';
 
-export default function FDCSearch() {
+interface FDCSearchProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function FDCSearch({ open, setOpen }: FDCSearchProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const { query, page, foods, totalPages, totalHits } = useSelector((state: IRootState) => state.admin.fdcSearchData);
   const dispatch = useDispatch();
-  const [searchInfo, setSearchInfo] = useState({ query: '', page: 1 });
-  const { fdcSearchResults, isLoading } = useFDC(searchInfo);
   const nutrientsById = useNutrients(true);
   const searchRef = useRef({ value: '' });
+
   const handleFoodSelect = (index: number) => {
     const nutrition: NutritionState = {};
-    const food = fdcSearchResults.foods[index];
-    food.foodNutrients
-      .filter((n) => n.nutrientId in nutrientsById)
-      .forEach((n) => (nutrition[n.nutrientId] = n.value));
+    const food = foods[page][index];
+    food.foodNutrients.filter((n) => n.nutrientId in nutrientsById).forEach((n) => (nutrition[n.nutrientId] = n.value));
     dispatch(
       setIngredient({
         ingredientName: food.description,
@@ -32,58 +32,75 @@ export default function FDCSearch() {
       })
     );
   };
+  const fetchFDC = (query: string, page: number) => {
+    if (!query) return;
+    setIsLoading(true);
+    fdcApi
+      .searchFoods(query, page)
+      .then(({ data }: { data: { foods: Array<FDCFoodState>; totalPages: number; totalHits: number } }) => {
+        const searchedFoods =
+          data?.foods.map((food) => ({
+            fdcId: food.fdcId,
+            description: food.description,
+            foodNutrients: food.foodNutrients,
+          })) ?? [];
+        dispatch(
+          setFdcSearchData({
+            page,
+            foods: { ...foods, [page]: searchedFoods },
+            totalPages: data?.totalPages ?? 0,
+            totalHits: data?.totalHits ?? 0,
+          })
+        );
+      })
+      .catch((e) => {
+        throw new Error(catchError(e));
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+  const handleSearch = () => {
+    const curQuery = searchRef.current.value;
+    fetchFDC(curQuery, 1);
+    dispatch(setFdcSearchData({ query: curQuery }));
+  };
+  console.log(foods);
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 1,
-        width: '25%',
-        overflow: 'auto',
-        p: 2,
-        maxHeight: 750,
-        minWidth: 300,
-      }}
-    >
-      <Typography fontWeight='bold' alignSelf='center'>
-        Search FDC Database
-      </Typography>
-      <Stack flexDirection='row' gap={1}>
-        <TextField
-          inputRef={searchRef}
-          placeholder='Search for ingredient'
-          fullWidth
-        ></TextField>
-        <Button
+    <FDCSearchDialog open={open} onClose={() => setOpen(false)}>
+      <DialogContent>
+        <Typography fontWeight='bold' alignSelf='center'>
+          Search FDC Database
+        </Typography>
+        <Stack flexDirection='row' gap={1}>
+          <TextField
+            defaultValue={query}
+            inputRef={searchRef}
+            placeholder='Search for ingredient'
+            fullWidth
+          ></TextField>
+          <Button disabled={isLoading} variant='outlined' onClick={handleSearch}>
+            Search
+          </Button>
+        </Stack>
+        <Typography color={'darkgrey'}>({totalHits} results)</Typography>
+        <Pagination
           disabled={isLoading}
-          variant='outlined'
-          onClick={() =>
-            setSearchInfo({ query: searchRef.current.value, page: 1 })
+          count={totalPages}
+          page={page}
+          onChange={(e, newPage) =>
+            newPage in foods ? dispatch(setFdcSearchData({ page: newPage })) : fetchFDC(query, newPage)
           }
-        >
-          Search
-        </Button>
-      </Stack>
-      <Typography color={'darkgrey'}>
-        ({fdcSearchResults.totalHits} results)
-      </Typography>
-      <Pagination
-        disabled={isLoading}
-        count={fdcSearchResults.totalPages}
-        page={searchInfo.page}
-        onChange={(e, newPage) =>
-          setSearchInfo({ ...searchInfo, page: newPage })
-        }
-      />
-      <ItemList
-        items={fdcSearchResults.foods.map((food) => ({
-          name: food.description,
-          id: food.id,
-        }))}
-        handleItemSelect={handleFoodSelect}
-        isLoading={isLoading}
-      />
-    </Paper>
+        />
+        <ItemList
+          items={(page in foods ? foods[page] : []).map((food) => ({
+            name: food.description,
+            id: food.fdcId?.toString() ?? '',
+          }))}
+          handleItemSelect={handleFoodSelect}
+          isLoading={isLoading}
+        />
+      </DialogContent>
+    </FDCSearchDialog>
   );
 }

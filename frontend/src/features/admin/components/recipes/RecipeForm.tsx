@@ -8,7 +8,12 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '../../../..';
 import { useState } from 'react';
 
-export default function RecipeForm({ submitBtnText, submitFn }: AdminFormProps) {
+interface RecipeFormProps {
+  submitBtnText: string;
+  submitFn: (data: RecipeState, image: File | null) => void;
+}
+
+export default function RecipeForm({ submitBtnText, submitFn }: RecipeFormProps) {
   const [image, setImage] = useState<File | null>(null);
   const recipe = useSelector<IRootState, RecipeState>((state) => state.admin.recipe);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

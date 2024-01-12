@@ -13,9 +13,10 @@ import {
 
 interface NutritionLabelProps {
   nutrition: NutritionState;
+  width?: string;
 }
 
-export default function NutritionLabel({ nutrition }: NutritionLabelProps) {
+export default function NutritionLabel({ nutrition, width }: NutritionLabelProps) {
   const nutrients = useNutrients();
   const calories =
     Object.keys(nutrients).length && Object.keys(nutrition).length
@@ -27,10 +28,7 @@ export default function NutritionLabel({ nutrition }: NutritionLabelProps) {
       : 0;
   return (
     Object.keys(nutrients).length > 0 && (
-      <NutritionBox
-        p={1}
-        sx={{ outline: 'solid dimgrey' }}
-      >
+      <NutritionBox p={1} sx={{ outline: 'solid dimgrey', width: width }}>
         <NutritionHeaderTypography>Nutrition Facts</NutritionHeaderTypography>
         <NutritionDivider />
         <NutritionText fontWeight='bold'>Amount Per Serving</NutritionText>
