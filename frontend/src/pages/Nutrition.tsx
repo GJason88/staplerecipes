@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { setActiveRoute } from '../layouts/layoutReducer';
 import { useEffect } from 'react';
 import { publicRoutes } from '../data/constants';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 export default function Nutrition() {
   const dispatch = useDispatch();
@@ -12,9 +12,7 @@ export default function Nutrition() {
 
   return (
     <Box display='flex' fontSize='48px' width='100%' justifyContent='center'>
-      <Typography fontSize='64px' fontStyle='italic' textAlign='center'>
-        Coming Soon
-      </Typography>
+
     </Box>
   );
 }

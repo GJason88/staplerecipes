@@ -15,30 +15,9 @@ export default function Info() {
 
   return (
     <Stack width='100%' gap='32px'>
-      <InfoBox
-        onClick={() => navigate('/info/tools')}
-        sx={{
-          backgroundImage: 'url(/assets/tools.jpg)',
-        }}
-      >
-        Tools
-      </InfoBox>
-      <InfoBox
-        onClick={() => navigate('/info/ingredients')}
-        sx={{
-          backgroundImage: 'url(/assets/ingredients.png)',
-        }}
-      >
-        Ingredients
-      </InfoBox>
-      <InfoBox
-        onClick={() => navigate('/info/nutrition')}
-        sx={{
-          backgroundImage: 'url(/assets/nutrition.png)',
-        }}
-      >
-        Nutritional Data
-      </InfoBox>
+      <InfoBox onClick={() => navigate('/info/tools')}>Tools</InfoBox>
+      <InfoBox onClick={() => navigate('/info/ingredients')}>Ingredients</InfoBox>
+      <InfoBox onClick={() => navigate('/info/nutrition')}>Nutritional Data</InfoBox>
     </Stack>
   );
 }
